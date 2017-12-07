@@ -9,12 +9,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class ConfigFileWatchdog {
 
+    private static final Logger log = LoggerFactory.getLogger(ConfigFileWatchdog.class);
     private static final String STYLESHEET_PLACEHOLDER = "{{STYLESHEET-FILE-PATH}}";
     private final Path configFolder;
     private final Path themePath;

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.supercsv.cellprocessor.ift.CellProcessor;
 import org.supercsv.io.CsvListReader;
 import org.supercsv.io.ICsvListReader;
@@ -23,14 +25,14 @@ import io.github.manami.persistence.PersistenceFacade;
 import io.github.manami.persistence.exporter.csv.CsvConfig;
 import io.github.manami.persistence.exporter.csv.CsvConfig.CsvConfigType;
 import io.github.manami.persistence.importer.Importer;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.0.0
  */
-@Slf4j
 public class CsvImporter implements Importer {
+
+    private static final Logger log = LoggerFactory.getLogger(CsvImporter.class);
 
     /** Configuration for CSV files. */
     private final CsvConfig csvConfig;

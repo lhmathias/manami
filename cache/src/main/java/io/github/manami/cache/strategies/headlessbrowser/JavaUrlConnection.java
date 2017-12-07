@@ -13,14 +13,15 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpProcessorBuilder;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import io.github.manami.dto.entities.InfoLink;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class JavaUrlConnection implements HeadlessBrowser {
 
+    private static final Logger log = LoggerFactory.getLogger(JavaUrlConnection.class);
     private static final int HTTP_TOO_MANY_CONNECTIONS = 429;
     private static final long MIN_WAITING_TIME = 4000L;
     private static final long MAX_WAITING_TIME = 8000L;

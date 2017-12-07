@@ -22,16 +22,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import javax.xml.parsers.ParserConfigurationException;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
-@Slf4j
 public class XmlExporterTest {
 
+  private static final Logger log = LoggerFactory.getLogger(XmlExporterTest.class);
   private static final String TEST_ANIME_LIST_FILE = "test_anime_list.xml";
   private static final String ANIME_LIST_EXPORT_FILE = "test_anime_list_export.xml";
   private XmlExporter xmlExporter;

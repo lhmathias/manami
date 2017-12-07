@@ -4,6 +4,8 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import com.google.common.eventbus.Subscribe;
@@ -14,16 +16,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.7.2
  */
 @Named
-@Slf4j
 public class FilterListControllerWrapper {
 
+    private static final Logger log = LoggerFactory.getLogger(FilterListControllerWrapper.class);
     private Tab filterTab;
     private FilterListController filterListController;
 

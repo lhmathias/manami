@@ -19,7 +19,8 @@ import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.PersistenceFacade;
 import io.github.manami.persistence.importer.Importer;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Imports a list from a valid JSON file.
@@ -27,9 +28,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.0.0
  */
-@Slf4j
 public class JsonImporter implements Importer {
 
+    private static final Logger log = LoggerFactory.getLogger(JsonImporter.class);
     private final PersistenceFacade persistence;
     private final List<Anime> animeListEntries;
     private final List<FilterEntry> filterListEntries;

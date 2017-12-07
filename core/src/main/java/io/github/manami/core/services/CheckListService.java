@@ -42,15 +42,16 @@ import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.persistence.utility.PathResolver;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author manami-project
  * @since 2.6.0
  */
-@Slf4j
 public class CheckListService extends AbstractService<Void> {
 
+    private static final Logger log = LoggerFactory.getLogger(CheckListService.class);
     private static final String MSG_DEAD_INFOLINK = "The infoLink seems to not exist anymore for %s.";
     private final Cache cache;
     private final List<Anime> list;

@@ -15,7 +15,8 @@ import com.google.common.collect.ImmutableList;
 
 import io.github.manami.cache.Cache;
 import io.github.manami.dto.entities.Anime;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This service is called whenever a new list is opened. It creates cache
@@ -25,9 +26,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.2.0
  */
-@Slf4j
 public class CacheInitializationService extends AbstractService<Void> {
 
+    private static final Logger log = LoggerFactory.getLogger(CacheInitializationService.class);
     private static final int MAX_THREADS = Runtime.getRuntime().availableProcessors();
 
     /** Instance of the cache. */

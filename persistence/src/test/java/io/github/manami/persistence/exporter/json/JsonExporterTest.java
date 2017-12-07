@@ -24,16 +24,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
-@Slf4j
 public class JsonExporterTest {
 
+  private static final Logger log = LoggerFactory.getLogger(JsonExporterTest.class);
   private static final String TEST_ANIME_LIST_FILE = "test_anime_list.json";
   private static final String TEST_RECOMMENDATIONS_FILE = "test_recommendations_list.json";
   private static final String ANIME_LIST_EXPORT_FILE = "test_anime_list_export.json";

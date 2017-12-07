@@ -7,10 +7,13 @@ import static org.springframework.util.Assert.notNull;
 import java.io.IOException;
 import java.util.Optional;
 
+import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import io.github.manami.cache.Cache;
@@ -20,15 +23,14 @@ import io.github.manami.dto.entities.FilterEntry;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.PersistenceFacade;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.8.2
  */
-@Slf4j
 public class ThumbnailBackloadService extends AbstractService<Void> {
 
+    private static final Logger log = LoggerFactory.getLogger(ThumbnailBackloadService.class);
     private static final int OK = 200;
     private static final int NOT_FOUND = 404;
     private final PersistenceFacade persistence;

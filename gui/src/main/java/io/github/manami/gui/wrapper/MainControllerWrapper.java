@@ -5,6 +5,8 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import com.google.common.eventbus.AllowConcurrentEvents;
@@ -22,15 +24,15 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.7.2
  */
 @Named
-@Slf4j
 public class MainControllerWrapper {
+
+	private static final Logger log = LoggerFactory.getLogger(MainControllerWrapper.class);
 
 	/** The window's title. */
 	public static final String APPNAME = "Manami";

@@ -38,7 +38,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class if an anime result list. The list entries can be customized by
@@ -47,9 +48,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.3.0
  */
-@Slf4j
 public abstract class AbstractAnimeListController {
 
+    private static final Logger log = LoggerFactory.getLogger(AbstractAnimeListController.class);
     private static final int THUMBNAIL_CHECK_ON_NUMBER_OF_INVOCATIONS = 10;
 
     /** Application */

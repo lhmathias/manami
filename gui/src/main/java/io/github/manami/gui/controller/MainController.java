@@ -82,7 +82,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Controller for the main stage.
@@ -90,8 +91,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.0.0
  */
-@Slf4j
 public class MainController implements Observer {
+
+    private static final Logger log = LoggerFactory.getLogger(MainController.class);
 
     /** Instance of the main application. */
     final private Manami app = Main.CONTEXT.getBean(Manami.class);

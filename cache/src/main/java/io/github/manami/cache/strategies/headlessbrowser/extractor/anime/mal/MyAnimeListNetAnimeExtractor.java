@@ -13,7 +13,8 @@ import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.Abstrac
 import io.github.manami.cache.strategies.headlessbrowser.extractor.util.mal.MyAnimeListNetUtil;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.InfoLink;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class to gather information from myanimelist.net automatically.
@@ -23,8 +24,9 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Named
 @Extractor
-@Slf4j
 public class MyAnimeListNetAnimeExtractor extends AbstractAnimeSitePlugin {
+
+    private static final Logger log = LoggerFactory.getLogger(MyAnimeListNetAnimeExtractor.class);
 
     /** Regex Pattern. */
     private Pattern pattern;

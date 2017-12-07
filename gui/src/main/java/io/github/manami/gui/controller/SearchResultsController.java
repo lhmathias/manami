@@ -32,15 +32,16 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Font;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author manami-project
  * @since 2.9.0
  */
-@Slf4j
 public class SearchResultsController {
 
+    private static final Logger log = LoggerFactory.getLogger(SearchResultsController.class);
     public static final String SEARCH_RESULTS_TAB_TITLE = "Search Results";
     public static final String TITLED_TAB_PANE_TITLE = "Search results from:";
 

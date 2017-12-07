@@ -12,7 +12,8 @@ import io.github.manami.dto.entities.FilterEntry;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.ApplicationPersistence;
 import io.github.manami.persistence.exporter.Exporter;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Exports a list to valid json.
@@ -20,9 +21,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.0.0
  */
-@Slf4j
 public class JsonExporter implements Exporter {
 
+    private static final Logger log = LoggerFactory.getLogger(JsonExporter.class);
     private final ApplicationPersistence persistence;
 
 

@@ -9,17 +9,19 @@ import javax.inject.Named;
 
 import com.sun.javafx.collections.ObservableListWrapper;
 
+import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
 import javafx.collections.ObservableList;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author manami-project
  * @since 2.5.0
  */
 @Named
-@Slf4j
 public class ServiceRepository implements Observer {
 
+    private static final Logger log = LoggerFactory.getLogger(ServiceRepository.class);
     private final ObservableList<BackgroundService> runningServices = new ObservableListWrapper<>(newArrayList());
 
 

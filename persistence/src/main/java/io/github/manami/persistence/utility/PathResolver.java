@@ -1,10 +1,12 @@
 package io.github.manami.persistence.utility;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class to create, check and resolve an absolute path to a relative path if
@@ -13,8 +15,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.10.0
  */
-@Slf4j
 public final class PathResolver {
+
+  private static final Logger log = LoggerFactory.getLogger(PathResolver.class);
 
   private PathResolver() {
   }

@@ -19,6 +19,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
@@ -31,15 +33,14 @@ import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.ApplicationPersistence;
 import io.github.manami.persistence.exporter.Exporter;
 import io.github.manami.persistence.utility.PathResolver;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.0.0
  */
-@Slf4j
 public class XmlExporter implements Exporter {
 
+    private static final Logger log = LoggerFactory.getLogger(XmlExporter.class);
     private static final String RELATIVE_PATH_SEPARATOR = "/";
 
     /** Document. */

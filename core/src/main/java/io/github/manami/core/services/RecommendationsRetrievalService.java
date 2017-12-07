@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.github.manami.cache.Cache;
+import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
 import io.github.manami.core.Manami;
@@ -26,7 +27,8 @@ import io.github.manami.core.services.events.AdvancedProgressState;
 import io.github.manami.core.services.events.ProgressState;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Extracts and counts recommendations for a list of anime.
@@ -35,9 +37,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.4.0
  */
-@Slf4j
 public class RecommendationsRetrievalService extends AbstractService<List<Anime>> {
 
+    private static final Logger log = LoggerFactory.getLogger(RecommendationsRetrievalService.class);
     /**
      * Max percentage rate which the shown recommendations can make out of all
      * entries.

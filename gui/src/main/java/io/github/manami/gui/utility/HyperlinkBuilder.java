@@ -8,14 +8,16 @@ import java.net.URI;
 
 import javafx.scene.control.Hyperlink;
 import javafx.scene.input.MouseButton;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author manami-project
  * @since 2.10.0
  */
-@Slf4j
 public final class HyperlinkBuilder {
+
+    private static final Logger log = LoggerFactory.getLogger(HyperlinkBuilder.class);
 
     /**
      * @param title

@@ -46,15 +46,16 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author manami-project
  * @since 2.6.0
  */
-@Slf4j
 public class CheckListController implements Observer {
 
+    private static final Logger log = LoggerFactory.getLogger(CheckListController.class);
     public static final String CHECK_LIST_TAB_TITLE = "Check List";
 
     /** Instance of the service repository. */

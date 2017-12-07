@@ -5,6 +5,8 @@ import static io.github.manami.gui.wrapper.MainControllerWrapper.APPNAME;
 
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import javafx.fxml.FXMLLoader;
@@ -13,15 +15,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.7.2
  */
 @Named
-@Slf4j
 public class NewEntryControllerWrapper {
+
+	private static final Logger log = LoggerFactory.getLogger(NewEntryControllerWrapper.class);
 
 	/**
 	 * @since 2.7.2

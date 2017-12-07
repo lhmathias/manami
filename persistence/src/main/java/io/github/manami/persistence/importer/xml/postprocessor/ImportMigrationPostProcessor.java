@@ -10,11 +10,12 @@ import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.utility.Version;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class ImportMigrationPostProcessor {
 
+    private static final Logger log = LoggerFactory.getLogger(ImportMigrationPostProcessor.class);
     private Version documentVersion;
     private final List<Anime> animeListEntries;
     private final List<FilterEntry> filterListEntries;

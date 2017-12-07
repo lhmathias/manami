@@ -16,7 +16,8 @@ import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
 import io.github.manami.core.Manami;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Finds related anime in info site links.
@@ -25,9 +26,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.3.0
  */
-@Slf4j
 public class TagRetrievalService extends AbstractService<Void> {
 
+    private static final Logger log = LoggerFactory.getLogger(TagRetrievalService.class);
     private static final String LOG_MSG_LAST_PAGE = "Last page. No more entries for this genre.";
 
     /** Instance of the cache. */

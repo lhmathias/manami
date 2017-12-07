@@ -1,9 +1,10 @@
 package io.github.manami.dto;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.InputStream;
 import java.util.Properties;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Contains the current tool version.
@@ -11,8 +12,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.1.0
  */
-@Slf4j
 public final class ToolVersion {
+
+    private static final Logger log = LoggerFactory.getLogger(ToolVersion.class);
 
     /**
      * @since 2.7.0

@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -31,11 +33,10 @@ import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler;
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler;
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler;
 import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class CsvExporterTest {
 
+    private static final Logger log = LoggerFactory.getLogger(CsvExporterTest.class);
     private static final String TEST_ANIME_LIST_FILE = "test_anime_list.csv";
     private static final String ANIME_LIST_EXPORT_FILE = "test_anime_list_export.csv";
     private CsvExporter csvExporter;

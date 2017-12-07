@@ -10,6 +10,9 @@ import java.util.Observer;
 import java.util.Optional;
 import java.util.Stack;
 
+import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import com.sun.javafx.collections.ObservableSetWrapper;
@@ -22,7 +25,6 @@ import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Finds related anime in info site links.
@@ -31,9 +33,9 @@ import lombok.extern.slf4j.Slf4j;
  * @author manami-project
  * @since 2.3.0
  */
-@Slf4j
 public class RelatedAnimeFinderService extends AbstractService<Map<InfoLink, Anime>> {
 
+    private static final Logger log = LoggerFactory.getLogger(RelatedAnimeFinderService.class);
     /** Contains all anime which are already in the anime list. */
     private final List<InfoLink> myAnime;
 

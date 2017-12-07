@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
 
 import com.google.common.eventbus.EventBus;
@@ -36,7 +38,6 @@ import io.github.manami.persistence.importer.csv.CsvImporter;
 import io.github.manami.persistence.importer.json.JsonImporter;
 import io.github.manami.persistence.importer.xml.XmlImporter;
 import io.github.manami.persistence.importer.xml.XmlImporter.XmlStrategy;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Main access to the features of the application. This class has got delegation
@@ -46,9 +47,9 @@ import lombok.extern.slf4j.Slf4j;
  * @since 1.0.0
  */
 @Named
-@Slf4j
 public class Manami implements ApplicationPersistence {
 
+    private static final Logger log = LoggerFactory.getLogger(Manami.class);
     private static final String XMFILE_SUFFIX_XML = ".xml";
     private static final String FILE_SUFFIX_CSV = ".csv";
     private static final String FILE_SUFFIX_JSON = ".json";

@@ -5,6 +5,8 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 
 import javax.inject.Named;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
 import com.google.common.eventbus.AllowConcurrentEvents;
@@ -17,16 +19,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.Pane;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author manami-project
  * @since 2.8.0
  */
 @Named
-@Slf4j
 public class WatchListControllerWrapper {
 
+	private static final Logger log = LoggerFactory.getLogger(WatchListControllerWrapper.class);
 	private Tab watchListTab;
 	private WatchListController watchListController;
 

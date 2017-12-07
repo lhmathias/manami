@@ -9,6 +9,9 @@ import java.util.concurrent.ExecutionException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import com.google.common.cache.CacheBuilder;
@@ -20,17 +23,16 @@ import io.github.manami.cache.strategies.headlessbrowser.HeadlessBrowserRetrieva
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.RecommendationList;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Facade for all inquiries against a cache.
  * It orchestrates the use of concrete {@link io.github.manami.cache.Cache}
  * implementations.
  */
-@Slf4j
 @Named
 public final class CacheManager implements Cache {
 
+    private static final Logger log = LoggerFactory.getLogger(CacheManager.class);
     private static final int TITLE_MAX_LENGTH = 200;
     private final DaemonRestRetrievalStrategy daemonRestRetrievalStrategy;
     private final HeadlessBrowserRetrievalStrategy headlessBrowserRetrievalStrategy;
