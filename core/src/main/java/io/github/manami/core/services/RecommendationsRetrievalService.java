@@ -4,6 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newCopyOnWriteArrayList;
 import static com.google.common.collect.Maps.newConcurrentMap;
 
+import io.github.manami.dto.entities.Recommendation;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -19,7 +20,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.github.manami.cache.Cache;
-import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
 import io.github.manami.core.Manami;

@@ -3,7 +3,6 @@ package io.github.manami.persistence.utility;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import java.util.Optional;
-import lombok.Data;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class Version {
@@ -94,10 +93,34 @@ public class Version {
     return splitVersion.isPresent();
   }
 
-data class SplitVersion {
+  private static class SplitVersion {
 
     private int major = 0;
     private int minor = 0;
     private int bugfix = 0;
+
+    public int getMajor() {
+      return major;
+    }
+
+    public void setMajor(int major) {
+      this.major = major;
+    }
+
+    public int getMinor() {
+      return minor;
+    }
+
+    public void setMinor(int minor) {
+      this.minor = minor;
+    }
+
+    public int getBugfix() {
+      return bugfix;
+    }
+
+    public void setBugfix(int bugfix) {
+      this.bugfix = bugfix;
+    }
   }
 }

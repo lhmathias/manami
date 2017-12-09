@@ -2,7 +2,7 @@ package io.github.manami.persistence.inmemory.watchlist;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newConcurrentMap;
-import static io.github.manami.dto.entities.MinimalEntry.isValidMinimalEntry;
+import static io.github.manami.dto.entities.MinimalEntryKt.isValidMinimalEntry;
 
 import com.google.common.collect.ImmutableList;
 import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc;
@@ -15,7 +15,6 @@ import io.github.manami.persistence.WatchListHandler;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import javax.inject.Named;
 
 /**
@@ -53,19 +52,19 @@ public class InMemoryWatchListHandler implements WatchListHandler {
       return false;
     }
 
-    Optional<WatchListEntry> entry = Optional.empty();
+    WatchListEntry entry = null;
 
     if (anime instanceof Anime || anime instanceof FilterEntry) {
       entry = WatchListEntry.valueOf(anime);
     } else if (anime instanceof WatchListEntry) {
-      entry = Optional.ofNullable((WatchListEntry) anime);
+      entry = (WatchListEntry) anime;
     }
 
-    if (!entry.isPresent()) {
+    if (entry == null) {
       return false;
     }
 
-    watchList.put(entry.get().getInfoLink(), entry.get());
+    watchList.put(entry.getInfoLink(), entry);
     return true;
   }
 

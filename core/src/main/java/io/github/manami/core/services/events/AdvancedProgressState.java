@@ -1,8 +1,6 @@
 package io.github.manami.core.services.events;
 
 import io.github.manami.dto.entities.Anime;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * Contains the state as well as payload.
@@ -12,13 +10,19 @@ import lombok.Setter;
  */
 public class AdvancedProgressState extends ProgressState {
 
-    @Getter
-    @Setter
-    private Anime anime;
+  private Anime anime;
 
 
-    public AdvancedProgressState(final int done, final int todo, final Anime anime) {
-        super(done, todo);
-        this.anime = anime;
-    }
+  public AdvancedProgressState(final int done, final int todo, final Anime anime) {
+    super(done, todo);
+    this.anime = anime;
+  }
+
+  public Anime getAnime() {
+    return anime;
+  }
+
+  public void setAnime(Anime anime) {
+    this.anime = anime;
+  }
 }

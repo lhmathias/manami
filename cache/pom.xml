@@ -5,10 +5,11 @@
   <parent>
     <groupId>io.github.manami</groupId>
     <artifactId>parent</artifactId>
-    <version>${manami.version}</version>
-    <relativePath>../</relativePath>
+    <version>2.15.1</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>cache</artifactId>
+  <version>2.15.1</version>
   <dependencies>
     <dependency>
       <groupId>io.github.manami</groupId>

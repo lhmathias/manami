@@ -2,20 +2,28 @@ package io.github.manami.core.services.events;
 
 import java.nio.file.Path;
 
-import lombok.Getter;
-import lombok.Setter;
-
 /**
  * @author manami-project
- *
  */
 public class CrcEvent extends AbstractEvent {
 
-    @Getter
-    @Setter
-    private Path path;
+  private Path path;
 
-    @Getter
-    @Setter
-    private String crcSum;
+  private String crcSum;
+
+  public Path getPath() {
+    return path;
+  }
+
+  public void setPath(Path path) {
+    this.path = path;
+  }
+
+  public String getCrcSum() {
+    return crcSum;
+  }
+
+  public void setCrcSum(String crcSum) {
+    this.crcSum = crcSum;
+  }
 }

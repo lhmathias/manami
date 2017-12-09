@@ -2,7 +2,7 @@ package io.github.manami.persistence.inmemory.filterlist;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newConcurrentMap;
-import static io.github.manami.dto.entities.MinimalEntry.isValidMinimalEntry;
+import static io.github.manami.dto.entities.MinimalEntryKt.isValidMinimalEntry;
 
 import com.google.common.collect.ImmutableList;
 import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc;
@@ -15,7 +15,6 @@ import io.github.manami.persistence.FilterListHandler;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import javax.inject.Named;
 
 /**
@@ -39,19 +38,19 @@ public class InMemoryFilterListHandler implements FilterListHandler {
       return false;
     }
 
-    Optional<FilterEntry> entry = Optional.empty();
+    FilterEntry entry = null;
 
     if (anime instanceof Anime || anime instanceof WatchListEntry) {
       entry = FilterEntry.valueOf(anime);
     } else if (anime instanceof FilterEntry) {
-      entry = Optional.ofNullable((FilterEntry) anime);
+      entry = (FilterEntry) anime;
     }
 
-    if (!entry.isPresent()) {
+    if (entry == null) {
       return false;
     }
 
-    filterList.put(entry.get().getInfoLink(), entry.get());
+    filterList.put(entry.getInfoLink(), entry);
     return true;
   }
 

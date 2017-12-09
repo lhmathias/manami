@@ -1,10 +1,11 @@
 package io.github.manami.dto.entities;
 
 import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
-import static io.github.manami.dto.entities.Anime.copyAnime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.dto.AnimeType;
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.testng.annotations.Test;
 
 public class AnimeTest {
@@ -50,13 +51,13 @@ public class AnimeTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testIsValidAnimeWithValidEntry() {
+  public void testIsValidAnimeWithValidEntry() throws MalformedURLException {
     // given
     final Anime anime = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     anime.setEpisodes(37);
     anime.setLocation("/anime/series/death_note");
-    anime.setPicture("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg");
-    anime.setThumbnail("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg");
+    anime.setPicture(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg"));
+    anime.setThumbnail(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
     anime.setType(AnimeType.TV);
 
     // when
@@ -68,13 +69,13 @@ public class AnimeTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testIsValidAnimeWithTypeNull() {
+  public void testIsValidAnimeWithTypeNull() throws MalformedURLException {
     // given
     final Anime anime = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     anime.setEpisodes(37);
     anime.setLocation("/anime/series/death_note");
-    anime.setPicture("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg");
-    anime.setThumbnail("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg");
+    anime.setPicture(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg"));
+    anime.setThumbnail(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
     anime.setType(null);
 
     // when
@@ -186,31 +187,5 @@ public class AnimeTest {
 
     // then
     assertThat(result).isEqualTo(type.getValue());
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testCopyAnime() {
-    // given
-    final Anime anime = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
-    anime.setEpisodes(37);
-    anime.setLocation("/anime/series/death_note");
-    anime.setPicture("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg");
-    anime.setThumbnail("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg");
-    anime.setType(AnimeType.TV);
-
-    // when
-    final Anime result = copyAnime(anime);
-
-    // then
-    assertThat(result != anime).isTrue();
-    assertThat(result.getEpisodes()).isEqualTo(anime.getEpisodes());
-    assertThat(result.getInfoLink()).isEqualTo(anime.getInfoLink());
-    assertThat(result.getLocation()).isEqualTo(anime.getLocation());
-    assertThat(result.getPicture()).isEqualTo(anime.getPicture());
-    assertThat(result.getThumbnail()).isEqualTo(anime.getThumbnail());
-    assertThat(result.getTitle()).isEqualTo(anime.getTitle());
-    assertThat(result.getType()).isEqualTo(anime.getType());
-    assertThat(result.getId()).isEqualTo(anime.getId());
   }
 }

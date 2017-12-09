@@ -11,7 +11,6 @@ import static org.mockito.Mockito.verify;
 
 import com.google.common.eventbus.EventBus;
 import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.entities.AbstractMinimalEntry;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.FilterEntry;
 import io.github.manami.dto.entities.InfoLink;

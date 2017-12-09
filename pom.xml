@@ -4,10 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.manami</groupId>
   <artifactId>parent</artifactId>
-  <version>${manami.version}</version>
+  <version>2.15.1</version>
   <packaging>pom</packaging>
   <prerequisites>
-    <maven>3.0</maven>
+    <maven>3.3.9</maven>
   </prerequisites>
   <modules>
     <module>cache</module>
@@ -74,7 +74,6 @@
         <version>4.5.3</version>
       </dependency>
       <dependency>
-      <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
         <version>6.11</version>
@@ -99,29 +98,29 @@
       <dependency>
         <groupId>io.github.manami</groupId>
         <artifactId>cache</artifactId>
-        <version>${project.version}</version>
+        <version>${manami.version}</version>
       </dependency>
       <dependency>
         <groupId>io.github.manami</groupId>
         <artifactId>core</artifactId>
-        <version>${project.version}</version>
+        <version>${manami.version}</version>
       </dependency>
       <dependency>
         <groupId>io.github.manami</groupId>
         <artifactId>dto</artifactId>
-        <version>${project.version}</version>
+        <version>${manami.version}</version>
       </dependency>
       <dependency>
         <groupId>io.github.manami</groupId>
         <artifactId>dto</artifactId>
-        <version>${project.version}</version>
+        <version>${manami.version}</version>
         <scope>test</scope>
         <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.github.manami</groupId>
         <artifactId>persistence</artifactId>
-        <version>${project.version}</version>
+        <version>${manami.version}</version>
       </dependency>
       <dependency>
         <groupId>org.assertj</groupId>
@@ -129,14 +128,34 @@
         <version>3.8.0</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>1.2.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib-jdk8</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-test</artifactId>
+      <version>${kotlin.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
   <properties>
     <slf4j.version>1.7.25</slf4j.version>
     <java.target.version>1.8</java.target.version>
     <manami.version>2.15.1</manami.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kotlin.version>1.2.0</kotlin.version>
   </properties>
 
   <build>
@@ -164,6 +183,42 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.7.9</version>
+      </plugin>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>src/main/kotlin</sourceDir>
+                <sourceDir>src/main/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+            <configuration>
+              <sourceDirs>
+                <sourceDir>src/main/kotlin</sourceDir>
+                <sourceDir>src/main/java</sourceDir>
+              </sourceDirs>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <jvmTarget>${java.target.version}</jvmTarget>
+        </configuration>
       </plugin>
     </plugins>
     <pluginManagement>

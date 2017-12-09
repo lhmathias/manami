@@ -4,11 +4,16 @@ import static io.github.manami.dto.ToolVersion.getToolVersion;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import io.github.manami.dto.entities.Anime;
+import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.WatchListEntry;
+import io.github.manami.persistence.ApplicationPersistence;
+import io.github.manami.persistence.exporter.Exporter;
+import io.github.manami.persistence.utility.PathResolver;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,7 +23,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
@@ -27,284 +31,277 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
-import io.github.manami.dto.entities.WatchListEntry;
-import io.github.manami.persistence.ApplicationPersistence;
-import io.github.manami.persistence.exporter.Exporter;
-import io.github.manami.persistence.utility.PathResolver;
-
 /**
  * @author manami-project
  * @since 2.0.0
  */
 public class XmlExporter implements Exporter {
 
-    private static final Logger log = LoggerFactory.getLogger(XmlExporter.class);
-    private static final String RELATIVE_PATH_SEPARATOR = "/";
+  private static final Logger log = LoggerFactory.getLogger(XmlExporter.class);
+  private static final String RELATIVE_PATH_SEPARATOR = "/";
 
-    /** Document. */
-    private Document doc = null;
+  /**
+   * Document.
+   */
+  private Document doc = null;
 
-    /** File to save to. */
-    private Path file;
+  /**
+   * File to save to.
+   */
+  private Path file;
 
-    private final ApplicationPersistence persistence;
-
-
-    /**
-     * Constructor.
-     *
-     * @since 2.0.0
-     * @param persistence
-     *            Config for the application.
-     */
-    public XmlExporter(final ApplicationPersistence persistence) {
-        this.persistence = persistence;
-    }
+  private final ApplicationPersistence persistence;
 
 
-    @Override
-    public boolean exportAll(final Path file) {
-        this.file = file;
-        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setValidating(true);
-        DocumentBuilder builder;
+  /**
+   * Constructor.
+   *
+   * @param persistence Config for the application.
+   * @since 2.0.0
+   */
+  public XmlExporter(final ApplicationPersistence persistence) {
+    this.persistence = persistence;
+  }
 
+
+  @Override
+  public boolean exportAll(final Path file) {
+    this.file = file;
+    final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    factory.setValidating(true);
+    DocumentBuilder builder;
+
+    try {
+      builder = factory.newDocumentBuilder();
+
+      if (Files.notExists(file)) {
         try {
-            builder = factory.newDocumentBuilder();
-
-            if (Files.notExists(file)) {
-                try {
-                    Files.createFile(file);
-                } catch (final IOException e) {
-                    log.error("Could not create XML file {}", file.getFileName(), e);
-                }
-            }
-            doc = builder.newDocument();
-
-            // add doctype
-            final DOMImplementation domImpl = doc.getImplementation();
-            final DocumentType doctype = domImpl.createDocumentType("animeList", "SYSTEM", createDtdPath());
-            doc.appendChild(doctype);
-        } catch (final ParserConfigurationException e) {
-            log.error("An error occurred while trying to initialize the dom tree: ", e);
-            return false;
+          Files.createFile(file);
+        } catch (final IOException e) {
+          log.error("Could not create XML file {}", file.getFileName(), e);
         }
+      }
+      doc = builder.newDocument();
 
-        createDomTree();
-        prettyPrintXML2File();
-        return true;
+      // add doctype
+      final DOMImplementation domImpl = doc.getImplementation();
+      final DocumentType doctype = domImpl.createDocumentType("animeList", "SYSTEM", createDtdPath());
+      doc.appendChild(doctype);
+    } catch (final ParserConfigurationException e) {
+      log.error("An error occurred while trying to initialize the dom tree: ", e);
+      return false;
     }
 
+    createDomTree();
+    prettyPrintXML2File();
+    return true;
+  }
 
-    /**
-     * @since 2.10.0
-     * @return
-     */
-    private String createConfigFilePath() {
-        String appDir = XmlExporter.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
-        if (isBlank(appDir)) {
-            return EMPTY;
-        }
+  /**
+   * @since 2.10.0
+   */
+  private String createConfigFilePath() {
+    String appDir = XmlExporter.class.getProtectionDomain().getCodeSource().getLocation().getPath();
 
-        int endOfString = appDir.lastIndexOf(RELATIVE_PATH_SEPARATOR);
-
-        if (endOfString == -1) {
-            endOfString = appDir.lastIndexOf("\\");
-        }
-
-        appDir = appDir.substring(0, endOfString);
-
-        if (appDir.startsWith(RELATIVE_PATH_SEPARATOR)) {
-            appDir = appDir.substring(1);
-        }
-
-        return PathResolver.buildRelativizedPath(appDir, file.getParent());
+    if (isBlank(appDir)) {
+      return EMPTY;
     }
 
+    int endOfString = appDir.lastIndexOf(RELATIVE_PATH_SEPARATOR);
 
-    /**
-     * @since 2.10.0
-     * @return
-     */
-    private String createDtdPath() {
-        String relativeConfigPath = createConfigFilePath();
-
-        if (isBlank(relativeConfigPath)) {
-            relativeConfigPath = EMPTY;
-        }
-
-        if (!relativeConfigPath.endsWith(RELATIVE_PATH_SEPARATOR)) {
-            relativeConfigPath = relativeConfigPath.concat(RELATIVE_PATH_SEPARATOR);
-        }
-
-        return relativeConfigPath.concat("config/animelist.dtd");
+    if (endOfString == -1) {
+      endOfString = appDir.lastIndexOf("\\");
     }
 
+    appDir = appDir.substring(0, endOfString);
 
-    /**
-     * @since 2.10.0
-     * @return
-     */
-    private String createXsltPath() {
-        String relativeConfigPath = createConfigFilePath();
-
-        if (isBlank(relativeConfigPath)) {
-            relativeConfigPath = EMPTY;
-        }
-
-        if (!relativeConfigPath.endsWith(RELATIVE_PATH_SEPARATOR)) {
-            relativeConfigPath = relativeConfigPath.concat(RELATIVE_PATH_SEPARATOR);
-        }
-
-        return relativeConfigPath.concat("config/theme/animelist_transform.xsl");
+    if (appDir.startsWith(RELATIVE_PATH_SEPARATOR)) {
+      appDir = appDir.substring(1);
     }
 
+    return PathResolver.buildRelativizedPath(appDir, file.getParent());
+  }
 
-    /**
-     * Method to create the dom tree.
-     *
-     * @since 2.0.0
-     */
-    private void createDomTree() {
-        final Element root = createRootElement();
-        createAnimeList(root);
-        createWatchList(root);
-        createFilterList(root);
+
+  /**
+   * @since 2.10.0
+   */
+  private String createDtdPath() {
+    String relativeConfigPath = createConfigFilePath();
+
+    if (isBlank(relativeConfigPath)) {
+      relativeConfigPath = EMPTY;
     }
 
-
-    /**
-     * @since 2.7.0
-     */
-    private Element createRootElement() {
-        final Element root = doc.createElement("manami");
-        root.setAttribute("version", getToolVersion());
-        doc.appendChild(root);
-
-        // create transformation and css information
-        final Node xslt = doc.createProcessingInstruction("xml-stylesheet", String.format("type=\"text/xml\" href=\"%s\"", createXsltPath()));
-        doc.insertBefore(xslt, root);
-
-        return root;
+    if (!relativeConfigPath.endsWith(RELATIVE_PATH_SEPARATOR)) {
+      relativeConfigPath = relativeConfigPath.concat(RELATIVE_PATH_SEPARATOR);
     }
 
+    return relativeConfigPath.concat("config/animelist.dtd");
+  }
 
-    /**
-     * @since 2.7.0
-     */
-    private void createAnimeList(final Element parent) {
-        final Element elementAnimeList = doc.createElement("animeList");
-        Element actAnime;
 
-        for (final Anime anime : persistence.fetchAnimeList()) {
-            // element "anime"
-            actAnime = doc.createElement("anime");
+  /**
+   * @since 2.10.0
+   */
+  private String createXsltPath() {
+    String relativeConfigPath = createConfigFilePath();
 
-            // attribute "title"
-            actAnime.setAttribute("title", anime.getTitle());
-
-            // attribute "type"
-            actAnime.setAttribute("type", anime.getTypeAsString());
-
-            // attribute "episodes"
-            actAnime.setAttribute("episodes", String.valueOf(anime.getEpisodes()));
-
-            // attribute "infolink"
-            actAnime.setAttribute("infoLink", anime.getInfoLink().getUrl());
-
-            // attribute "location"
-            actAnime.setAttribute("location", anime.getLocation());
-
-            // append to animeList
-            elementAnimeList.appendChild(actAnime);
-        }
-
-        parent.appendChild(elementAnimeList);
+    if (isBlank(relativeConfigPath)) {
+      relativeConfigPath = EMPTY;
     }
 
-
-    /**
-     * @since 2.7.0
-     */
-    private void createWatchList(final Element parent) {
-        final Element elementWatchList = doc.createElement("watchList");
-        Element actEntry;
-
-        for (final WatchListEntry anime : persistence.fetchWatchList()) {
-            // element "anime"
-            actEntry = doc.createElement("watchListEntry");
-
-            // attribute "title"
-            actEntry.setAttribute("title", anime.getTitle());
-
-            actEntry.setAttribute("thumbnail", anime.getThumbnail());
-
-            // attribute "infolink"
-            actEntry.setAttribute("infoLink", anime.getInfoLink().getUrl());
-
-            // append to animeList
-            elementWatchList.appendChild(actEntry);
-        }
-
-        parent.appendChild(elementWatchList);
+    if (!relativeConfigPath.endsWith(RELATIVE_PATH_SEPARATOR)) {
+      relativeConfigPath = relativeConfigPath.concat(RELATIVE_PATH_SEPARATOR);
     }
 
+    return relativeConfigPath.concat("config/theme/animelist_transform.xsl");
+  }
 
-    /**
-     * @since 2.7.0
-     */
-    private void createFilterList(final Element parent) {
-        final Element elementFilterList = doc.createElement("filterList");
-        Element actEntry;
 
-        for (final FilterEntry anime : persistence.fetchFilterList()) {
-            // element "anime"
-            actEntry = doc.createElement("filterEntry");
+  /**
+   * Method to create the dom tree.
+   *
+   * @since 2.0.0
+   */
+  private void createDomTree() {
+    final Element root = createRootElement();
+    createAnimeList(root);
+    createWatchList(root);
+    createFilterList(root);
+  }
 
-            // attribute "title"
-            actEntry.setAttribute("title", anime.getTitle());
 
-            actEntry.setAttribute("thumbnail", anime.getThumbnail());
+  /**
+   * @since 2.7.0
+   */
+  private Element createRootElement() {
+    final Element root = doc.createElement("manami");
+    root.setAttribute("version", getToolVersion());
+    doc.appendChild(root);
 
-            // attribute "infolink"
-            actEntry.setAttribute("infoLink", anime.getInfoLink().getUrl());
+    // create transformation and css information
+    final Node xslt = doc.createProcessingInstruction("xml-stylesheet", String.format("type=\"text/xml\" href=\"%s\"", createXsltPath()));
+    doc.insertBefore(xslt, root);
 
-            // append to animeList
-            elementFilterList.appendChild(actEntry);
-        }
+    return root;
+  }
 
-        parent.appendChild(elementFilterList);
+
+  /**
+   * @since 2.7.0
+   */
+  private void createAnimeList(final Element parent) {
+    final Element elementAnimeList = doc.createElement("animeList");
+    Element actAnime;
+
+    for (final Anime anime : persistence.fetchAnimeList()) {
+      // element "anime"
+      actAnime = doc.createElement("anime");
+
+      // attribute "title"
+      actAnime.setAttribute("title", anime.getTitle());
+
+      // attribute "type"
+      actAnime.setAttribute("type", anime.getTypeAsString());
+
+      // attribute "episodes"
+      actAnime.setAttribute("episodes", String.valueOf(anime.getEpisodes()));
+
+      // attribute "infolink"
+      actAnime.setAttribute("infoLink", anime.getInfoLink().getUrl());
+
+      // attribute "location"
+      actAnime.setAttribute("location", anime.getLocation());
+
+      // append to animeList
+      elementAnimeList.appendChild(actAnime);
     }
 
+    parent.appendChild(elementAnimeList);
+  }
 
-    /**
-     * Write the tree into the file and save it.
-     *
-     * @since 2.0.0
-     */
-    private void prettyPrintXML2File() {
-        final TransformerFactory tfactory = TransformerFactory.newInstance();
-        Transformer transformer;
-        PrintWriter output;
 
-        try {
-            transformer = tfactory.newTransformer();
-            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+  /**
+   * @since 2.7.0
+   */
+  private void createWatchList(final Element parent) {
+    final Element elementWatchList = doc.createElement("watchList");
+    Element actEntry;
 
-            if (doc.getDoctype() != null) {
-                transformer.setOutputProperty("doctype-system", doc.getDoctype().getSystemId());
-            }
+    for (final WatchListEntry anime : persistence.fetchWatchList()) {
+      // element "anime"
+      actEntry = doc.createElement("watchListEntry");
 
-            output = new PrintWriter(file.toFile(), "UTF-8");
-            transformer.transform(new DOMSource(doc), new StreamResult(output));
-            output.close();
+      // attribute "title"
+      actEntry.setAttribute("title", anime.getTitle());
 
-        } catch (TransformerException | IOException e) {
-            log.error("An error occurred while trying to export the list to a xml file: ", e);
-        }
+      actEntry.setAttribute("thumbnail", anime.getThumbnail().toString());
+
+      // attribute "infolink"
+      actEntry.setAttribute("infoLink", anime.getInfoLink().getUrl());
+
+      // append to animeList
+      elementWatchList.appendChild(actEntry);
     }
+
+    parent.appendChild(elementWatchList);
+  }
+
+
+  /**
+   * @since 2.7.0
+   */
+  private void createFilterList(final Element parent) {
+    final Element elementFilterList = doc.createElement("filterList");
+    Element actEntry;
+
+    for (final FilterEntry anime : persistence.fetchFilterList()) {
+      // element "anime"
+      actEntry = doc.createElement("filterEntry");
+
+      // attribute "title"
+      actEntry.setAttribute("title", anime.getTitle());
+
+      actEntry.setAttribute("thumbnail", anime.getThumbnail().toString());
+
+      // attribute "infolink"
+      actEntry.setAttribute("infoLink", anime.getInfoLink().getUrl());
+
+      // append to animeList
+      elementFilterList.appendChild(actEntry);
+    }
+
+    parent.appendChild(elementFilterList);
+  }
+
+
+  /**
+   * Write the tree into the file and save it.
+   *
+   * @since 2.0.0
+   */
+  private void prettyPrintXML2File() {
+    final TransformerFactory tfactory = TransformerFactory.newInstance();
+    Transformer transformer;
+    PrintWriter output;
+
+    try {
+      transformer = tfactory.newTransformer();
+      transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+      transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+      if (doc.getDoctype() != null) {
+        transformer.setOutputProperty("doctype-system", doc.getDoctype().getSystemId());
+      }
+
+      output = new PrintWriter(file.toFile(), "UTF-8");
+      transformer.transform(new DOMSource(doc), new StreamResult(output));
+      output.close();
+
+    } catch (TransformerException | IOException e) {
+      log.error("An error occurred while trying to export the list to a xml file: ", e);
+    }
+  }
 }

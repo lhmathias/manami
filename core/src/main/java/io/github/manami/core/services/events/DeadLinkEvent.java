@@ -7,20 +7,23 @@ import io.github.manami.core.commands.ReversibleCommand;
 import io.github.manami.dto.entities.FilterEntry;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
-import lombok.Getter;
 
 public class DeadLinkEvent extends AbstractEvent implements ReversibleCommandEvent {
 
-    @Getter
-    private ReversibleCommand command = null;
+  private ReversibleCommand command = null;
 
 
-    public DeadLinkEvent(final MinimalEntry entry, final Manami app) {
-        if (entry instanceof WatchListEntry) {
-            command = new CmdDeleteDeadWatchListEntry((WatchListEntry) entry, app);
-        } else if (entry instanceof FilterEntry) {
-            command = new CmdDeleteDeadFilterListEntry((FilterEntry) entry, app);
+  public DeadLinkEvent(final MinimalEntry entry, final Manami app) {
+    if (entry instanceof WatchListEntry) {
+      command = new CmdDeleteDeadWatchListEntry((WatchListEntry) entry, app);
+    } else if (entry instanceof FilterEntry) {
+      command = new CmdDeleteDeadFilterListEntry((FilterEntry) entry, app);
 
-        }
     }
+  }
+
+  @Override
+  public ReversibleCommand getCommand() {
+    return command;
+  }
 }
