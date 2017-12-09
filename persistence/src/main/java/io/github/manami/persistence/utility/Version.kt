@@ -94,8 +94,7 @@ public class Version {
     return splitVersion.isPresent();
   }
 
-  @Data
-  private static final class SplitVersion {
+data class SplitVersion {
 
     private int major = 0;
     private int minor = 0;

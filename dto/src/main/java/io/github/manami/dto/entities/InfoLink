@@ -7,9 +7,10 @@ import org.apache.commons.validator.routines.UrlValidator;
 
 import lombok.Getter;
 
+private val VALID_SCHEMES = { "HTTP", "HTTPS" }
+
 public class InfoLink {
 
-    private static final String[] VALID_SCHEMES = new String[] { "HTTP", "HTTPS" };
 
     @Getter
     private final String url;
