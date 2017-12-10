@@ -24,9 +24,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Imports a list from a valid JSON file.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public class JsonImporter implements Importer {
 
@@ -72,9 +69,6 @@ public class JsonImporter implements Importer {
   }
 
 
-  /**
-   * @since 2.7.0
-   */
   private void extractAnimeList(final JSONArray jsonArr) {
     final JSONArray animeListArr = jsonArr.getJSONArray(0);
 
@@ -98,9 +92,6 @@ public class JsonImporter implements Importer {
   }
 
 
-  /**
-   * @since 2.7.0
-   */
   private void extractWatchList(final JSONArray jsonArr) {
     final JSONArray animeListArr = jsonArr.getJSONArray(1);
 
@@ -124,9 +115,6 @@ public class JsonImporter implements Importer {
   }
 
 
-  /**
-   * @since 2.7.0
-   */
   private void extractFilterList(final JSONArray jsonArr) {
     final JSONArray animeListArr = jsonArr.getJSONArray(2);
 

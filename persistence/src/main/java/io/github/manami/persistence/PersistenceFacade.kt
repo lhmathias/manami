@@ -1,6 +1,9 @@
 package io.github.manami.persistence;
 
-import static io.github.manami.dto.entities.Anime.isValidAnime;
+import javax.inject.Inject
+import javax.inject.Named
+
+io.github.manami.dto.entities.Anime.isValidAnime;
 import static io.github.manami.dto.entities.MinimalEntryKt.isValidMinimalEntry;
 
 import com.google.common.eventbus.EventBus;
@@ -17,12 +20,9 @@ import javax.inject.Named;
 
 /**
  * This is a facade which is used by the application to hide which strategy is actually used.
- *
- * @author manami-project
- * @since 2.0.0
  */
 @Named
-public class PersistenceFacade implements PersistenceHandler {
+class PersistenceFacade : PersistenceHandler {
 
   /**
    * Currently used db persistence strategy.
@@ -39,7 +39,6 @@ public class PersistenceFacade implements PersistenceHandler {
    * Constructor injecting the currently used strategy.
    *
    * @param strategy Currently used strategy.
-   * @since 2.0.0
    */
   @Inject
   public PersistenceFacade(@Named("inMemoryStrategy") final PersistenceHandler strategy, final EventBus eventBus) {

@@ -43,10 +43,6 @@ import java.util.zip.Checksum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author manami-project
- * @since 2.6.0
- */
 public class CheckListService extends AbstractService<Void> {
 
   private static final Logger log = LoggerFactory.getLogger(CheckListService.class);
@@ -67,7 +63,6 @@ public class CheckListService extends AbstractService<Void> {
    * @param file Currently opened file.
    * @param cache Cache
    * @param observer Observer
-   * @since 2.6.0
    */
   public CheckListService(final CheckListConfig config, final Path file, final Cache cache, final Manami app, final Observer observer) {
     this.config = config;
@@ -108,9 +103,6 @@ public class CheckListService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.6.1
-   */
   private void countProgressMax() {
     if (config.getCheckLocations()) {
       progressMax += list.size();
@@ -152,8 +144,6 @@ public class CheckListService extends AbstractService<Void> {
 
   /**
    * Checks every entry. A location must be set, exist and contain at least one file.
-   *
-   * @since 2.6.0
    */
   private void checkLocations() {
     try {
@@ -212,9 +202,6 @@ public class CheckListService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.6.1
-   */
   private void updateProgress() {
     currentProgress++;
     setChanged();
@@ -389,9 +376,6 @@ public class CheckListService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.10.0
-   */
   private void fireRelativizePathEvent(final Anime anime) {
     final String newValue = PathResolver.buildRelativizedPath(anime.getLocation(), currentWorkingDir);
 

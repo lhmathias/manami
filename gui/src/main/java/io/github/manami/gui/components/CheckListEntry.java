@@ -8,11 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-
-/**
- * @author manami-project
- * @since 2.6.0
- */
 public class CheckListEntry {
 
   /**

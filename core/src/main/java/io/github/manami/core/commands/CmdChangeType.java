@@ -6,9 +6,6 @@ import io.github.manami.dto.entities.Anime;
 
 /**
  * Command for changing the type.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public class CmdChangeType extends AbstractReversibleCommand {
 
@@ -18,7 +15,6 @@ public class CmdChangeType extends AbstractReversibleCommand {
    * @param anime Anime to change
    * @param newValue The new value.
    * @param application Instance of the application which reveals access to the persistence functionality.
-   * @since 2.6.0
    */
   public CmdChangeType(final Anime anime, final AnimeType newValue, final Manami application) {
     app = application;

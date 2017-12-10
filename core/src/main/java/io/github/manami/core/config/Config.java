@@ -8,11 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
- * Contains the path for all configuration files as well as the path for the currently opened anime
- * list file.
- *
- * @author manami-project
- * @since 2.0.0
+ * Contains the path for all configuration files as well as the path for the currently opened anime list file.
  */
 @Named
 public class Config {
@@ -29,8 +25,6 @@ public class Config {
 
   /**
    * Constructor.
-   *
-   * @since 2.0.0
    */
   @Inject
   public Config(final EventBus eventBus) {
@@ -40,7 +34,6 @@ public class Config {
 
   /**
    * @param file the file to set
-   * @since 2.0.0
    */
   public void setFile(final Path file) {
     this.file = file;

@@ -6,9 +6,6 @@ import io.github.manami.dto.entities.InfoLink;
 
 /**
  * Command for changing the info link.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public class CmdChangeInfoLink extends AbstractReversibleCommand {
 
@@ -18,7 +15,6 @@ public class CmdChangeInfoLink extends AbstractReversibleCommand {
    * @param anime Anime to change.
    * @param newValue The new value.
    * @param application Instance of the application which reveals access to the persistence functionality.
-   * @since 2.6.0
    */
   public CmdChangeInfoLink(final Anime anime, final InfoLink newValue, final Manami application) {
     app = application;

@@ -6,9 +6,6 @@ import org.supercsv.cellprocessor.ift.CellProcessor;
 
 /**
  * Configuration for the CSV import and export.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public class CsvConfig {
 
@@ -42,7 +39,6 @@ public class CsvConfig {
    * Returns the names of the columns.
    *
    * @return A String with the names of the columns for the csv file.
-   * @since 2.0.0
    */
   public String[] getHeaders() {
     return new String[]{"list", "title", "type", "episodes", "infolink", "location"};
@@ -53,7 +49,6 @@ public class CsvConfig {
    * Type of Processors.
    *
    * @return An array with indication of the column's type.
-   * @since 2.0.0
    */
   public CellProcessor[] getProcessors() {
     return new CellProcessor[]{new NotNull(), // List (e.g. animeList,

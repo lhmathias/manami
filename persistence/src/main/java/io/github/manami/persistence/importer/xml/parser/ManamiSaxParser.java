@@ -19,10 +19,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/**
- * @author manami-project
- * @version 2.0.0
- */
 public class ManamiSaxParser extends DefaultHandler {
 
   private static final Logger log = LoggerFactory.getLogger(ManamiSaxParser.class);
@@ -89,9 +85,6 @@ public class ManamiSaxParser extends DefaultHandler {
   }
 
 
-  /**
-   * @since 2.7.0
-   */
   private void createAnimeEntry(final Attributes attributes) {
     final String title = attributes.getValue("title").trim();
     final InfoLink infoLink = new InfoLink(attributes.getValue("infoLink").trim());
@@ -105,9 +98,6 @@ public class ManamiSaxParser extends DefaultHandler {
   }
 
 
-  /**
-   * @since 2.7.0
-   */
   private void createFilterEntry(final Attributes attributes) {
     try {
       final FilterEntry entry = new FilterEntry(attributes.getValue("title").trim(),
@@ -121,9 +111,6 @@ public class ManamiSaxParser extends DefaultHandler {
   }
 
 
-  /**
-   * @since 2.8.0
-   */
   private void createWatchListEntry(final Attributes attributes) {
     try {
       final WatchListEntry entry = new WatchListEntry(attributes.getValue("title").trim(),

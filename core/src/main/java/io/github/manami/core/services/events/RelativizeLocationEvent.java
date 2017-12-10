@@ -4,10 +4,6 @@ import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdChangeLocation;
 import io.github.manami.dto.entities.Anime;
 
-/**
- * @author manami-project
- * @since 2.10.0
- */
 public class RelativizeLocationEvent extends AbstractEvent implements ReversibleCommandEvent {
 
   private final CmdChangeLocation command;

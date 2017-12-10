@@ -2,10 +2,6 @@ package io.github.manami.core.services.events;
 
 import io.github.manami.dto.entities.Anime;
 
-/**
- * @author manami-project
- * @since 2.6.0
- */
 public class AbstractEvent implements Event {
 
   private EventType type;

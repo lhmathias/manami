@@ -17,10 +17,6 @@ import java.util.UUID;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-/**
- * @author manami-project
- * @since 2.7.0
- */
 @Named("inMemoryStrategy")
 public class InMemoryPersistenceHandler implements PersistenceHandler {
 
@@ -29,9 +25,6 @@ public class InMemoryPersistenceHandler implements PersistenceHandler {
   private final InMemoryWatchListHandler watchListHandler;
 
 
-  /**
-   * @since 2.7.0
-   */
   @Inject
   public InMemoryPersistenceHandler(final InMemoryAnimeListHandler animeListHandler, final InMemoryFilterListHandler filterListHandler,
       final InMemoryWatchListHandler watchListHandler) {

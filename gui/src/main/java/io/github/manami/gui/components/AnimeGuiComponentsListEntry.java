@@ -6,12 +6,8 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 
 /**
- * This represents a list entry. It's stands for a result containing the picture, link with title
- * and the possibility to remove the entry. This was created so the lists don't need to render
- * everything new whenever entries are added or removed.
- *
- * @author manami-project
- * @since 2.1.3
+ * This represents a list entry. It's stands for a result containing the picture, link with title and the possibility to remove the entry. This was
+ * created so the lists don't need to render everything new whenever entries are added or removed.
  */
 public class AnimeGuiComponentsListEntry {
 
@@ -48,10 +44,8 @@ public class AnimeGuiComponentsListEntry {
 
   /**
    * @param anime {@link MinimalEntry} which is being shown.
-   * @param pictureComponent Picture of the {@link MinimalEntry} already wrapped in a JavaFX
-   * component.
+   * @param pictureComponent Picture of the {@link MinimalEntry} already wrapped in a JavaFX component.
    * @param titleComponent Hyperlink containing the title.
-   * @since 2.3.0
    */
   public AnimeGuiComponentsListEntry(final MinimalEntry anime, final ImageView pictureComponent,
       final Hyperlink titleComponent) {

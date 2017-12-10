@@ -17,10 +17,6 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Named;
 
-/**
- * @author manami-project
- * @since 2.7.0
- */
 @Named
 public class InMemoryFilterListHandler implements FilterListHandler {
 
@@ -78,10 +74,6 @@ public class InMemoryFilterListHandler implements FilterListHandler {
     return false;
   }
 
-
-  /**
-   * @since 2.7.0
-   */
   public void clear() {
     filterList.clear();
   }

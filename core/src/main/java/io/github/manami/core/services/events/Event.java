@@ -3,32 +3,28 @@ package io.github.manami.core.services.events;
 import io.github.manami.core.services.events.AbstractEvent.EventType;
 import io.github.manami.dto.entities.Anime;
 
-/**
- * @author manami-project
- * @since 2.6.0
- */
 public interface Event {
 
-    EventType getType();
+  EventType getType();
 
 
-    Anime getAnime();
+  Anime getAnime();
 
 
-    String getTitle();
+  String getTitle();
 
 
-    String getMessage();
+  String getMessage();
 
 
-    void setType(final EventType type);
+  void setType(final EventType type);
 
 
-    void setTitle(final String title);
+  void setTitle(final String title);
 
 
-    void setAnime(final Anime anime);
+  void setAnime(final Anime anime);
 
 
-    void setMessage(final String message);
+  void setMessage(final String message);
 }

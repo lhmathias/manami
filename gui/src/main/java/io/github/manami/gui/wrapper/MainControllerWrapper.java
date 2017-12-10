@@ -21,10 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 
-/**
- * @author manami-project
- * @since 2.7.2
- */
 @Named
 public class MainControllerWrapper {
 
@@ -48,9 +44,6 @@ public class MainControllerWrapper {
   }
 
 
-  /**
-   * @since 2.7.2
-   */
   private void init() {
     mainStage.setMaximized(true);
     mainStage.setTitle(APPNAME);
@@ -96,9 +89,6 @@ public class MainControllerWrapper {
   }
 
 
-  /**
-   * @since 2.9.0
-   */
   public void setDirty(final boolean isDirty) {
     if (isDirty) {
       if (config.getFile() != null) {

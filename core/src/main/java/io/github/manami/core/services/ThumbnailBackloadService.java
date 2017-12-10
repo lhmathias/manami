@@ -18,10 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
-/**
- * @author manami-project
- * @since 2.8.2
- */
 public class ThumbnailBackloadService extends AbstractService<Void> {
 
   private static final Logger log = LoggerFactory.getLogger(ThumbnailBackloadService.class);
@@ -36,7 +32,6 @@ public class ThumbnailBackloadService extends AbstractService<Void> {
    * Constructor awaiting a cache.
    *
    * @param cache Cache
-   * @since 2.8.2
    */
   public ThumbnailBackloadService(final Cache cache, final PersistenceFacade persistence) {
     this.cache = cache;
@@ -44,9 +39,6 @@ public class ThumbnailBackloadService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.8.2
-   */
   @Override
   protected Void execute() {
     notNull(cache, "Cache cannot be null");
@@ -77,9 +69,6 @@ public class ThumbnailBackloadService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.9.0
-   */
   private void loadThumbnailIfNotExists(final MinimalEntry entry) {
     if (isInterrupt() || entry == null) {
       return;
@@ -98,9 +87,6 @@ public class ThumbnailBackloadService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.9.0
-   */
   private void updateThumbnail(final MinimalEntry entry, final Anime cachedAnime) {
     MinimalEntry updatedEntry = null;
 
@@ -120,9 +106,6 @@ public class ThumbnailBackloadService extends AbstractService<Void> {
   }
 
 
-  /**
-   * @since 2.9.0
-   */
   private void checkPictures(final MinimalEntry entry) {
     if (isInterrupt() || entry == null) {
       return;

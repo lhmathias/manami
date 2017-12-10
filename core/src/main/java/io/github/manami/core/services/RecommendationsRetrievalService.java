@@ -4,7 +4,14 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newCopyOnWriteArrayList;
 import static com.google.common.collect.Maps.newConcurrentMap;
 
-import io.github.manami.dto.entities.Recommendation;
+import io.github.manami.cache.Cache;
+import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
+import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
+import io.github.manami.core.Manami;
+import io.github.manami.core.services.events.AdvancedProgressState;
+import io.github.manami.core.services.events.ProgressState;
+import io.github.manami.dto.entities.Anime;
+import io.github.manami.dto.entities.InfoLink;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -18,200 +25,189 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import io.github.manami.cache.Cache;
-import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
-import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
-import io.github.manami.core.Manami;
-import io.github.manami.core.services.events.AdvancedProgressState;
-import io.github.manami.core.services.events.ProgressState;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extracts and counts recommendations for a list of anime.
- * Always start {@link BackgroundService}s using the {@link ServiceRepository}!
- *
- * @author manami-project
- * @since 2.4.0
+ * Extracts and counts recommendations for a list of anime. Always start {@link BackgroundService}s using the {@link ServiceRepository}!
  */
 public class RecommendationsRetrievalService extends AbstractService<List<Anime>> {
 
-    private static final Logger log = LoggerFactory.getLogger(RecommendationsRetrievalService.class);
-    /**
-     * Max percentage rate which the shown recommendations can make out of all
-     * entries.
-     */
-    private static final int MAX_PERCENTAGE = 80;
+  private static final Logger log = LoggerFactory.getLogger(RecommendationsRetrievalService.class);
+  /**
+   * Max percentage rate which the shown recommendations can make out of all entries.
+   */
+  private static final int MAX_PERCENTAGE = 80;
 
-    /** Max number of entries of which a recommendations list can consist. */
-    private static final int MAX_NUMBER_OF_ENTRIES = 100;
+  /**
+   * Max number of entries of which a recommendations list can consist.
+   */
+  private static final int MAX_NUMBER_OF_ENTRIES = 100;
 
-    /** List to be searched for recommendations. */
-    private final List<InfoLink> urlList;
+  /**
+   * List to be searched for recommendations.
+   */
+  private final List<InfoLink> urlList;
 
-    /** List which is being given to the GUI. */
-    private List<Anime> resultList;
+  /**
+   * List which is being given to the GUI.
+   */
+  private List<Anime> resultList;
 
-    /** All possible recommendations */
-    private Map<InfoLink, Integer> recommendationsAll;
+  /**
+   * All possible recommendations
+   */
+  private Map<InfoLink, Integer> recommendationsAll;
 
-    /**
-     * All recommendations that make 80% of all written user recommendations.
-     */
-    private List<InfoLink> userRecomList;
-    private final AnimeExtractor extractor;
-    private final Manami app;
-    private final Cache cache;
-    private final AtomicInteger progress = new AtomicInteger(0);
-    private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
-
-
-    /**
-     * @since 2.5.0
-     * @param app
-     * @param cache
-     * @param observer
-     */
-    public RecommendationsRetrievalService(final Manami app, final Cache cache, final Observer observer) {
-        extractor = new MyAnimeListNetAnimeExtractor();
-        urlList = newCopyOnWriteArrayList();
-        recommendationsAll = newConcurrentMap();
-        this.app = app;
-        this.cache = cache;
-        addObserver(observer);
-    }
+  /**
+   * All recommendations that make 80% of all written user recommendations.
+   */
+  private List<InfoLink> userRecomList;
+  private final AnimeExtractor extractor;
+  private final Manami app;
+  private final Cache cache;
+  private final AtomicInteger progress = new AtomicInteger(0);
+  private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 
-    @Override
-    public List<Anime> execute() {
-        app.fetchAnimeList().forEach(entry -> {
-            if (entry.getInfoLink().isValid()) {
-                urlList.add(entry.getInfoLink());
-            }
-        });
+  public RecommendationsRetrievalService(final Manami app, final Cache cache, final Observer observer) {
+    extractor = new MyAnimeListNetAnimeExtractor();
+    urlList = newCopyOnWriteArrayList();
+    recommendationsAll = newConcurrentMap();
+    this.app = app;
+    this.cache = cache;
+    addObserver(observer);
+  }
 
-        Collections.shuffle(urlList, new SecureRandom());
-        Collections.shuffle(urlList, new SecureRandom());
-        Collections.shuffle(urlList, new SecureRandom());
-        Collections.shuffle(urlList, new SecureRandom());
 
-        final List<Callable<Void>> taskList = newArrayList();
+  @Override
+  public List<Anime> execute() {
+    app.fetchAnimeList().forEach(entry -> {
+      if (entry.getInfoLink().isValid()) {
+        urlList.add(entry.getInfoLink());
+      }
+    });
 
-        urlList.forEach(entry -> {
-            taskList.add(() -> {
-                if (!isInterrupt()) {
-                    log.debug("Getting recommendations for {}", entry);
-                    getRecommendations(entry);
-                    setChanged();
-                    notifyObservers(new ProgressState(progress.incrementAndGet(), urlList.size()));
-                }
-                return null;
-            });
-        });
+    Collections.shuffle(urlList, new SecureRandom());
+    Collections.shuffle(urlList, new SecureRandom());
+    Collections.shuffle(urlList, new SecureRandom());
+    Collections.shuffle(urlList, new SecureRandom());
 
-        try {
-            executorService.invokeAll(taskList);
-        } catch (final InterruptedException e) {
-            log.error("Error on invoking getting recommendations: ", e);
-            cancel();
-        }
+    final List<Callable<Void>> taskList = newArrayList();
 
+    urlList.forEach(entry -> {
+      taskList.add(() -> {
         if (!isInterrupt()) {
-            finalizeRecommendations();
+          log.debug("Getting recommendations for {}", entry);
+          getRecommendations(entry);
+          setChanged();
+          notifyObservers(new ProgressState(progress.incrementAndGet(), urlList.size()));
         }
+        return null;
+      });
+    });
 
-        for (int i = 0; i < userRecomList.size() && !isInterrupt(); i++) {
-            setChanged();
-
-            /*
-             * +1 on i because i starts with 0 and +1 because the value
-             * indicates the next entry to be loaded
-             */
-            final int nextEntryIndex = i + 2;
-
-            notifyObservers(new AdvancedProgressState(nextEntryIndex, userRecomList.size(), cache.fetchAnime(userRecomList.get(i)).get()));
-        }
-
-        return resultList;
+    try {
+      executorService.invokeAll(taskList);
+    } catch (final InterruptedException e) {
+      log.error("Error on invoking getting recommendations: ", e);
+      cancel();
     }
 
-
-    private void getRecommendations(final InfoLink infoLink) {
-        final Optional<Anime> animeToFindRecommendationsFor = cache.fetchAnime(infoLink);
-
-        if (!animeToFindRecommendationsFor.isPresent()) {
-            return;
-        }
-
-        cache.fetchRecommendations(animeToFindRecommendationsFor.get().getInfoLink()).asList().forEach((entry) -> addRecom(entry.getInfoLink(), entry.getAmount()));
+    if (!isInterrupt()) {
+      finalizeRecommendations();
     }
 
+    for (int i = 0; i < userRecomList.size() && !isInterrupt(); i++) {
+      setChanged();
 
-    private void addRecom(final InfoLink infoLink, final int amount) {
-        if (isInterrupt()) {
-            return;
-        }
+      /*
+       * +1 on i because i starts with 0 and +1 because the value
+       * indicates the next entry to be loaded
+       */
+      final int nextEntryIndex = i + 2;
 
-        final InfoLink normalizedInfoLink = extractor.normalizeInfoLink(infoLink);
-
-        if (!urlList.contains(normalizedInfoLink) && !app.filterEntryExists(normalizedInfoLink) && !app.watchListEntryExists(normalizedInfoLink)) {
-            if (recommendationsAll.containsKey(normalizedInfoLink)) {
-                recommendationsAll.put(normalizedInfoLink, recommendationsAll.get(normalizedInfoLink) + amount);
-            } else {
-                recommendationsAll.put(normalizedInfoLink, amount);
-            }
-        }
+      notifyObservers(new AdvancedProgressState(nextEntryIndex, userRecomList.size(), cache.fetchAnime(userRecomList.get(i)).get()));
     }
 
+    return resultList;
+  }
 
-    private void finalizeRecommendations() {
-        int sumAll = 0;
-        recommendationsAll = sortMapByValue(recommendationsAll);
 
-        for (final Entry<InfoLink, Integer> entry : recommendationsAll.entrySet()) {
-            sumAll += entry.getValue();
-        }
+  private void getRecommendations(final InfoLink infoLink) {
+    final Optional<Anime> animeToFindRecommendationsFor = cache.fetchAnime(infoLink);
 
-        userRecomList = newArrayList();
-        int percentage = 0;
-        int curSum = 0;
-
-        for (final Entry<InfoLink, Integer> entry : recommendationsAll.entrySet()) {
-            if (percentage < MAX_PERCENTAGE && userRecomList.size() < MAX_NUMBER_OF_ENTRIES) {
-                userRecomList.add(entry.getKey());
-                curSum += entry.getValue();
-                percentage = (curSum * 100) / sumAll;
-            } else {
-                return;
-            }
-        }
+    if (!animeToFindRecommendationsFor.isPresent()) {
+      return;
     }
 
+    cache.fetchRecommendations(animeToFindRecommendationsFor.get().getInfoLink()).asList()
+        .forEach((entry) -> addRecom(entry.getInfoLink(), entry.getAmount()));
+  }
 
-    private static Map<InfoLink, Integer> sortMapByValue(final Map<InfoLink, Integer> unsortMap) {
-        // Convert Map to List
-        final List<Map.Entry<InfoLink, Integer>> list = newArrayList(unsortMap.entrySet());
 
-        // Sort list with comparator, to compare the Map values
-        Collections.sort(list, (o1, o2) -> (o1.getValue() > o2.getValue()) ? -1 : ((Objects.equals(o1.getValue(), o2.getValue())) ? 0 : 1));
-
-        // Convert sorted map back to a Map
-        final Map<InfoLink, Integer> sortedMap = new LinkedHashMap<>();
-        for (final Entry<InfoLink, Integer> entry : list) {
-            sortedMap.put(entry.getKey(), entry.getValue());
-        }
-        return sortedMap;
+  private void addRecom(final InfoLink infoLink, final int amount) {
+    if (isInterrupt()) {
+      return;
     }
 
+    final InfoLink normalizedInfoLink = extractor.normalizeInfoLink(infoLink);
 
-    @Override
-    public void reset() {
-        cancel();
-        urlList.clear();
-        recommendationsAll.clear();
-        super.reset();
+    if (!urlList.contains(normalizedInfoLink) && !app.filterEntryExists(normalizedInfoLink) && !app.watchListEntryExists(normalizedInfoLink)) {
+      if (recommendationsAll.containsKey(normalizedInfoLink)) {
+        recommendationsAll.put(normalizedInfoLink, recommendationsAll.get(normalizedInfoLink) + amount);
+      } else {
+        recommendationsAll.put(normalizedInfoLink, amount);
+      }
     }
+  }
+
+
+  private void finalizeRecommendations() {
+    int sumAll = 0;
+    recommendationsAll = sortMapByValue(recommendationsAll);
+
+    for (final Entry<InfoLink, Integer> entry : recommendationsAll.entrySet()) {
+      sumAll += entry.getValue();
+    }
+
+    userRecomList = newArrayList();
+    int percentage = 0;
+    int curSum = 0;
+
+    for (final Entry<InfoLink, Integer> entry : recommendationsAll.entrySet()) {
+      if (percentage < MAX_PERCENTAGE && userRecomList.size() < MAX_NUMBER_OF_ENTRIES) {
+        userRecomList.add(entry.getKey());
+        curSum += entry.getValue();
+        percentage = (curSum * 100) / sumAll;
+      } else {
+        return;
+      }
+    }
+  }
+
+
+  private static Map<InfoLink, Integer> sortMapByValue(final Map<InfoLink, Integer> unsortMap) {
+    // Convert Map to List
+    final List<Map.Entry<InfoLink, Integer>> list = newArrayList(unsortMap.entrySet());
+
+    // Sort list with comparator, to compare the Map values
+    Collections.sort(list, (o1, o2) -> (o1.getValue() > o2.getValue()) ? -1 : ((Objects.equals(o1.getValue(), o2.getValue())) ? 0 : 1));
+
+    // Convert sorted map back to a Map
+    final Map<InfoLink, Integer> sortedMap = new LinkedHashMap<>();
+    for (final Entry<InfoLink, Integer> entry : list) {
+      sortedMap.put(entry.getKey(), entry.getValue());
+    }
+    return sortedMap;
+  }
+
+
+  @Override
+  public void reset() {
+    cancel();
+    urlList.clear();
+    recommendationsAll.clear();
+    super.reset();
+  }
 }

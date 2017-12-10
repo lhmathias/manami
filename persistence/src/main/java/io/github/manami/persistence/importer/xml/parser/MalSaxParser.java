@@ -12,10 +12,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-/**
- * @author manami-project
- * @since 2.0.0
- */
 public class MalSaxParser extends DefaultHandler {
 
   /**
@@ -43,8 +39,6 @@ public class MalSaxParser extends DefaultHandler {
 
   /**
    * Constructor awaiting a list.
-   *
-   * @since 2.0.0
    */
   public MalSaxParser(final PersistenceFacade persistence) {
     this.persistence = persistence;

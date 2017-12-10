@@ -5,10 +5,6 @@ import io.github.manami.core.commands.CmdChangeType;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
 
-/**
- * @author manami-project
- * @since 2.6.0
- */
 public class TypeDifferEvent extends AbstractEvent implements ReversibleCommandEvent {
 
   private final CmdChangeType command;

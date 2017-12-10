@@ -24,10 +24,6 @@ import org.supercsv.io.CsvListReader;
 import org.supercsv.io.ICsvListReader;
 import org.supercsv.prefs.CsvPreference;
 
-/**
- * @author manami-project
- * @since 2.0.0
- */
 public class CsvImporter implements Importer {
 
   private static final Logger log = LoggerFactory.getLogger(CsvImporter.class);
@@ -45,8 +41,6 @@ public class CsvImporter implements Importer {
 
   /**
    * Constructor
-   *
-   * @since 2.0.0
    */
   public CsvImporter(final PersistenceFacade persistence) {
     this.persistence = persistence;

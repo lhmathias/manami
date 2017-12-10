@@ -15,9 +15,6 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  * Abstract class for anime site plugins. Their task is to give the possibility to extract information such as the title, episodes, type, etc.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
 
@@ -62,8 +59,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
 
   /**
    * Trims the parameter string.
-   *
-   * @since 2.0.0
    */
   private void trimContent() {
     siteContent = siteContent.trim();
@@ -78,7 +73,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
    * Checks whether the gathered anime is a valid.
    *
    * @return true if it's a valid info link site.
-   * @since 2.0.0
    */
   protected abstract boolean isValidInfoLink();
 
@@ -87,7 +81,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
    * Extracts the anime's title.
    *
    * @return Title
-   * @since 2.0.0
    */
   protected abstract String extractTitle();
 
@@ -96,7 +89,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
    * Extracts the anime's type.
    *
    * @return Type
-   * @since 2.0.0
    */
   protected abstract AnimeType extractType();
 
@@ -105,7 +97,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
    * Extracts the number of episodes.
    *
    * @return Number of episodes.
-   * @since 2.0.0
    */
   protected abstract String extractEpisodes();
 
@@ -114,7 +105,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
    * Extracts a URL for a picture.
    *
    * @return Picture (big)
-   * @since 2.1.0
    */
   protected abstract URL extractPictureLink();
 
@@ -123,7 +113,6 @@ public abstract class AbstractAnimeSitePlugin implements AnimeEntryExtractor {
    * Extracts a URL for a picture in thumbnail size.
    *
    * @return Picture (thumbnail size)
-   * @since 2.1.1
    */
   protected abstract URL extractThumbnail();
 

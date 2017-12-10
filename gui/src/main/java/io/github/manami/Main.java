@@ -1,46 +1,38 @@
 package io.github.manami;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
 import com.google.common.eventbus.EventBus;
-
 import io.github.manami.core.config.ConfigFileWatchdog;
 import io.github.manami.core.config.ContextConfigurationBean;
 import io.github.manami.dto.events.ApplicationContextStartedEvent;
+import java.io.IOException;
+import java.nio.file.Paths;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Entry point of the application.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public class Main extends Application {
 
-    /**
-     * Spring context.
-     */
-    public static final ConfigurableApplicationContext CONTEXT = new AnnotationConfigApplicationContext(ContextConfigurationBean.class);
+  /**
+   * Spring context.
+   */
+  public static final ConfigurableApplicationContext CONTEXT = new AnnotationConfigApplicationContext(ContextConfigurationBean.class);
 
 
-    /**
-     * @param args
-     *            Command line arguments.
-     * @since 2.0.0
-     */
-    public static void main(final String[] args) throws IOException {
-        new ConfigFileWatchdog(Paths.get(".")).validate();
-        launch(args);
-    }
+  /**
+   * @param args Command line arguments.
+   */
+  public static void main(final String[] args) throws IOException {
+    new ConfigFileWatchdog(Paths.get(".")).validate();
+    launch(args);
+  }
 
 
-    @Override
-    public void start(final Stage stage) throws Exception {
-        CONTEXT.getBean(EventBus.class).post(new ApplicationContextStartedEvent(stage));
-    }
+  @Override
+  public void start(final Stage stage) throws Exception {
+    CONTEXT.getBean(EventBus.class).post(new ApplicationContextStartedEvent(stage));
+  }
 }

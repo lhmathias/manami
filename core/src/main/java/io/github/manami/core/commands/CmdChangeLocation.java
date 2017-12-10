@@ -5,9 +5,6 @@ import io.github.manami.dto.entities.Anime;
 
 /**
  * Command for changing the location.
- *
- * @author manami-project
- * @since 2.0.0
  */
 public class CmdChangeLocation extends AbstractReversibleCommand {
 
@@ -17,7 +14,6 @@ public class CmdChangeLocation extends AbstractReversibleCommand {
    * @param anime Anime to change.
    * @param newValue The new value.
    * @param application Instance of the application which reveals access to the persistence functionality.
-   * @since 2.6.0
    */
   public CmdChangeLocation(final Anime anime, final String newValue, final Manami application) {
     app = application;

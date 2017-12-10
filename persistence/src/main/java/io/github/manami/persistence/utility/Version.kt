@@ -1,7 +1,7 @@
 package io.github.manami.persistence.utility
 
 
-class NewVersionFile(version: String) {
+class Version(version: String) {
 
     private var internalVersion: SplitVersion
 
