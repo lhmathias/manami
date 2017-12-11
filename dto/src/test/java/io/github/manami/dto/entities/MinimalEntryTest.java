@@ -12,18 +12,6 @@ import org.testng.annotations.Test;
 public class MinimalEntryTest {
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testWithNull() {
-    // given
-
-    // when
-    final boolean result = isValidMinimalEntry(null);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testFilterEntryIsValid() throws MalformedURLException {
     // given
     final FilterEntry entry = new FilterEntry("Death Note",
@@ -39,51 +27,6 @@ public class MinimalEntryTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testFilterEntryNotValidMissingTitle() throws MalformedURLException {
-    // given
-    final FilterEntry entry = new FilterEntry(null,
-        new InfoLink("http://myanimelist.net/anime/1535"),
-        new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testFilterEntryIsValidMissingThumbnail() {
-    // given
-    final FilterEntry entry = new FilterEntry("Death Note",
-        new InfoLink("http://myanimelist.net/anime/1535"),
-        null);
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testFilterEntryNotValidMissingInfoLink() throws MalformedURLException {
-    // given
-    final FilterEntry entry = new FilterEntry("Death Note",
-        null,
-        new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testWatchListEntryIsValid() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -95,51 +38,6 @@ public class MinimalEntryTest {
 
     // then
     assertThat(result).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testWatchListEntryNotValidMissingTitle() throws MalformedURLException {
-    // given
-    final WatchListEntry entry = new WatchListEntry(null,
-        new InfoLink("http://myanimelist.net/anime/1535"),
-        new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testWatchListEntryIsValidMissingThumbnail() {
-    // given
-    final WatchListEntry entry = new WatchListEntry("Death Note",
-        new InfoLink("http://myanimelist.net/anime/1535"),
-        null);
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testWatchListEntryNotValidMissingInfoLink() throws MalformedURLException {
-    // given
-    final WatchListEntry entry = new WatchListEntry("Death Note",
-        null,
-        new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isFalse();
   }
 
 
@@ -162,24 +60,6 @@ public class MinimalEntryTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testAnimeNotValidMissingTitle() throws MalformedURLException {
-    // given
-    final Anime entry = new Anime(null, new InfoLink("http://myanimelist.net/anime/1535"));
-    entry.setEpisodes(37);
-    entry.setLocation("/death_note");
-    entry.setPicture(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg"));
-    entry.setThumbnail(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-    entry.setType(AnimeType.TV);
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testAnimeValidMissingThumbnail() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -193,23 +73,5 @@ public class MinimalEntryTest {
 
     // then
     assertThat(result).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testAnimeNotValidMissingInfoLink() throws MalformedURLException {
-    // given
-    final Anime entry = new Anime("Death Note", null);
-    entry.setEpisodes(37);
-    entry.setLocation("/death_note");
-    entry.setPicture(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg"));
-    entry.setThumbnail(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-    entry.setType(AnimeType.TV);
-
-    // when
-    final boolean result = isValidMinimalEntry(entry);
-
-    // then
-    assertThat(result).isFalse();
   }
 }

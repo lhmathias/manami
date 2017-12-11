@@ -39,18 +39,6 @@ public class AnimeTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testIsValidAnimeWithNull() {
-    // given
-
-    // when
-    final boolean result = Anime.isValidAnime(null);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testIsValidAnimeWithValidEntry() throws MalformedURLException {
     // given
     final Anime anime = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -65,38 +53,6 @@ public class AnimeTest {
 
     // then
     assertThat(result).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testIsValidAnimeWithTypeNull() throws MalformedURLException {
-    // given
-    final Anime anime = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
-    anime.setEpisodes(37);
-    anime.setLocation("/anime/series/death_note");
-    anime.setPicture(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg"));
-    anime.setThumbnail(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
-    anime.setType(null);
-
-    // when
-    final boolean result = Anime.isValidAnime(anime);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testGetTypeAsStringForNull() {
-    // given
-    final Anime anime = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
-    anime.setType(null);
-
-    // when
-    final String result = anime.getTypeAsString();
-
-    // then
-    assertThat(result).isNull();
   }
 
 

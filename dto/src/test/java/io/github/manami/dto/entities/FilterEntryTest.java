@@ -6,22 +6,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import io.github.manami.dto.AnimeType;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Optional;
 import org.testng.annotations.Test;
 
 public class FilterEntryTest {
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testValueOfFromNull() {
-    // given
-
-    // when
-    final FilterEntry result = FilterEntry.valueOf(null);
-
-    // then
-    assertThat(result).isNull();
-  }
-
 
   @Test(groups = UNIT_TEST_GROUP)
   public void testValueOfFromAnime() throws MalformedURLException {

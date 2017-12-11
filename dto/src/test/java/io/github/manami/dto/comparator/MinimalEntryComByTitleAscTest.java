@@ -73,51 +73,22 @@ public class MinimalEntryComByTitleAscTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testFirstParameterNull() throws MalformedURLException {
-    // given
-    final MinimalEntryComByTitleAsc comparator = new MinimalEntryComByTitleAsc();
-
-    final WatchListEntry steinsGate = new WatchListEntry("Steins;Gate",
-        new InfoLink("http://myanimelist.net/anime/9253"),
-        new URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg"));
-
-    // when
-    final int result = comparator.compare(null, steinsGate);
-
-    // then
-    assertThat(result).isEqualTo(0);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testSecondParameterNull() throws MalformedURLException {
-    // given
-    final MinimalEntryComByTitleAsc comparator = new MinimalEntryComByTitleAsc();
-
-    final WatchListEntry steinsGate = new WatchListEntry("Steins;Gate",
-        new InfoLink("http://myanimelist.net/anime/9253"),
-        new URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg"));
-
-    // when
-    final int result = comparator.compare(steinsGate, null);
-
-    // then
-    assertThat(result).isEqualTo(0);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testFirstParameterTitleNullOrEmpty() throws MalformedURLException {
     // given
     final MinimalEntryComByTitleAsc comparator = new MinimalEntryComByTitleAsc();
 
-    final WatchListEntry steinsGate = new WatchListEntry("Steins;Gate",
+    final WatchListEntry steinsGate = new WatchListEntry(
+        "Steins;Gate",
         new InfoLink("http://myanimelist.net/anime/9253"),
-        new URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg"));
+        new URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
+    );
 
-    final WatchListEntry gintama = new WatchListEntry("Gintama",
+    final WatchListEntry gintama = new WatchListEntry(
+        "Gintama",
         new InfoLink("http://myanimelist.net/anime/28977"),
-        new URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg"));
+        new URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg")
+    );
+
     gintama.setTitle(EMPTY);
 
     // when
@@ -141,6 +112,7 @@ public class MinimalEntryComByTitleAscTest {
     final WatchListEntry gintama = new WatchListEntry("Gintama",
         new InfoLink("http://myanimelist.net/anime/28977"),
         new URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg"));
+
     steinsGate.setTitle(EMPTY);
 
     // when

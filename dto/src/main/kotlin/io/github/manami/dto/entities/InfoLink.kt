@@ -28,6 +28,8 @@ data class InfoLink(val url: String) {
         return url.isNotBlank()
     }
 
+    override fun toString() = url
+
     companion object {
         private val VALID_SCHEMES = arrayOf("HTTP", "HTTPS")
 

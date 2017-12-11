@@ -94,21 +94,6 @@ public class SearchResultEventTest {
     assertThat(sut.getAnimeListSearchResultList().get(0)).isEqualTo(anime);
   }
 
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testAddingNullToAnimeList() {
-    // given
-    final String searchString = "Death Note";
-    final SearchResultEvent sut = new SearchResultEvent(searchString);
-
-    // when
-    sut.addAnimeListSearchResult(null);
-
-    // then
-    assertThat(sut.getAnimeListSearchResultList().isEmpty()).isTrue();
-  }
-
-
   @Test(groups = UNIT_TEST_GROUP)
   public void testAddingEntryToFilterList() {
     // given
@@ -127,20 +112,6 @@ public class SearchResultEventTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testAddingNullToFilterList() {
-    // given
-    final String searchString = "Death Note";
-    final SearchResultEvent sut = new SearchResultEvent(searchString);
-
-    // when
-    sut.addFilterListSearchResult(null);
-
-    // then
-    assertThat(sut.getFilterListSearchResultList().isEmpty()).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testAddingEntryToWatchList() {
     // given
     final String searchString = "Death Note";
@@ -154,19 +125,5 @@ public class SearchResultEventTest {
     // then
     assertThat(sut.getWatchListSearchResultList().size()).isEqualTo(1);
     assertThat(sut.getWatchListSearchResultList().get(0)).isEqualTo(entry);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testAddingNullToWatchList() {
-    // given
-    final String searchString = "Death Note";
-    final SearchResultEvent sut = new SearchResultEvent(searchString);
-
-    // when
-    sut.addWatchListSearchResult(null);
-
-    // then
-    assertThat(sut.getWatchListSearchResultList().isEmpty()).isTrue();
   }
 }
