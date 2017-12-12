@@ -2,7 +2,7 @@ package io.github.manami.dto.entities
 
 import org.apache.commons.validator.routines.UrlValidator
 
-data class InfoLink(val url: String) {
+data class InfoLink(val url: String?) {
 
     /**
      * First checks a value is present and then checks if the given value is
@@ -12,7 +12,7 @@ data class InfoLink(val url: String) {
      */
     fun isValid(): Boolean {
         if (!isPresent()) {
-            return false;
+            return false
         }
 
         return getUrlValidator().isValid(url)
@@ -25,10 +25,10 @@ data class InfoLink(val url: String) {
      * @return
      */
     fun isPresent(): Boolean {
-        return url.isNotBlank()
+        return url != null && url.isNotBlank()
     }
 
-    override fun toString() = url
+    override fun toString() = if (url != null) url else ""
 
     companion object {
         private val VALID_SCHEMES = arrayOf("HTTP", "HTTPS")

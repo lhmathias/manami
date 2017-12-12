@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -87,10 +88,18 @@ public class CsvExporterTest {
         rurouniKenshin.setType(AnimeType.OVA);
         persistenceFacade.addAnime(rurouniKenshin);
 
-        final WatchListEntry deathNoteRewrite = new WatchListEntry("Death Note Rewrite", "https://cdn.myanimelist.net/images/anime/13/8518t.jpg", new InfoLink("https://myanimelist.net/anime/2994"));
+        final WatchListEntry deathNoteRewrite = new WatchListEntry(
+            "Death Note Rewrite",
+            new InfoLink("https://myanimelist.net/anime/2994"),
+            new URL("https://cdn.myanimelist.net/images/anime/13/8518t.jpg")
+        );
         persistenceFacade.watchAnime(deathNoteRewrite);
 
-        final FilterEntry gintama = new FilterEntry("Gintama", "https://cdn.myanimelist.net/images/anime/2/10038t.jpg", new InfoLink("https://myanimelist.net/anime/918"));
+        final FilterEntry gintama = new FilterEntry(
+            "Gintama",
+            new InfoLink("https://myanimelist.net/anime/918"),
+            new URL("https://cdn.myanimelist.net/images/anime/2/10038t.jpg")
+        );
         persistenceFacade.filterAnime(gintama);
 
         final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE);

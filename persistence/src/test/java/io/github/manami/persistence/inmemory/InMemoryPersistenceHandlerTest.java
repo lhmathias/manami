@@ -9,11 +9,14 @@ import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.FilterEntry;
 import io.github.manami.dto.entities.InfoLink;
+import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler;
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler;
 import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -88,11 +91,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testFilterAnimeIsFullEntry() {
+  public void testFilterAnimeIsFullEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
-        "http://cdn.myanimelist.net/images/anime/9/9453t.jpg",
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final FilterEntry entry = new FilterEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
+    );
 
     // when
     final boolean result = inMemoryPersistenceHandler.filterAnime(entry);
@@ -275,11 +280,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testWatchAnimeIsFullEntry() {
+  public void testWatchAnimeIsFullEntry() throws MalformedURLException {
     // given
-    final WatchListEntry entry = new WatchListEntry("Death Note",
-        "http://cdn.myanimelist.net/images/anime/9/9453t.jpg",
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final WatchListEntry entry = new WatchListEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
+    );
 
     // when
     final boolean result = inMemoryPersistenceHandler.watchAnime(entry);
@@ -332,13 +339,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsFullEntry() {
+  public void testaddAnimeIsFullEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -351,12 +358,12 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutEpisodes() {
+  public void testaddAnimeIsEntryWithoutEpisodes() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -369,13 +376,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutInfoLink() {
+  public void testaddAnimeIsEntryWithoutInfoLink() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", null);
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -388,12 +395,12 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutLocation() {
+  public void testaddAnimeIsEntryWithoutLocation() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -406,12 +413,12 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutPicture() {
+  public void testaddAnimeIsEntryWithoutPicture() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -424,12 +431,12 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutThumbnail() {
+  public void testaddAnimeIsEntryWithoutThumbnail() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -442,13 +449,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutTitle() {
+  public void testaddAnimeIsEntryWithoutTitle() throws MalformedURLException {
     // given
     final Anime entry = new Anime(null, new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -461,13 +468,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsEntryWithoutType() {
+  public void testaddAnimeIsEntryWithoutType() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
 
     // when
     final boolean result = inMemoryPersistenceHandler.addAnime(entry);
@@ -479,14 +486,14 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testAnimeEntryExists() {
+  public void testAnimeEntryExists() throws MalformedURLException {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
     final Anime entry = new Anime("Death Note", infoLink);
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
     inMemoryPersistenceHandler.addAnime(entry);
 
@@ -512,13 +519,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testAnimeList() {
+  public void testAnimeList() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
     inMemoryPersistenceHandler.addAnime(entry);
 
@@ -531,13 +538,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testRemoveFromAnimeListWorks() {
+  public void testRemoveFromAnimeListWorks() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
     inMemoryPersistenceHandler.addAnime(entry);
 
@@ -563,24 +570,28 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatClearAllWorks() {
+  public void testThatClearAllWorks() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
     inMemoryPersistenceHandler.addAnime(entry);
 
-    final FilterEntry filterEntry = new FilterEntry("Gintama",
-        "http://cdn.myanimelist.net/images/anime/3/72078t.jpg",
-        new InfoLink("http://myanimelist.net/anime/28977"));
+    final FilterEntry filterEntry = new FilterEntry(
+        "Gintama",
+        new InfoLink("http://myanimelist.net/anime/28977"),
+        new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg")
+    );
     inMemoryPersistenceHandler.filterAnime(filterEntry);
 
-    final WatchListEntry watchEntry = new WatchListEntry("Steins;Gate",
-        "http://cdn.myanimelist.net/images/anime/5/73199t.jpg",
-        new InfoLink("http://myanimelist.net/anime/9253"));
+    final WatchListEntry watchEntry = new WatchListEntry(
+        "Steins;Gate",
+        new InfoLink("http://myanimelist.net/anime/9253"),
+        new URL("http://cdn.myanimelist.net/images/anime/5/73199t.jpg")
+    );
     inMemoryPersistenceHandler.watchAnime(watchEntry);
 
     // when
@@ -607,23 +618,29 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatAddFilterListWorks() {
+  public void testThatAddFilterListWorks() throws MalformedURLException {
     // given
     final List<FilterEntry> list = newArrayList();
 
-    final FilterEntry entry = new FilterEntry("Death Note",
-        "http://cdn.myanimelist.net/images/anime/9/9453t.jpg",
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final FilterEntry entry = new FilterEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
+    );
     list.add(entry);
 
-    final FilterEntry gintama = new FilterEntry("Gintama",
-        "http://cdn.myanimelist.net/images/anime/3/72078t.jpg",
-        new InfoLink("http://myanimelist.net/anime/28977"));
+    final FilterEntry gintama = new FilterEntry(
+        "Gintama",
+        new InfoLink("http://myanimelist.net/anime/28977"),
+        new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg")
+    );
     list.add(gintama);
 
-    final FilterEntry steinsGate = new FilterEntry("Steins;Gate",
-        "http://cdn.myanimelist.net/images/anime/5/73199t.jpg",
-        new InfoLink("http://myanimelist.net/anime/9253"));
+    final FilterEntry steinsGate = new FilterEntry(
+        "Steins;Gate",
+        new InfoLink("http://myanimelist.net/anime/9253"),
+        new URL("http://cdn.myanimelist.net/images/anime/5/73199t.jpg")
+    );
     list.add(steinsGate);
 
     // when
@@ -648,23 +665,29 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatAddWatchListWorks() {
+  public void testThatAddWatchListWorks() throws MalformedURLException {
     // given
     final List<WatchListEntry> list = newArrayList();
 
-    final WatchListEntry entry = new WatchListEntry("Death Note",
-        "http://cdn.myanimelist.net/images/anime/9/9453t.jpg",
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final WatchListEntry entry = new WatchListEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
+    );
     list.add(entry);
 
-    final WatchListEntry gintama = new WatchListEntry("Gintama",
-        "http://cdn.myanimelist.net/images/anime/3/72078t.jpg",
-        new InfoLink("http://myanimelist.net/anime/28977"));
+    final WatchListEntry gintama = new WatchListEntry(
+        "Gintama",
+        new InfoLink("http://myanimelist.net/anime/28977"),
+        new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg")
+    );
     list.add(gintama);
 
-    final WatchListEntry steinsGate = new WatchListEntry("Steins;Gate",
-        "http://cdn.myanimelist.net/images/anime/5/73199t.jpg",
-        new InfoLink("http://myanimelist.net/anime/9253"));
+    final WatchListEntry steinsGate = new WatchListEntry(
+        "Steins;Gate",
+        new InfoLink("http://myanimelist.net/anime/9253"),
+        new URL("http://cdn.myanimelist.net/images/anime/5/73199t.jpg")
+    );
     list.add(steinsGate);
 
     // when
@@ -676,15 +699,15 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatAddAnimeListWorks() {
+  public void testThatAddAnimeListWorks() throws MalformedURLException {
     // given
     final List<Anime> list = newArrayList();
 
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
     list.add(entry);
 
@@ -692,8 +715,8 @@ public class InMemoryPersistenceHandlerTest {
         new InfoLink("http://myanimelist.net/anime/9253"));
     steinsGate.setEpisodes(24);
     steinsGate.setLocation("/steins_gate");
-    steinsGate.setPicture("http://cdn.myanimelist.net/images/anime/5/73199.jpg");
-    steinsGate.setThumbnail("http://cdn.myanimelist.net/images/anime/5/73199t.jpg");
+    steinsGate.setPicture(new URL("http://cdn.myanimelist.net/images/anime/5/73199.jpg"));
+    steinsGate.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/5/73199t.jpg"));
     steinsGate.setType(AnimeType.TV);
     list.add(steinsGate);
 
@@ -733,13 +756,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateForNewAnimeEntry() {
+  public void testUpdateOrCreateForNewAnimeEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     // when
@@ -752,13 +775,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateForModifiedAnimeEntry() {
+  public void testUpdateOrCreateForModifiedAnimeEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(35);
     entry.setLocation("/death_note");
-    entry.setPicture("http://cdn.myanimelist.net/images/anime/9/9453.jpg");
-    entry.setThumbnail("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
+    entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
+    entry.setThumbnail(new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     entry.setType(AnimeType.TV);
 
     inMemoryPersistenceHandler.addAnime(entry);
@@ -777,11 +800,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateForNewFilterEntry() {
+  public void testUpdateOrCreateForNewFilterEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
-        "http://cdn.myanimelist.net/images/anime/9/9453t.jpg",
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final FilterEntry entry = new FilterEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
+    );
 
     // when
     inMemoryPersistenceHandler.updateOrCreate(entry);
@@ -793,14 +818,17 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateForModifiedFilterEntry() {
+  public void testUpdateOrCreateForModifiedFilterEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note", AbstractMinimalEntry.NO_IMG_THUMB,
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final FilterEntry entry = new FilterEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        MinimalEntry.Companion.getNO_IMG_THUMB()
+    );
 
     inMemoryPersistenceHandler.filterAnime(entry);
 
-    final String thumbnail = "http://cdn.myanimelist.net/images/anime/9/9453t.jpg";
+    final URL thumbnail = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
     entry.setThumbnail(thumbnail);
 
     // when
@@ -814,11 +842,13 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateForNewWatchListEntry() {
+  public void testUpdateOrCreateForNewWatchListEntry() throws MalformedURLException {
     // given
-    final WatchListEntry entry = new WatchListEntry("Death Note",
-        "http://cdn.myanimelist.net/images/anime/9/9453t.jpg",
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final WatchListEntry entry = new WatchListEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
+    );
 
     // when
     inMemoryPersistenceHandler.updateOrCreate(entry);
@@ -830,14 +860,17 @@ public class InMemoryPersistenceHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateForModifiedWatchListEntry() {
+  public void testUpdateOrCreateForModifiedWatchListEntry() throws MalformedURLException {
     // given
-    final WatchListEntry entry = new WatchListEntry("Death Note", AbstractMinimalEntry.NO_IMG_THUMB,
-        new InfoLink("http://myanimelist.net/anime/1535"));
+    final WatchListEntry entry = new WatchListEntry(
+        "Death Note",
+        new InfoLink("http://myanimelist.net/anime/1535"),
+        MinimalEntry.Companion.getNO_IMG_THUMB()
+    );
 
     inMemoryPersistenceHandler.watchAnime(entry);
 
-    final String thumbnail = "http://cdn.myanimelist.net/images/anime/9/9453t.jpg";
+    final URL thumbnail = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
     entry.setThumbnail(thumbnail);
 
     // when

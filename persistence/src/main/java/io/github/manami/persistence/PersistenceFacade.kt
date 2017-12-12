@@ -1,207 +1,153 @@
-package io.github.manami.persistence;
+package io.github.manami.persistence
 
-import javax.inject.Inject
-import javax.inject.Named
-
-io.github.manami.dto.entities.Anime.isValidAnime;
-import static io.github.manami.dto.entities.MinimalEntryKt.isValidMinimalEntry;
-
-import com.google.common.eventbus.EventBus;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.MinimalEntry;
-import io.github.manami.dto.entities.WatchListEntry;
-import io.github.manami.dto.events.AnimeListChangedEvent;
-import java.util.List;
-import java.util.UUID;
-import javax.inject.Inject;
-import javax.inject.Named;
+import com.google.common.eventbus.EventBus
+import io.github.manami.dto.entities.*
+import io.github.manami.dto.entities.Anime.Companion.isValidAnime
+import io.github.manami.dto.events.AnimeListChangedEvent
+import java.util.*
 
 /**
  * This is a facade which is used by the application to hide which strategy is actually used.
  */
-@Named
-class PersistenceFacade : PersistenceHandler {
+//FIXME: @Named
+//FIXME: @Inject
+class PersistenceFacade(
+        /** Currently used db persistence strategy. */
+        //FIXME: @Named("inMemoryStrategy")
+        val strategy: PersistenceHandler,
+        val eventBus: EventBus
+) : PersistenceHandler {
 
-  /**
-   * Currently used db persistence strategy.
-   */
-  private final PersistenceHandler strategy;
+    override fun filterAnime(anime: MinimalEntry): Boolean {
+        if (isValidMinimalEntry(anime)) {
+            if (strategy.filterAnime(anime)) {
+                eventBus.post(AnimeListChangedEvent())
+                return true
+            }
+        }
 
-  /**
-   * Event bus.
-   */
-  private final EventBus eventBus;
-
-
-  /**
-   * Constructor injecting the currently used strategy.
-   *
-   * @param strategy Currently used strategy.
-   */
-  @Inject
-  public PersistenceFacade(@Named("inMemoryStrategy") final PersistenceHandler strategy, final EventBus eventBus) {
-    this.strategy = strategy;
-    this.eventBus = eventBus;
-  }
-
-
-  @Override
-  public boolean filterAnime(final MinimalEntry anime) {
-    if (isValidMinimalEntry(anime)) {
-      if (strategy.filterAnime(anime)) {
-        eventBus.post(new AnimeListChangedEvent());
-        return true;
-      }
+        return false
     }
 
-    return false;
-  }
 
-
-  @Override
-  public List<FilterEntry> fetchFilterList() {
-    return strategy.fetchFilterList();
-  }
-
-
-  @Override
-  public boolean filterEntryExists(final InfoLink infoLink) {
-    return strategy.filterEntryExists(infoLink);
-  }
-
-
-  @Override
-  public boolean removeFromFilterList(final InfoLink infoLink) {
-    if (infoLink == null || !infoLink.isValid()) {
-      return false;
+    override fun fetchFilterList(): MutableList<FilterEntry> {
+        return strategy.fetchFilterList()
     }
 
-    if (strategy.removeFromFilterList(infoLink)) {
-      eventBus.post(new AnimeListChangedEvent());
-      return true;
+
+    override fun filterEntryExists(infoLink: InfoLink): Boolean {
+        return strategy.filterEntryExists(infoLink)
     }
 
-    return false;
-  }
 
+    override fun removeFromFilterList(infoLink: InfoLink): Boolean {
+        if (!infoLink.isValid()) {
+            return false
+        }
 
-  @Override
-  public boolean addAnime(final Anime anime) {
-    if (isValidAnime(anime)) {
-      if (strategy.addAnime(anime)) {
-        eventBus.post(new AnimeListChangedEvent());
-        return true;
-      }
+        if (strategy.removeFromFilterList(infoLink)) {
+            eventBus.post(AnimeListChangedEvent())
+            return true
+        }
+
+        return false
     }
 
-    return false;
-  }
 
+    override fun addAnime(anime: Anime): Boolean {
+        if (isValidAnime(anime)) {
+            if (strategy.addAnime(anime)) {
+                eventBus.post(AnimeListChangedEvent())
+                return true
+            }
+        }
 
-  @Override
-  public List<Anime> fetchAnimeList() {
-    return strategy.fetchAnimeList();
-  }
-
-
-  @Override
-  public boolean animeEntryExists(final InfoLink infoLink) {
-    return strategy.animeEntryExists(infoLink);
-  }
-
-
-  @Override
-  public List<WatchListEntry> fetchWatchList() {
-    return strategy.fetchWatchList();
-  }
-
-
-  @Override
-  public boolean watchListEntryExists(final InfoLink infoLink) {
-    return strategy.watchListEntryExists(infoLink);
-  }
-
-
-  @Override
-  public boolean watchAnime(final MinimalEntry anime) {
-    if (isValidMinimalEntry(anime)) {
-      if (strategy.watchAnime(anime)) {
-        eventBus.post(new AnimeListChangedEvent());
-        return true;
-      }
+        return false
     }
 
-    return false;
-  }
 
-
-  @Override
-  public boolean removeFromWatchList(final InfoLink infoLink) {
-    if (infoLink == null || !infoLink.isValid()) {
-      return false;
+    override fun fetchAnimeList(): MutableList<Anime> {
+        return strategy.fetchAnimeList()
     }
 
-    if (strategy.removeFromWatchList(infoLink)) {
-      eventBus.post(new AnimeListChangedEvent());
-      return true;
+
+    override fun animeEntryExists(infoLink: InfoLink): Boolean {
+        return strategy.animeEntryExists(infoLink)
     }
 
-    return false;
-  }
 
-
-  @Override
-  public boolean removeAnime(final UUID id) {
-    if (strategy.removeAnime(id)) {
-      eventBus.post(new AnimeListChangedEvent());
-      return true;
+    override fun fetchWatchList(): MutableList<WatchListEntry> {
+        return strategy.fetchWatchList()
     }
 
-    return false;
-  }
 
-
-  @Override
-  public void clearAll() {
-    strategy.clearAll();
-    eventBus.post(new AnimeListChangedEvent());
-  }
-
-
-  @Override
-  public void addAnimeList(final List<Anime> list) {
-    if (list != null) {
-      strategy.addAnimeList(list);
-      eventBus.post(new AnimeListChangedEvent());
+    override fun watchListEntryExists(infoLink: InfoLink): Boolean {
+        return strategy.watchListEntryExists(infoLink)
     }
-  }
 
 
-  @Override
-  public void addFilterList(final List<? extends MinimalEntry> list) {
-    if (list != null) {
-      strategy.addFilterList(list);
-      eventBus.post(new AnimeListChangedEvent());
+    override fun watchAnime(anime: MinimalEntry): Boolean {
+        if (isValidMinimalEntry(anime)) {
+            if (strategy.watchAnime(anime)) {
+                eventBus.post(AnimeListChangedEvent())
+                return true
+            }
+        }
+
+        return false
     }
-  }
 
 
-  @Override
-  public void addWatchList(final List<? extends MinimalEntry> list) {
-    if (list != null) {
-      strategy.addWatchList(list);
-      eventBus.post(new AnimeListChangedEvent());
+    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
+        if (!infoLink.isValid()) {
+            return false
+        }
+
+        if (strategy.removeFromWatchList(infoLink)) {
+            eventBus.post(AnimeListChangedEvent())
+            return true
+        }
+
+        return false
     }
-  }
 
 
-  @Override
-  public void updateOrCreate(final MinimalEntry entry) {
-    if (entry != null) {
-      strategy.updateOrCreate(entry);
-      eventBus.post(new AnimeListChangedEvent());
+    override fun removeAnime(id: UUID): Boolean {
+        if (strategy.removeAnime(id)) {
+            eventBus.post(AnimeListChangedEvent())
+            return true
+        }
+
+        return false
     }
-  }
+
+
+    override fun clearAll() {
+        strategy.clearAll()
+        eventBus.post(AnimeListChangedEvent())
+    }
+
+
+    override fun addAnimeList(list: MutableList<Anime>) {
+        strategy.addAnimeList(list)
+        eventBus.post(AnimeListChangedEvent())
+    }
+
+
+    override fun addFilterList(list: MutableList<out MinimalEntry>) {
+        strategy.addFilterList(list)
+        eventBus.post(AnimeListChangedEvent())
+    }
+
+
+    override fun addWatchList(list: MutableList<out MinimalEntry>) {
+        strategy.addWatchList(list)
+        eventBus.post(AnimeListChangedEvent())
+    }
+
+
+    override fun updateOrCreate(entry: MinimalEntry) {
+        strategy.updateOrCreate(entry)
+        eventBus.post(AnimeListChangedEvent())
+    }
 }

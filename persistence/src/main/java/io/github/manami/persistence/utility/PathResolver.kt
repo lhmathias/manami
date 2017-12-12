@@ -1,20 +1,19 @@
-package io.github.manami.persistence.utility;
+package io.github.manami.persistence.utility
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.github.manami.dto.LoggerDelegate
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import org.slf4j.Logger
 
 /**
  * Class to create, check and resolve an absolute path to a relative path if necessary.
  */
 class PathResolver {
 
-  private static final Logger log = LoggerFactory.getLogger(PathResolver.class);
-
   companion object {
+    private val log: Logger by LoggerDelegate()
+
     fun buildPath(path: String, currentWorkingDir: Path): Path? {
       var dir: Path = Paths.get(path)
 
@@ -30,33 +29,23 @@ class PathResolver {
     }
 
     fun buildRelativizedPath(path: String, currentWorkingDir: Path): String {
-      final Optional<Path> optDir = buildPath(path, currentWorkingDir);
+      val optDir: Path? = buildPath(path, currentWorkingDir)
 
-      if (optDir.isPresent()) {
+      if (optDir != null) {
         try {
-          return currentWorkingDir.relativize(optDir.get()).toString().replace("\\", "/");
+          return currentWorkingDir.relativize(optDir).toString().replace("\\", "/")
         } catch (e: IllegalArgumentException) {
           return path
         }
       }
 
-      return null
+      return path //TODO: this has been changed from null to path. Is everything still working as excpected?
     }
 
 
     /**
      * Creates a relative path.
      */
-    fun createRelativePath(dir: Path, currentWorkingDir: Path): Path {
-      var ret: Path = null
-
-      try {
-        ret = currentWorkingDir.resolve(dir)
-      } catch (e: Exception) {
-        log.error("An error occurred trying to create a relative Path: ", e)
-      }
-
-      return ret;
-    }
+    private fun createRelativePath(dir: Path, currentWorkingDir: Path) = currentWorkingDir.resolve(dir)
   }
 }

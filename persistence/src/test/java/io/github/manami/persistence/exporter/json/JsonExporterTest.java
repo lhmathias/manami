@@ -17,6 +17,7 @@ import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler;
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler;
 import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -92,14 +93,18 @@ public class JsonExporterTest {
     rurouniKenshin.setType(AnimeType.OVA);
     persistenceFacade.addAnime(rurouniKenshin);
 
-    final WatchListEntry deathNoteRewrite = new WatchListEntry("Death Note Rewrite",
-        "http://cdn.myanimelist.net/images/anime/13/8518t.jpg",
-        new InfoLink("http://myanimelist.net/anime/2994"));
+    final WatchListEntry deathNoteRewrite = new WatchListEntry(
+        "Death Note Rewrite",
+        new InfoLink("http://myanimelist.net/anime/2994"),
+        new URL("http://cdn.myanimelist.net/images/anime/13/8518t.jpg")
+    );
     persistenceFacade.watchAnime(deathNoteRewrite);
 
-    final FilterEntry gintama = new FilterEntry("Gintama",
-        "http://cdn.myanimelist.net/images/anime/2/10038t.jpg",
-        new InfoLink("http://myanimelist.net/anime/918"));
+    final FilterEntry gintama = new FilterEntry(
+        "Gintama",
+        new InfoLink("http://myanimelist.net/anime/918"),
+        new URL("http://cdn.myanimelist.net/images/anime/2/10038t.jpg")
+    );
     persistenceFacade.filterAnime(gintama);
 
     final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE);

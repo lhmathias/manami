@@ -13,7 +13,7 @@ public class CsvConfigTest {
     // given
 
     // when
-    final CsvConfigType result = CsvConfigType.findByName("anyNonMatchableString");
+    final CsvConfigType result = CsvConfigType.Companion.findByName("anyNonMatchableString");
 
     // then
     assertThat(result).isNull();
@@ -28,9 +28,9 @@ public class CsvConfigTest {
     final String lowerCase = exactSameString.toLowerCase();
 
     // when
-    final CsvConfigType resultExactSame = CsvConfigType.findByName(exactSameString);
-    final CsvConfigType resultUpperCase = CsvConfigType.findByName(upperCase);
-    final CsvConfigType resultLowerCase = CsvConfigType.findByName(lowerCase);
+    final CsvConfigType resultExactSame = CsvConfigType.Companion.findByName(exactSameString);
+    final CsvConfigType resultUpperCase = CsvConfigType.Companion.findByName(upperCase);
+    final CsvConfigType resultLowerCase = CsvConfigType.Companion.findByName(lowerCase);
 
     // then
     assertThat(resultExactSame).isEqualTo(CsvConfigType.ANIMELIST);
@@ -47,9 +47,9 @@ public class CsvConfigTest {
     final String lowerCase = exactSameString.toLowerCase();
 
     // when
-    final CsvConfigType resultExactSame = CsvConfigType.findByName(exactSameString);
-    final CsvConfigType resultUpperCase = CsvConfigType.findByName(upperCase);
-    final CsvConfigType resultLowerCase = CsvConfigType.findByName(lowerCase);
+    final CsvConfigType resultExactSame = CsvConfigType.Companion.findByName(exactSameString);
+    final CsvConfigType resultUpperCase = CsvConfigType.Companion.findByName(upperCase);
+    final CsvConfigType resultLowerCase = CsvConfigType.Companion.findByName(lowerCase);
 
     // then
     assertThat(resultExactSame).isEqualTo(CsvConfigType.WATCHLIST);
@@ -66,9 +66,9 @@ public class CsvConfigTest {
     final String lowerCase = exactSameString.toLowerCase();
 
     // when
-    final CsvConfigType resultExactSame = CsvConfigType.findByName(exactSameString);
-    final CsvConfigType resultUpperCase = CsvConfigType.findByName(upperCase);
-    final CsvConfigType resultLowerCase = CsvConfigType.findByName(lowerCase);
+    final CsvConfigType resultExactSame = CsvConfigType.Companion.findByName(exactSameString);
+    final CsvConfigType resultUpperCase = CsvConfigType.Companion.findByName(upperCase);
+    final CsvConfigType resultLowerCase = CsvConfigType.Companion.findByName(lowerCase);
 
     // then
     assertThat(resultExactSame).isEqualTo(CsvConfigType.FILTERLIST);
