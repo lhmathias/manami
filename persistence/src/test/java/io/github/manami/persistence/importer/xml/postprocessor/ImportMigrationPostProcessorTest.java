@@ -16,45 +16,11 @@ import org.testng.annotations.Test;
 // TODO: Additional tests for null check etc.
 public class ImportMigrationPostProcessorTest {
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test execution stops, because the tool version is not valid. Result: no changes to the entries.")
-  public void testMigrationStopsInvalidToolVersion() throws MalformedURLException {
-    // given
-    final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
-    final URL entry2Thumb = new URL("http://img7.anidb.net/pics/anime/thumbs/50x65/129527.jpg-thumb.jpg");
-    final FilterEntry entry1 = new FilterEntry(
-        "Death Note",
-        new InfoLink("http://myanimelist.net/anime/1535"),
-        entry1Thumb
-    );
-    final FilterEntry entry2 = new FilterEntry(
-        "Fullmetal Panic!",
-        new InfoLink("http://anidb.net/perl-bin/animedb.pl?show=anime&aid=17"),
-        entry2Thumb
-    );
-    final FilterEntry entry3 = new FilterEntry(
-        "Code Geass: Hangyaku no Lelouch R2",
-        new InfoLink("https://myanimelist.net/anime/2904/Code_Geass__Hangyaku_no_Lelouch_R2")
-    );
-
-    final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
-
-    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor(
-        "2.10.2",
-        newArrayList(),
-        filterListEntries,
-        newArrayList());
-
-    // when
-    processor.execute();
-
-    // then
-    assertThat(entry1.getThumbnail()).isEqualTo(entry1Thumb);
-    assertThat(entry2.getThumbnail()).isEqualTo(entry2Thumb);
-    assertThat(entry3.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP, description = "Test execution stops, because the document version is not valid. Result: no changes to the entries.")
+  @Test(
+      groups = UNIT_TEST_GROUP,
+      description = "Test execution stops, because the document version is not valid. Result: no changes to the entries.",
+      expectedExceptions = IllegalArgumentException.class
+  )
   public void testMigrationStopsInvalidDocumentVersion() throws MalformedURLException {
     // given
     final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
@@ -76,20 +42,21 @@ public class ImportMigrationPostProcessorTest {
 
     final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
 
-    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor("2.?.2", newArrayList(), filterListEntries,
-        newArrayList());
-
     // when
-    processor.execute();
-
-    // then
-    assertThat(entry1.getThumbnail()).isEqualTo(entry1Thumb);
-    assertThat(entry2.getThumbnail()).isEqualTo(entry2Thumb);
-    assertThat(entry3.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
+    new ImportMigrationPostProcessor(
+        "2.?.2",
+        newArrayList(),
+        filterListEntries,
+        newArrayList()
+    );
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.10.3 is skipped, because the document version is not valid. Result: no changes to the entries.")
+  @Test(
+      groups = UNIT_TEST_GROUP,
+      description = "Test migration to version 2.10.3 throws an exception, because the document version is not valid.",
+      expectedExceptions = IllegalArgumentException.class
+  )
   public void testMigration2103IsSkippedBecauseTheCurrentDocumentVersionIsMoreRecent() throws MalformedURLException {
     // given
     final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
@@ -109,16 +76,13 @@ public class ImportMigrationPostProcessorTest {
 
     final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
 
-    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor("2.?.2", newArrayList(), filterListEntries,
-        newArrayList());
-
     // when
-    processor.execute();
-
-    // then
-    assertThat(entry1.getThumbnail()).isEqualTo(entry1Thumb);
-    assertThat(entry2.getThumbnail()).isEqualTo(entry2Thumb);
-    assertThat(entry3.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
+    new ImportMigrationPostProcessor(
+        "2.?.2",
+        newArrayList(),
+        filterListEntries,
+        newArrayList()
+    );
   }
 
 
@@ -143,16 +107,20 @@ public class ImportMigrationPostProcessorTest {
 
     final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
 
-    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor("2.10.2", newArrayList(), filterListEntries,
-        newArrayList());
+    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor(
+        "2.10.2",
+        newArrayList(),
+        filterListEntries,
+        newArrayList()
+    );
 
     // when
     processor.execute();
 
     // then
-    assertThat(entry1.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg");
+    assertThat(entry1.getThumbnail()).isEqualTo(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
     assertThat(entry2.getThumbnail()).isEqualTo(fmpThumb);
-    assertThat(entry3.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
+    assertThat(entry3.getThumbnail()).isEqualTo(new URL("https://myanimelist.cdn-dena.com/images/qm_50.gif"));
   }
 
 
@@ -175,21 +143,25 @@ public class ImportMigrationPostProcessorTest {
 
     final List<WatchListEntry> watchListEntries = newArrayList(entry1, entry2, entry3);
 
-    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor("2.10.2", newArrayList(), newArrayList(),
-        watchListEntries);
+    final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor(
+        "2.10.2",
+        newArrayList(),
+        newArrayList(),
+        watchListEntries
+    );
 
     // when
     processor.execute();
 
     // then
-    assertThat(entry1.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg");
+    assertThat(entry1.getThumbnail()).isEqualTo(new URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"));
     assertThat(entry2.getThumbnail()).isEqualTo(fmpThumb);
-    assertThat(entry3.getThumbnail()).isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
+    assertThat(entry3.getThumbnail()).isEqualTo(new URL("https://myanimelist.cdn-dena.com/images/qm_50.gif"));
   }
 
 
   @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for anime list")
-  public void testMigration2142WorksForAnimeList() {
+  public void testMigration2142WorksForAnimeList() throws MalformedURLException {
     // given
     final Anime entry1 = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
 
@@ -202,7 +174,7 @@ public class ImportMigrationPostProcessorTest {
     processor.execute();
 
     // then
-    assertThat(entry1.getInfoLink().getUrl()).isEqualTo("https://myanimelist.net/anime/1535");
+    assertThat(entry1.getInfoLink().getUrl()).isEqualTo(new URL("https://myanimelist.net/anime/1535"));
   }
 
 
@@ -224,7 +196,7 @@ public class ImportMigrationPostProcessorTest {
     processor.execute();
 
     // then
-    assertThat(entry1.getInfoLink().getUrl()).isEqualTo("https://myanimelist.net/anime/1535");
+    assertThat(entry1.getInfoLink().getUrl()).isEqualTo(new URL("https://myanimelist.net/anime/1535"));
   }
 
 
@@ -246,6 +218,6 @@ public class ImportMigrationPostProcessorTest {
     processor.execute();
 
     // then
-    assertThat(entry1.getInfoLink().getUrl()).isEqualTo("https://myanimelist.net/anime/1535");
+    assertThat(entry1.getInfoLink().getUrl()).isEqualTo(new URL("https://myanimelist.net/anime/1535"));
   }
 }

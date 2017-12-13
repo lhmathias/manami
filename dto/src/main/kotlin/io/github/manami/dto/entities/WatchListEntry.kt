@@ -5,7 +5,7 @@ import java.net.URL
 data class WatchListEntry @JvmOverloads constructor(
         override var title: String,
         override var infoLink: InfoLink,
-        override var thumbnail: URL = MinimalEntry.NO_IMG
+        override var thumbnail: URL = MinimalEntry.NO_IMG_THUMB
 ) : MinimalEntry {
 
     companion object {

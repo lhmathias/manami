@@ -25,19 +25,6 @@ public class InMemoryAnimeListHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testaddAnimeIsNull() {
-    // given
-
-    // when
-    final boolean result = inMemoryAnimeListHandler.addAnime(null);
-
-    // then
-    assertThat(result).isFalse();
-    assertThat(inMemoryAnimeListHandler.fetchAnimeList().size()).isEqualTo(0);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsFullEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -77,7 +64,7 @@ public class InMemoryAnimeListHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutInfoLink() throws MalformedURLException {
     // given
-    final Anime entry = new Anime("Death Note", null);
+    final Anime entry = new Anime("Death Note", new InfoLink(""));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
     entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
@@ -150,7 +137,7 @@ public class InMemoryAnimeListHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutTitle() throws MalformedURLException {
     // given
-    final Anime entry = new Anime(null, new InfoLink("http://myanimelist.net/anime/1535"));
+    final Anime entry = new Anime("", new InfoLink("http://myanimelist.net/anime/1535"));
     entry.setEpisodes(37);
     entry.setLocation("/death_note");
     entry.setPicture(new URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg"));
@@ -166,7 +153,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  @Test(groups = UNIT_TEST_GROUP, description = "Default type is TV. so even if not explicitly set, the type is available.")
   public void testaddAnimeIsEntryWithoutType() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -179,8 +166,8 @@ public class InMemoryAnimeListHandlerTest {
     final boolean result = inMemoryAnimeListHandler.addAnime(entry);
 
     // then
-    assertThat(result).isFalse();
-    assertThat(inMemoryAnimeListHandler.fetchAnimeList().size()).isEqualTo(0);
+    assertThat(result).isTrue();
+    assertThat(inMemoryAnimeListHandler.fetchAnimeList().size()).isEqualTo(1);
   }
 
 
@@ -209,8 +196,7 @@ public class InMemoryAnimeListHandlerTest {
     // given
 
     // when
-    final boolean result = inMemoryAnimeListHandler
-        .animeEntryExists(new InfoLink("http://myanimelist.net/anime/1535"));
+    final boolean result = inMemoryAnimeListHandler.animeEntryExists(new InfoLink("http://myanimelist.net/anime/1535"));
 
     // then
     assertThat(result).isFalse();
@@ -252,30 +238,6 @@ public class InMemoryAnimeListHandlerTest {
 
     // then
     assertThat(result).isTrue();
-    assertThat(inMemoryAnimeListHandler.fetchAnimeList().isEmpty()).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testRemoveFromAnimeListNullAsArgument() {
-    // given
-
-    // when
-    final boolean result = inMemoryAnimeListHandler.removeAnime(null);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateWithNull() {
-    // given
-
-    // when
-    inMemoryAnimeListHandler.updateOrCreate(null);
-
-    // then
     assertThat(inMemoryAnimeListHandler.fetchAnimeList().isEmpty()).isTrue();
   }
 

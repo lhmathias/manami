@@ -91,17 +91,14 @@ public class VersionTest {
     // given
     final String versionWhitespace = "  ";
     final String versionEmpty = EMPTY;
-    final String versionNull = null;
 
     // when
     final boolean resultWhitespace = Version.isValid(versionWhitespace);
     final boolean resultEmpty = Version.isValid(versionEmpty);
-    final boolean resultNull = Version.isValid(versionNull);
 
     // then
     assertThat(resultWhitespace).isFalse();
     assertThat(resultEmpty).isFalse();
-    assertThat(resultNull).isFalse();
   }
 
 

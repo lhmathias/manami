@@ -54,7 +54,7 @@ class ImportMigrationPostProcessor(
         }
 
         if (anime.infoLink.url.toString().startsWith("http://myanimelist.net") || anime.infoLink.url.toString().startsWith("http://www.myanimelist.net")) {
-            anime.infoLink = InfoLink(anime.infoLink.url?.replace("http", "https"))
+            anime.infoLink = InfoLink(anime.infoLink.url.toString().replace("http", "https"))
         }
     }
 

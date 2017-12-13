@@ -72,19 +72,6 @@ public class InMemoryWatchListHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testWatchAnimeIsNull() {
-    // given
-
-    // when
-    final boolean result = inMemoryWatchListHandler.watchAnime(null);
-
-    // then
-    assertThat(result).isFalse();
-    assertThat(inMemoryWatchListHandler.fetchWatchList().size()).isEqualTo(0);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutTitle() {
     // given
     final WatchListEntry entry = new WatchListEntry(EMPTY,
@@ -102,7 +89,7 @@ public class InMemoryWatchListHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutInfoLink() {
     // given
-    final WatchListEntry entry = new WatchListEntry("Death Note", null);
+    final WatchListEntry entry = new WatchListEntry("Death Note", new InfoLink(""));
 
     // when
     final boolean result = inMemoryWatchListHandler.watchAnime(entry);
@@ -158,30 +145,6 @@ public class InMemoryWatchListHandlerTest {
 
     // then
     assertThat(result).isTrue();
-    assertThat(inMemoryWatchListHandler.fetchWatchList().isEmpty()).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testRemoveFromWatchListNullAsArgument() {
-    // given
-
-    // when
-    final boolean result = inMemoryWatchListHandler.removeFromWatchList(null);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateWithNull() {
-    // given
-
-    // when
-    inMemoryWatchListHandler.updateOrCreate(null);
-
-    // then
     assertThat(inMemoryWatchListHandler.fetchWatchList().isEmpty()).isTrue();
   }
 

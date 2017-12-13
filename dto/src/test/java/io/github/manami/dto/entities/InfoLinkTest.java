@@ -2,6 +2,7 @@ package io.github.manami.dto.entities;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.net.URL;
 import org.testng.annotations.Test;
 
 public class InfoLinkTest {
@@ -53,10 +54,10 @@ public class InfoLinkTest {
     final InfoLink infoLink = new InfoLink(url);
 
     // when
-    final String result = infoLink.getUrl();
+    final URL result = infoLink.getUrl();
 
     // then
-    assertThat(result).isEqualTo(url);
+    assertThat(result.toString()).isEqualTo(url);
   }
 
 

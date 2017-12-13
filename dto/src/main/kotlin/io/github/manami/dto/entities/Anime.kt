@@ -18,7 +18,7 @@ data class Anime @JvmOverloads constructor(
         /** Location on the HDD. */
         var location: String = "",
         /** Url for a picture. */
-        override var thumbnail: URL = MinimalEntry.NO_IMG,
+        override var thumbnail: URL = MinimalEntry.NO_IMG_THUMB,
         var picture: URL = MinimalEntry.NO_IMG,
         var id: UUID = randomUUID()
 ) : MinimalEntry {

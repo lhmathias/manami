@@ -1,8 +1,24 @@
 package io.github.manami.dto.entities
 
 import org.apache.commons.validator.routines.UrlValidator
+import java.net.MalformedURLException
+import java.net.URL
 
-data class InfoLink(val url: String?) {
+data class InfoLink(private val infoLinkUrl: String) {
+
+    val url: URL?
+
+    init {
+        url = createUrl(infoLinkUrl)
+    }
+
+    private fun createUrl(url: String): URL? {
+        return try {
+            URL(url)
+        } catch (e: MalformedURLException) {
+            null
+        }
+    }
 
     /**
      * First checks a value is present and then checks if the given value is
@@ -15,7 +31,7 @@ data class InfoLink(val url: String?) {
             return false
         }
 
-        return getUrlValidator().isValid(url)
+        return getUrlValidator().isValid(url.toString())
     }
 
 
@@ -25,10 +41,10 @@ data class InfoLink(val url: String?) {
      * @return
      */
     fun isPresent(): Boolean {
-        return url != null && url.isNotBlank()
+        return url != null && url.toString().isNotBlank()
     }
 
-    override fun toString() = if (url != null) url else ""
+    override fun toString() = url?.toString() ?: ""
 
     companion object {
         private val VALID_SCHEMES = arrayOf("HTTP", "HTTPS")

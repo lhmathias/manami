@@ -50,7 +50,7 @@ class Version(version: String) {
         fun isValid(version: String) = extractVersionParts(version) != null
 
         private fun extractVersionParts(version: String): SplitVersion? {
-            val splitParts = version.split(".")
+            val splitParts = version.split('.')
 
             if (splitParts.size != VERSION_PARTS) {
                 return null

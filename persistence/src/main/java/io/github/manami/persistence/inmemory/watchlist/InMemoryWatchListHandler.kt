@@ -5,12 +5,13 @@ import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.WatchListHandler
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 
 //FIXME: @Named
 class InMemoryWatchListHandler : WatchListHandler {
 
-    private val watchList: MutableMap<InfoLink, WatchListEntry> = mutableMapOf()
+    private val watchList: MutableMap<InfoLink, WatchListEntry> = ConcurrentHashMap()
 
 
     override fun fetchWatchList(): MutableList<WatchListEntry> {

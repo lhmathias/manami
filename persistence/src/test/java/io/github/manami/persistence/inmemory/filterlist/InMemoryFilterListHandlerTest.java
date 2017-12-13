@@ -29,19 +29,6 @@ public class InMemoryFilterListHandlerTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testFilterAnimeIsNull() {
-    // given
-
-    // when
-    final boolean result = inMemoryFilterListHandler.filterAnime(null);
-
-    // then
-    assertThat(result).isFalse();
-    assertThat(inMemoryFilterListHandler.fetchFilterList().size()).isEqualTo(0);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutTitle() {
     // given
     final FilterEntry entry = new FilterEntry(EMPTY,
@@ -59,7 +46,7 @@ public class InMemoryFilterListHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutInfoLink() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note", null);
+    final FilterEntry entry = new FilterEntry("Death Note", new InfoLink(""));
 
     // when
     final boolean result = inMemoryFilterListHandler.filterAnime(entry);
@@ -158,30 +145,6 @@ public class InMemoryFilterListHandlerTest {
 
     // then
     assertThat(result).isTrue();
-    assertThat(inMemoryFilterListHandler.fetchFilterList().isEmpty()).isTrue();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testRemoveFromFilterListNullAsArgument() {
-    // given
-
-    // when
-    final boolean result = inMemoryFilterListHandler.removeFromFilterList(null);
-
-    // then
-    assertThat(result).isFalse();
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testUpdateOrCreateWithNull() {
-    // given
-
-    // when
-    inMemoryFilterListHandler.updateOrCreate(null);
-
-    // then
     assertThat(inMemoryFilterListHandler.fetchFilterList().isEmpty()).isTrue();
   }
 

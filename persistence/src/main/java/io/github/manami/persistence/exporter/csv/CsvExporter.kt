@@ -70,9 +70,7 @@ class CsvExporter(private val persistence: ApplicationPersistence) : Exporter {
 
         // write the animeList
         for (entry: MutableList<String> in mappedEntryList) {
-            listWriter?.let {
-                it.write(entry, config.getProcessors())
-            }
+            listWriter?.write(entry, config.getProcessors())
         }
     }
 

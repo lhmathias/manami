@@ -6,16 +6,17 @@ import io.github.manami.dto.entities.Anime.Companion.isValidAnime
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.persistence.AnimeListHandler
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 //FIXME: @Named
 class InMemoryAnimeListHandler : AnimeListHandler {
 
-    private val animeList: MutableMap<UUID, Anime> = mutableMapOf()
+    private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
 
 
     override fun addAnime(anime: Anime): Boolean {
         if (!isValidAnime(anime) || isInList(anime)) {
-            return false;
+            return false
         }
 
         animeList.put(anime.id, anime)
@@ -42,7 +43,9 @@ class InMemoryAnimeListHandler : AnimeListHandler {
 
     private fun isInList(infoLink: InfoLink): Boolean {
         if (infoLink.isValid()) {
-            animeList.map { infoLink == it.value.infoLink }
+            animeList.values.firstOrNull { it.infoLink == infoLink }?.let {
+                return true
+            }
         }
 
         return false
