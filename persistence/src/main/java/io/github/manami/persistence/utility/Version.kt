@@ -39,10 +39,10 @@ class Version(version: String) {
     class SplitVersion(val major: Int, val minor: Int, val bugfix: Int)
 
     companion object {
-        private const val MSG_INVALID_VERSION: String = "NewVersionFile is not valid."
+        private const val MSG_INVALID_VERSION: String = "Version is not valid."
 
         /**
-         * A NewVersionFile consists of three parts: major, minor, bugfix.
+         * A Version consists of three parts: major, minor, bugfix.
          */
         private const val VERSION_PARTS: Int = 3
 
@@ -50,7 +50,7 @@ class Version(version: String) {
         fun isValid(version: String) = extractVersionParts(version) != null
 
         private fun extractVersionParts(version: String): SplitVersion? {
-            val splitParts = version.split("\\.")
+            val splitParts = version.split(".")
 
             if (splitParts.size != VERSION_PARTS) {
                 return null
