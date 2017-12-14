@@ -9,8 +9,8 @@ class RecommendationList {
         var value: Recommendation = recommendation
 
         if (containsKey(recommendation.infoLink)) {
-            val amountInList = 0
-            recommendations[recommendation.infoLink]?.let { value.amount }
+            var amountInList = 0
+            recommendations[recommendation.infoLink]?.let { amountInList = it.amount }
 
             val newAmount: Int = value.amount
             value = Recommendation(recommendation.infoLink, amountInList + newAmount)
@@ -20,7 +20,7 @@ class RecommendationList {
     }
 
 
-    fun asList() = listOf(recommendations.entries)
+    fun asList() = recommendations.entries.toMutableList()
 
 
     fun isEmpty() = recommendations.isEmpty()
