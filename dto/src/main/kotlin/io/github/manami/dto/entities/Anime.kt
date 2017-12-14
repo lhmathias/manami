@@ -31,7 +31,9 @@ data class Anime @JvmOverloads constructor(
         }
 
 
-    fun getTypeAsString() = type.value
+    override fun toString(): String {
+        return type.value
+    }
 
 
     companion object {

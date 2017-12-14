@@ -30,7 +30,7 @@ class Version(version: String) {
             internalVersion.major < otherSplitVersion.major -> false
             internalVersion.minor > otherSplitVersion.minor -> true
             internalVersion.minor < otherSplitVersion.minor -> false
-            internalVersion.bugfix > otherSplitVersion.bugfix -> false
+            internalVersion.bugfix > otherSplitVersion.bugfix -> true
             else -> false
         }
     }

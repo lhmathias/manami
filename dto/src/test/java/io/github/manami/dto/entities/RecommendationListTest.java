@@ -17,7 +17,6 @@ public class RecommendationListTest {
     // then
     assertThat(sut.isNotEmpty()).isFalse();
     assertThat(sut.isEmpty()).isTrue();
-    assertThat(sut.asList()).isNotNull();
   }
 
 
@@ -34,8 +33,7 @@ public class RecommendationListTest {
     // then
     assertThat(sut.isNotEmpty()).isTrue();
     assertThat(sut.isEmpty()).isFalse();
-    assertThat(sut.asList()).isNotNull();
-    assertThat(sut.containsKey(infoLink)).isTrue();
+    assertThat(sut.contains(infoLink)).isTrue();
   }
 
 
@@ -56,29 +54,9 @@ public class RecommendationListTest {
     // then
     assertThat(sut.isNotEmpty()).isTrue();
     assertThat(sut.isEmpty()).isFalse();
-    assertThat(sut.asList()).isNotNull();
-    assertThat(sut.asList().size()).isEqualTo(1);
+    assertThat(sut.size()).isEqualTo(1);
     final Integer sum = recom1.getAmount() + recom2.getAmount();
     assertThat(sut.get(infoLink).getAmount()).isEqualTo(sum);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testAsList() {
-    // given
-    final RecommendationList sut = new RecommendationList();
-    final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final Recommendation recom = new Recommendation(infoLink, 103);
-    sut.addRecommendation(recom);
-
-    // when
-    sut.asList().clear();
-
-    // then
-    assertThat(sut.isNotEmpty()).isTrue();
-    assertThat(sut.isEmpty()).isFalse();
-    assertThat(sut.asList()).isNotNull();
-    assertThat(sut.containsKey(infoLink)).isTrue();
   }
 
 
@@ -90,7 +68,7 @@ public class RecommendationListTest {
         new Recommendation(new InfoLink("http://myanimelist.net/anime/1535"), 103));
 
     // when
-    final boolean result = sut.containsKey(new InfoLink("https://myanimelist.net/anime/32281"));
+    final boolean result = sut.contains(new InfoLink("https://myanimelist.net/anime/32281"));
 
     // then
     assertThat(result).isFalse();
@@ -111,8 +89,7 @@ public class RecommendationListTest {
     // then
     assertThat(sut.isNotEmpty()).isTrue();
     assertThat(sut.isEmpty()).isFalse();
-    assertThat(sut.asList()).isNotNull();
-    assertThat(sut.containsKey(infoLink)).isTrue();
+    assertThat(sut.contains(infoLink)).isTrue();
     assertThat(result).isEqualTo(recom);
   }
 }

@@ -20,11 +20,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
-import javax.xml.parsers.ParserConfigurationException;
 import org.springframework.core.io.ClassPathResource;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.xml.sax.SAXException;
 
 public class ManamiSaxParserTest {
 
@@ -46,7 +44,7 @@ public class ManamiSaxParserTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatAnimeListIsParsedCorrectly() throws SAXException, ParserConfigurationException, IOException {
+  public void testThatAnimeListIsParsedCorrectly() throws IOException {
     // given
 
     // when
@@ -77,7 +75,7 @@ public class ManamiSaxParserTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatWatchListIsParsedCorrectly() throws SAXException, ParserConfigurationException, IOException {
+  public void testThatWatchListIsParsedCorrectly() throws IOException {
     // given
 
     // when
@@ -98,7 +96,7 @@ public class ManamiSaxParserTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThatFilterListIsParsedCorrectly() throws SAXException, ParserConfigurationException, IOException {
+  public void testThatFilterListIsParsedCorrectly() throws IOException {
     // given
 
     // when

@@ -53,7 +53,7 @@ class CsvExporter(private val persistence: ApplicationPersistence) : Exporter {
 
 
     private fun writeAnimeList() {
-        val mappedEntryList: MutableList<MutableList<String>> = mutableListOf(mutableListOf())
+        val mappedEntryList: MutableList<MutableList<String>> = mutableListOf()
         var curEntry: MutableList<String>
 
         // Map Anime Objects to a list
@@ -61,7 +61,7 @@ class CsvExporter(private val persistence: ApplicationPersistence) : Exporter {
             curEntry = mutableListOf()
             curEntry.add(CsvConfig.CsvConfigType.ANIMELIST.value)
             curEntry.add(entry.title)
-            curEntry.add(entry.getTypeAsString())
+            curEntry.add(entry.toString())
             curEntry.add(entry.episodes.toString())
             curEntry.add(entry.infoLink.url.toString())
             curEntry.add(entry.location)

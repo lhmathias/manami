@@ -64,7 +64,7 @@ public class AnimeTest {
     anime.setType(type);
 
     // when
-    final String result = anime.getTypeAsString();
+    final String result = anime.toString();
 
     // then
     assertThat(result).isEqualTo(type.getValue());
@@ -79,7 +79,7 @@ public class AnimeTest {
     anime.setType(type);
 
     // when
-    final String result = anime.getTypeAsString();
+    final String result = anime.toString();
 
     // then
     assertThat(result).isEqualTo(type.getValue());
@@ -94,7 +94,7 @@ public class AnimeTest {
     anime.setType(type);
 
     // when
-    final String result = anime.getTypeAsString();
+    final String result = anime.toString();
 
     // then
     assertThat(result).isEqualTo(type.getValue());
@@ -109,7 +109,7 @@ public class AnimeTest {
     anime.setType(type);
 
     // when
-    final String result = anime.getTypeAsString();
+    final String result = anime.toString();
 
     // then
     assertThat(result).isEqualTo(type.getValue());
@@ -124,7 +124,7 @@ public class AnimeTest {
     anime.setType(type);
 
     // when
-    final String result = anime.getTypeAsString();
+    final String result = anime.toString();
 
     // then
     assertThat(result).isEqualTo(type.getValue());
@@ -139,7 +139,7 @@ public class AnimeTest {
     anime.setType(type);
 
     // when
-    final String result = anime.getTypeAsString();
+    final String result = anime.toString();
 
     // then
     assertThat(result).isEqualTo(type.getValue());

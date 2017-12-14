@@ -165,7 +165,7 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
                 this.setAttribute("title", anime.title)
 
                 // attribute "type"
-                this.setAttribute("type", anime.getTypeAsString())
+                this.setAttribute("type", anime.toString())
 
                 // attribute "episodes"
                 this.setAttribute("episodes", anime.episodes.toString())
