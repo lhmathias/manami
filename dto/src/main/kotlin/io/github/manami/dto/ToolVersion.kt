@@ -16,7 +16,6 @@ object ToolVersion {
     fun getToolVersion(): String {
         val propertiesPath = "/META-INF/maven/io.github.manami/persistence/pom.properties"
 
-
         try {
             ToolVersion::class.java.getResourceAsStream(propertiesPath).use { stream ->
                 val properties = Properties()

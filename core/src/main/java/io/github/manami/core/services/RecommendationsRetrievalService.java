@@ -141,7 +141,7 @@ public class RecommendationsRetrievalService extends AbstractService<List<Anime>
       return;
     }
 
-    cache.fetchRecommendations(animeToFindRecommendationsFor.get().getInfoLink()).asList()
+    cache.fetchRecommendations(animeToFindRecommendationsFor.get().getInfoLink())
         .forEach((entry) -> addRecom(entry.getInfoLink(), entry.getAmount()));
   }
 
