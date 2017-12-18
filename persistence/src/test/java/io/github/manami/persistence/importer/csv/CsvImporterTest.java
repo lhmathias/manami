@@ -32,8 +32,11 @@ public class CsvImporterTest {
 
   @BeforeMethod
   public void setUp() throws IOException {
-    final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(new InMemoryAnimeListHandler(),
-        new InMemoryFilterListHandler(), new InMemoryWatchListHandler());
+    final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(
+        new InMemoryAnimeListHandler(),
+        new InMemoryFilterListHandler(),
+        new InMemoryWatchListHandler()
+    );
     persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler, mock(EventBus.class));
     csvImporter = new CsvImporter(persistenceFacade);
     final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE);

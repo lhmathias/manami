@@ -2,6 +2,7 @@ package io.github.manami.persistence.importer.xml.postprocessor
 
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.*
+import io.github.manami.persistence.utility.PathResolver
 import io.github.manami.persistence.utility.Version
 import org.slf4j.Logger
 import java.net.MalformedURLException

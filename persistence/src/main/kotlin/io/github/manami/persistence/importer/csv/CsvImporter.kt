@@ -45,7 +45,6 @@ class CsvImporter(private val persistence: PersistenceFacade) : Importer {
 
     override fun importFile(file: Path) {
         val processors: Array<CellProcessor> = csvConfig.getProcessors()
-
         CsvListReader(FileReader(file.toFile()), CsvPreference.STANDARD_PREFERENCE).use { listReader ->
             listReader.getHeader(true)
 
@@ -74,10 +73,5 @@ class CsvImporter(private val persistence: PersistenceFacade) : Importer {
             persistence.addFilterList(filterListEntries)
             persistence.addWatchList(watchListEntries)
         }
-
-
-        /*FIXME: catch (e: IOException) {
-          log.error("An error occurred trying to import the CSV file: ", e)
-        }*/
     }
 }
