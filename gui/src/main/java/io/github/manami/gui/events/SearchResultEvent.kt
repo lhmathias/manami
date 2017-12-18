@@ -1,4 +1,4 @@
-package io.github.manami.dto.events;
+package io.github.manami.gui.events;
 
 import io.github.manami.dto.entities.MinimalEntry
 
