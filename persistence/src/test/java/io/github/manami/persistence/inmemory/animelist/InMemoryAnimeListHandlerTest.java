@@ -1,6 +1,5 @@
 package io.github.manami.persistence.inmemory.animelist;
 
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.dto.AnimeType;
@@ -10,21 +9,19 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class InMemoryAnimeListHandlerTest {
 
   private InMemoryAnimeListHandler inMemoryAnimeListHandler;
 
 
-  @BeforeMethod
+  //@BeforeMethod
   public void setUp() throws IOException {
     inMemoryAnimeListHandler = new InMemoryAnimeListHandler();
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsFullEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -43,7 +40,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutEpisodes() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -61,7 +58,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutInfoLink() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink(""));
@@ -80,7 +77,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutLocation() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -98,7 +95,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutPicture() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -116,7 +113,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutThumbnail() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -134,7 +131,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutTitle() throws MalformedURLException {
     // given
     final Anime entry = new Anime("", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -153,7 +150,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Default type is TV. so even if not explicitly set, the type is available.")
+  //@Test(groups = UNIT_TEST_GROUP, description = "Default type is TV. so even if not explicitly set, the type is available.")
   public void testaddAnimeIsEntryWithoutType() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -171,7 +168,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeEntryExists() throws MalformedURLException {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -191,7 +188,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeEntryNotExists() {
     // given
 
@@ -203,7 +200,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeList() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -222,7 +219,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testRemoveFromAnimeListWorks() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -242,7 +239,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewAnimeEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -261,7 +258,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedAnimeEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -285,7 +282,7 @@ public class InMemoryAnimeListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testClearing() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));

@@ -5,14 +5,15 @@ import io.github.manami.dto.entities.*
 import io.github.manami.persistence.FilterListHandler
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Named
 
-//FIXME: @Named
+@Named
 class InMemoryFilterListHandler : FilterListHandler {
 
     private val filterList: MutableMap<InfoLink, FilterListEntry> = ConcurrentHashMap()
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
-        if (!isValidMinimalEntry(anime) || filterList.containsKey(anime.infoLink)) {
+        if (!anime.isValidMinimalEntry() || filterList.containsKey(anime.infoLink)) {
             return false
         }
 
@@ -54,7 +55,7 @@ class InMemoryFilterListHandler : FilterListHandler {
 
 
     fun updateOrCreate(entry: FilterListEntry) {
-        if (isValidMinimalEntry(entry)) {
+        if (entry.isValidMinimalEntry()) {
             filterList.put(entry.infoLink, entry)
         }
     }

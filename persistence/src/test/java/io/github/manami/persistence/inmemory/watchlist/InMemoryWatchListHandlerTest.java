@@ -1,6 +1,5 @@
 package io.github.manami.persistence.inmemory.watchlist;
 
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,21 +13,19 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class InMemoryWatchListHandlerTest {
 
   private InMemoryWatchListHandler inMemoryWatchListHandler;
 
 
-  @BeforeMethod
+  //@BeforeMethod
   public void setUp() throws IOException {
     inMemoryWatchListHandler = new InMemoryWatchListHandler();
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFetchWatchList() {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -43,7 +40,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchListEntryExists() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -58,7 +55,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchListEntryNotExists() {
     // given
 
@@ -71,7 +68,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutTitle() {
     // given
     final WatchListEntry entry = new WatchListEntry(EMPTY,
@@ -86,7 +83,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutInfoLink() {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note", new InfoLink(""));
@@ -100,7 +97,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutThumbnail() {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -115,7 +112,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsFullEntry() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry(
@@ -133,7 +130,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testRemoveFromWatchListWorks() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -149,7 +146,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewWatchListEntry() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry(
@@ -167,7 +164,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedWatchListEntry() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry(
@@ -191,7 +188,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testClearing() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry(
@@ -209,7 +206,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchListEntryNotAddedBecauseItAlreadyExists() throws MalformedURLException {
     // given
     final FilterListEntry entry = new FilterListEntry(
@@ -228,7 +225,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchFilterEntry() throws MalformedURLException {
     // given
     final FilterListEntry entry = new FilterListEntry(
@@ -246,7 +243,7 @@ public class InMemoryWatchListHandlerTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnime() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));

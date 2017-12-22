@@ -1,6 +1,5 @@
 package io.github.manami.persistence.importer.csv;
 
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -19,8 +18,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
 import org.springframework.core.io.ClassPathResource;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class CsvImporterTest {
 
@@ -30,7 +27,7 @@ public class CsvImporterTest {
   private PersistenceFacade persistenceFacade;
 
 
-  @BeforeMethod
+  ///@BeforeMethod
   public void setUp() throws IOException {
     final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(
         new InMemoryAnimeListHandler(),
@@ -44,7 +41,7 @@ public class CsvImporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAnimeListIsParsedCorrectly() throws IOException {
     // given
 
@@ -75,7 +72,7 @@ public class CsvImporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatWatchListIsParsedCorrectly() throws IOException {
     // given
 
@@ -96,7 +93,7 @@ public class CsvImporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatFilterListIsParsedCorrectly() throws IOException {
     // given
 

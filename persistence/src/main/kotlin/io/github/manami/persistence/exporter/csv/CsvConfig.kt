@@ -1,6 +1,5 @@
 package io.github.manami.persistence.exporter.csv
 
-import com.sun.xml.internal.fastinfoset.util.StringArray
 import org.supercsv.cellprocessor.Optional
 import org.supercsv.cellprocessor.constraint.NotNull
 

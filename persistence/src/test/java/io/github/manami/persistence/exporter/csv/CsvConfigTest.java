@@ -1,14 +1,12 @@
 package io.github.manami.persistence.exporter.csv;
 
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.persistence.exporter.csv.CsvConfig.CsvConfigType;
-import org.testng.annotations.Test;
 
 public class CsvConfigTest {
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatNonMatchableStringReturnsNull() {
     // given
 
@@ -20,7 +18,7 @@ public class CsvConfigTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeList() {
     // given
     final String exactSameString = "animeList";
@@ -39,7 +37,7 @@ public class CsvConfigTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchList() {
     // given
     final String exactSameString = "watchList";
@@ -58,7 +56,7 @@ public class CsvConfigTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterList() {
     // given
     final String exactSameString = "filterList";

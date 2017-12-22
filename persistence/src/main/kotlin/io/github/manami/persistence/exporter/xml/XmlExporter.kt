@@ -14,6 +14,7 @@ import org.w3c.dom.DocumentType
 import org.w3c.dom.Element
 import java.io.IOException
 import java.io.PrintWriter
+import java.lang.Exception
 import java.nio.file.Files
 import java.nio.file.Path
 import javax.xml.parsers.DocumentBuilder
@@ -253,7 +254,6 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
             val output = PrintWriter(file?.toFile(), "UTF-8")
             transformer.transform(DOMSource(doc), StreamResult(output))
             output.close()
-
         } catch (e: Exception) {
             log.error("An error occurred while trying to export the list to a xml file: ", e)
         }

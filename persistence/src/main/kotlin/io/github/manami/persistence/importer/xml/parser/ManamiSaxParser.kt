@@ -11,6 +11,7 @@ import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPo
 import org.slf4j.Logger
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
+import java.lang.StringBuilder
 import java.net.MalformedURLException
 import java.net.URL
 
@@ -22,7 +23,7 @@ class ManamiSaxParser(private val persistence: PersistenceFacade) : DefaultHandl
     /**
      * This is the builder for the text within the elements.
      */
-    private var strBuilder: StringBuilder = StringBuilder()
+    private var strBuilder = StringBuilder()
     private val animeListEntries: MutableList<Anime> = mutableListOf()
     private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()

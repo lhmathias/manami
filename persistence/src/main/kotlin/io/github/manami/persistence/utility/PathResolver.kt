@@ -2,6 +2,7 @@ package io.github.manami.persistence.utility
 
 import io.github.manami.dto.LoggerDelegate
 import org.slf4j.Logger
+import java.lang.IllegalArgumentException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths

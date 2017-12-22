@@ -1,7 +1,6 @@
 package io.github.manami.persistence;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -16,7 +15,7 @@ import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
-import io.github.manami.dto.events.AnimeListChangedEvent;
+import io.github.manami.persistence.events.AnimeListChangedEvent;
 import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler;
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler;
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler;
@@ -25,8 +24,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class PersistenceFacadeTest {
 
@@ -35,7 +32,7 @@ public class PersistenceFacadeTest {
   private InMemoryPersistenceHandler inMemoryPersistenceHandler;
 
 
-  @BeforeMethod
+  //@BeforeMethod
   public void setUp() throws IOException {
     inMemoryPersistenceHandler = new InMemoryPersistenceHandler(new InMemoryAnimeListHandler(),
         new InMemoryFilterListHandler(), new InMemoryWatchListHandler());
@@ -44,7 +41,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutTitle() {
     // given
     final FilterListEntry entry = new FilterListEntry(EMPTY,
@@ -60,7 +57,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutInfoLink() {
     // given
     final FilterListEntry entry = new FilterListEntry("Death Note", new InfoLink(""));
@@ -75,7 +72,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutThumbnail() {
     // given
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -91,7 +88,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsFullEntry() throws MalformedURLException {
     // given
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -108,7 +105,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterEntryExists() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -123,7 +120,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterEntryNotExists() {
     // given
 
@@ -137,7 +134,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeList() {
     // given
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -152,7 +149,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testFetchWatchList() {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -167,7 +164,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testRemoveFromFilterListWorks() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -184,7 +181,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchListEntryExists() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -199,7 +196,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchListEntryNotExists() {
     // given
 
@@ -213,7 +210,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutTitle() {
     // given
     final WatchListEntry entry = new WatchListEntry(EMPTY,
@@ -229,7 +226,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutInfoLink() {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note", new InfoLink(""));
@@ -244,7 +241,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsEntryWithoutThumbnail() {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -260,7 +257,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testWatchAnimeIsFullEntry() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -277,7 +274,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testRemoveFromWatchListWorks() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -294,7 +291,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsFullEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -314,7 +311,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutEpisodes() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -333,7 +330,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutInfoLink() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink(""));
@@ -353,7 +350,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutLocation() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -372,7 +369,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutPicture() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -391,7 +388,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutThumbnail() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -410,7 +407,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testaddAnimeIsEntryWithoutTitle() throws MalformedURLException {
     // given
     final Anime entry = new Anime("", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -430,10 +427,10 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(
-      groups = UNIT_TEST_GROUP,
-      description = "Fallback for the type is TV. So in case no AnimeType has been set TV is being used. Therefore the entry will be added."
-  )
+  // @Test(
+  //     groups = UNIT_TEST_GROUP,
+  //     description = "Fallback for the type is TV. So in case no AnimeType has been set TV is being used. Therefore the entry will be added."
+  // )
   public void testaddAnimeIsEntryWithoutType() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -452,7 +449,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeEntryExists() throws MalformedURLException {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
@@ -472,7 +469,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeEntryNotExists() {
     // given
 
@@ -486,7 +483,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testAnimeList() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -505,7 +502,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testRemoveFromAnimeListWorks() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -526,7 +523,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatClearAllWorks() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -558,7 +555,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAddFilterListWorks() throws MalformedURLException {
     // given
     final List<FilterListEntry> list = newArrayList();
@@ -587,7 +584,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAddWatchListWorks() throws MalformedURLException {
     // given
     final List<WatchListEntry> list = newArrayList();
@@ -616,7 +613,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAddAnimeListWorks() throws MalformedURLException {
     // given
     final List<Anime> list = newArrayList();
@@ -647,7 +644,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewAnimeEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -667,7 +664,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedAnimeEntry() throws MalformedURLException {
     // given
     final Anime entry = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -692,7 +689,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewFilterEntry() throws MalformedURLException {
     // given
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -709,7 +706,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedFilterEntry() throws MalformedURLException {
     // given
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -731,7 +728,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewWatchListEntry() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -748,7 +745,7 @@ public class PersistenceFacadeTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedWatchListEntry() throws MalformedURLException {
     // given
     final WatchListEntry entry = new WatchListEntry("Death Note",

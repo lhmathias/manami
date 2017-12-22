@@ -1,7 +1,6 @@
 package io.github.manami.persistence.exporter.json;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -28,9 +27,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
 public class JsonExporterTest {
@@ -45,7 +41,7 @@ public class JsonExporterTest {
   private PersistenceFacade persistenceFacade;
 
 
-  @BeforeMethod
+  //@BeforeMethod
   public void setUp() throws IOException {
     final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(
         new InMemoryAnimeListHandler(), new InMemoryFilterListHandler(),
@@ -58,7 +54,7 @@ public class JsonExporterTest {
   }
 
 
-  @AfterMethod
+  //@AfterMethod
   public void tearDown() throws Exception {
     if (Files.isDirectory(tempFolder)) {
       Files.list(tempFolder).forEach(file -> {
@@ -74,7 +70,7 @@ public class JsonExporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAnimeListIsExportedCorrectly()
       throws SAXException, ParserConfigurationException, IOException {
     // given
@@ -123,7 +119,7 @@ public class JsonExporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatPredefinedListIsExportedCorrectly()
       throws SAXException, ParserConfigurationException, IOException {
     // given

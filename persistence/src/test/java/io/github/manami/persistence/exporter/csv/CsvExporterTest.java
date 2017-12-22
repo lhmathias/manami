@@ -1,6 +1,5 @@
 package io.github.manami.persistence.exporter.csv;
 
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -25,9 +24,6 @@ import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 public class CsvExporterTest {
 
@@ -40,7 +36,7 @@ public class CsvExporterTest {
   private PersistenceFacade persistenceFacade;
 
 
-  @BeforeMethod
+  //@BeforeMethod
   public void setUp() throws IOException {
     final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(new InMemoryAnimeListHandler(),
         new InMemoryFilterListHandler(), new InMemoryWatchListHandler());
@@ -52,7 +48,7 @@ public class CsvExporterTest {
   }
 
 
-  @AfterMethod
+  //@AfterMethod
   public void tearDown() throws Exception {
     if (Files.isDirectory(tempFolder)) {
       Files.list(tempFolder).forEach(file -> {
@@ -68,7 +64,7 @@ public class CsvExporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAnimeListIsExportedCorrectly() throws IOException {
     // given
     final Anime bokuDake = new Anime("Boku dake ga Inai Machi", new InfoLink("https://myanimelist.net/anime/31043"));

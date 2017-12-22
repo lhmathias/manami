@@ -8,6 +8,7 @@ import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.PersistenceFacade
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
+import java.lang.StringBuilder
 
 
 class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {

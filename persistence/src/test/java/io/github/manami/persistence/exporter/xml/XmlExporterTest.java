@@ -1,6 +1,5 @@
 package io.github.manami.persistence.exporter.xml;
 
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -26,9 +25,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
 public class XmlExporterTest {
@@ -42,7 +38,7 @@ public class XmlExporterTest {
   private PersistenceFacade persistenceFacade;
 
 
-  @BeforeMethod
+  //@BeforeMethod
   public void setUp() throws IOException {
     final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(
         new InMemoryAnimeListHandler(), new InMemoryFilterListHandler(),
@@ -55,7 +51,7 @@ public class XmlExporterTest {
   }
 
 
-  @AfterMethod
+  //@AfterMethod
   public void tearDown() throws Exception {
     if (Files.isDirectory(tempFolder)) {
       Files.list(tempFolder).forEach(file -> {
@@ -71,7 +67,7 @@ public class XmlExporterTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP)
+  //@Test(groups = UNIT_TEST_GROUP)
   public void testThatAnimeListIsExportedCorrectly()
       throws SAXException, ParserConfigurationException, IOException {
     // given

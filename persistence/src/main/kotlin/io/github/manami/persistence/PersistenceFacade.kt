@@ -2,24 +2,25 @@ package io.github.manami.persistence
 
 import com.google.common.eventbus.EventBus
 import io.github.manami.dto.entities.*
-import io.github.manami.dto.entities.Anime.Companion.isValidAnime
 import io.github.manami.persistence.events.AnimeListChangedEvent
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * This is a facade which is used by the application to hide which strategy is actually used.
  */
-//FIXME: @Named
-//FIXME: @Inject
-class PersistenceFacade(
-        /** Currently used db persistence strategy. */
-        //FIXME: @Named("inMemoryStrategy")
+@Named
+class PersistenceFacade
+    @Inject
+    @Named("inMemoryStrategy") //Currently used db persistence strategy.
+    constructor(
         val strategy: PersistenceHandler,
         val eventBus: EventBus
 ) : PersistenceHandler {
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
-        if (isValidMinimalEntry(anime)) {
+        if (anime.isValidMinimalEntry()) {
             if (strategy.filterAnime(anime)) {
                 eventBus.post(AnimeListChangedEvent())
                 return true
@@ -55,7 +56,7 @@ class PersistenceFacade(
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (isValidAnime(anime)) {
+        if (anime.isValidAnime()) {
             if (strategy.addAnime(anime)) {
                 eventBus.post(AnimeListChangedEvent())
                 return true
@@ -87,7 +88,7 @@ class PersistenceFacade(
 
 
     override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (isValidMinimalEntry(anime)) {
+        if (anime.isValidMinimalEntry()) {
             if (strategy.watchAnime(anime)) {
                 eventBus.post(AnimeListChangedEvent())
                 return true

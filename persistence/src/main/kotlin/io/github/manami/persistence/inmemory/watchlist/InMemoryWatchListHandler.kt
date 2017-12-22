@@ -6,9 +6,10 @@ import io.github.manami.dto.entities.*
 import io.github.manami.persistence.WatchListHandler
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Named
 
 
-//FIXME: @Named
+@Named
 class InMemoryWatchListHandler : WatchListHandler {
 
     private val watchList: MutableMap<InfoLink, WatchListEntry> = ConcurrentHashMap()
@@ -27,7 +28,7 @@ class InMemoryWatchListHandler : WatchListHandler {
 
 
     override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (!isValidMinimalEntry(anime) || watchList.containsKey(anime.infoLink)) {
+        if (!anime.isValidMinimalEntry() || watchList.containsKey(anime.infoLink)) {
             return false
         }
 
@@ -57,7 +58,7 @@ class InMemoryWatchListHandler : WatchListHandler {
 
 
     fun updateOrCreate(entry: WatchListEntry) {
-        if (isValidMinimalEntry(entry)) {
+        if (entry.isValidMinimalEntry()) {
             watchList.put(entry.infoLink, entry)
         }
     }

@@ -1,7 +1,6 @@
 package io.github.manami.persistence.importer.xml.postprocessor;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.dto.entities.Anime;
@@ -11,16 +10,15 @@ import io.github.manami.dto.entities.WatchListEntry;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
-import org.testng.annotations.Test;
 
 // TODO: Additional tests for null check etc.
 public class ImportMigrationPostProcessorTest {
 
-  @Test(
-      groups = UNIT_TEST_GROUP,
-      description = "Test execution stops, because the document version is not valid. Result: no changes to the entries.",
-      expectedExceptions = IllegalArgumentException.class
-  )
+  // @Test(
+//      groups = UNIT_TEST_GROUP,
+  //    description = "Test execution stops, because the document version is not valid. Result: no changes to the entries.",
+  //    expectedExceptions = IllegalArgumentException.class
+  //)
   public void testMigrationStopsInvalidDocumentVersion() throws MalformedURLException {
     // given
     final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
@@ -52,11 +50,11 @@ public class ImportMigrationPostProcessorTest {
   }
 
 
-  @Test(
-      groups = UNIT_TEST_GROUP,
-      description = "Test migration to version 2.10.3 throws an exception, because the document version is not valid.",
-      expectedExceptions = IllegalArgumentException.class
-  )
+  // @Test(
+  //    groups = UNIT_TEST_GROUP,
+  //    description = "Test migration to version 2.10.3 throws an exception, because the document version is not valid.",
+  //    expectedExceptions = IllegalArgumentException.class
+//  )
   public void testMigration2103IsSkippedBecauseTheCurrentDocumentVersionIsMoreRecent() throws MalformedURLException {
     // given
     final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
@@ -86,7 +84,7 @@ public class ImportMigrationPostProcessorTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.10.3 for filter list")
+  // @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.10.3 for filter list")
   public void testMigration2103WorksForFilterList() throws MalformedURLException {
     // given
     final URL fmpThumb = new URL("http://img7.anidb.net/pics/anime/thumbs/50x65/129527.jpg-thumb.jpg");
@@ -124,7 +122,7 @@ public class ImportMigrationPostProcessorTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.10.3 for watch list")
+  //@Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.10.3 for watch list")
   public void testMigration2103WorksForWatchList() throws MalformedURLException {
     // given
     final URL fmpThumb = new URL("http://img7.anidb.net/pics/anime/thumbs/50x65/129527.jpg-thumb.jpg");
@@ -160,7 +158,7 @@ public class ImportMigrationPostProcessorTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for anime list")
+  //@Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for anime list")
   public void testMigration2142WorksForAnimeList() throws MalformedURLException {
     // given
     final Anime entry1 = new Anime("Death Note", new InfoLink("http://myanimelist.net/anime/1535"));
@@ -178,7 +176,7 @@ public class ImportMigrationPostProcessorTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for filter list")
+  //@Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for filter list")
   public void testMigration2142WorksForFilterList() throws MalformedURLException {
     // given
     final FilterListEntry entry1 = new FilterListEntry(
@@ -200,7 +198,7 @@ public class ImportMigrationPostProcessorTest {
   }
 
 
-  @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for watch list")
+  //@Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for watch list")
   public void testMigration2142WorksForWatchList() throws MalformedURLException {
     // given
     final WatchListEntry entry1 = new WatchListEntry(

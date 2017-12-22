@@ -2,20 +2,20 @@ package io.github.manami.persistence.inmemory.animelist;
 
 import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.Anime.Companion.isValidAnime
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.persistence.AnimeListHandler
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
+import javax.inject.Named
 
-//FIXME: @Named
+@Named
 class InMemoryAnimeListHandler : AnimeListHandler {
 
     private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (!isValidAnime(anime) || isInList(anime)) {
+        if (!anime.isValidAnime() || isInList(anime)) {
             return false
         }
 
@@ -63,7 +63,7 @@ class InMemoryAnimeListHandler : AnimeListHandler {
 
 
     fun updateOrCreate(anime: Anime) {
-        if (isValidAnime(anime)) {
+        if (anime.isValidAnime()) {
             animeList.put(anime.id, anime)
         }
     }

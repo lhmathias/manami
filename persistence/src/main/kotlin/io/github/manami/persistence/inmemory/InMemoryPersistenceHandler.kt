@@ -1,16 +1,16 @@
 package io.github.manami.persistence.inmemory
 
 import io.github.manami.dto.entities.*
-import io.github.manami.dto.entities.Anime.Companion.isValidAnime
 import io.github.manami.persistence.PersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
 import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Named
 
-//FIXME: @Named("inMemoryStrategy")
-//FIXME:   @Inject
-class InMemoryPersistenceHandler(
+@Named("inMemoryStrategy")
+class InMemoryPersistenceHandler @Inject constructor(
         private val animeListHandler: InMemoryAnimeListHandler,
         private val filterListHandler: InMemoryFilterListHandler,
         private val watchListHandler: InMemoryWatchListHandler
@@ -18,7 +18,7 @@ class InMemoryPersistenceHandler(
 
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
-        if (isValidMinimalEntry(anime)) {
+        if (anime.isValidMinimalEntry()) {
             if (anime.infoLink.isValid()) {
                 watchListHandler.removeFromWatchList(anime.infoLink)
             }
@@ -50,7 +50,7 @@ class InMemoryPersistenceHandler(
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (isValidAnime(anime)) {
+        if (anime.isValidAnime()) {
             if (anime.infoLink.isValid()) {
                 filterListHandler.removeFromFilterList(anime.infoLink)
                 watchListHandler.removeFromWatchList(anime.infoLink)
@@ -74,7 +74,7 @@ class InMemoryPersistenceHandler(
 
 
     override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (isValidMinimalEntry(anime)) {
+        if (anime.isValidMinimalEntry()) {
             if (anime.infoLink.isValid()) {
                 filterListHandler.removeFromFilterList(anime.infoLink)
             }
