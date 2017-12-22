@@ -2,7 +2,7 @@ package io.github.manami.persistence.importer.xml.parser
 
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.PersistenceFacade
@@ -29,7 +29,7 @@ class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler(
 
 
     private val animeListEntries: MutableList<Anime> = mutableListOf()
-    private val filterListEntries: MutableList<FilterEntry> = mutableListOf()
+    private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()
 
 
@@ -81,7 +81,7 @@ class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler(
             when (statusCurrentAnime) {
                 "completed" -> animeListEntries.add(anime)
                 "watching", "plan to watch" -> watchListEntries.add(WatchListEntry.valueOf(anime))
-                "dropped" -> filterListEntries.add(FilterEntry.valueOf(anime))
+                "dropped" -> filterListEntries.add(FilterListEntry.valueOf(anime))
 
             }
         }

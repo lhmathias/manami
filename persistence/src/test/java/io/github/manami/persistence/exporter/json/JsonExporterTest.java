@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 import com.google.common.eventbus.EventBus;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.PersistenceFacade;
@@ -25,7 +25,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -100,7 +99,7 @@ public class JsonExporterTest {
     );
     persistenceFacade.watchAnime(deathNoteRewrite);
 
-    final FilterEntry gintama = new FilterEntry(
+    final FilterListEntry gintama = new FilterListEntry(
         "Gintama",
         new InfoLink("http://myanimelist.net/anime/918"),
         new URL("http://cdn.myanimelist.net/images/anime/2/10038t.jpg")

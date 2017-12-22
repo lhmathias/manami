@@ -3,7 +3,7 @@ package io.github.manami.persistence.exporter.xml
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.ToolVersion
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.exporter.Exporter
@@ -213,7 +213,7 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
         val elementFilterList: Element? = doc?.createElement("filterList")
         var actEntry: Element?
 
-        persistence.fetchFilterList().forEach { anime: FilterEntry ->
+        persistence.fetchFilterList().forEach { anime: FilterListEntry ->
             // element "anime"
             actEntry = doc?.createElement("filterEntry")
 

@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
 import com.google.common.eventbus.EventBus;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
@@ -47,7 +47,7 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutTitle() {
     // given
-    final FilterEntry entry = new FilterEntry(EMPTY,
+    final FilterListEntry entry = new FilterListEntry(EMPTY,
         new InfoLink("http://myanimelist.net/anime/1535"));
 
     // when
@@ -63,7 +63,7 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutInfoLink() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note", new InfoLink(""));
+    final FilterListEntry entry = new FilterListEntry("Death Note", new InfoLink(""));
 
     // when
     final boolean result = persistenceFacade.filterAnime(entry);
@@ -78,7 +78,7 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutThumbnail() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"));
 
     // when
@@ -94,7 +94,7 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsFullEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
 
@@ -112,7 +112,7 @@ public class PersistenceFacadeTest {
   public void testFilterEntryExists() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final FilterEntry entry = new FilterEntry("Death Note", infoLink);
+    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
     persistenceFacade.filterAnime(entry);
 
     // when
@@ -140,12 +140,12 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeList() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"));
     persistenceFacade.filterAnime(entry);
 
     // when
-    final List<FilterEntry> fetchFilterList = persistenceFacade.fetchFilterList();
+    final List<FilterListEntry> fetchFilterList = persistenceFacade.fetchFilterList();
 
     // then
     assertThat(fetchFilterList.size()).isEqualTo(1);
@@ -171,7 +171,7 @@ public class PersistenceFacadeTest {
   public void testRemoveFromFilterListWorks() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final FilterEntry entry = new FilterEntry("Death Note", infoLink);
+    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
     persistenceFacade.filterAnime(entry);
 
     // when
@@ -537,10 +537,10 @@ public class PersistenceFacadeTest {
     entry.setType(AnimeType.TV);
     persistenceFacade.addAnime(entry);
 
-    final FilterEntry filterEntry = new FilterEntry("Gintama",
+    final FilterListEntry filterListEntry = new FilterListEntry("Gintama",
         new InfoLink("http://myanimelist.net/anime/28977"),
         new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg"));
-    persistenceFacade.filterAnime(filterEntry);
+    persistenceFacade.filterAnime(filterListEntry);
 
     final WatchListEntry watchEntry = new WatchListEntry("Steins;Gate",
         new InfoLink("http://myanimelist.net/anime/9253"),
@@ -561,19 +561,19 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testThatAddFilterListWorks() throws MalformedURLException {
     // given
-    final List<FilterEntry> list = newArrayList();
+    final List<FilterListEntry> list = newArrayList();
 
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
     list.add(entry);
 
-    final FilterEntry gintama = new FilterEntry("Gintama",
+    final FilterListEntry gintama = new FilterListEntry("Gintama",
         new InfoLink("http://myanimelist.net/anime/28977"),
         new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg"));
     list.add(gintama);
 
-    final FilterEntry steinsGate = new FilterEntry("Steins;Gate",
+    final FilterListEntry steinsGate = new FilterListEntry("Steins;Gate",
         new InfoLink("http://myanimelist.net/anime/9253"),
         new URL("http://cdn.myanimelist.net/images/anime/5/73199t.jpg"));
     list.add(steinsGate);
@@ -695,7 +695,7 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewFilterEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
 
@@ -712,7 +712,7 @@ public class PersistenceFacadeTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedFilterEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         MinimalEntry.Companion.getNO_IMG_THUMB());
 

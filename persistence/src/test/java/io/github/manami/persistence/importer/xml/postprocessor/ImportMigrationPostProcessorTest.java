@@ -5,7 +5,7 @@ import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.WatchListEntry;
 import java.net.MalformedURLException;
@@ -25,22 +25,22 @@ public class ImportMigrationPostProcessorTest {
     // given
     final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
     final URL entry2Thumb = new URL("http://img7.anidb.net/pics/anime/thumbs/50x65/129527.jpg-thumb.jpg");
-    final FilterEntry entry1 = new FilterEntry(
+    final FilterListEntry entry1 = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         entry1Thumb
     );
-    final FilterEntry entry2 = new FilterEntry(
+    final FilterListEntry entry2 = new FilterListEntry(
         "Fullmetal Panic!",
         new InfoLink("http://anidb.net/perl-bin/animedb.pl?show=anime&aid=17"),
         entry2Thumb
     );
-    final FilterEntry entry3 = new FilterEntry(
+    final FilterListEntry entry3 = new FilterListEntry(
         "Code Geass: Hangyaku no Lelouch R2",
         new InfoLink("https://myanimelist.net/anime/2904/Code_Geass__Hangyaku_no_Lelouch_R2")
     );
 
-    final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
+    final List<FilterListEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
 
     // when
     new ImportMigrationPostProcessor(
@@ -61,20 +61,20 @@ public class ImportMigrationPostProcessorTest {
     // given
     final URL entry1Thumb = new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg");
     final URL entry2Thumb = new URL("http://img7.anidb.net/pics/anime/thumbs/50x65/129527.jpg-thumb.jpg");
-    final FilterEntry entry1 = new FilterEntry(
+    final FilterListEntry entry1 = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         entry1Thumb
     );
-    final FilterEntry entry2 = new FilterEntry(
+    final FilterListEntry entry2 = new FilterListEntry(
         "Fullmetal Panic!",
         new InfoLink("http://anidb.net/perl-bin/animedb.pl?show=anime&aid=17"),
         entry2Thumb
     );
-    final FilterEntry entry3 = new FilterEntry("Code Geass: Hangyaku no Lelouch R2",
+    final FilterListEntry entry3 = new FilterListEntry("Code Geass: Hangyaku no Lelouch R2",
         new InfoLink("https://myanimelist.net/anime/2904/Code_Geass__Hangyaku_no_Lelouch_R2"));
 
-    final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
+    final List<FilterListEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
 
     // when
     new ImportMigrationPostProcessor(
@@ -90,22 +90,22 @@ public class ImportMigrationPostProcessorTest {
   public void testMigration2103WorksForFilterList() throws MalformedURLException {
     // given
     final URL fmpThumb = new URL("http://img7.anidb.net/pics/anime/thumbs/50x65/129527.jpg-thumb.jpg");
-    final FilterEntry entry1 = new FilterEntry(
+    final FilterListEntry entry1 = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
     );
-    final FilterEntry entry2 = new FilterEntry(
+    final FilterListEntry entry2 = new FilterListEntry(
         "Fullmetal Panic!",
         new InfoLink("http://anidb.net/perl-bin/animedb.pl?show=anime&aid=17"),
         fmpThumb
     );
-    final FilterEntry entry3 = new FilterEntry(
+    final FilterListEntry entry3 = new FilterListEntry(
         "Code Geass: Hangyaku no Lelouch R2",
         new InfoLink("https://myanimelist.net/anime/2904/Code_Geass__Hangyaku_no_Lelouch_R2")
     );
 
-    final List<FilterEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
+    final List<FilterListEntry> filterListEntries = newArrayList(entry1, entry2, entry3);
 
     final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor(
         "2.10.2",
@@ -181,13 +181,13 @@ public class ImportMigrationPostProcessorTest {
   @Test(groups = UNIT_TEST_GROUP, description = "Test migration to version 2.14.2 for filter list")
   public void testMigration2142WorksForFilterList() throws MalformedURLException {
     // given
-    final FilterEntry entry1 = new FilterEntry(
+    final FilterListEntry entry1 = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
     );
 
-    final List<FilterEntry> filterListEntries = newArrayList(entry1);
+    final List<FilterListEntry> filterListEntries = newArrayList(entry1);
 
     final ImportMigrationPostProcessor processor = new ImportMigrationPostProcessor("2.14.2", newArrayList(), filterListEntries,
         newArrayList());

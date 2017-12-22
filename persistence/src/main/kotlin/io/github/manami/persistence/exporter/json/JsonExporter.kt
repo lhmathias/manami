@@ -2,7 +2,7 @@ package io.github.manami.persistence.exporter.json
 
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.exporter.Exporter
@@ -52,7 +52,7 @@ class JsonExporter(private val persistence: ApplicationPersistence) : Exporter {
                 it.array()
             }
 
-            for (element: FilterEntry in persistence.fetchFilterList()) {
+            for (element: FilterListEntry in persistence.fetchFilterList()) {
                 writer.`object`()
                         .key("thumbnail").value(element.thumbnail)
                         .key("title").value(element.title)

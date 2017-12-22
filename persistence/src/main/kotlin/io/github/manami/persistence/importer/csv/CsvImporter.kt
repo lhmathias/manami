@@ -3,7 +3,7 @@ package io.github.manami.persistence.importer.csv
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.PersistenceFacade
@@ -27,7 +27,7 @@ class CsvImporter(private val persistence: PersistenceFacade) : Importer {
     private val csvConfig = CsvConfig()
 
     private val animeListEntries: MutableList<Anime> = mutableListOf()
-    private val filterListEntries: MutableList<FilterEntry> = mutableListOf()
+    private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()
 
     fun CsvListReader.readDocument(processors: Array<CellProcessor>): List<List<Any>> {
@@ -63,7 +63,7 @@ class CsvImporter(private val persistence: PersistenceFacade) : Importer {
                         when (it) {
                             ANIMELIST -> animeListEntries.add(Anime(title, infoLink, episodes, type, location))
                             WATCHLIST -> watchListEntries.add(WatchListEntry(title, infoLink))
-                            FILTERLIST -> filterListEntries.add(FilterEntry(title, infoLink))
+                            FILTERLIST -> filterListEntries.add(FilterListEntry(title, infoLink))
                         }
                     }
                 }

@@ -2,7 +2,6 @@ package io.github.manami.persistence.importer.xml.postprocessor
 
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.*
-import io.github.manami.persistence.utility.PathResolver
 import io.github.manami.persistence.utility.Version
 import org.slf4j.Logger
 import java.net.MalformedURLException
@@ -12,7 +11,7 @@ import java.net.URL
 class ImportMigrationPostProcessor(
         private val documentVersion: String,
         private val animeListEntries: MutableList<Anime>,
-        private val filterListEntries: MutableList<FilterEntry>,
+        private val filterListEntries: MutableList<FilterListEntry>,
         private val watchListEntries: MutableList<WatchListEntry>
 ) {
 

@@ -30,7 +30,7 @@ class InMemoryPersistenceHandler(
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterEntry> {
+    override fun fetchFilterList(): MutableList<FilterListEntry> {
         return filterListHandler.fetchFilterList()
     }
 
@@ -135,7 +135,7 @@ class InMemoryPersistenceHandler(
     override fun updateOrCreate(entry: MinimalEntry) {
         when (entry) {
             is Anime -> animeListHandler.updateOrCreate(entry)
-            is FilterEntry -> filterListHandler.updateOrCreate(entry)
+            is FilterListEntry -> filterListHandler.updateOrCreate(entry)
             is WatchListEntry -> watchListHandler.updateOrCreate(entry)
         }
     }

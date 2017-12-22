@@ -3,7 +3,7 @@ package io.github.manami.persistence.importer.xml.parser;
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.PersistenceFacade
@@ -24,7 +24,7 @@ class ManamiSaxParser(private val persistence: PersistenceFacade) : DefaultHandl
      */
     private var strBuilder: StringBuilder = StringBuilder()
     private val animeListEntries: MutableList<Anime> = mutableListOf()
-    private val filterListEntries: MutableList<FilterEntry> = mutableListOf()
+    private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()
 
     private var importMigrationPostProcessor: ImportMigrationPostProcessor? = null
@@ -74,7 +74,7 @@ class ManamiSaxParser(private val persistence: PersistenceFacade) : DefaultHandl
 
     private fun createFilterEntry(attributes: Attributes) {
         try {
-            val entry = FilterEntry(
+            val entry = FilterListEntry(
                     attributes.getValue("title").trim(),
                     InfoLink(attributes.getValue("infoLink").trim()),
                     URL(attributes.getValue("thumbnail").trim())

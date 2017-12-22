@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap
 //FIXME: @Named
 class InMemoryFilterListHandler : FilterListHandler {
 
-    private val filterList: MutableMap<InfoLink, FilterEntry> = ConcurrentHashMap()
+    private val filterList: MutableMap<InfoLink, FilterListEntry> = ConcurrentHashMap()
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
         if (!isValidMinimalEntry(anime) || filterList.containsKey(anime.infoLink)) {
@@ -17,8 +17,8 @@ class InMemoryFilterListHandler : FilterListHandler {
         }
 
         val entry = when (anime) {
-            is Anime, is WatchListEntry -> FilterEntry.valueOf(anime)
-            is FilterEntry -> anime
+            is Anime, is WatchListEntry -> FilterListEntry.valueOf(anime)
+            is FilterListEntry -> anime
             else -> return false
         }
 
@@ -28,7 +28,7 @@ class InMemoryFilterListHandler : FilterListHandler {
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterEntry> {
+    override fun fetchFilterList(): MutableList<FilterListEntry> {
         val sortList = filterList.values.toMutableList()
         Collections.sort(sortList, MinimalEntryComByTitleAsc())
         return sortList.toMutableList()
@@ -53,7 +53,7 @@ class InMemoryFilterListHandler : FilterListHandler {
     }
 
 
-    fun updateOrCreate(entry: FilterEntry) {
+    fun updateOrCreate(entry: FilterListEntry) {
         if (isValidMinimalEntry(entry)) {
             filterList.put(entry.infoLink, entry)
         }

@@ -3,7 +3,7 @@ package io.github.manami.persistence
 import com.google.common.eventbus.EventBus
 import io.github.manami.dto.entities.*
 import io.github.manami.dto.entities.Anime.Companion.isValidAnime
-import io.github.manami.dto.events.AnimeListChangedEvent
+import io.github.manami.persistence.events.AnimeListChangedEvent
 import java.util.*
 
 /**
@@ -30,7 +30,7 @@ class PersistenceFacade(
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterEntry> {
+    override fun fetchFilterList(): MutableList<FilterListEntry> {
         return strategy.fetchFilterList()
     }
 

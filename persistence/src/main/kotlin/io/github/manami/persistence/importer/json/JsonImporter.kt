@@ -3,7 +3,7 @@ package io.github.manami.persistence.importer.json
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.PersistenceFacade
@@ -29,7 +29,7 @@ class JsonImporter(private val persistence: PersistenceFacade) : Importer {
 
     private val log: Logger by LoggerDelegate()
     private val animeListEntries: MutableList<Anime> = mutableListOf()
-    private val filterListEntries: MutableList<FilterEntry> = mutableListOf()
+    private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()
 
 
@@ -114,7 +114,7 @@ class JsonImporter(private val persistence: PersistenceFacade) : Importer {
 
             if (title.isNotBlank()) {
                 try {
-                    filterListEntries.add(FilterEntry(title, InfoLink(infoLink), URL(thumbnail)))
+                    filterListEntries.add(FilterListEntry(title, InfoLink(infoLink), URL(thumbnail)))
                 } catch (e: MalformedURLException) {
                     log.error(URL_PARSING_EXCEPTION_MESSAGE, title, e)
                 }

@@ -32,7 +32,7 @@ class InMemoryWatchListHandler : WatchListHandler {
         }
 
         val entry = when (anime) {
-            is Anime, is FilterEntry -> WatchListEntry.valueOf(anime)
+            is Anime, is FilterListEntry -> WatchListEntry.valueOf(anime)
             is WatchListEntry -> anime
             else -> return false
         }

@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
@@ -36,7 +36,7 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutTitle() {
     // given
-    final FilterEntry entry = new FilterEntry(EMPTY,
+    final FilterListEntry entry = new FilterListEntry(EMPTY,
         new InfoLink("http://myanimelist.net/anime/1535"));
 
     // when
@@ -51,7 +51,7 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutInfoLink() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note", new InfoLink(EMPTY));
+    final FilterListEntry entry = new FilterListEntry("Death Note", new InfoLink(EMPTY));
 
     // when
     final boolean result = inMemoryPersistenceHandler.filterAnime(entry);
@@ -65,7 +65,7 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsEntryWithoutThumbnail() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"));
 
     // when
@@ -80,7 +80,7 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeIsFullEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry(
+    final FilterListEntry entry = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
@@ -99,7 +99,7 @@ public class InMemoryPersistenceHandlerTest {
   public void testFilterEntryExists() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final FilterEntry entry = new FilterEntry("Death Note", infoLink);
+    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
     inMemoryPersistenceHandler.filterAnime(entry);
 
     // when
@@ -126,12 +126,12 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeList() {
     // given
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"));
     inMemoryPersistenceHandler.filterAnime(entry);
 
     // when
-    final List<FilterEntry> fetchFilterList = inMemoryPersistenceHandler.fetchFilterList();
+    final List<FilterListEntry> fetchFilterList = inMemoryPersistenceHandler.fetchFilterList();
 
     // then
     assertThat(fetchFilterList.size()).isEqualTo(1);
@@ -157,7 +157,7 @@ public class InMemoryPersistenceHandlerTest {
   public void testRemoveFromFilterListWorks() {
     // given
     final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final FilterEntry entry = new FilterEntry("Death Note", infoLink);
+    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
     inMemoryPersistenceHandler.filterAnime(entry);
 
     // when
@@ -508,12 +508,12 @@ public class InMemoryPersistenceHandlerTest {
     entry.setType(AnimeType.TV);
     inMemoryPersistenceHandler.addAnime(entry);
 
-    final FilterEntry filterEntry = new FilterEntry(
+    final FilterListEntry filterListEntry = new FilterListEntry(
         "Gintama",
         new InfoLink("http://myanimelist.net/anime/28977"),
         new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg")
     );
-    inMemoryPersistenceHandler.filterAnime(filterEntry);
+    inMemoryPersistenceHandler.filterAnime(filterListEntry);
 
     final WatchListEntry watchEntry = new WatchListEntry(
         "Steins;Gate",
@@ -535,23 +535,23 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testThatAddFilterListWorks() throws MalformedURLException {
     // given
-    final List<FilterEntry> list = newArrayList();
+    final List<FilterListEntry> list = newArrayList();
 
-    final FilterEntry entry = new FilterEntry(
+    final FilterListEntry entry = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
     );
     list.add(entry);
 
-    final FilterEntry gintama = new FilterEntry(
+    final FilterListEntry gintama = new FilterListEntry(
         "Gintama",
         new InfoLink("http://myanimelist.net/anime/28977"),
         new URL("http://cdn.myanimelist.net/images/anime/3/72078t.jpg")
     );
     list.add(gintama);
 
-    final FilterEntry steinsGate = new FilterEntry(
+    final FilterListEntry steinsGate = new FilterListEntry(
         "Steins;Gate",
         new InfoLink("http://myanimelist.net/anime/9253"),
         new URL("http://cdn.myanimelist.net/images/anime/5/73199t.jpg")
@@ -677,7 +677,7 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForNewFilterEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry(
+    final FilterListEntry entry = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
@@ -695,7 +695,7 @@ public class InMemoryPersistenceHandlerTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testUpdateOrCreateForModifiedFilterEntry() throws MalformedURLException {
     // given
-    final FilterEntry entry = new FilterEntry(
+    final FilterListEntry entry = new FilterListEntry(
         "Death Note",
         new InfoLink("http://myanimelist.net/anime/1535"),
         MinimalEntry.Companion.getNO_IMG_THUMB()

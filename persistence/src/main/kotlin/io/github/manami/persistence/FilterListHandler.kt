@@ -1,6 +1,6 @@
 package io.github.manami.persistence;
 
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.MinimalEntry
 
@@ -20,7 +20,7 @@ interface FilterListHandler {
      *
      * @return List of anime which have been filtered.
      */
-    fun fetchFilterList(): MutableList<FilterEntry>
+    fun fetchFilterList(): MutableList<FilterListEntry>
 
 
     /**

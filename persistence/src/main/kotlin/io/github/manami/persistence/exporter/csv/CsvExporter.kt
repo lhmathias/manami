@@ -3,7 +3,7 @@ package io.github.manami.persistence.exporter.csv
 import com.google.common.collect.Lists.newArrayList
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.exporter.Exporter
@@ -102,7 +102,7 @@ class CsvExporter(private val persistence: ApplicationPersistence) : Exporter {
         var curEntry: MutableList<String>
 
         // Map Anime Objects to a list
-        for (entry: FilterEntry in persistence.fetchFilterList()) {
+        for (entry: FilterListEntry in persistence.fetchFilterList()) {
             curEntry = newArrayList()
             curEntry.add(CsvConfig.CsvConfigType.FILTERLIST.value)
             curEntry.add(entry.title)
