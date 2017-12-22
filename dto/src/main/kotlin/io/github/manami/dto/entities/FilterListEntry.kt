@@ -3,7 +3,7 @@ package io.github.manami.dto.entities
 import io.github.manami.dto.entities.MinimalEntry.Companion.NO_IMG_THUMB
 import java.net.URL
 
-data class FilterEntry @JvmOverloads constructor(
+data class FilterListEntry @JvmOverloads constructor(
         override var title: String,
         override var infoLink: InfoLink,
         override var thumbnail: URL = NO_IMG_THUMB
@@ -11,6 +11,6 @@ data class FilterEntry @JvmOverloads constructor(
 
     companion object {
         @JvmStatic
-        fun valueOf(anime: MinimalEntry) = FilterEntry(anime.title, anime.infoLink, anime.thumbnail)
+        fun valueOf(anime: MinimalEntry) = FilterListEntry(anime.title, anime.infoLink, anime.thumbnail)
     }
 }

@@ -2,13 +2,15 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <prerequisites>
+    <maven>3.3.9</maven>
+  </prerequisites>
+
   <groupId>io.github.manami</groupId>
   <artifactId>parent</artifactId>
   <version>2.15.1</version>
   <packaging>pom</packaging>
-  <prerequisites>
-    <maven>3.3.9</maven>
-  </prerequisites>
+
   <modules>
     <module>cache</module>
     <module>core</module>
@@ -16,6 +18,16 @@
     <module>persistence</module>
     <module>dto</module>
   </modules>
+
+  <properties>
+    <slf4j.version>1.7.25</slf4j.version>
+    <java.target.version>1.8</java.target.version>
+    <manami.version>2.15.1</manami.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kotlin.version>1.2.10</kotlin.version>
+    <kotlin.compiler.apiVersion>1.2</kotlin.compiler.apiVersion>
+  </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -130,8 +142,58 @@
       </dependency>
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
-        <artifactId>kotlin-stdlib</artifactId>
-        <version>1.2.0</version>
+        <artifactId>kotlin-stdlib-jdk8</artifactId>
+        <version>${kotlin.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk7</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.spek</groupId>
+        <artifactId>spek-api</artifactId>
+        <version>1.1.5</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.spek</groupId>
+        <artifactId>spek-junit-platform-engine</artifactId>
+        <version>1.1.5</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.platform</groupId>
+        <artifactId>junit-platform-runner</artifactId>
+        <version>1.0.2</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.0.2</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -140,23 +202,8 @@
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test</artifactId>
-      <version>${kotlin.version}</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <properties>
-    <slf4j.version>1.7.25</slf4j.version>
-    <java.target.version>1.8</java.target.version>
-    <manami.version>2.15.1</manami.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kotlin.version>1.2.10</kotlin.version>
-  </properties>
 
   <build>
     <plugins>
@@ -198,7 +245,6 @@
             <configuration>
               <sourceDirs>
                 <sourceDir>src/main/kotlin</sourceDir>
-                <sourceDir>src/main/java</sourceDir>
               </sourceDirs>
             </configuration>
           </execution>
@@ -211,7 +257,6 @@
             <configuration>
               <sourceDirs>
                 <sourceDir>src/main/kotlin</sourceDir>
-                <sourceDir>src/main/java</sourceDir>
               </sourceDirs>
             </configuration>
           </execution>

@@ -18,16 +18,17 @@ class RecommendationList : Collection<Recommendation> {
         return recommendations.put(recommendation.infoLink, value)
     }
 
-    fun isNotEmpty() = !recommendations.isEmpty()
+
+    fun isNotEmpty(): Boolean = !recommendations.isEmpty()
 
 
-    fun contains(infoLink: InfoLink) = recommendations.containsKey(infoLink)
+    override fun isEmpty(): Boolean = recommendations.isEmpty()
 
 
-    fun get(infoLink: InfoLink) = recommendations[infoLink]
+    fun contains(infoLink: InfoLink): Boolean = recommendations.containsKey(infoLink)
 
 
-    override fun isEmpty() = recommendations.isEmpty()
+    fun get(infoLink: InfoLink): Recommendation? = recommendations[infoLink]
 
 
     override fun iterator(): Iterator<Recommendation> {

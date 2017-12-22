@@ -2,7 +2,6 @@ package io.github.manami.dto.entities
 
 import java.net.URL
 
-fun isValidMinimalEntry(anime: MinimalEntry) = anime.title.isNotBlank() && anime.infoLink.isPresent()
 
 interface MinimalEntry {
     var title: String
@@ -10,6 +9,8 @@ interface MinimalEntry {
     var thumbnail: URL
 
     var infoLink: InfoLink
+
+    fun isValidMinimalEntry() = title.isNotBlank() && infoLink.isValid()
 
     companion object {
         /** Placeholder image in case no image is available. */

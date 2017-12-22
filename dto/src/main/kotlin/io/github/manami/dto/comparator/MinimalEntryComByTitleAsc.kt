@@ -1,6 +1,7 @@
 package io.github.manami.dto.comparator
 
 import io.github.manami.dto.entities.MinimalEntry
+import java.util.*
 
 
 class MinimalEntryComByTitleAsc : Comparator<MinimalEntry> {
