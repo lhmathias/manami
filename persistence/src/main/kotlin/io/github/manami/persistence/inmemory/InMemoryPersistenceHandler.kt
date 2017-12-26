@@ -35,8 +35,8 @@ class InMemoryPersistenceHandler @Inject constructor(
     }
 
 
-    override fun filterEntryExists(infoLink: InfoLink): Boolean {
-        return filterListHandler.filterEntryExists(infoLink)
+    override fun filterListEntryExists(infoLink: InfoLink): Boolean {
+        return filterListHandler.filterListEntryExists(infoLink)
     }
 
 

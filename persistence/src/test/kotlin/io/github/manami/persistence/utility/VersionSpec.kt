@@ -187,99 +187,100 @@ class VersionSpec : Spek({
         on("checking if the version is newer against a version with higher major version") {
             val result = version.isNewerThan("3.2.3")
 
-            it("must be newer and therefore true") {
-                assertThat(result).isTrue()
+            it("must be older and therefore false") {
+                assertThat(result).isFalse()
             }
         }
 
         on("checking if the version is older against a version with higher major version") {
             val result = version.isOlderThan("3.2.3")
 
-            it("must be newer and therefore false") {
-                assertThat(result).isFalse()
+            it("must be older and therefore true") {
+                assertThat(result).isTrue()
             }
         }
 
         on("checking if the version is newer against a version with lower major version") {
             val result = version.isNewerThan("1.2.3")
 
-            it("must be older and therefore false") {
-                assertThat(result).isFalse()
+            it("must be newer and therefore true") {
+                assertThat(result).isTrue()
             }
         }
 
         on("checking if the version is older against a version with lower major version") {
             val result = version.isOlderThan("1.2.3")
 
-            it("must be older and therefore true") {
-                assertThat(result).isTrue()
+            it("must be newer and therefore false") {
+                assertThat(result).isFalse()
             }
         }
 
         on("checking if the version is newer against a version with higher minor version") {
             val result = version.isNewerThan("2.4.4")
 
-            it("must be newer and therefore true") {
-                assertThat(result).isTrue()
+            it("must be older and therefore false") {
+                assertThat(result).isFalse()
             }
         }
 
         on("checking if the version is older against a version with higher minor version") {
             val result = version.isOlderThan("2.4.4")
 
-            it("must be newer and therefore false") {
-                assertThat(result).isFalse()
+            it("must be older and therefore true") {
+                assertThat(result).isTrue()
             }
         }
 
         on("checking if the version is newer against a version with lower minor version") {
             val result = version.isNewerThan("2.2.4")
 
-            it("must be older and therefore false") {
-                assertThat(result).isFalse()
+            it("must be newer and therefore true") {
+                assertThat(result).isTrue()
             }
         }
 
         on("checking if the version is older against a version with lower minor version") {
             val result = version.isOlderThan("2.2.4")
 
-            it("must be older and therefore true") {
-                assertThat(result).isTrue()
+            it("must be newer and therefore false") {
+                assertThat(result).isFalse()
             }
         }
 
         on("checking if the version is newer against a version with higher bugfix version") {
             val result = version.isNewerThan("2.3.5")
 
-            it("must be newer and therefore true") {
-                assertThat(result).isTrue()
+            it("must be older and therefore false") {
+                assertThat(result).isFalse()
             }
         }
 
         on("checking if the version is older against a version with higher bugfix version") {
             val result = version.isOlderThan("2.3.5")
 
-            it("must be newer and therefore false") {
-                assertThat(result).isFalse()
+            it("must be older and therefore true") {
+                assertThat(result).isTrue()
             }
         }
 
         on("checking if the version is newer against a version with lower bugfix version") {
             val result = version.isNewerThan("2.3.3")
 
-            it("must be older and therefore false") {
-                assertThat(result).isFalse()
+            it("must be newer and therefore true") {
+                assertThat(result).isTrue()
             }
         }
 
         on("checking if the version is older against a version with lower bugfix version") {
             val result = version.isOlderThan("2.3.3")
 
-            it("must be older and therefore true") {
-                assertThat(result).isTrue()
+            it("must be newer and therefore false") {
+                assertThat(result).isFalse()
             }
         }
     }
+
 
     given("a valid version and an invalid other version") {
         val version = Version("1.2.3")
@@ -304,6 +305,63 @@ class VersionSpec : Spek({
 
             try {
                 version.isOlderThan(otherVersion)
+            } catch (e: IllegalArgumentException) {
+                result = true
+            }
+
+            it("must fail with an IllegalArgumentException") {
+                assertThat(result).isTrue()
+            }
+        }
+    }
+
+
+    given("a version string with a non-numerical character as major version") {
+        val version = "#.2.3"
+
+        on("creating a new version instance") {
+            var result = false
+
+            try {
+                Version(version)
+            } catch (e: IllegalArgumentException) {
+                result = true
+            }
+
+            it("must fail with an IllegalArgumentException") {
+                assertThat(result).isTrue()
+            }
+        }
+    }
+
+
+    given("a version string with a non-numerical character as minor version") {
+        val version = "1.$.3"
+
+        on("creating a new version instance") {
+            var result = false
+
+            try {
+                Version(version)
+            } catch (e: IllegalArgumentException) {
+                result = true
+            }
+
+            it("must fail with an IllegalArgumentException") {
+                assertThat(result).isTrue()
+            }
+        }
+    }
+
+
+    given("a version string with a non-numerical character as bugifx version") {
+        val version = "1.2.!"
+
+        on("creating a new version instance") {
+            var result = false
+
+            try {
+                Version(version)
             } catch (e: IllegalArgumentException) {
                 result = true
             }

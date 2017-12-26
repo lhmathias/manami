@@ -26,114 +26,9 @@ import java.net.URL;
 import java.util.List;
 
 public class PersistenceFacadeTest {
+/*
 
-  private PersistenceFacade persistenceFacade;
-  private EventBus eventBusMock;
-  private InMemoryPersistenceHandler inMemoryPersistenceHandler;
-
-
-  //@BeforeMethod
-  public void setUp() throws IOException {
-    inMemoryPersistenceHandler = new InMemoryPersistenceHandler(new InMemoryAnimeListHandler(),
-        new InMemoryFilterListHandler(), new InMemoryWatchListHandler());
-    eventBusMock = mock(EventBus.class);
-    persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler, eventBusMock);
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testFilterAnimeIsEntryWithoutTitle() {
-    // given
-    final FilterListEntry entry = new FilterListEntry(EMPTY,
-        new InfoLink("http://myanimelist.net/anime/1535"));
-
-    // when
-    final boolean result = persistenceFacade.filterAnime(entry);
-
-    // then
-    verify(eventBusMock, times(0)).post(any(AnimeListChangedEvent.class));
-    assertThat(result).isFalse();
-    assertThat(persistenceFacade.fetchFilterList().size()).isEqualTo(0);
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testFilterAnimeIsEntryWithoutInfoLink() {
-    // given
-    final FilterListEntry entry = new FilterListEntry("Death Note", new InfoLink(""));
-
-    // when
-    final boolean result = persistenceFacade.filterAnime(entry);
-
-    // then
-    verify(eventBusMock, times(0)).post(any(AnimeListChangedEvent.class));
-    assertThat(result).isFalse();
-    assertThat(persistenceFacade.fetchFilterList().size()).isEqualTo(0);
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testFilterAnimeIsEntryWithoutThumbnail() {
-    // given
-    final FilterListEntry entry = new FilterListEntry("Death Note",
-        new InfoLink("http://myanimelist.net/anime/1535"));
-
-    // when
-    final boolean result = persistenceFacade.filterAnime(entry);
-
-    // then
-    verify(eventBusMock, times(1)).post(any(AnimeListChangedEvent.class));
-    assertThat(result).isTrue();
-    assertThat(persistenceFacade.fetchFilterList().size()).isEqualTo(1);
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testFilterAnimeIsFullEntry() throws MalformedURLException {
-    // given
-    final FilterListEntry entry = new FilterListEntry("Death Note",
-        new InfoLink("http://myanimelist.net/anime/1535"),
-        new URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"));
-
-    // when
-    final boolean result = persistenceFacade.filterAnime(entry);
-
-    // then
-    verify(eventBusMock, times(1)).post(any(AnimeListChangedEvent.class));
-    assertThat(result).isTrue();
-    assertThat(persistenceFacade.fetchFilterList().size()).isEqualTo(1);
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testFilterEntryExists() {
-    // given
-    final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
-    persistenceFacade.filterAnime(entry);
-
-    // when
-    final boolean result = persistenceFacade.filterEntryExists(infoLink);
-
-    // then
-    assertThat(result).isTrue();
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testFilterEntryNotExists() {
-    // given
-
-    // when
-    final boolean result = persistenceFacade
-        .filterEntryExists(new InfoLink("http://myanimelist.net/anime/1535"));
-
-    // then
-    verify(eventBusMock, times(0)).post(any(AnimeListChangedEvent.class));
-    assertThat(result).isFalse();
-  }
-
-
+that was a duplicate?!?
   //@Test(groups = UNIT_TEST_GROUP)
   public void testFilterAnimeList() {
     // given
@@ -149,6 +44,14 @@ public class PersistenceFacadeTest {
   }
 
 
+
+
+
+
+
+
+
+
   //@Test(groups = UNIT_TEST_GROUP)
   public void testFetchWatchList() {
     // given
@@ -161,23 +64,6 @@ public class PersistenceFacadeTest {
 
     // then
     assertThat(fetchWatchList.size()).isEqualTo(1);
-  }
-
-
-  //@Test(groups = UNIT_TEST_GROUP)
-  public void testRemoveFromFilterListWorks() {
-    // given
-    final InfoLink infoLink = new InfoLink("http://myanimelist.net/anime/1535");
-    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
-    persistenceFacade.filterAnime(entry);
-
-    // when
-    final boolean result = persistenceFacade.removeFromFilterList(infoLink);
-
-    // then
-    verify(eventBusMock, times(2)).post(any(AnimeListChangedEvent.class));
-    assertThat(result).isTrue();
-    assertThat(persistenceFacade.fetchFilterList().isEmpty()).isTrue();
   }
 
 
@@ -289,6 +175,21 @@ public class PersistenceFacadeTest {
     assertThat(result).isTrue();
     assertThat(persistenceFacade.fetchWatchList().isEmpty()).isTrue();
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   //@Test(groups = UNIT_TEST_GROUP)
@@ -764,5 +665,5 @@ public class PersistenceFacadeTest {
     verify(eventBusMock, times(2)).post(any(AnimeListChangedEvent.class));
     assertThat(persistenceFacade.fetchWatchList().isEmpty()).isFalse();
     assertThat(persistenceFacade.fetchWatchList().get(0).getThumbnail()).isEqualTo(thumbnail);
-  }
+  }*/
 }

@@ -1,4 +1,4 @@
-package io.github.manami.persistence.inmemory.filterlist;
+package io.github.manami.persistence.inmemory.filterlist
 
 import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
 import io.github.manami.dto.entities.*
@@ -36,7 +36,7 @@ class InMemoryFilterListHandler : FilterListHandler {
     }
 
 
-    override fun filterEntryExists(infoLink: InfoLink): Boolean {
+    override fun filterListEntryExists(infoLink: InfoLink): Boolean {
         return filterList.containsKey(infoLink)
     }
 

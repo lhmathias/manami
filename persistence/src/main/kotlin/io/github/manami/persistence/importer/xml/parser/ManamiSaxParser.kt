@@ -1,4 +1,4 @@
-package io.github.manami.persistence.importer.xml.parser;
+package io.github.manami.persistence.importer.xml.parser
 
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.LoggerDelegate

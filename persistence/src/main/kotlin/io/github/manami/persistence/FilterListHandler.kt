@@ -1,4 +1,4 @@
-package io.github.manami.persistence;
+package io.github.manami.persistence
 
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
@@ -29,7 +29,7 @@ interface FilterListHandler {
      * @param infoLink URL
      * @return true if the URL is in the filter list.
      */
-    fun filterEntryExists(infoLink: InfoLink): Boolean
+    fun filterListEntryExists(infoLink: InfoLink): Boolean
 
 
     /**

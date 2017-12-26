@@ -1,4 +1,4 @@
-package io.github.manami.persistence.importer.xml;
+package io.github.manami.persistence.importer.xml
 
 import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.importer.Importer

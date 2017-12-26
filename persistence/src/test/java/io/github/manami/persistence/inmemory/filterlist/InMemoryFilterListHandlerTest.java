@@ -95,7 +95,7 @@ public class InMemoryFilterListHandlerTest {
     inMemoryFilterListHandler.filterAnime(entry);
 
     // when
-    final boolean result = inMemoryFilterListHandler.filterEntryExists(infoLink);
+    final boolean result = inMemoryFilterListHandler.filterListEntryExists(infoLink);
 
     // then
     assertThat(result).isTrue();
@@ -108,7 +108,7 @@ public class InMemoryFilterListHandlerTest {
 
     // when
     final boolean result = inMemoryFilterListHandler
-        .filterEntryExists(new InfoLink("http://myanimelist.net/anime/1535"));
+        .filterListEntryExists(new InfoLink("http://myanimelist.net/anime/1535"));
 
     // then
     assertThat(result).isFalse();

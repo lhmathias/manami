@@ -1,6 +1,6 @@
-package io.github.manami.persistence.exporter;
+package io.github.manami.persistence.exporter
 
-import java.nio.file.Path;
+import java.nio.file.Path
 
 /**
  * Interface for an exporter.

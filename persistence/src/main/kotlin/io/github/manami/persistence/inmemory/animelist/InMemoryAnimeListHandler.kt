@@ -1,4 +1,4 @@
-package io.github.manami.persistence.inmemory.animelist;
+package io.github.manami.persistence.inmemory.animelist
 
 import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
 import io.github.manami.dto.entities.Anime

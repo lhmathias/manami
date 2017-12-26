@@ -25,8 +25,8 @@ class PersistenceFacade
                 eventBus.post(AnimeListChangedEvent())
                 return true
             }
-        }
 
+        }
         return false
     }
 
@@ -36,8 +36,8 @@ class PersistenceFacade
     }
 
 
-    override fun filterEntryExists(infoLink: InfoLink): Boolean {
-        return strategy.filterEntryExists(infoLink)
+    override fun filterListEntryExists(infoLink: InfoLink): Boolean {
+        return strategy.filterListEntryExists(infoLink)
     }
 
 
