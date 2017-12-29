@@ -2,7 +2,8 @@ package io.github.manami.persistence
 
 
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.MinimalEntry
+import io.github.manami.dto.entities.FilterListEntry
+import io.github.manami.dto.entities.WatchListEntry
 
 interface PersistenceHandler : ApplicationPersistence {
 
@@ -10,7 +11,7 @@ interface PersistenceHandler : ApplicationPersistence {
 
     fun addAnimeList(list: MutableList<Anime>)
 
-    fun addFilterList(list: MutableList<out MinimalEntry>)
+    fun addFilterList(list: MutableList<FilterListEntry>)
 
-    fun addWatchList(list: MutableList<out MinimalEntry>)
+    fun addWatchList(list: MutableList<WatchListEntry>)
 }

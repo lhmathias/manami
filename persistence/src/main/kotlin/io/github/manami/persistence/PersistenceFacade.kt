@@ -3,6 +3,8 @@ package io.github.manami.persistence
 import com.google.common.eventbus.EventBus
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.events.AnimeListChangedEvent
+import io.github.manami.persistence.events.FilterListChangedEvent
+import io.github.manami.persistence.events.WatchListChangedEvent
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -22,7 +24,12 @@ class PersistenceFacade
     override fun filterAnime(anime: MinimalEntry): Boolean {
         if (anime.isValidMinimalEntry()) {
             if (strategy.filterAnime(anime)) {
-                eventBus.post(AnimeListChangedEvent())
+                eventBus.post(FilterListChangedEvent())
+
+                if(removeFromWatchList(anime.infoLink)) {
+                    eventBus.post(WatchListChangedEvent())
+                }
+
                 return true
             }
 
@@ -47,7 +54,7 @@ class PersistenceFacade
         }
 
         if (strategy.removeFromFilterList(infoLink)) {
-            eventBus.post(AnimeListChangedEvent())
+            eventBus.post(FilterListChangedEvent())
             return true
         }
 
@@ -56,11 +63,19 @@ class PersistenceFacade
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (anime.isValidAnime()) {
-            if (strategy.addAnime(anime)) {
-                eventBus.post(AnimeListChangedEvent())
-                return true
+        if (anime.isValidAnime() && strategy.addAnime(anime)) {
+            if (anime.infoLink.isValid()) {
+                if(removeFromFilterList(anime.infoLink)) {
+                    eventBus.post(FilterListChangedEvent())
+                }
+
+                if(removeFromWatchList(anime.infoLink)) {
+                    eventBus.post(WatchListChangedEvent())
+                }
             }
+
+            eventBus.post(AnimeListChangedEvent())
+            return true
         }
 
         return false
@@ -77,42 +92,6 @@ class PersistenceFacade
     }
 
 
-    override fun fetchWatchList(): MutableList<WatchListEntry> {
-        return strategy.fetchWatchList()
-    }
-
-
-    override fun watchListEntryExists(infoLink: InfoLink): Boolean {
-        return strategy.watchListEntryExists(infoLink)
-    }
-
-
-    override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
-            if (strategy.watchAnime(anime)) {
-                eventBus.post(AnimeListChangedEvent())
-                return true
-            }
-        }
-
-        return false
-    }
-
-
-    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
-        if (!infoLink.isValid()) {
-            return false
-        }
-
-        if (strategy.removeFromWatchList(infoLink)) {
-            eventBus.post(AnimeListChangedEvent())
-            return true
-        }
-
-        return false
-    }
-
-
     override fun removeAnime(id: UUID): Boolean {
         if (strategy.removeAnime(id)) {
             eventBus.post(AnimeListChangedEvent())
@@ -123,32 +102,92 @@ class PersistenceFacade
     }
 
 
+    override fun watchAnime(anime: MinimalEntry): Boolean {
+        if (anime.isValidMinimalEntry()) {
+            if (strategy.watchAnime(anime)) {
+                eventBus.post(WatchListChangedEvent())
+
+                if(removeFromFilterList(anime.infoLink)) {
+                    eventBus.post(FilterListChangedEvent())
+                }
+
+                return true
+            }
+        }
+
+        return false
+    }
+
+
+    override fun fetchWatchList(): MutableList<WatchListEntry> {
+        return strategy.fetchWatchList()
+    }
+
+
+    override fun watchListEntryExists(infoLink: InfoLink): Boolean {
+        return strategy.watchListEntryExists(infoLink)
+    }
+
+
+    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
+        if (!infoLink.isValid()) {
+            return false
+        }
+
+        if (strategy.removeFromWatchList(infoLink)) {
+            eventBus.post(WatchListChangedEvent())
+            return true
+        }
+
+        return false
+    }
+
+
     override fun clearAll() {
         strategy.clearAll()
         eventBus.post(AnimeListChangedEvent())
+        eventBus.post(FilterListChangedEvent())
+        eventBus.post(WatchListChangedEvent())
     }
 
 
     override fun addAnimeList(list: MutableList<Anime>) {
-        strategy.addAnimeList(list)
+        val validAnimeList: MutableList<Anime> = mutableListOf()
+
+        list.filter { anime -> anime.isValidAnime() }.map(validAnimeList::add)
+
+        strategy.addAnimeList(validAnimeList)
         eventBus.post(AnimeListChangedEvent())
     }
 
 
-    override fun addFilterList(list: MutableList<out MinimalEntry>) {
-        strategy.addFilterList(list)
-        eventBus.post(AnimeListChangedEvent())
+    override fun addFilterList(list: MutableList<FilterListEntry>) {
+        val validEntryList: MutableList<FilterListEntry> = mutableListOf()
+
+        validEntryList.filter { filterListEntry -> filterListEntry.isValidMinimalEntry() }.map(validEntryList::add)
+
+        strategy.addFilterList(validEntryList)
+        eventBus.post(FilterListChangedEvent())
     }
 
 
-    override fun addWatchList(list: MutableList<out MinimalEntry>) {
-        strategy.addWatchList(list)
-        eventBus.post(AnimeListChangedEvent())
+    override fun addWatchList(list: MutableList<WatchListEntry>) {
+        val validEntryList: MutableList<WatchListEntry> = mutableListOf()
+
+        validEntryList.filter { watchListEntry -> watchListEntry.isValidMinimalEntry() }.map(validEntryList::add)
+
+
+        strategy.addWatchList(validEntryList)
+        eventBus.post(WatchListChangedEvent())
     }
 
 
     override fun updateOrCreate(entry: MinimalEntry) {
         strategy.updateOrCreate(entry)
-        eventBus.post(AnimeListChangedEvent())
+        when (entry) {
+            is Anime -> eventBus.post(AnimeListChangedEvent())
+            is FilterListEntry -> eventBus.post(FilterListChangedEvent())
+            is WatchListEntry -> eventBus.post(WatchListChangedEvent())
+        }
     }
 }

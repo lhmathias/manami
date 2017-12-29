@@ -18,15 +18,7 @@ class InMemoryPersistenceHandler @Inject constructor(
 
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
-            if (anime.infoLink.isValid()) {
-                watchListHandler.removeFromWatchList(anime.infoLink)
-            }
-
-            return filterListHandler.filterAnime(anime)
-        }
-
-        return false
+        return filterListHandler.filterAnime(anime)
     }
 
 
@@ -41,57 +33,12 @@ class InMemoryPersistenceHandler @Inject constructor(
 
 
     override fun removeFromFilterList(infoLink: InfoLink): Boolean {
-        if (infoLink.isValid()) {
-            return filterListHandler.removeFromFilterList(infoLink)
-        }
-
-        return false
+        return filterListHandler.removeFromFilterList(infoLink)
     }
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (anime.isValidAnime()) {
-            if (anime.infoLink.isValid()) {
-                filterListHandler.removeFromFilterList(anime.infoLink)
-                watchListHandler.removeFromWatchList(anime.infoLink)
-            }
-
-            return animeListHandler.addAnime(anime)
-        }
-
-        return false
-    }
-
-
-    override fun fetchWatchList(): MutableList<WatchListEntry> {
-        return watchListHandler.fetchWatchList()
-    }
-
-
-    override fun watchListEntryExists(infoLink: InfoLink): Boolean {
-        return watchListHandler.watchListEntryExists(infoLink)
-    }
-
-
-    override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
-            if (anime.infoLink.isValid()) {
-                filterListHandler.removeFromFilterList(anime.infoLink)
-            }
-
-            return watchListHandler.watchAnime(anime)
-        }
-
-        return false
-    }
-
-
-    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
-        if (infoLink.isValid()) {
-            return watchListHandler.removeFromWatchList(infoLink)
-        }
-
-        return false
+        return animeListHandler.addAnime(anime)
     }
 
 
@@ -110,6 +57,26 @@ class InMemoryPersistenceHandler @Inject constructor(
     }
 
 
+    override fun watchAnime(anime: MinimalEntry): Boolean {
+        return watchListHandler.watchAnime(anime)
+    }
+
+
+    override fun fetchWatchList(): MutableList<WatchListEntry> {
+        return watchListHandler.fetchWatchList()
+    }
+
+
+    override fun watchListEntryExists(infoLink: InfoLink): Boolean {
+        return watchListHandler.watchListEntryExists(infoLink)
+    }
+
+
+    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
+        return watchListHandler.removeFromWatchList(infoLink)
+    }
+
+
     override fun clearAll() {
         animeListHandler.clear()
         watchListHandler.clear()
@@ -122,12 +89,12 @@ class InMemoryPersistenceHandler @Inject constructor(
     }
 
 
-    override fun addFilterList(list: MutableList<out MinimalEntry>) {
+    override fun addFilterList(list: MutableList<FilterListEntry>) {
         list.forEach { anime -> filterListHandler.filterAnime(anime) }
     }
 
 
-    override fun addWatchList(list: MutableList<out MinimalEntry>) {
+    override fun addWatchList(list: MutableList<WatchListEntry>) {
         list.forEach { anime -> watchListHandler.watchAnime(anime) }
     }
 
