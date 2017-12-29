@@ -46,7 +46,7 @@ class XmlExporterSpec : Spek({
     )
 
 
-    given("an xmlExporter filled with a pre-filled persistence facade") {
+    given("a XmlExporter filled with a pre-filled persistence facade") {
         val xmlExporter = XmlExporter(persistenceFacade)
 
         beforeEachTest {
@@ -107,7 +107,7 @@ class XmlExporterSpec : Spek({
         on("exporting the list to a file") {
             xmlExporter.exportAll(file)
             
-            it("should contain the same list within the file as in the persistence facade") {
+            it("must contain the same list within the file as in the persistence facade") {
                 val exportedFileBuilder = StringBuilder()
                 Files.readAllLines(resource.file.toPath(), StandardCharsets.UTF_8).map(exportedFileBuilder::append)
                 val actual: String = normalizeXml(exportedFileBuilder.toString())
@@ -116,9 +116,6 @@ class XmlExporterSpec : Spek({
             }
         }
     }
-
-    
-    
 })
 
 private fun normalizeXml(xmlString: String): String {

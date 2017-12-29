@@ -42,7 +42,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("filtering an anime") {
             inMemoryPersistenceHandler.filterAnime(animeEntry)
 
-            it("should delegate to the InMemoryFilterListHandler") {
+            it("must delegate to the InMemoryFilterListHandler") {
                 verify(filterListHandler, times(1)).filterAnime(animeEntry)
             }
         }
@@ -50,7 +50,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("fetching the filterlist") {
             inMemoryPersistenceHandler.fetchFilterList()
 
-            it("should delegate to the InMemoryFilterListHandler") {
+            it("must delegate to the InMemoryFilterListHandler") {
                 verify(filterListHandler, times(1)).fetchFilterList()
             }
         }
@@ -58,7 +58,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("checking if an anime entry exists in the filterlist") {
             inMemoryPersistenceHandler.filterListEntryExists(animeEntry.infoLink)
 
-            it("should delegate to the InMemoryFilterListHandler") {
+            it("must delegate to the InMemoryFilterListHandler") {
                 verify(filterListHandler, times(1)).filterListEntryExists(animeEntry.infoLink)
             }
         }
@@ -66,7 +66,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("removing entry from filterlist") {
             inMemoryPersistenceHandler.removeFromFilterList(animeEntry.infoLink)
 
-            it("should delegate to the InMemoryFilterListHandler") {
+            it("must delegate to the InMemoryFilterListHandler") {
                 verify(filterListHandler, times(1)).removeFromFilterList(animeEntry.infoLink)
             }
         }
@@ -74,7 +74,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("adding an anime") {
             inMemoryPersistenceHandler.addAnime(animeEntry)
 
-            it("should delegate to the InMemoryAnimeListHandler") {
+            it("must delegate to the InMemoryAnimeListHandler") {
                 verify(animeListHandler, times(1)).addAnime(animeEntry)
             }
         }
@@ -82,7 +82,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("fetching the animelist") {
             inMemoryPersistenceHandler.fetchAnimeList()
 
-            it("should delegate to the InMemoryAnimeListHandler") {
+            it("must delegate to the InMemoryAnimeListHandler") {
                 verify(animeListHandler, times(1)).fetchAnimeList()
             }
         }
@@ -90,7 +90,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("checking if an anime entry exists in the animelist") {
             inMemoryPersistenceHandler.fetchAnimeList()
 
-            it("should delegate to the InMemoryAnimeListHandler") {
+            it("must delegate to the InMemoryAnimeListHandler") {
                 verify(animeListHandler, times(1)).fetchAnimeList()
             }
         }
@@ -98,7 +98,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("removing an anime") {
             inMemoryPersistenceHandler.removeAnime(animeEntry.id)
 
-            it("should delegate to the InMemoryAnimeListHandler") {
+            it("must delegate to the InMemoryAnimeListHandler") {
                 verify(animeListHandler, times(1)).removeAnime(animeEntry.id)
             }
         }
@@ -106,7 +106,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("adding an entry to the watchlist") {
             inMemoryPersistenceHandler.watchAnime(animeEntry)
 
-            it("should delegate to the InMemoryWatchListHandler") {
+            it("must delegate to the InMemoryWatchListHandler") {
                 verify(watchListHandler, times(1)).watchAnime(animeEntry)
             }
         }
@@ -114,7 +114,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("fetching the watchlist") {
             inMemoryPersistenceHandler.fetchWatchList()
 
-            it("should delegate to the InMemoryWatchListHandler") {
+            it("must delegate to the InMemoryWatchListHandler") {
                 verify(watchListHandler, times(1)).fetchWatchList()
             }
         }
@@ -122,7 +122,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("checking if an anime entry exists in the watchlist") {
             inMemoryPersistenceHandler.watchListEntryExists(animeEntry.infoLink)
 
-            it("should delegate to the InMemoryWatchListHandler") {
+            it("must delegate to the InMemoryWatchListHandler") {
                 verify(watchListHandler, times(1)).watchListEntryExists(animeEntry.infoLink)
             }
         }
@@ -130,7 +130,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("removing an anime entry from the watchlist") {
             inMemoryPersistenceHandler.removeFromWatchList(animeEntry.infoLink)
 
-            it("should delegate to the InMemoryWatchListHandler") {
+            it("must delegate to the InMemoryWatchListHandler") {
                 verify(watchListHandler, times(1)).removeFromWatchList(animeEntry.infoLink)
             }
         }
@@ -138,7 +138,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("clearing all lists") {
             inMemoryPersistenceHandler.clearAll()
 
-            it("should delegate to all three list handlers") {
+            it("must delegate to all three list handlers") {
                 verify(animeListHandler, times(1)).clear()
                 verify(filterListHandler, times(1)).clear()
                 verify(watchListHandler, times(1)).clear()
@@ -168,7 +168,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("adding an anime list") {
             inMemoryPersistenceHandler.addAnimeList(list)
 
-            it("should delegate to the InMemoryAnimeListHandler") {
+            it("must delegate to the InMemoryAnimeListHandler") {
                 verify(animeListHandler, times(1)).addAnime(list[0])
                 verify(animeListHandler, times(1)).addAnime(list[1])
             }
@@ -197,7 +197,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("adding a filter list") {
             inMemoryPersistenceHandler.addFilterList(list)
 
-            it("should delegate to the InMemoryFilterListHandler") {
+            it("must delegate to the InMemoryFilterListHandler") {
                 verify(filterListHandler, times(1)).filterAnime(list[0])
                 verify(filterListHandler, times(1)).filterAnime(list[1])
             }
@@ -226,7 +226,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("adding a filter list") {
             inMemoryPersistenceHandler.addWatchList(list)
 
-            it("should delegate to the InMemoryWatchListHandler") {
+            it("must delegate to the InMemoryWatchListHandler") {
                 verify(watchListHandler, times(1)).watchAnime(list[0])
                 verify(watchListHandler, times(1)).watchAnime(list[1])
             }
@@ -249,7 +249,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("updating an Anime") {
             inMemoryPersistenceHandler.updateOrCreate(entry)
 
-            it("should delegate to the InMemoryAnimeListHandler") {
+            it("must delegate to the InMemoryAnimeListHandler") {
                 verify(animeListHandler, times(1)).updateOrCreate(entry)
             }
         }
@@ -271,7 +271,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("updating a FilterListEntry") {
             inMemoryPersistenceHandler.updateOrCreate(entry)
 
-            it("should delegate to the InMemoryFilterListHandler") {
+            it("must delegate to the InMemoryFilterListHandler") {
                 verify(filterListHandler, times(1)).updateOrCreate(entry)
             }
         }
@@ -293,7 +293,7 @@ class InMemoryPersistenceHandlerSpec : Spek({
         on("updating a WatchListEntry") {
             inMemoryPersistenceHandler.updateOrCreate(entry)
 
-            it("should delegate to the InMemoryWatchListHandler") {
+            it("must delegate to the InMemoryWatchListHandler") {
                 verify(watchListHandler, times(1)).updateOrCreate(entry)
             }
         }

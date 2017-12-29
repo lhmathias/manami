@@ -28,7 +28,7 @@ internal class JsonExporter(private val persistence: ApplicationPersistence) : E
             for (element: Anime in persistence.fetchAnimeList()) {
                 writer.`object`()
                         .key("title").value(element.title)
-                        .key("type").value(element.toString())
+                        .key("type").value(element.type)
                         .key("episodes").value(element.episodes)
                         .key("infoLink").value(element.infoLink)
                         .key("location").value(element.location)
@@ -85,7 +85,7 @@ internal class JsonExporter(private val persistence: ApplicationPersistence) : E
             for (element: Anime in list) {
                 writer.`object`()
                         .key("title").value(element.title)
-                        .key("type").value(element.toString())
+                        .key("type").value(element.type)
                         .key("episodes").value(element.episodes)
                         .key("infoLink").value(element.infoLink)
                         .key("location").value(element.location)
