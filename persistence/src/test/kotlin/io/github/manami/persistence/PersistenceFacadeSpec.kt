@@ -25,6 +25,7 @@ class PersistenceFacadeSpec : Spek({
         InMemoryFilterListHandler(),
         InMemoryWatchListHandler()
     )
+
     var eventBusMock = mock(EventBus::class.java)
     var persistenceFacade = PersistenceFacade(inMemoryPersistenceHandler, eventBusMock)
 
@@ -35,6 +36,7 @@ class PersistenceFacadeSpec : Spek({
             InMemoryFilterListHandler(),
             InMemoryWatchListHandler()
         )
+
         eventBusMock = mock(EventBus::class.java)
         persistenceFacade = PersistenceFacade(inMemoryPersistenceHandler, eventBusMock)
     }
