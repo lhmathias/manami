@@ -9,16 +9,21 @@ import java.util.UUID.randomUUID
  * Represents a "physical" Anime with all it's saved meta information stored in your HDD.
  */
 data class Anime @JvmOverloads constructor(
+        /** Main title of the anime. */
         override var title: String,
+        /** URL to a website which contains additional information. */
         override var infoLink: InfoLink,
+        /** Amount of episodes. 1 for Movies. */
         private var numberOfEpisodes: Int = 0,
         /** Type of the Anime (e.g.: TV, Special, OVA, ONA, etc.). */
         var type: AnimeType = AnimeType.TV,
         /** Location on the HDD. */
         var location: String = "/",
-        /** Url for a picture. */
+        /** Url for a thumbnail. */
         override var thumbnail: URL = MinimalEntry.NO_IMG_THUMB,
+        /** Url for a picture. */
         var picture: URL = MinimalEntry.NO_IMG,
+        /** Identifier within the current anime list. */
         var id: UUID = randomUUID()
 ) : MinimalEntry {
 
@@ -31,6 +36,7 @@ data class Anime @JvmOverloads constructor(
 
 
     fun isValidAnime() = isValidMinimalEntry() && location.isNotBlank()
+
 
     override fun isValidMinimalEntry() = title.isNotBlank()
 }
