@@ -17,9 +17,7 @@ import org.supercsv.prefs.CsvPreference
 import java.io.FileReader
 import java.nio.file.Path
 
-class CsvImporter(private val persistence: PersistenceFacade) : Importer {
-
-    private val log: Logger by LoggerDelegate()
+internal class CsvImporter(private val persistence: PersistenceFacade) : Importer {
 
     /**
      * Configuration for CSV files.

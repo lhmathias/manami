@@ -24,10 +24,10 @@ class PersistenceFacade
     override fun filterAnime(anime: MinimalEntry): Boolean {
         if (anime.isValidMinimalEntry()) {
             if (strategy.filterAnime(anime)) {
-                eventBus.post(FilterListChangedEvent())
+                eventBus.post(FilterListChangedEvent)
 
                 if(removeFromWatchList(anime.infoLink)) {
-                    eventBus.post(WatchListChangedEvent())
+                    eventBus.post(WatchListChangedEvent)
                 }
 
                 return true
@@ -54,7 +54,7 @@ class PersistenceFacade
         }
 
         if (strategy.removeFromFilterList(infoLink)) {
-            eventBus.post(FilterListChangedEvent())
+            eventBus.post(FilterListChangedEvent)
             return true
         }
 
@@ -66,15 +66,15 @@ class PersistenceFacade
         if (anime.isValidAnime() && strategy.addAnime(anime)) {
             if (anime.infoLink.isValid()) {
                 if(removeFromFilterList(anime.infoLink)) {
-                    eventBus.post(FilterListChangedEvent())
+                    eventBus.post(FilterListChangedEvent)
                 }
 
                 if(removeFromWatchList(anime.infoLink)) {
-                    eventBus.post(WatchListChangedEvent())
+                    eventBus.post(WatchListChangedEvent)
                 }
             }
 
-            eventBus.post(AnimeListChangedEvent())
+            eventBus.post(AnimeListChangedEvent)
             return true
         }
 
@@ -94,7 +94,7 @@ class PersistenceFacade
 
     override fun removeAnime(id: UUID): Boolean {
         if (strategy.removeAnime(id)) {
-            eventBus.post(AnimeListChangedEvent())
+            eventBus.post(AnimeListChangedEvent)
             return true
         }
 
@@ -105,10 +105,10 @@ class PersistenceFacade
     override fun watchAnime(anime: MinimalEntry): Boolean {
         if (anime.isValidMinimalEntry()) {
             if (strategy.watchAnime(anime)) {
-                eventBus.post(WatchListChangedEvent())
+                eventBus.post(WatchListChangedEvent)
 
                 if(removeFromFilterList(anime.infoLink)) {
-                    eventBus.post(FilterListChangedEvent())
+                    eventBus.post(FilterListChangedEvent)
                 }
 
                 return true
@@ -135,7 +135,7 @@ class PersistenceFacade
         }
 
         if (strategy.removeFromWatchList(infoLink)) {
-            eventBus.post(WatchListChangedEvent())
+            eventBus.post(WatchListChangedEvent)
             return true
         }
 
@@ -145,9 +145,9 @@ class PersistenceFacade
 
     override fun clearAll() {
         strategy.clearAll()
-        eventBus.post(AnimeListChangedEvent())
-        eventBus.post(FilterListChangedEvent())
-        eventBus.post(WatchListChangedEvent())
+        eventBus.post(AnimeListChangedEvent)
+        eventBus.post(FilterListChangedEvent)
+        eventBus.post(WatchListChangedEvent)
     }
 
 
@@ -157,7 +157,7 @@ class PersistenceFacade
         list.filter { anime -> anime.isValidAnime() }.map(validAnimeList::add)
 
         strategy.addAnimeList(validAnimeList)
-        eventBus.post(AnimeListChangedEvent())
+        eventBus.post(AnimeListChangedEvent)
     }
 
 
@@ -167,7 +167,7 @@ class PersistenceFacade
         validEntryList.filter { filterListEntry -> filterListEntry.isValidMinimalEntry() }.map(validEntryList::add)
 
         strategy.addFilterList(validEntryList)
-        eventBus.post(FilterListChangedEvent())
+        eventBus.post(FilterListChangedEvent)
     }
 
 
@@ -178,16 +178,16 @@ class PersistenceFacade
 
 
         strategy.addWatchList(validEntryList)
-        eventBus.post(WatchListChangedEvent())
+        eventBus.post(WatchListChangedEvent)
     }
 
 
     override fun updateOrCreate(entry: MinimalEntry) {
         strategy.updateOrCreate(entry)
         when (entry) {
-            is Anime -> eventBus.post(AnimeListChangedEvent())
-            is FilterListEntry -> eventBus.post(FilterListChangedEvent())
-            is WatchListEntry -> eventBus.post(WatchListChangedEvent())
+            is Anime -> eventBus.post(AnimeListChangedEvent)
+            is FilterListEntry -> eventBus.post(FilterListChangedEvent)
+            is WatchListEntry -> eventBus.post(WatchListChangedEvent)
         }
     }
 }

@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Named
 
 @Named
-class InMemoryFilterListHandler : FilterListHandler {
+internal class InMemoryFilterListHandler : FilterListHandler {
 
     private val filterList: MutableMap<InfoLink, FilterListEntry> = ConcurrentHashMap()
 

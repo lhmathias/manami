@@ -7,7 +7,7 @@ import org.supercsv.cellprocessor.constraint.NotNull
 /**
  * Configuration for the CSV import and export.
  */
-class CsvConfig {
+internal class CsvConfig {
 
 
     enum class CsvConfigType(val value: String) {

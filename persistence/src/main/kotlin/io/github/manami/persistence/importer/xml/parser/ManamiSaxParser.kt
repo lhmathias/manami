@@ -15,7 +15,7 @@ import java.lang.StringBuilder
 import java.net.MalformedURLException
 import java.net.URL
 
-class ManamiSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
+internal class ManamiSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
 
     private val log: Logger by LoggerDelegate()
     private val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbnail URL from [{}]"

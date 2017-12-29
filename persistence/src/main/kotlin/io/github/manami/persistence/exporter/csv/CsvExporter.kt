@@ -18,7 +18,7 @@ import java.nio.file.Path
 /**
  * Exports a list to a csv file.
  */
-class CsvExporter(private val persistence: ApplicationPersistence) : Exporter {
+internal class CsvExporter(private val persistence: ApplicationPersistence) : Exporter {
 
     private val log: Logger by LoggerDelegate()
 

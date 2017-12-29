@@ -8,7 +8,7 @@ import java.net.MalformedURLException
 import java.net.URL
 
 
-class ImportMigrationPostProcessor(
+internal class ImportMigrationPostProcessor(
         private val documentVersion: String,
         private val animeListEntries: MutableList<Anime>,
         private val filterListEntries: MutableList<FilterListEntry>,

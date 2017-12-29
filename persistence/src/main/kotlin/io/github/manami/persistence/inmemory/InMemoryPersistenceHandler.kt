@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @Named("inMemoryStrategy")
-class InMemoryPersistenceHandler @Inject constructor(
+internal class InMemoryPersistenceHandler @Inject constructor(
         private val animeListHandler: InMemoryAnimeListHandler,
         private val filterListHandler: InMemoryFilterListHandler,
         private val watchListHandler: InMemoryWatchListHandler

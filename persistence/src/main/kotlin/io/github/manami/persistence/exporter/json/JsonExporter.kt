@@ -14,7 +14,7 @@ import java.nio.file.Path
 /**
  * Exports a list to valid json.
  */
-class JsonExporter(private val persistence: ApplicationPersistence) : Exporter {
+internal class JsonExporter(private val persistence: ApplicationPersistence) : Exporter {
 
     private val log: Logger by LoggerDelegate()
 

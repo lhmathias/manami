@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap
 import javax.inject.Named
 
 @Named
-class InMemoryAnimeListHandler : AnimeListHandler {
+internal class InMemoryAnimeListHandler : AnimeListHandler {
 
     private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
 

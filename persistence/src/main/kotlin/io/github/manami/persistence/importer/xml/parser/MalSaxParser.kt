@@ -11,7 +11,7 @@ import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
 
 
-class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
+internal class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
 
     /**
      * Actual anime object.

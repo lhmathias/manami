@@ -10,7 +10,7 @@ import javax.inject.Named
 
 
 @Named
-class InMemoryWatchListHandler : WatchListHandler {
+internal class InMemoryWatchListHandler : WatchListHandler {
 
     private val watchList: MutableMap<InfoLink, WatchListEntry> = ConcurrentHashMap()
 

@@ -1,7 +1,5 @@
 package io.github.manami.persistence.utility
 
-import io.github.manami.dto.LoggerDelegate
-import org.slf4j.Logger
 import java.lang.IllegalArgumentException
 import java.nio.file.Files
 import java.nio.file.Path
@@ -11,8 +9,6 @@ import java.nio.file.Paths
  * Class to create, check and resolve an absolute path to a relative path if necessary.
  */
 object PathResolver {
-
-    private val log: Logger by LoggerDelegate()
 
     fun buildPath(path: String, currentWorkingDir: Path): Path? {
         var dir: Path = Paths.get(path)

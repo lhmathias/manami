@@ -49,7 +49,7 @@ class Version(version: String) {
     }
 
 
-    class SplitVersion(val major: Int, val minor: Int, val bugfix: Int)
+    private class SplitVersion(val major: Int, val minor: Int, val bugfix: Int)
 
 
     companion object {

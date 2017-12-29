@@ -5,7 +5,7 @@ import java.nio.file.Path
 /**
  * Interface for an exporter.
  */
-interface Exporter {
+internal interface Exporter {
 
     /**
      * Exports a list to a specified file.
