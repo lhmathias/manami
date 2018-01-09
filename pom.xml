@@ -9,7 +9,7 @@
 
   <groupId>io.github.manami</groupId>
   <artifactId>parent</artifactId>
-  <version>2.15.1</version>
+  <version>3.0.0</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -23,7 +23,7 @@
   <properties>
     <slf4j.version>1.7.25</slf4j.version>
     <java.target.version>1.8</java.target.version>
-    <manami.version>2.15.1</manami.version>
+    <manami.version>3.0.0</manami.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.version>1.2.10</kotlin.version>
     <kotlin.compiler.apiVersion>1.2</kotlin.compiler.apiVersion>
