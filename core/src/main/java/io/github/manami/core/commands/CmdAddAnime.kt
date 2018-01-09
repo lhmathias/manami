@@ -1,14 +1,14 @@
-package io.github.manami.core.commands;
+package io.github.manami.core.commands
 
-import io.github.manami.core.Manami;
-import io.github.manami.dto.entities.Anime;
+import io.github.manami.core.Manami
+import io.github.manami.dto.entities.Anime
 
 /**
  * Command for adding an entry.
  * @param anime Anime that is being added.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */
-class CmdAddAnime(
+internal class CmdAddAnime(
         private val anime: Anime,
         private val application: Manami
 ) : AbstractReversibleCommand(application) {

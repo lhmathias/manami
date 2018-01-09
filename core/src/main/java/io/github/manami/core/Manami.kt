@@ -125,13 +125,13 @@ class Manami(
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterEntry> {
+    override fun fetchFilterList(): MutableList<FilterListEntry> {
         return persistence.fetchFilterList()
     }
 
 
-    override fun filterEntryExists(infoLink: InfoLink): Boolean {
-        return persistence.filterEntryExists(infoLink)
+    override fun filterListEntryExists(infoLink: InfoLink): Boolean {
+        return persistence.filterListEntryExists(infoLink)
     }
 
 
@@ -149,7 +149,7 @@ class Manami(
      * Does everything needed before exiting.
      */
     fun exit() {
-        System.exit(0);
+        System.exit(0)
     }
 
 
@@ -198,7 +198,7 @@ class Manami(
      */
     fun search(searchString: String) {
         if (searchString.isNotBlank()) {
-            log.info("Initiated search for [{}]", searchString);
+            log.info("Initiated search for [{}]", searchString)
             serviceRepo.startService(SearchService(searchString, persistence, eventBus))
         }
     }

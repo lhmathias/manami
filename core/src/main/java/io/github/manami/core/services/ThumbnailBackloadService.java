@@ -4,7 +4,7 @@ import static org.springframework.util.Assert.notNull;
 
 import io.github.manami.cache.Cache;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.persistence.PersistenceFacade;
@@ -90,8 +90,8 @@ public class ThumbnailBackloadService extends AbstractService<Void> {
   private void updateThumbnail(final MinimalEntry entry, final Anime cachedAnime) {
     MinimalEntry updatedEntry = null;
 
-    if (entry instanceof FilterEntry) {
-      updatedEntry = new FilterEntry(
+    if (entry instanceof FilterListEntry) {
+      updatedEntry = new FilterListEntry(
           entry.getTitle(),
           entry.getInfoLink(),
           cachedAnime.getThumbnail());

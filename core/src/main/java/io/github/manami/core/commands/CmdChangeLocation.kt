@@ -10,7 +10,7 @@ import io.github.manami.dto.entities.Anime
  * @param newValue The new value.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */
-class CmdChangeLocation(
+internal class CmdChangeLocation(
         private val anime: Anime,
         private val newValue: String,
         private val application: Manami
@@ -18,6 +18,6 @@ class CmdChangeLocation(
 
     init {
         oldAnime = anime
-        newAnime = oldAnime.copy(location = newValue)
+        newAnime = oldAnime?.copy(location = newValue)
     }
 }

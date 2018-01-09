@@ -112,7 +112,7 @@ public class TagRetrievalService extends AbstractService<Void> {
     foundPerPage.forEach(e -> log.info("{}", e));
 
     foundPerPage.stream().filter(e -> e.isValid()).filter(e -> !foundAll.contains(e)).filter(e -> !app.animeEntryExists(e))
-        .filter(e -> !app.watchListEntryExists(e)).filter(e -> !app.filterEntryExists(e)).forEach(e -> {
+        .filter(e -> !app.watchListEntryExists(e)).filter(e -> !app.filterListEntryExists(e)).forEach(e -> {
       final Optional<Anime> anime = cache.fetchAnime(e);
       if (anime.isPresent()) {
         setChanged();

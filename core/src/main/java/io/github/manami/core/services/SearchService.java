@@ -5,7 +5,7 @@ import static org.apache.commons.lang3.StringUtils.getLevenshteinDistance;
 
 import com.google.common.eventbus.EventBus;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.dto.events.SearchResultEvent;
@@ -54,7 +54,7 @@ public class SearchService extends AbstractService<Void> {
   private void addToList(final MinimalEntry entry) {
     if (entry instanceof Anime) {
       event.addAnimeListSearchResult(entry);
-    } else if (entry instanceof FilterEntry) {
+    } else if (entry instanceof FilterListEntry) {
       event.addFilterListSearchResult(entry);
     } else if (entry instanceof WatchListEntry) {
       event.addWatchListSearchResult(entry);

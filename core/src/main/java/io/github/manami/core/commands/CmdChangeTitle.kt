@@ -10,7 +10,7 @@ import io.github.manami.dto.entities.Anime
  * @param newValue The new title.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */
-class CmdChangeTitle(
+internal class CmdChangeTitle(
         private val anime: Anime,
         private val newValue: String,
         private val application: Manami
@@ -18,6 +18,6 @@ class CmdChangeTitle(
 
     init {
         oldAnime = anime
-        newAnime = oldAnime.copy(title = newValue)
+        newAnime = oldAnime?.copy(title = newValue)
     }
 }

@@ -1,8 +1,8 @@
 package io.github.manami.core.commands
 
-import io.github.manami.core.Manami;
-import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.entities.Anime;
+import io.github.manami.core.Manami
+import io.github.manami.dto.AnimeType
+import io.github.manami.dto.entities.Anime
 
 /**
  * Command for changing the type.
@@ -10,7 +10,7 @@ import io.github.manami.dto.entities.Anime;
  * @param newValue The new value.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */
-class CmdChangeType(
+internal class CmdChangeType(
         private val anime: Anime,
         private val newValue: AnimeType,
         private val application: Manami
@@ -18,6 +18,6 @@ class CmdChangeType(
 
     init {
         oldAnime = anime
-        newAnime = oldAnime.copy(type = newValue)
+        newAnime = oldAnime?.copy(type = newValue)
     }
 }

@@ -143,9 +143,9 @@ public class RelatedAnimeFinderService extends AbstractService<Map<InfoLink, Ani
     }
 
     relatedAnimeList.stream().filter(e -> e.isValid()).filter(e -> !animeToCheck.contains(e)).filter(e -> !checkedAnime.contains(e))
-        .filter(e -> !app.filterEntryExists(e)).forEach(animeToCheck::push);
+        .filter(e -> !app.filterListEntryExists(e)).forEach(animeToCheck::push);
     relatedAnimeList.stream().filter(e -> e.isValid()).filter(e -> !relatedAnime.containsKey(e)).filter(e -> !app.animeEntryExists(e))
-        .filter(e -> !app.watchListEntryExists(e)).filter(e -> !app.filterEntryExists(e)).forEach(e -> {
+        .filter(e -> !app.watchListEntryExists(e)).filter(e -> !app.filterListEntryExists(e)).forEach(e -> {
       final Anime curAnime = cache.fetchAnime(e).get();
       relatedAnime.put(e, curAnime);
       showAnimeList.add(curAnime);

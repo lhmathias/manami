@@ -1,10 +1,10 @@
-package io.github.manami.core.commands;
+package io.github.manami.core.commands
 
 import io.github.manami.core.Manami
 import io.github.manami.dto.entities.WatchListEntry
 
 
-class CmdDeleteDeadWatchListEntry(
+internal class CmdDeleteDeadWatchListEntry(
         private val anime: WatchListEntry,
         private val application: Manami
 ) : AbstractReversibleCommand(application) {

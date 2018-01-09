@@ -20,7 +20,7 @@ import io.github.manami.core.config.Config;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.WatchListEntry;
 import io.github.manami.dto.events.AnimeListChangedEvent;
@@ -115,7 +115,7 @@ public class ManamiTest {
     entry.setThumbnail("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg");
     entry.setType(AnimeType.TV);
 
-    final FilterEntry filterEntry = new FilterEntry("Gintama",
+    final FilterListEntry filterListEntry = new FilterListEntry("Gintama",
         "https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg",
         new InfoLink("https://myanimelist.net/anime/28977"));
 
@@ -124,7 +124,7 @@ public class ManamiTest {
         new InfoLink("https://myanimelist.net/anime/9253"));
 
     cmdService.executeCommand(new CmdAddAnime(entry, app));
-    cmdService.executeCommand(new CmdAddFilterEntry(filterEntry, app));
+    cmdService.executeCommand(new CmdAddFilterEntry(filterListEntry, app));
     cmdService.executeCommand(new CmdAddWatchListEntry(watchEntry, app));
 
     // when
@@ -164,10 +164,10 @@ public class ManamiTest {
     entry.setType(AnimeType.TV);
     persistenceFacade.addAnime(entry);
 
-    final FilterEntry filterEntry = new FilterEntry("Gintama",
+    final FilterListEntry filterListEntry = new FilterListEntry("Gintama",
         "https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg",
         new InfoLink("https://myanimelist.net/anime/28977"));
-    persistenceFacade.filterAnime(filterEntry);
+    persistenceFacade.filterAnime(filterListEntry);
 
     final WatchListEntry watchEntry = new WatchListEntry("Steins;Gate",
         "https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg",
@@ -218,12 +218,12 @@ public class ManamiTest {
         .isEqualTo("https://myanimelist.cdn-dena.com/images/anime/13/8518t.jpg");
     assertThat(deathNoteRewrite.getTitle()).isEqualTo("Death Note Rewrite");
 
-    final List<FilterEntry> fetchFilterList = inMemoryPersistenceHandler.fetchFilterList();
+    final List<FilterListEntry> fetchFilterList = inMemoryPersistenceHandler.fetchFilterList();
     assertThat(fetchFilterList).isNotNull();
     assertThat(fetchFilterList.isEmpty()).isFalse();
     assertThat(fetchFilterList.size()).isEqualTo(1);
 
-    final FilterEntry gintama = fetchFilterList.get(0);
+    final FilterListEntry gintama = fetchFilterList.get(0);
     assertThat(gintama).isNotNull();
     assertThat(gintama.getInfoLink().getUrl()).isEqualTo("https://myanimelist.net/anime/918");
     assertThat(gintama.getThumbnail())
@@ -266,7 +266,7 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry(EMPTY,
+    final FilterListEntry entry = new FilterListEntry(EMPTY,
         new InfoLink("https://myanimelist.net/anime/1535"));
 
     // when
@@ -291,7 +291,7 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry("Death Note", new InfoLink(EMPTY));
+    final FilterListEntry entry = new FilterListEntry("Death Note", new InfoLink(EMPTY));
 
     // when
     final boolean result = app.filterAnime(entry);
@@ -315,7 +315,7 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("https://myanimelist.net/anime/1535"));
 
     // when
@@ -340,7 +340,7 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         "https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg",
         new InfoLink("https://myanimelist.net/anime/1535"));
 
@@ -367,11 +367,11 @@ public class ManamiTest {
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
-    final FilterEntry entry = new FilterEntry("Death Note", infoLink);
+    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
     app.filterAnime(entry);
 
     // when
-    final boolean result = app.filterEntryExists(infoLink);
+    final boolean result = app.filterListEntryExists(infoLink);
 
     // then
     assertThat(result).isTrue();
@@ -392,7 +392,7 @@ public class ManamiTest {
 
     // when
     final boolean result = app
-        .filterEntryExists(new InfoLink("https://myanimelist.net/anime/1535"));
+        .filterListEntryExists(new InfoLink("https://myanimelist.net/anime/1535"));
 
     // then
     verify(eventBusMock, times(0)).post(any(AnimeListChangedEvent.class));
@@ -412,12 +412,12 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         new InfoLink("https://myanimelist.net/anime/1535"));
     app.filterAnime(entry);
 
     // when
-    final List<FilterEntry> fetchFilterList = app.fetchFilterList();
+    final List<FilterListEntry> fetchFilterList = app.fetchFilterList();
 
     // then
     assertThat(fetchFilterList.size()).isEqualTo(1);
@@ -461,7 +461,7 @@ public class ManamiTest {
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
-    final FilterEntry entry = new FilterEntry("Death Note", infoLink);
+    final FilterListEntry entry = new FilterListEntry("Death Note", infoLink);
     app.filterAnime(entry);
 
     // when
@@ -1186,7 +1186,7 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry("Death Note",
+    final FilterListEntry entry = new FilterListEntry("Death Note",
         "https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg",
         new InfoLink("https://myanimelist.net/anime/1535"));
 
@@ -1212,7 +1212,7 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
-    final FilterEntry entry = new FilterEntry("Death Note", AbstractMinimalEntry.NO_IMG_THUMB,
+    final FilterListEntry entry = new FilterListEntry("Death Note", AbstractMinimalEntry.NO_IMG_THUMB,
         new InfoLink("https://myanimelist.net/anime/1535"));
 
     app.filterAnime(entry);
@@ -1496,7 +1496,7 @@ public class ManamiTest {
         new InfoLink("https://myanimelist.net/anime/2994"));
     persistenceFacade.watchAnime(deathNoteRewrite);
 
-    final FilterEntry gintama = new FilterEntry("Gintama",
+    final FilterListEntry gintama = new FilterListEntry("Gintama",
         "https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg",
         new InfoLink("https://myanimelist.net/anime/918"));
     persistenceFacade.filterAnime(gintama);
@@ -1552,7 +1552,7 @@ public class ManamiTest {
         new InfoLink("https://myanimelist.net/anime/2994"));
     persistenceFacade.watchAnime(deathNoteRewrite);
 
-    final FilterEntry gintama = new FilterEntry("Gintama",
+    final FilterListEntry gintama = new FilterListEntry("Gintama",
         "https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg",
         new InfoLink("https://myanimelist.net/anime/918"));
     persistenceFacade.filterAnime(gintama);
@@ -1608,7 +1608,7 @@ public class ManamiTest {
         new InfoLink("https://myanimelist.net/anime/2994"));
     persistenceFacade.watchAnime(deathNoteRewrite);
 
-    final FilterEntry gintama = new FilterEntry("Gintama",
+    final FilterListEntry gintama = new FilterListEntry("Gintama",
         "https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg",
         new InfoLink("https://myanimelist.net/anime/918"));
     persistenceFacade.filterAnime(gintama);
@@ -1766,12 +1766,12 @@ public class ManamiTest {
     assertThat(aldnohaZero.getThumbnail())
         .isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
 
-    final List<FilterEntry> fetchFilterList = persistenceFacade.fetchFilterList();
+    final List<FilterListEntry> fetchFilterList = persistenceFacade.fetchFilterList();
     assertThat(fetchFilterList).isNotNull();
     assertThat(fetchFilterList.isEmpty()).isFalse();
     assertThat(fetchFilterList.size()).isEqualTo(2);
 
-    final FilterEntry matanteiLokiRagnarok = fetchFilterList.get(0);
+    final FilterListEntry matanteiLokiRagnarok = fetchFilterList.get(0);
     assertThat(matanteiLokiRagnarok).isNotNull();
     assertThat(matanteiLokiRagnarok.getInfoLink().getUrl())
         .isEqualTo("https://myanimelist.net/anime/335");
@@ -1779,7 +1779,7 @@ public class ManamiTest {
         .isEqualTo("https://myanimelist.cdn-dena.com/images/qm_50.gif");
     assertThat(matanteiLokiRagnarok.getTitle()).isEqualTo("Matantei Loki Ragnarok");
 
-    final FilterEntry saiunkokuMonogatari = fetchFilterList.get(1);
+    final FilterListEntry saiunkokuMonogatari = fetchFilterList.get(1);
     assertThat(saiunkokuMonogatari).isNotNull();
     assertThat(saiunkokuMonogatari.getInfoLink().getUrl())
         .isEqualTo("https://myanimelist.net/anime/957");
@@ -1814,7 +1814,7 @@ public class ManamiTest {
     assertThat(watchList).isNotNull();
     assertThat(watchList.isEmpty()).isTrue();
 
-    final List<FilterEntry> filterList = persistenceFacade.fetchFilterList();
+    final List<FilterListEntry> filterList = persistenceFacade.fetchFilterList();
     assertThat(filterList).isNotNull();
     assertThat(filterList.isEmpty()).isTrue();
   }

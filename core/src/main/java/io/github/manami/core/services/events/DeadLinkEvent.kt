@@ -4,7 +4,7 @@ import io.github.manami.core.Manami
 import io.github.manami.core.commands.CmdDeleteDeadFilterListEntry
 import io.github.manami.core.commands.CmdDeleteDeadWatchListEntry
 import io.github.manami.core.commands.ReversibleCommand
-import io.github.manami.dto.entities.FilterEntry
+import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.MinimalEntry
 import io.github.manami.dto.entities.WatchListEntry
 
@@ -19,8 +19,8 @@ class DeadLinkEvent(
     init {
         command = when (entry) {
             is WatchListEntry -> CmdDeleteDeadWatchListEntry(entry, app)
-            is FilterEntry -> CmdDeleteDeadFilterListEntry(entry, app)
-            else -> ReversibleCommand() {
+            is FilterListEntry -> CmdDeleteDeadFilterListEntry(entry, app)
+            else -> ReversibleCommand {
                 private var isLastSaved = false
                 override fun undo() {}
                 override fun redo() {}

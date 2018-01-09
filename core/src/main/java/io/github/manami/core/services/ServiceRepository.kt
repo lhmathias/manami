@@ -1,17 +1,11 @@
 package io.github.manami.core.services;
 
-import static com.google.common.collect.Lists.newArrayList;
+import java.util.*
+import javax.inject.Named
 
-import com.sun.javafx.collections.ObservableListWrapper;
-import java.util.Observable;
-import java.util.Observer;
-import javafx.collections.ObservableList;
-import javax.inject.Named;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Named
-public class ServiceRepository implements Observer {
+class ServiceRepository : Observer() {
 
   private static final Logger log = LoggerFactory.getLogger(ServiceRepository.class);
   private final ObservableList<BackgroundService> runningServices = new ObservableListWrapper<>(newArrayList());

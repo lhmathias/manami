@@ -1,7 +1,7 @@
 package io.github.manami.core.commands
 
 import com.google.common.eventbus.EventBus
-import io.github.manami.dto.events.AnimeListChangedEvent
+import io.github.manami.persistence.events.AnimeListChangedEvent
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -10,7 +10,7 @@ import javax.inject.Named
  * Command service keeps track of actions and is responsible for knowing if a file is dirty or not.
  */
 @Named
-class CommandService @Inject constructor(
+internal class CommandService @Inject constructor(
         private val eventBus: EventBus
 ) {
 
@@ -39,7 +39,7 @@ class CommandService @Inject constructor(
         if (command.execute()) {
             done.add(command)
             isUnsaved = true
-            eventBus.post(AnimeListChangedEvent())
+            eventBus.post(AnimeListChangedEvent)
         }
     }
 

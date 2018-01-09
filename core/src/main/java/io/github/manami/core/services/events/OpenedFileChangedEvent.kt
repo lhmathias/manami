@@ -1,3 +1,3 @@
-package io.github.manami.gui.events
+package io.github.manami.core.services.events
 
 class OpenedFileChangedEvent

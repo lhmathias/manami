@@ -6,7 +6,7 @@ import io.github.manami.dto.entities.Anime
 /**
  * Abstract reversible command.
  */
-abstract class AbstractReversibleCommand(
+internal abstract class AbstractReversibleCommand(
         protected var app: Manami
 ) : ReversibleCommand {
 

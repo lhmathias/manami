@@ -3,7 +3,7 @@ package io.github.manami.core.services
 import java.util.*
 
 
-interface BackgroundService {
+internal interface BackgroundService {
 
     fun start()
 

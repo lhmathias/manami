@@ -153,7 +153,7 @@ public class RecommendationsRetrievalService extends AbstractService<List<Anime>
 
     final InfoLink normalizedInfoLink = extractor.normalizeInfoLink(infoLink);
 
-    if (!urlList.contains(normalizedInfoLink) && !app.filterEntryExists(normalizedInfoLink) && !app.watchListEntryExists(normalizedInfoLink)) {
+    if (!urlList.contains(normalizedInfoLink) && !app.filterListEntryExists(normalizedInfoLink) && !app.watchListEntryExists(normalizedInfoLink)) {
       if (recommendationsAll.containsKey(normalizedInfoLink)) {
         recommendationsAll.put(normalizedInfoLink, recommendationsAll.get(normalizedInfoLink) + amount);
       } else {

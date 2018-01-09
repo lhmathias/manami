@@ -1,14 +1,14 @@
-package io.github.manami.core.commands;
+package io.github.manami.core.commands
 
-import io.github.manami.core.Manami;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.core.Manami
+import io.github.manami.dto.entities.FilterListEntry
 
 /**
  * @param entry Anime that is being added.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */
-class CmdAddFilterEntry(
-        private val entry: FilterEntry,
+internal class CmdAddFilterEntry(
+        private val entry: FilterListEntry,
         private val application: Manami
 ) : AbstractReversibleCommand(application) {
 
