@@ -2,14 +2,16 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>io.github.manami</groupId>
     <artifactId>parent</artifactId>
     <version>2.15.1</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
+
   <artifactId>core</artifactId>
-  <version>2.15.1</version>
+
   <dependencies>
     <dependency>
       <groupId>io.github.manami</groupId>
@@ -17,13 +19,11 @@
     </dependency>
     <dependency>
       <groupId>io.github.manami</groupId>
-      <artifactId>dto</artifactId>
-      <scope>test</scope>
-      <type>test-jar</type>
+      <artifactId>persistence</artifactId>
     </dependency>
     <dependency>
       <groupId>io.github.manami</groupId>
-      <artifactId>persistence</artifactId>
+      <artifactId>cache</artifactId>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -36,10 +36,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.github.manami</groupId>
-      <artifactId>cache</artifactId>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>
