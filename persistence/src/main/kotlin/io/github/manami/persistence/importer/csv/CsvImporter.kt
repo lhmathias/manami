@@ -1,7 +1,6 @@
 package io.github.manami.persistence.importer.csv
 
 import io.github.manami.dto.AnimeType
-import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
@@ -10,7 +9,6 @@ import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.exporter.csv.CsvConfig
 import io.github.manami.persistence.exporter.csv.CsvConfig.CsvConfigType.*
 import io.github.manami.persistence.importer.Importer
-import org.slf4j.Logger
 import org.supercsv.cellprocessor.ift.CellProcessor
 import org.supercsv.io.CsvListReader
 import org.supercsv.prefs.CsvPreference
@@ -28,7 +26,7 @@ internal class CsvImporter(private val persistence: PersistenceFacade) : Importe
     private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()
 
-    fun CsvListReader.readDocument(processors: Array<CellProcessor>): List<List<Any>> {
+    private fun CsvListReader.readDocument(processors: Array<CellProcessor>): List<List<Any>> {
         val document: MutableList<MutableList<Any>> = mutableListOf()
 
         var currentLine: MutableList<Any>?
@@ -49,20 +47,23 @@ internal class CsvImporter(private val persistence: PersistenceFacade) : Importe
             for (line in listReader.readDocument(processors)) {
                 val stringList = line.filterIsInstance(String::class.java)
                 // get all columns
-                val title = stringList.getOrNull(1)?.trim()
+                var title = ""
+                stringList.getOrNull(1)?.trim()?.also { title = it }
+
                 val type = stringList.getOrNull(2)?.let { AnimeType.findByName(it.trim()) } ?: AnimeType.TV
                 val episodes: Int = stringList.getOrNull(3)?.toIntOrNull() ?: 0
-                val infoLink = stringList.getOrNull(4)?.let { InfoLink(it.trim()) }
+
+                var infoLink = InfoLink("")
+                stringList.getOrNull(4)?.let { InfoLink(it.trim()) }?.also { infoLink = it }
+
                 val location = stringList.getOrNull(5)?.trim() ?: "/"
 
-                if (title != null && infoLink != null) {
-                    // create object by list type
-                    CsvConfig.CsvConfigType.findByName(stringList[0])?.let {
-                        when (it) {
-                            ANIMELIST -> animeListEntries.add(Anime(title, infoLink, episodes, type, location))
-                            WATCHLIST -> watchListEntries.add(WatchListEntry(title, infoLink))
-                            FILTERLIST -> filterListEntries.add(FilterListEntry(title, infoLink))
-                        }
+                // create object by list type
+                CsvConfig.CsvConfigType.findByName(stringList[0])?.let {
+                    when (it) {
+                        ANIMELIST -> animeListEntries.add(Anime(title, infoLink, episodes, type, location))
+                        WATCHLIST -> watchListEntries.add(WatchListEntry(title, infoLink))
+                        FILTERLIST -> filterListEntries.add(FilterListEntry(title, infoLink))
                     }
                 }
             }

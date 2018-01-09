@@ -46,7 +46,6 @@ class CsvExporterSpec : Spek({
     )
 
 
-
     given("a XmlExporter filled with a pre-filled persistence facade") {
         val xmlExporter = XmlExporter(persistenceFacade)
 

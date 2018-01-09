@@ -17,8 +17,8 @@ class PersistenceFacade
     @Inject
     @Named("inMemoryStrategy") //Currently used db persistence strategy.
     constructor(
-        val strategy: PersistenceHandler,
-        val eventBus: EventBus
+        private val strategy: PersistenceHandler,
+        private val eventBus: EventBus
 ) : PersistenceHandler {
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
@@ -154,7 +154,7 @@ class PersistenceFacade
     override fun addAnimeList(list: MutableList<Anime>) {
         val validAnimeList: MutableList<Anime> = mutableListOf()
 
-        list.filter { anime -> anime.isValidAnime() }.map(validAnimeList::add)
+        list.filter { it.isValidAnime() }.toCollection(validAnimeList)
 
         strategy.addAnimeList(validAnimeList)
         eventBus.post(AnimeListChangedEvent)
@@ -164,7 +164,7 @@ class PersistenceFacade
     override fun addFilterList(list: MutableList<FilterListEntry>) {
         val validEntryList: MutableList<FilterListEntry> = mutableListOf()
 
-        validEntryList.filter { filterListEntry -> filterListEntry.isValidMinimalEntry() }.map(validEntryList::add)
+        list.filter { it.isValidMinimalEntry() }.toCollection(validEntryList)
 
         strategy.addFilterList(validEntryList)
         eventBus.post(FilterListChangedEvent)
@@ -174,7 +174,7 @@ class PersistenceFacade
     override fun addWatchList(list: MutableList<WatchListEntry>) {
         val validEntryList: MutableList<WatchListEntry> = mutableListOf()
 
-        validEntryList.filter { watchListEntry -> watchListEntry.isValidMinimalEntry() }.map(validEntryList::add)
+        list.filter { it.isValidMinimalEntry() }.toCollection(validEntryList)
 
 
         strategy.addWatchList(validEntryList)
@@ -183,11 +183,25 @@ class PersistenceFacade
 
 
     override fun updateOrCreate(entry: MinimalEntry) {
-        strategy.updateOrCreate(entry)
         when (entry) {
-            is Anime -> eventBus.post(AnimeListChangedEvent)
-            is FilterListEntry -> eventBus.post(FilterListChangedEvent)
-            is WatchListEntry -> eventBus.post(WatchListChangedEvent)
+            is Anime -> {
+                if(entry.isValidAnime()) {
+                    strategy.updateOrCreate(entry)
+                    eventBus.post(AnimeListChangedEvent)
+                }
+            }
+            is FilterListEntry -> {
+                if(entry.isValidMinimalEntry()) {
+                    strategy.updateOrCreate(entry)
+                    eventBus.post(FilterListChangedEvent)
+                }
+            }
+            is WatchListEntry -> {
+                if(entry.isValidMinimalEntry()) {
+                    strategy.updateOrCreate(entry)
+                    eventBus.post(WatchListChangedEvent)
+                }
+            }
         }
     }
 }

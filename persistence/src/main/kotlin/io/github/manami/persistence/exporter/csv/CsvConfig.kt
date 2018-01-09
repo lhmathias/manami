@@ -2,6 +2,7 @@ package io.github.manami.persistence.exporter.csv
 
 import org.supercsv.cellprocessor.Optional
 import org.supercsv.cellprocessor.constraint.NotNull
+import org.supercsv.cellprocessor.ift.CellProcessor
 
 
 /**
@@ -35,9 +36,9 @@ internal class CsvConfig {
      *
      * @return An array with indication of the column's type.
      */
-    fun getProcessors() = arrayOf(
-            NotNull(),  // List (e.g. animeList, filterList, watchList)
-            NotNull(),  // Title
+    fun getProcessors(): Array<CellProcessor> = arrayOf(
+            NotNull(), // List (e.g. animeList, filterList, watchList)
+            NotNull(), // Title
             Optional(), // Type
             Optional(), // Episodes
             Optional(), // InfoLink
