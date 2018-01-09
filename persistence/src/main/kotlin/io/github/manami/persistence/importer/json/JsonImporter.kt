@@ -26,7 +26,7 @@ private val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the type is u
 /**
  * Imports a list from a valid JSON file.
  */
-internal class JsonImporter(private val persistence: PersistenceFacade) : Importer {
+class JsonImporter(private val persistence: PersistenceFacade) : Importer {
 
     private val log: Logger by LoggerDelegate()
     private val animeListEntries: MutableList<Anime> = mutableListOf()

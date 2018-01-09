@@ -4,8 +4,8 @@ import static io.github.manami.gui.controller.CheckListController.CHECK_LIST_TAB
 import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 
 import com.google.common.eventbus.Subscribe;
-import io.github.manami.dto.events.OpenedFileChangedEvent;
 import io.github.manami.gui.controller.CheckListController;
+import io.github.manami.core.services.events.OpenedFileChangedEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;

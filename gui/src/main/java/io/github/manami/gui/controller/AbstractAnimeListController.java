@@ -15,7 +15,7 @@ import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
@@ -229,7 +229,7 @@ public abstract class AbstractAnimeListController {
     componentListEntry.setAddToFilterListButton(btnAddToFilterList);
 
     btnAddToFilterList.setOnAction(event -> {
-      final Optional<FilterEntry> filterEntry = FilterEntry.valueOf(componentListEntry.getAnime());
+      final Optional<FilterListEntry> filterEntry = FilterListEntry.valueOf(componentListEntry.getAnime());
 
       if (filterEntry.isPresent()) {
         cmdService.executeCommand(new CmdAddFilterEntry(filterEntry.get(), app));

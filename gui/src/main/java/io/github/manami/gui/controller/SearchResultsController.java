@@ -9,7 +9,7 @@ import io.github.manami.Main;
 import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdDeleteFilterEntry;
 import io.github.manami.core.commands.CommandService;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.events.SearchResultEvent;
 import io.github.manami.gui.components.AnimeGuiComponentsListEntry;
@@ -125,7 +125,7 @@ public class SearchResultsController {
       removeButton.setTooltip(new Tooltip("remove"));
 
       removeButton.setOnAction(event -> {
-        final Optional<FilterEntry> filterEntry = FilterEntry.valueOf(element);
+        final Optional<FilterListEntry> filterEntry = FilterListEntry.valueOf(element);
 
         if (filterEntry.isPresent()) {
 

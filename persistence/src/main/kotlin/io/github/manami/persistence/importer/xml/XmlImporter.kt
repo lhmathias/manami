@@ -14,7 +14,7 @@ import javax.xml.parsers.SAXParserFactory
 /**
  * Importer for opening xml files which are specific for this application.
  */
-internal class XmlImporter(
+class XmlImporter(
         private val strategy: XmlStrategy,
         private val persistence: PersistenceFacade
 ) : Importer {

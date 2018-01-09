@@ -50,7 +50,6 @@ public class ManamiTest {
   private static final Logger log = LoggerFactory.getLogger(ManamiTest.class);
   private static final String TEST_ANIME_LIST_FILE_XML = "test_anime_list.xml";
   private static final String TEST_ANIME_LIST_FILE_JSON = "test_anime_list.json";
-  private static final String TEST_ANIME_LIST_FILE_CSV = "test_anime_list.csv";
   private static final String TEST_MAL_LIST_FILE = "mal_export.xml";
   private static final String TEST_RECOMMENDATIONS_FILE = "test_recommendations_list.json";
 
@@ -1465,62 +1464,6 @@ public class ManamiTest {
 
 
   @Test(groups = UNIT_TEST_GROUP)
-  public void testThaExportedWorksCorrectlyForCsv()
-      throws SAXException, ParserConfigurationException, IOException {
-    // given
-    final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(
-        new InMemoryAnimeListHandler(), new InMemoryFilterListHandler(),
-        new InMemoryWatchListHandler());
-    final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
-        eventBusMock);
-
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
-        persistenceFacade, serviceRepositoryMock, eventBusMock);
-
-    final Anime bokuDake = new Anime("Boku dake ga Inai Machi",
-        new InfoLink("https://myanimelist.net/anime/31043"));
-    bokuDake.setEpisodes(12);
-    bokuDake.setLocation("/anime/series/boku_dake_ga_inai_machi");
-    bokuDake.setType(AnimeType.TV);
-    persistenceFacade.addAnime(bokuDake);
-
-    final Anime rurouniKenshin = new Anime("Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-        new InfoLink("https://myanimelist.net/anime/44"));
-    rurouniKenshin.setEpisodes(4);
-    rurouniKenshin.setLocation("/anime/series/rurouni_kenshin");
-    rurouniKenshin.setType(AnimeType.OVA);
-    persistenceFacade.addAnime(rurouniKenshin);
-
-    final WatchListEntry deathNoteRewrite = new WatchListEntry("Death Note Rewrite",
-        "https://myanimelist.cdn-dena.com/images/anime/13/8518t.jpg",
-        new InfoLink("https://myanimelist.net/anime/2994"));
-    persistenceFacade.watchAnime(deathNoteRewrite);
-
-    final FilterListEntry gintama = new FilterListEntry("Gintama",
-        "https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg",
-        new InfoLink("https://myanimelist.net/anime/918"));
-    persistenceFacade.filterAnime(gintama);
-
-    final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE_CSV);
-    final StringBuilder expectedFileBuilder = new StringBuilder();
-    Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8)
-        .forEach(expectedFileBuilder::append);
-
-    final Path file = Files.createFile(Paths.get(tempFolder + separator + "tempfile.csv"));
-
-    // when
-    app.export(file);
-
-    // then
-    final StringBuilder exportedFileBuilder = new StringBuilder();
-    Files.readAllLines(resource.getFile().toPath(), StandardCharsets.UTF_8)
-        .forEach(exportedFileBuilder::append);
-
-    assertThat(expectedFileBuilder.toString()).isEqualTo(exportedFileBuilder.toString());
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
   public void testThaExportedWorksCorrectlyForJson()
       throws SAXException, ParserConfigurationException, IOException {
     // given
@@ -1638,47 +1581,6 @@ public class ManamiTest {
     final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
     final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE_JSON);
-
-    // when
-    app.importFile(resource.getFile().toPath());
-
-    // then
-    final List<Anime> fetchAnimeList = persistenceFacade.fetchAnimeList();
-    assertThat(fetchAnimeList).isNotNull();
-    assertThat(fetchAnimeList.isEmpty()).isFalse();
-    assertThat(fetchAnimeList.size()).isEqualTo(2);
-
-    final Anime bokuDake = fetchAnimeList.get(0);
-    assertThat(bokuDake).isNotNull();
-    assertThat(bokuDake.getEpisodes()).isEqualTo(12);
-    assertThat(bokuDake.getInfoLink().getUrl()).isEqualTo("https://myanimelist.net/anime/31043");
-    assertThat(bokuDake.getLocation()).isEqualTo("/anime/series/boku_dake_ga_inai_machi");
-    assertThat(bokuDake.getTitle()).isEqualTo("Boku dake ga Inai Machi");
-    assertThat(bokuDake.getType()).isEqualTo(AnimeType.TV);
-
-    final Anime rurouniKenshin = fetchAnimeList.get(1);
-    assertThat(rurouniKenshin).isNotNull();
-    assertThat(rurouniKenshin.getEpisodes()).isEqualTo(4);
-    assertThat(rurouniKenshin.getInfoLink().getUrl()).isEqualTo("https://myanimelist.net/anime/44");
-    assertThat(rurouniKenshin.getLocation()).isEqualTo("/anime/series/rurouni_kenshin");
-    assertThat(rurouniKenshin.getTitle())
-        .isEqualTo("Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen");
-    assertThat(rurouniKenshin.getType()).isEqualTo(AnimeType.OVA);
-  }
-
-
-  @Test(groups = UNIT_TEST_GROUP)
-  public void testThatImportWorksCorrectlyForCsv()
-      throws SAXException, ParserConfigurationException, IOException {
-    // given
-    final InMemoryPersistenceHandler inMemoryPersistenceHandler = new InMemoryPersistenceHandler(
-        new InMemoryAnimeListHandler(), new InMemoryFilterListHandler(),
-        new InMemoryWatchListHandler());
-    final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
-        eventBusMock);
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
-        persistenceFacade, serviceRepositoryMock, eventBusMock);
-    final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE_CSV);
 
     // when
     app.importFile(resource.getFile().toPath());

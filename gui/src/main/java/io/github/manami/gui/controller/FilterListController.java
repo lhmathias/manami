@@ -14,7 +14,7 @@ import io.github.manami.core.services.AnimeRetrievalService;
 import io.github.manami.core.services.RelatedAnimeFinderService;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.gui.components.AnimeGuiComponentsListEntry;
@@ -161,7 +161,7 @@ public class FilterListController extends AbstractAnimeListController implements
       normalizedInfoLink = extractor.get().normalizeInfoLink(infoLink);
     }
 
-    if (!app.filterEntryExists(normalizedInfoLink)) {
+    if (!app.filterListEntryExists(normalizedInfoLink)) {
       final AnimeRetrievalService retrievalService = new AnimeRetrievalService(cache, normalizedInfoLink);
       retrievalService.addObserver(this);
       serviceList.offer(retrievalService);
@@ -215,7 +215,7 @@ public class FilterListController extends AbstractAnimeListController implements
 
 
   private void processAnimeRetrievalResult(final Anime anime) {
-    final Optional<FilterEntry> filterEntry = FilterEntry.valueOf(anime);
+    final Optional<FilterListEntry> filterEntry = FilterListEntry.valueOf(anime);
 
     if (filterEntry.isPresent()) {
       cmdService.executeCommand(new CmdAddFilterEntry(filterEntry.get(), app));
@@ -237,7 +237,7 @@ public class FilterListController extends AbstractAnimeListController implements
 
 
   public void startRecommendedFilterEntrySearch() {
-    final List<FilterEntry> filterList = newArrayList(app.fetchFilterList());
+    final List<FilterListEntry> filterList = newArrayList(app.fetchFilterList());
     Collections.shuffle(filterList, new SecureRandom());
     Collections.shuffle(filterList, new SecureRandom());
     Collections.shuffle(filterList, new SecureRandom());
@@ -277,7 +277,7 @@ public class FilterListController extends AbstractAnimeListController implements
   protected AnimeGuiComponentsListEntry addFilterListButton(final AnimeGuiComponentsListEntry componentListEntry) {
     super.addFilterListButton(componentListEntry);
     componentListEntry.getAddToFilterListButton().setOnAction(event -> {
-      final Optional<FilterEntry> filterEntry = FilterEntry.valueOf(componentListEntry.getAnime());
+      final Optional<FilterListEntry> filterEntry = FilterListEntry.valueOf(componentListEntry.getAnime());
 
       if (filterEntry.isPresent()) {
         cmdService.executeCommand(new CmdAddFilterEntry(filterEntry.get(), app));
@@ -310,7 +310,7 @@ public class FilterListController extends AbstractAnimeListController implements
 
   @Override
   boolean isInList(final InfoLink infoLink) {
-    return infoLink.isValid() && app.filterEntryExists(infoLink);
+    return infoLink.isValid() && app.filterListEntryExists(infoLink);
   }
 
 

@@ -8,9 +8,11 @@ Manami let's you create an index file for the anime that you already watched and
 ### All features at a glance
 * Import entries from MAL
 * Automatically fill out meta information upon adding a new entry
-    * You only have to add the info link and the location
+    * You only have to add the info link (e.g. https://myanimelist.net/anime/1535) and the location on your hard drive
 * Creates an index list for your local anime which can be opened in your browser
-* Import/Export from/to CSV/JSON
+* Import/Export
+    * import and export from/to JSON
+    * import from MAL
     * The basic file format is XML
 * Recommendation search
 * Related anime finder

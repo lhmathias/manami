@@ -16,7 +16,7 @@ import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.core.services.events.AdvancedProgressState;
 import io.github.manami.core.services.events.ProgressState;
 import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterEntry;
+import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.entities.WatchListEntry;
@@ -272,7 +272,7 @@ public class RecommendationsController extends AbstractAnimeListController imple
     super.addFilterListButton(componentListEntry);
 
     componentListEntry.getAddToFilterListButton().setOnAction(event -> {
-      final Optional<FilterEntry> filterEntry = FilterEntry.valueOf(componentListEntry.getAnime());
+      final Optional<FilterListEntry> filterEntry = FilterListEntry.valueOf(componentListEntry.getAnime());
 
       if (filterEntry.isPresent()) {
         originalOrder.remove(componentListEntry.getAnime());

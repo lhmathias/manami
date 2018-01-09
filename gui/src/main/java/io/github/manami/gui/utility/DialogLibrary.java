@@ -32,11 +32,6 @@ public final class DialogLibrary {
   public final static ExtensionFilter XML_FILTER = new FileChooser.ExtensionFilter("XML", "*.xml");
 
   /**
-   * Extension for csv files.
-   */
-  public final static ExtensionFilter CSV_FILTER = new FileChooser.ExtensionFilter("CSV", "*.csv");
-
-  /**
    * Extension for json files.
    */
   public final static ExtensionFilter JSON_FILTER = new FileChooser.ExtensionFilter("JSON", "*.json");
@@ -72,7 +67,7 @@ public final class DialogLibrary {
   public static Path showImportFileDialog(final Stage stage) {
     fileChooser = new FileChooser();
     fileChooser.setTitle("Import file...");
-    fileChooser.getExtensionFilters().addAll(XML_MAL_FILTER, JSON_FILTER, CSV_FILTER);
+    fileChooser.getExtensionFilters().addAll(XML_MAL_FILTER, JSON_FILTER);
 
     final File ret = fileChooser.showOpenDialog(stage);
     return (ret != null) ? ret.toPath() : null;
@@ -102,7 +97,7 @@ public final class DialogLibrary {
    * @return {@link Path} for the newly created file or null.
    */
   public static Path showExportDialog(final Stage stage) {
-    return showExportDialog(stage, new ExtensionFilter[]{JSON_FILTER, CSV_FILTER});
+    return showExportDialog(stage, new ExtensionFilter[]{JSON_FILTER});
   }
 
 

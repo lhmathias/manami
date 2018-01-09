@@ -12,10 +12,8 @@ import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.PersistenceFacade
-import io.github.manami.persistence.exporter.csv.CsvExporter
 import io.github.manami.persistence.exporter.json.JsonExporter
 import io.github.manami.persistence.exporter.xml.XmlExporter
-import io.github.manami.persistence.importer.csv.CsvImporter
 import io.github.manami.persistence.importer.json.JsonImporter
 import io.github.manami.persistence.importer.xml.XmlImporter
 import org.slf4j.Logger
@@ -23,7 +21,6 @@ import java.nio.file.Path
 import java.util.*
 
 private val FILE_SUFFIX_XML = ".xml"
-private val FILE_SUFFIX_CSV = ".csv"
 private val FILE_SUFFIX_JSON = ".json"
 
 /**
@@ -82,15 +79,12 @@ class Manami(
      * @param file File to export to.
      */
     fun export(file: Path) {
-        when {
-            file.toString().endsWith(FILE_SUFFIX_CSV) -> CsvExporter(persistence).exportAll(file)
-            file.toString().endsWith(FILE_SUFFIX_JSON) -> JsonExporter(persistence).exportAll(file)
-        }
+        JsonExporter(persistence).exportAll(file)
     }
 
 
     /**
-     * Imports a file either XML (MAL List), JSON or CSV.
+     * Imports a file either XML (MAL List) or JSON.
      *
      * @param file File to import.
      */
@@ -98,7 +92,6 @@ class Manami(
         try {
             when {
                 file.toString().endsWith(FILE_SUFFIX_XML) -> XmlImporter(XmlImporter.XmlStrategy.MAL, persistence).importFile(file)
-                file.toString().endsWith(FILE_SUFFIX_CSV) -> CsvImporter(persistence).importFile(file)
                 file.toString().endsWith(FILE_SUFFIX_JSON) -> JsonImporter(persistence).importFile(file)
             }
         } catch (e: Exception) {
