@@ -10,11 +10,10 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 
-class ConfigFileWatchdog(
-        path: Path
-) {
+internal class ConfigFileWatchdog(path: Path) {
 
     private val log: Logger by LoggerDelegate()
+
     private val stylesheetPlaceholder = "{{STYLESHEET-FILE-PATH}}"
     private var configFolder: Path = path.resolve(Paths.get("config"))
     private var themePath: Path = configFolder.resolve(Paths.get("theme"))

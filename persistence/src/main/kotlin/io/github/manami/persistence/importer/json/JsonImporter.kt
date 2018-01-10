@@ -18,6 +18,8 @@ import java.lang.StringBuilder
 import java.net.MalformedURLException
 import java.net.URL
 import java.nio.file.Path
+import javax.inject.Inject
+import javax.inject.Named
 
 
 private const val URL_PARSING_EXCEPTION_MESSAGE = "Unable to import [{}]"
@@ -26,7 +28,8 @@ private const val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the typ
 /**
  * Imports a list from a valid JSON file.
  */
-internal class JsonImporter(private val persistence: PersistenceFacade) : Importer {
+@Named("jsonImporter")
+internal class JsonImporter @Inject constructor(private val persistence: PersistenceFacade) : Importer {
 
     private val log: Logger by LoggerDelegate()
     private val animeListEntries: MutableList<Anime> = mutableListOf()

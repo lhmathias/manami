@@ -1,6 +1,8 @@
 package io.github.manami.persistence.inmemory
 
 import io.github.manami.dto.entities.*
+import io.github.manami.persistence.ApplicationPersistence
+import io.github.manami.persistence.InternalPersistenceHandler
 import io.github.manami.persistence.PersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
@@ -14,7 +16,7 @@ internal class InMemoryPersistenceHandler @Inject constructor(
         private val animeListHandler: InMemoryAnimeListHandler,
         private val filterListHandler: InMemoryFilterListHandler,
         private val watchListHandler: InMemoryWatchListHandler
-) : PersistenceHandler {
+) : ApplicationPersistence, InternalPersistenceHandler {
 
 
     override fun filterAnime(anime: MinimalEntry): Boolean {

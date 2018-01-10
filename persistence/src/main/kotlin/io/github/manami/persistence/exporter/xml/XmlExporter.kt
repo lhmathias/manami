@@ -17,6 +17,8 @@ import java.io.PrintWriter
 import java.lang.Exception
 import java.nio.file.Files
 import java.nio.file.Path
+import javax.inject.Inject
+import javax.inject.Named
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.parsers.ParserConfigurationException
@@ -26,9 +28,10 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
 
-private val RELATIVE_PATH_SEPARATOR = "/"
+private const val RELATIVE_PATH_SEPARATOR = "/"
 
-internal class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
+@Named("xmlExporter")
+internal class XmlExporter @Inject constructor(private val persistence: ApplicationPersistence) : Exporter {
 
     private val log: Logger by LoggerDelegate()
 
@@ -40,7 +43,7 @@ internal class XmlExporter(private val persistence: ApplicationPersistence) : Ex
     private var file: Path? = null
 
 
-    override fun exportAll(file: Path): Boolean {
+    override fun save(file: Path): Boolean {
         this.file = file
         val factory: DocumentBuilderFactory = DocumentBuilderFactory.newInstance()
         factory.isValidating = true
@@ -255,7 +258,7 @@ internal class XmlExporter(private val persistence: ApplicationPersistence) : Ex
             transformer.transform(DOMSource(doc), StreamResult(output))
             output.close()
         } catch (e: Exception) {
-            log.error("An error occurred while trying to export the list to a xml file: ", e)
+            log.error("An error occurred while trying to exportToJsonFile the list to a xml file: ", e)
         }
     }
 

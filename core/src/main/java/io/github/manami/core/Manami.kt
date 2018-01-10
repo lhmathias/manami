@@ -12,18 +12,16 @@ import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.PersistenceFacade
-import io.github.manami.persistence.exporter.json.JsonExporter
-import io.github.manami.persistence.exporter.xml.XmlExporter
-import io.github.manami.persistence.importer.json.JsonImporter
-import io.github.manami.persistence.importer.xml.XmlImporter
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
+
 private const val FILE_SUFFIX_XML = ".xml"
 private const val FILE_SUFFIX_JSON = ".json"
+
 
 /**
  * Main access to the features of the application. This class has got delegation as well as operational functionality.
@@ -35,8 +33,7 @@ class Manami @Inject constructor(
         private val persistence: PersistenceFacade,
         private val serviceRepo: ServiceRepository,
         private val cache: Cache,
-        private val eventBus: EventBus,
-        private val xmlImporter: XmlImporter
+        private val eventBus: EventBus
 ) : ApplicationPersistence {
 
     private val log: Logger by LoggerDelegate()
@@ -57,7 +54,7 @@ class Manami @Inject constructor(
      */
     private fun resetCommandHistory() {
         cmdService.clearAll()
-        cmdService.isUnsaved = false
+        cmdService.setUnsaved(false)
     }
 
 
@@ -68,7 +65,7 @@ class Manami @Inject constructor(
      */
     fun open(file: Path) {
         persistence.clearAll()
-        xmlImporter.using(XmlImporter.XmlStrategy.MANAMI).importFile(file)
+        persistence.open(file)
         config.file = file
         serviceRepo.startService(ThumbnailBackloadService(cache, persistence))
         serviceRepo.startService(CacheInitializationService(cache, persistence.fetchAnimeList()))
@@ -78,10 +75,10 @@ class Manami @Inject constructor(
     /**
      * Exports the file.
      *
-     * @param file File to export to.
+     * @param file File to exportToJsonFile to.
      */
     fun export(file: Path) {
-        JsonExporter(persistence).exportAll(file)
+        persistence.exportToJsonFile(file)
     }
 
 
@@ -91,13 +88,9 @@ class Manami @Inject constructor(
      * @param file File to import.
      */
     fun importFile(file: Path) {
-        try {
-            when {
-                file.toString().endsWith(FILE_SUFFIX_XML) -> xmlImporter.using(XmlImporter.XmlStrategy.MAL).importFile(file)
-                file.toString().endsWith(FILE_SUFFIX_JSON) -> JsonImporter(persistence).importFile(file)
-            }
-        } catch (e: Exception) {
-            log.error("An error occurred trying to import {}:", file, e)
+        when {
+            file.toString().endsWith(FILE_SUFFIX_XML) -> persistence.importMalFile(file)
+            file.toString().endsWith(FILE_SUFFIX_JSON) -> persistence.importJsonFile(file)
         }
     }
 
@@ -106,10 +99,8 @@ class Manami @Inject constructor(
      * Saves the opened file.
      */
     fun save() {
-        val xmlExporter = XmlExporter(persistence)
-
-        if (xmlExporter.exportAll(config.file)) {
-            cmdService.isUnsaved = false
+        if (persistence.save(config.file)) {
+            cmdService.setUnsaved(false)
             cmdService.resetDirtyFlag()
         }
     }
@@ -201,7 +192,7 @@ class Manami @Inject constructor(
 
     fun exportList(list: MutableList<Anime>, file: Path) {
         if (file.toString().endsWith(FILE_SUFFIX_JSON)) {
-            JsonExporter(persistence).exportList(list, file)
+            persistence.exportListToJsonFile(list, file)
         }
     }
 }

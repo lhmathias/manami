@@ -7,6 +7,7 @@ import io.github.manami.dto.entities.InfoLink
 
 /**
  * Command for changing the info link.
+ *
  * @param anime Anime to change.
  * @param newValue The new value.
  * @param application Instance of the application which reveals access to the persistence functionality.

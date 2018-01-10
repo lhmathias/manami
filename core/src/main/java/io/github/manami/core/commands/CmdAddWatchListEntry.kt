@@ -4,6 +4,8 @@ import io.github.manami.core.Manami
 import io.github.manami.dto.entities.WatchListEntry
 
 /**
+ * Adds an Anime to the watchlist.
+ *
  * @param entry Anime that is being added.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */

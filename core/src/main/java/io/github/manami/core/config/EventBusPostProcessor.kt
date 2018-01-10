@@ -7,12 +7,11 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @Named
-class EventBusPostProcessor @Inject constructor(
+internal class EventBusPostProcessor @Inject constructor(
         private val eventBus: EventBus
 ) : BeanPostProcessor {
 
     override fun postProcessBeforeInitialization(bean: Any, beanName: String): Any = bean
-
 
     override fun postProcessAfterInitialization(bean: Any, beanName: String): Any {
         val clazz = bean.javaClass

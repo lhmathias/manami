@@ -104,7 +104,7 @@ class JsonExporterSpec : Spek({
         }
 
         on("exporting the list to a file") {
-            jsonExporter.exportAll(file)
+            jsonExporter.save(file)
 
             it("must contain the same list within the file as in the persistence facade") {
                 var expectedFileBuilder = StringBuilder()

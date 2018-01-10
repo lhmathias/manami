@@ -5,6 +5,13 @@ import io.github.manami.dto.entities.*
 import io.github.manami.persistence.events.AnimeListChangedEvent
 import io.github.manami.persistence.events.FilterListChangedEvent
 import io.github.manami.persistence.events.WatchListChangedEvent
+import io.github.manami.persistence.exporter.Exporter
+import io.github.manami.persistence.exporter.json.JsonExporter
+import io.github.manami.persistence.exporter.xml.XmlExporter
+import io.github.manami.persistence.importer.Importer
+import io.github.manami.persistence.importer.json.JsonImporter
+import io.github.manami.persistence.importer.xml.XmlImporter
+import java.nio.file.Path
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -17,7 +24,11 @@ class PersistenceFacade
     @Inject
     constructor(
         @Named("inMemoryStrategy") private val strategy: PersistenceHandler, //Currently used db persistence strategy.
-        private val eventBus: EventBus
+        private val eventBus: EventBus,
+        @Named("xmlImporter") private val xmlImporter: Importer,
+        @Named("xmlExporter") private val xmlExporter: Exporter,
+        @Named("jsonImporter") private val jsonImporter: Importer,
+        @Named("jsonExporter") private val jsonExporter: Exporter
 ) : PersistenceHandler {
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
@@ -203,4 +214,32 @@ class PersistenceFacade
             }
         }
     }
+
+
+    override fun open(file: Path) {
+        (xmlImporter as XmlImporter).using(XmlImporter.XmlStrategy.MANAMI).importFile(file)
+    }
+
+
+    override fun importMalFile(file: Path) {
+        (xmlImporter as XmlImporter).using(XmlImporter.XmlStrategy.MAL).importFile(file)
+    }
+
+
+    override fun exportListToJsonFile(list: MutableList<Anime>, file: Path) {
+        (jsonExporter as JsonExporter).exportList(list, file)
+    }
+
+
+    override fun importJsonFile(file: Path) {
+        (jsonImporter as JsonImporter).importFile(file)
+    }
+
+
+    override fun exportToJsonFile(file: Path) {
+        (jsonExporter as JsonExporter).save(file)
+    }
+
+
+    override fun save(file: Path) = (xmlExporter as XmlExporter).save(file)
 }

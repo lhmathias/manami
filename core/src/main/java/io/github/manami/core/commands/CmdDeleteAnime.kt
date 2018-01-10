@@ -4,8 +4,9 @@ import io.github.manami.core.Manami
 import io.github.manami.dto.entities.Anime
 
 /**
- * Command for deleting an entry.
- * @param entry {@link Anime} that is supposed to be deleted.
+ * Command for deleting an entry from animelist.
+ *
+ * @param anime {@link Anime} that is supposed to be deleted.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */
 internal class CmdDeleteAnime(

@@ -8,13 +8,16 @@ import io.github.manami.persistence.exporter.Exporter
 import org.json.JSONWriter
 import java.io.PrintWriter
 import java.nio.file.Path
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Exports a list to valid json.
  */
-internal class JsonExporter(private val persistence: ApplicationPersistence) : Exporter {
+@Named("jsonExporter")
+internal class JsonExporter @Inject constructor(private val persistence: ApplicationPersistence) : Exporter {
 
-    override fun exportAll(file: Path): Boolean {
+    override fun save(file: Path): Boolean {
         PrintWriter(file.toFile()).use { printWriter ->
             val writer: JSONWriter = JSONWriter(printWriter).apply {
                 array()
@@ -62,10 +65,6 @@ internal class JsonExporter(private val persistence: ApplicationPersistence) : E
 
             printWriter.flush()
         }
-        /*FIXME: atch (e: FileNotFoundException) {
-        log.error("An error occurred while trying to export the list to JSON: ", e)
-        return false
-      }*/
 
         return true
     }
@@ -96,11 +95,6 @@ internal class JsonExporter(private val persistence: ApplicationPersistence) : E
             printWriter.flush()
         }
 
-
-        /*FIXME: catch (e: FileNotFoundException) {
-        log.error("An error occurred while trying to export the list to JSON: ", e)
-        return false
-      }*/
         return true
     }
 }

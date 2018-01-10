@@ -6,6 +6,7 @@ import io.github.manami.dto.entities.Anime
 
 /**
  * Command for changing the title.
+ *
  * @param anime Anime that is being edited.
  * @param newValue The new title.
  * @param application Instance of the application which reveals access to the persistence functionality.

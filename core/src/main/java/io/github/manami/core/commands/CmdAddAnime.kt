@@ -5,6 +5,7 @@ import io.github.manami.dto.entities.Anime
 
 /**
  * Command for adding an entry.
+ *
  * @param anime Anime that is being added.
  * @param application Instance of the application which reveals access to the persistence functionality.
  */

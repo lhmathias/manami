@@ -5,13 +5,13 @@ import java.nio.file.Path
 /**
  * Interface for an exporter.
  */
-internal interface Exporter {
+interface Exporter {
 
     /**
-     * Exports a list to a specified file.
+     * Writes all three lists animelist, filterlist and watchlist to a specified file.
      *
      * @param file File
-     * @return true if the export was successful and false if an error occurred.
+     * @return true if the exportToJsonFile was successful and false if an error occurred.
      */
-    fun exportAll(file: Path): Boolean
+    fun save(file: Path): Boolean
 }

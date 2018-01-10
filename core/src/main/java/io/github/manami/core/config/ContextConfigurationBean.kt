@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("io.github.manami")
-class ContextConfigurationBean {
+internal class ContextConfigurationBean {
 
     private var eventBus: EventBus? = null
 

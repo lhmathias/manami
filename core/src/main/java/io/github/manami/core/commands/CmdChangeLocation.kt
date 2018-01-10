@@ -6,6 +6,7 @@ import io.github.manami.dto.entities.Anime
 
 /**
  * Command for changing the location.
+ *
  * @param anime Anime to change.
  * @param newValue The new value.
  * @param application Instance of the application which reveals access to the persistence functionality.

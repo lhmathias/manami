@@ -98,7 +98,7 @@ class XmlExporterSpec : Spek({
         }
         
         on("exporting the list to a file") {
-            xmlExporter.exportAll(file)
+            xmlExporter.save(file)
             
             it("must contain the same list within the file as in the persistence facade") {
                 val exportedFileBuilder = StringBuilder()

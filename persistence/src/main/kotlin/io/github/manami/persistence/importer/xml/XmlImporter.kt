@@ -1,6 +1,5 @@
 package io.github.manami.persistence.importer.xml
 
-import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.importer.Importer
 import io.github.manami.persistence.importer.xml.XmlImporter.XmlStrategy.MAL
 import io.github.manami.persistence.importer.xml.XmlImporter.XmlStrategy.MANAMI
@@ -16,7 +15,7 @@ import javax.xml.parsers.SAXParserFactory
 /**
  * Importer for opening xml files which are specific for this application.
  */
-@Named
+@Named("xmlImporter")
 internal class XmlImporter @Inject constructor(
         private val manamiSaxParser: ManamiSaxParser,
         private val malSaxParser: MalSaxParser
