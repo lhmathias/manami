@@ -28,7 +28,7 @@ import javax.xml.transform.stream.StreamResult
 
 private val RELATIVE_PATH_SEPARATOR = "/"
 
-class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
+internal class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
 
     private val log: Logger by LoggerDelegate()
 
@@ -44,7 +44,7 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
         this.file = file
         val factory: DocumentBuilderFactory = DocumentBuilderFactory.newInstance()
         factory.isValidating = true
-        var builder: DocumentBuilder
+        val builder: DocumentBuilder
 
         try {
             builder = factory.newDocumentBuilder()

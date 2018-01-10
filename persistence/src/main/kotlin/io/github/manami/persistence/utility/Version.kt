@@ -3,7 +3,7 @@ package io.github.manami.persistence.utility
 import java.lang.IllegalArgumentException
 
 
-class Version(version: String) {
+internal class Version(version: String) {
 
     private var internalVersion: SplitVersion = extractVersionParts(version)
 

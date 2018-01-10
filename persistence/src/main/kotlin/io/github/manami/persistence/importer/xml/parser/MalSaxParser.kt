@@ -9,9 +9,12 @@ import io.github.manami.persistence.PersistenceFacade
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
+import javax.inject.Inject
+import javax.inject.Named
 
 
-class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
+@Named
+internal class MalSaxParser @Inject constructor(private val persistence: PersistenceFacade) : DefaultHandler() {
 
     /**
      * Actual anime object.

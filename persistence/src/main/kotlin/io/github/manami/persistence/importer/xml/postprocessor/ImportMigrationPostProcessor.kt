@@ -11,7 +11,7 @@ import javax.inject.Inject
 import javax.inject.Named
 
 @Named
-class ImportMigrationPostProcessor @Inject constructor(
+internal class ImportMigrationPostProcessor @Inject constructor(
         private val eventBus: EventBus
 ) {
 

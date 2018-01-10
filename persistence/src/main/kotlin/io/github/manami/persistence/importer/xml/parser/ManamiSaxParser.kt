@@ -23,7 +23,7 @@ private const val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbna
 
 
 @Named
-class ManamiSaxParser @Inject constructor(
+internal class ManamiSaxParser @Inject constructor(
         private val persistence: PersistenceFacade,
         private val importMigrationPostProcessor: ImportMigrationPostProcessor
 ) : DefaultHandler() {

@@ -1,22 +1,18 @@
 package io.github.manami.persistence.exporter.json
 
-import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.exporter.Exporter
 import org.json.JSONWriter
-import org.slf4j.Logger
 import java.io.PrintWriter
 import java.nio.file.Path
 
 /**
  * Exports a list to valid json.
  */
-class JsonExporter(private val persistence: ApplicationPersistence) : Exporter {
-
-    private val log: Logger by LoggerDelegate()
+internal class JsonExporter(private val persistence: ApplicationPersistence) : Exporter {
 
     override fun exportAll(file: Path): Boolean {
         PrintWriter(file.toFile()).use { printWriter ->

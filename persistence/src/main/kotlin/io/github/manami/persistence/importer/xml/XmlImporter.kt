@@ -17,7 +17,7 @@ import javax.xml.parsers.SAXParserFactory
  * Importer for opening xml files which are specific for this application.
  */
 @Named
-class XmlImporter @Inject constructor(
+internal class XmlImporter @Inject constructor(
         private val manamiSaxParser: ManamiSaxParser,
         private val malSaxParser: MalSaxParser
 ) : Importer {

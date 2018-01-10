@@ -15,9 +15,8 @@ import javax.inject.Named
 @Named
 class PersistenceFacade
     @Inject
-    @Named("inMemoryStrategy") //Currently used db persistence strategy.
     constructor(
-        private val strategy: PersistenceHandler,
+        @Named("inMemoryStrategy") private val strategy: PersistenceHandler, //Currently used db persistence strategy.
         private val eventBus: EventBus
 ) : PersistenceHandler {
 
