@@ -11,7 +11,6 @@ internal interface Importer {
      * Imports a list from a file and enriches the given list.
      *
      * @param file File
-     * @throws SAXException, ParserConfigurationException, IOException
      */
     fun importFile(file: Path)
 }

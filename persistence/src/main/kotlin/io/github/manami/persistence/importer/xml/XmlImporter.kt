@@ -9,16 +9,20 @@ import io.github.manami.persistence.importer.xml.parser.ManamiSaxParser
 import org.xml.sax.ContentHandler
 import org.xml.sax.InputSource
 import java.nio.file.Path
+import javax.inject.Inject
+import javax.inject.Named
 import javax.xml.parsers.SAXParserFactory
 
 /**
  * Importer for opening xml files which are specific for this application.
  */
-class XmlImporter(
-        private val strategy: XmlStrategy,
-        private val persistence: PersistenceFacade
+@Named
+class XmlImporter @Inject constructor(
+        private val manamiSaxParser: ManamiSaxParser,
+        private val malSaxParser: MalSaxParser
 ) : Importer {
 
+    private var strategy: XmlStrategy = MANAMI
 
     /**
      * Strategy for XML import.
@@ -34,6 +38,7 @@ class XmlImporter(
         MAL
     }
 
+
     override fun importFile(file: Path) {
         val parserFactory: SAXParserFactory = SAXParserFactory.newInstance().apply {
             isValidating = true
@@ -41,21 +46,28 @@ class XmlImporter(
         }
 
         parserFactory.newSAXParser().xmlReader.let { saxParser ->
-            saxParser.contentHandler = createParserFromStrategy()
+            saxParser.contentHandler = createParserFromStrategy(strategy)
             saxParser.parse(InputSource(file.toAbsolutePath().toString()))
         }
+    }
+
+
+    fun using(xmlStrategy: XmlStrategy): XmlImporter {
+        strategy = xmlStrategy
+        return this
     }
 
 
     /**
      * Creates a parser from the given strategy.
      *
+     * @param strategy
      * @return Parser
      */
-    private fun createParserFromStrategy(): ContentHandler {
+    private fun createParserFromStrategy(strategy: XmlStrategy): ContentHandler {
         return when (strategy) {
-            MANAMI -> ManamiSaxParser(persistence)
-            MAL -> MalSaxParser(persistence)
+            MANAMI -> manamiSaxParser
+            MAL -> malSaxParser
         }
     }
 }

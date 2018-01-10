@@ -7,6 +7,7 @@ import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.PersistenceFacade
+import io.github.manami.persistence.importer.xml.postprocessor.ImportDocument
 import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
 import org.slf4j.Logger
 import org.xml.sax.Attributes
@@ -14,33 +15,37 @@ import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
 import java.net.MalformedURLException
 import java.net.URL
+import javax.inject.Inject
+import javax.inject.Named
 
-internal class ManamiSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
+
+private const val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbnail URL from [{}]"
+
+
+@Named
+class ManamiSaxParser @Inject constructor(
+        private val persistence: PersistenceFacade,
+        private val importMigrationPostProcessor: ImportMigrationPostProcessor
+) : DefaultHandler() {
 
     private val log: Logger by LoggerDelegate()
-    private val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbnail URL from [{}]"
 
     /**
      * This is the builder for the text within the elements.
      */
     private var strBuilder = StringBuilder()
-    private val animeListEntries: MutableList<Anime> = mutableListOf()
-    private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()
-    private val watchListEntries: MutableList<WatchListEntry> = mutableListOf()
-
-    private var importMigrationPostProcessor: ImportMigrationPostProcessor? = null
-
+    private val importDocument = ImportDocument(
+            "",
+            mutableListOf(),
+            mutableListOf(),
+            mutableListOf()
+    )
 
     override fun startElement(namespaceUri: String, localName: String, qName: String, attributes: Attributes) {
         strBuilder = StringBuilder()
 
         when (qName) {
-            "manami" -> importMigrationPostProcessor = ImportMigrationPostProcessor(
-                    attributes.getValue("version"),
-                    animeListEntries,
-                    filterListEntries,
-                    watchListEntries
-            )
+            "manami" -> importDocument.documentVersion = attributes.getValue("version")
             "anime" -> createAnimeEntry(attributes)
             "filterEntry" -> createFilterEntry(attributes)
             "watchListEntry" -> createWatchListEntry(attributes)
@@ -49,10 +54,10 @@ internal class ManamiSaxParser(private val persistence: PersistenceFacade) : Def
 
 
     override fun endDocument() {
-        persistence.addAnimeList(animeListEntries)
-        persistence.addFilterList(filterListEntries)
-        persistence.addWatchList(watchListEntries)
-        importMigrationPostProcessor?.execute()
+        persistence.addAnimeList(importDocument.animeListEntries)
+        persistence.addFilterList(importDocument.filterListEntries)
+        persistence.addWatchList(importDocument.watchListEntries)
+        importMigrationPostProcessor.process(importDocument)
     }
 
 
@@ -69,7 +74,7 @@ internal class ManamiSaxParser(private val persistence: PersistenceFacade) : Def
             actAnime.type = it
         }
 
-        animeListEntries.add(actAnime)
+        importDocument.animeListEntries.add(actAnime)
     }
 
 
@@ -81,7 +86,7 @@ internal class ManamiSaxParser(private val persistence: PersistenceFacade) : Def
                     URL(attributes.getValue("thumbnail").trim())
             )
 
-            filterListEntries.add(entry)
+            importDocument.filterListEntries.add(entry)
         } catch (e: MalformedURLException) {
             log.error(THUMBNAIL_PARSING_EXCEPTION, attributes.getValue("title"))
         }
@@ -96,7 +101,7 @@ internal class ManamiSaxParser(private val persistence: PersistenceFacade) : Def
                     URL(attributes.getValue("thumbnail").trim())
             )
 
-            watchListEntries.add(entry);
+            importDocument.watchListEntries.add(entry)
         } catch (e: MalformedURLException) {
             log.error(THUMBNAIL_PARSING_EXCEPTION, attributes.getValue("title"))
         }

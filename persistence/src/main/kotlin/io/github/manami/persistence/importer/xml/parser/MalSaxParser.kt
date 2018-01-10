@@ -11,7 +11,7 @@ import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
 
 
-internal class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
+class MalSaxParser(private val persistence: PersistenceFacade) : DefaultHandler() {
 
     /**
      * Actual anime object.
@@ -27,7 +27,6 @@ internal class MalSaxParser(private val persistence: PersistenceFacade) : Defaul
      * This is the builder for the text within the elements.
      */
     private var strBuilder: StringBuilder = StringBuilder()
-
 
     private val animeListEntries: MutableList<Anime> = mutableListOf()
     private val filterListEntries: MutableList<FilterListEntry> = mutableListOf()

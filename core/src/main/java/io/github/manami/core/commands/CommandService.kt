@@ -10,7 +10,7 @@ import javax.inject.Named
  * Command service keeps track of actions and is responsible for knowing if a file is dirty or not.
  */
 @Named
-internal class CommandService @Inject constructor(
+class CommandService @Inject constructor(
         private val eventBus: EventBus
 ) {
 
@@ -33,7 +33,7 @@ internal class CommandService @Inject constructor(
     /**
      * Executes a specific command.
      *
-     * @param command {@link Command} to execute.
+     * @param command {@link Command} to process.
      */
     fun executeCommand(command: ReversibleCommand) {
         if (command.execute()) {

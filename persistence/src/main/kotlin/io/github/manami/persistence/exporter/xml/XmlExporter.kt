@@ -172,7 +172,7 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
                 this.setAttribute("episodes", anime.episodes.toString())
 
                 // attribute "infolink"
-                this.setAttribute("infoLink", anime.infoLink.url.toString())
+                this.setAttribute("infoLink", anime.infoLink.toString())
 
                 // attribute "location"
                 this.setAttribute("location", anime.location)
@@ -200,7 +200,7 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
             actEntry?.setAttribute("thumbnail", anime.thumbnail.toString())
 
             // attribute "infolink"
-            actEntry?.setAttribute("infoLink", anime.infoLink.url.toString())
+            actEntry?.setAttribute("infoLink", anime.infoLink.toString())
 
             // append to animeList
             elementWatchList?.appendChild(actEntry)
@@ -224,7 +224,7 @@ class XmlExporter(private val persistence: ApplicationPersistence) : Exporter {
             actEntry?.setAttribute("thumbnail", anime.thumbnail.toString())
 
             // attribute "infolink"
-            actEntry?.setAttribute("infoLink", anime.infoLink.url.toString())
+            actEntry?.setAttribute("infoLink", anime.infoLink.toString())
 
             // append to animeList
             elementFilterList?.appendChild(actEntry)

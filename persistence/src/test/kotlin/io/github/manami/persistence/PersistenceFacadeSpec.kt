@@ -903,8 +903,7 @@ class PersistenceFacadeSpec : Spek({
 
         on("changing it's infolink using the instance from fetching the list") {
             val newInfoLink = InfoLink("https://myanimelist.net/anime/123456789")
-            var entry = persistenceFacade.fetchAnimeList()[0]
-            entry.infoLink = newInfoLink //FIXME: why won't this work with apply()?
+            val entry = persistenceFacade.fetchAnimeList()[0].apply { this.infoLink = newInfoLink }
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {

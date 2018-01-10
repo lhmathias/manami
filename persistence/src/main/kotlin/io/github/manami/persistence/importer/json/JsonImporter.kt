@@ -20,8 +20,8 @@ import java.net.URL
 import java.nio.file.Path
 
 
-private val URL_PARSING_EXCEPTION_MESSAGE = "Unable to import [{}]"
-private val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the type is unknown."
+private const val URL_PARSING_EXCEPTION_MESSAGE = "Unable to import [{}]"
+private const val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the type is unknown."
 
 /**
  * Imports a list from a valid JSON file.

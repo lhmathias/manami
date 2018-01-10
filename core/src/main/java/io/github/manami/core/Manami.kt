@@ -19,22 +19,24 @@ import io.github.manami.persistence.importer.xml.XmlImporter
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Named
 
-private val FILE_SUFFIX_XML = ".xml"
-private val FILE_SUFFIX_JSON = ".json"
+private const val FILE_SUFFIX_XML = ".xml"
+private const val FILE_SUFFIX_JSON = ".json"
 
 /**
  * Main access to the features of the application. This class has got delegation as well as operational functionality.
  */
-//FIXME @Named
-//FIXME @Inject
-class Manami(
+@Named
+class Manami @Inject constructor(
         private val cmdService: CommandService,
         private val config: Config,
         private val persistence: PersistenceFacade,
         private val serviceRepo: ServiceRepository,
         private val cache: Cache,
-        private val eventBus: EventBus
+        private val eventBus: EventBus,
+        private val xmlImporter: XmlImporter
 ) : ApplicationPersistence {
 
     private val log: Logger by LoggerDelegate()
@@ -66,7 +68,7 @@ class Manami(
      */
     fun open(file: Path) {
         persistence.clearAll()
-        XmlImporter(XmlImporter.XmlStrategy.MANAMI, persistence).importFile(file)
+        xmlImporter.using(XmlImporter.XmlStrategy.MANAMI).importFile(file)
         config.file = file
         serviceRepo.startService(ThumbnailBackloadService(cache, persistence))
         serviceRepo.startService(CacheInitializationService(cache, persistence.fetchAnimeList()))
@@ -91,7 +93,7 @@ class Manami(
     fun importFile(file: Path) {
         try {
             when {
-                file.toString().endsWith(FILE_SUFFIX_XML) -> XmlImporter(XmlImporter.XmlStrategy.MAL, persistence).importFile(file)
+                file.toString().endsWith(FILE_SUFFIX_XML) -> xmlImporter.using(XmlImporter.XmlStrategy.MAL).importFile(file)
                 file.toString().endsWith(FILE_SUFFIX_JSON) -> JsonImporter(persistence).importFile(file)
             }
         } catch (e: Exception) {
