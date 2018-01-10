@@ -4,7 +4,7 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
 
-interface InternalPersistenceHandler {
+interface InternalPersistenceHandler : ApplicationPersistence {
 
     /**
      * Clears all the lists: animelist, filterlist, watchlist.

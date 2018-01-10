@@ -10,8 +10,7 @@ import java.net.URL
 import javax.inject.Inject
 import javax.inject.Named
 
-@Named
-internal class ImportMigrationPostProcessor @Inject constructor(
+internal class ImportMigrationPostProcessor(
         private val eventBus: EventBus
 ) {
 

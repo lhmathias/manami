@@ -6,6 +6,7 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
+import io.github.manami.persistence.InternalPersistenceHandler
 import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.importer.xml.postprocessor.ImportDocument
 import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
@@ -22,9 +23,8 @@ import javax.inject.Named
 private const val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbnail URL from [{}]"
 
 
-@Named
-internal class ManamiSaxParser @Inject constructor(
-        private val persistence: PersistenceFacade,
+internal class ManamiSaxParser(
+        private val persistence: InternalPersistenceHandler,
         private val importMigrationPostProcessor: ImportMigrationPostProcessor
 ) : DefaultHandler() {
 

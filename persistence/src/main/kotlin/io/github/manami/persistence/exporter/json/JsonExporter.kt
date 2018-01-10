@@ -4,6 +4,7 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.ApplicationPersistence
+import io.github.manami.persistence.InternalPersistenceHandler
 import io.github.manami.persistence.exporter.Exporter
 import org.json.JSONWriter
 import java.io.PrintWriter
@@ -14,8 +15,7 @@ import javax.inject.Named
 /**
  * Exports a list to valid json.
  */
-@Named("jsonExporter")
-internal class JsonExporter @Inject constructor(private val persistence: ApplicationPersistence) : Exporter {
+internal class JsonExporter(private val persistence: InternalPersistenceHandler) : Exporter {
 
     override fun save(file: Path): Boolean {
         PrintWriter(file.toFile()).use { printWriter ->
