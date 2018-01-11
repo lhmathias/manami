@@ -24,7 +24,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import io.github.manami.Main;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.commands.CmdChangeEpisodes;
 import io.github.manami.core.commands.CmdChangeInfoLink;
 import io.github.manami.core.commands.CmdChangeLocation;
@@ -93,7 +93,7 @@ public class MainController implements Observer {
   /**
    * Instance of the main application.
    */
-  final private Manami app = Main.CONTEXT.getBean(Manami.class);
+  final private ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * Instance of the main application.

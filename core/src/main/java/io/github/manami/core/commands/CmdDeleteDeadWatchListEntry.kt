@@ -1,20 +1,20 @@
 package io.github.manami.core.commands
 
-import io.github.manami.core.Manami
 import io.github.manami.dto.entities.WatchListEntry
+import io.github.manami.persistence.PersistenceHandler
 
 
 internal class CmdDeleteDeadWatchListEntry(
         private val anime: WatchListEntry,
-        private val application: Manami
-) : AbstractReversibleCommand(application) {
+        private val persistence: PersistenceHandler
+) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return app.removeFromWatchList(anime.infoLink)
+        return persistence.removeFromWatchList(anime)
     }
 
 
     override fun undo() {
-        app.watchAnime(anime)
+        persistence.watchAnime(anime)
     }
 }

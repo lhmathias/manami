@@ -9,7 +9,7 @@ import io.github.manami.Main;
 import io.github.manami.cache.Cache;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CmdDeleteWatchListEntry;
 import io.github.manami.core.commands.CommandService;
@@ -43,7 +43,7 @@ public class WatchListController extends AbstractAnimeListController implements 
   /**
    * Instance of the application.
    */
-  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * Contains all possible extractors.
@@ -199,7 +199,7 @@ public class WatchListController extends AbstractAnimeListController implements 
 
   @Override
   protected List<? extends MinimalEntry> getEntryList() {
-    return Main.CONTEXT.getBean(Manami.class).fetchWatchList();
+    return Main.CONTEXT.getBean(ManamiImpl.class).fetchWatchList();
   }
 
 

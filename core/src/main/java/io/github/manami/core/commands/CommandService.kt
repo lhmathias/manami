@@ -7,7 +7,7 @@ interface CommandService {
 
     fun setUnsaved(value: Boolean)
 
-    fun executeCommand(command: ReversibleCommand)
+    fun executeCommand(command: ReversibleCommand): Boolean
 
     fun undo()
 
@@ -15,7 +15,7 @@ interface CommandService {
 
     fun clearAll()
 
-    fun resetDirtyFlag()
+    fun resetDirtyFlag() //FIXME: This should be internal part of setUnsaved()
 
     fun isEmptyDoneCommands(): Boolean
 

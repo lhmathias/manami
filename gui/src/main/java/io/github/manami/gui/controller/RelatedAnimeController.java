@@ -5,7 +5,7 @@ import static io.github.manami.gui.components.Icons.createIconCancel;
 
 import io.github.manami.Main;
 import io.github.manami.cache.Cache;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.tasks.RelatedAnimeFinderTask;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.core.tasks.events.ProgressState;
@@ -38,7 +38,7 @@ public class RelatedAnimeController extends AbstractAnimeListController implemen
   /**
    * Application
    */
-  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * The corresponding background service.

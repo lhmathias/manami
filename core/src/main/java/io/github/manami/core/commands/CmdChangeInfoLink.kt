@@ -1,8 +1,8 @@
 package io.github.manami.core.commands
 
-import io.github.manami.core.Manami
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.InfoLink
+import io.github.manami.persistence.PersistenceHandler
 
 
 /**
@@ -10,13 +10,13 @@ import io.github.manami.dto.entities.InfoLink
  *
  * @param anime Anime to change.
  * @param newValue The new value.
- * @param application Instance of the application which reveals access to the persistence functionality.
+ * @param persistence
  */
 internal class CmdChangeInfoLink(
         private val anime: Anime,
         private val newValue: InfoLink,
-        private val application: Manami
-) : AbstractReversibleCommand(application) {
+        private val persistence: PersistenceHandler
+) : AbstractReversibleCommand(persistence) {
 
     init {
         oldAnime = anime

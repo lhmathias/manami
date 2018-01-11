@@ -7,7 +7,7 @@ import static com.google.common.collect.Maps.newConcurrentMap;
 import io.github.manami.cache.Cache;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.tasks.events.AdvancedProgressState;
 import io.github.manami.core.tasks.events.ProgressState;
 import io.github.manami.dto.entities.Anime;
@@ -64,13 +64,13 @@ public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
    */
   private List<InfoLink> userRecomList;
   private final AnimeExtractor extractor;
-  private final Manami app;
+  private final ManamiImpl app;
   private final Cache cache;
   private final AtomicInteger progress = new AtomicInteger(0);
   private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 
-  public RecommendationsRetrievalTask(final Manami app, final Cache cache, final Observer observer) {
+  public RecommendationsRetrievalTask(final ManamiImpl app, final Cache cache, final Observer observer) {
     extractor = new MyAnimeListNetAnimeExtractor();
     urlList = newCopyOnWriteArrayList();
     recommendationsAll = newConcurrentMap();

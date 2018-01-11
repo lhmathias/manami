@@ -6,7 +6,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 import io.github.manami.Main;
 import io.github.manami.cache.Cache;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.commands.CmdAddAnime;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.core.config.Config;
@@ -241,7 +241,7 @@ public class NewEntryController implements Observer {
     final String type = txtType.getText().trim();
     if (validationSupport.getValidationResult().getErrors().size() == 0) {
       cmdService.executeCommand(new CmdAddAnime(new Anime(title, infoLink).type(AnimeType.findByName(type)).episodes(episodes).location(location),
-          Main.CONTEXT.getBean(Manami.class)));
+          Main.CONTEXT.getBean(ManamiImpl.class)));
       close();
     }
   }

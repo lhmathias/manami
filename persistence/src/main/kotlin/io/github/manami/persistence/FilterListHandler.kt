@@ -35,8 +35,8 @@ interface FilterListHandler {
     /**
      * Removes an entry from the filter list.
      *
-     * @param infoLink URL
+     * @param anime URL
      * @return
      */
-    fun removeFromFilterList(infoLink: InfoLink): Boolean
+    fun removeFromFilterList(anime: MinimalEntry): Boolean
 }

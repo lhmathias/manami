@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.List;
 
 public class InMemoryAnimeListHandlerTest {
-
+/*
   private InMemoryAnimeListHandler inMemoryAnimeListHandler;
 
 
@@ -299,5 +299,5 @@ public class InMemoryAnimeListHandlerTest {
 
     // then
     assertThat(inMemoryAnimeListHandler.fetchAnimeList().isEmpty()).isTrue();
-  }
+  }*/
 }

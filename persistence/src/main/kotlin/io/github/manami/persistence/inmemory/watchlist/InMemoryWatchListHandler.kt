@@ -44,9 +44,9 @@ internal class InMemoryWatchListHandler : WatchListHandler {
     }
 
 
-    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
-        if (infoLink.isValid()) {
-            return watchList.remove(infoLink) != null
+    override fun removeFromWatchList(anime: MinimalEntry): Boolean {
+        if (anime.isValidMinimalEntry()) {
+            return watchList.remove(anime.infoLink) != null
         }
 
         return false

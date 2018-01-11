@@ -243,21 +243,19 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("one filter entry in the filter list") {
-        val infoLink = InfoLink("http://myanimelist.net/anime/1535")
+        val anime = FilterListEntry(
+                "Death Note",
+                InfoLink("http://myanimelist.net/anime/1535")
+        )
 
         beforeEachTest {
-            persistenceFacade.filterAnime(
-                    FilterListEntry(
-                            "Death Note",
-                            infoLink
-                    )
-            )
+            persistenceFacade.filterAnime(anime)
 
             reset(eventBusMock) // otherwise we've got 2 invocations of post(???ListChangedEvent())
         }
 
         on("removing the filter entry") {
-            val result = persistenceFacade.removeFromFilterList(infoLink)
+            val result = persistenceFacade.removeFromFilterList(anime)
 
             it("must return true, because the entry has been removed") {
                 assertThat(result).isTrue()
@@ -279,7 +277,7 @@ class PersistenceFacadeSpec : Spek({
 
             persistenceFacade.updateOrCreate(FilterListEntry(
                     newTitle,
-                    infoLink
+                    anime.infoLink
             ))
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
@@ -507,21 +505,19 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("one filter entry in the watchlist") {
-        val infoLink = InfoLink("http://myanimelist.net/anime/1535")
+        val anime = WatchListEntry(
+                "Death Note",
+                InfoLink("http://myanimelist.net/anime/1535")
+        )
 
         beforeEachTest {
-            persistenceFacade.watchAnime(
-                    WatchListEntry(
-                            "Death Note",
-                            infoLink
-                    )
-            )
+            persistenceFacade.watchAnime(anime)
 
             reset(eventBusMock) // otherwise we've got 2 invocations of post(???ListChangedEvent())
         }
 
         on("removing the watchlist entry") {
-            val result = persistenceFacade.removeFromWatchList(infoLink)
+            val result = persistenceFacade.removeFromWatchList(anime)
 
             it("must return true, because the entry has been removed") {
                 assertThat(result).isTrue()
@@ -543,7 +539,7 @@ class PersistenceFacadeSpec : Spek({
 
             persistenceFacade.updateOrCreate(WatchListEntry(
                     newTitle,
-                    infoLink
+                    anime.infoLink
             ))
 
             it("must fire a WatchListChangedEvent, but none of the other list change events") {
@@ -769,24 +765,19 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("one anime entry in the list") {
-        val infoLink = InfoLink("http://myanimelist.net/anime/1535")
-        var id: UUID = UUID.randomUUID()
+        val anime = Anime(
+                "Death Note",
+                InfoLink("http://myanimelist.net/anime/1535")
+        )
 
         beforeEachTest {
-            persistenceFacade.addAnime(
-                    Anime(
-                            "Death Note",
-                            infoLink
-                    )
-            )
-
-            id = persistenceFacade.fetchAnimeList()[0].id
+            persistenceFacade.addAnime(anime)
 
             reset(eventBusMock) // otherwise we've got 2 invocations of post(???ListChangedEvent())
         }
 
         on("removing the entry") {
-            val result = persistenceFacade.removeAnime(id)
+            val result = persistenceFacade.removeAnime(anime)
 
             it("must return true, because the entry has been removed") {
                 assertThat(result).isTrue()
@@ -803,7 +794,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not exist on the list, because it has been removed") {
-                assertThat(persistenceFacade.animeEntryExists(infoLink)).isFalse()
+                assertThat(persistenceFacade.animeEntryExists(anime.infoLink)).isFalse()
             }
         }
 

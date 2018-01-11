@@ -1,25 +1,25 @@
 package io.github.manami.core.commands
 
-import io.github.manami.core.Manami
 import io.github.manami.dto.entities.FilterListEntry
+import io.github.manami.persistence.PersistenceHandler
 
 /**
  * Adds an Anime to the filterlist.
  *
  * @param entry Anime that is being added.
- * @param application Instance of the application which reveals access to the persistence functionality.
+ * @param persistence
  */
 internal class CmdAddFilterEntry(
         private val entry: FilterListEntry,
-        private val application: Manami
-) : AbstractReversibleCommand(application) {
+        private val persistence: PersistenceHandler
+) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return app.filterAnime(entry)
+        return persistence.filterAnime(entry)
     }
 
 
     override fun undo() {
-        app.removeFromFilterList(entry.infoLink)
+        persistence.removeFromFilterList(entry)
     }
 }

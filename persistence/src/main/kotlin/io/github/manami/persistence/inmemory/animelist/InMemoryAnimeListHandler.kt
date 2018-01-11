@@ -52,8 +52,8 @@ internal class InMemoryAnimeListHandler : AnimeListHandler {
     }
 
 
-    override fun removeAnime(id: UUID): Boolean {
-        return animeList.remove(id) != null
+    override fun removeAnime(anime: Anime): Boolean {
+        return animeList.remove(anime.id) != null
     }
 
 

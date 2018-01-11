@@ -7,7 +7,7 @@ import io.github.manami.Main;
 import io.github.manami.cache.Cache;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.core.tasks.AnimeRetrievalTask;
@@ -52,7 +52,7 @@ public class FilterListController extends AbstractAnimeListController implements
   /**
    * Instance of the application.
    */
-  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * Instance of the cache.

@@ -5,7 +5,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
 import io.github.manami.cache.Cache;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.core.tasks.TagRetrievalTask;
 import io.github.manami.dto.entities.Anime;
@@ -31,7 +31,7 @@ public class TagListController extends AbstractAnimeListController implements Ob
   /**
    * Instance of the application.
    */
-  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * Instance of the cache.

@@ -9,7 +9,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.springframework.util.Assert.notNull;
 
 import io.github.manami.Main;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CommandService;
@@ -51,7 +51,7 @@ public abstract class AbstractAnimeListController {
   /**
    * Application
    */
-  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * Instance of the main application.

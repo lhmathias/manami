@@ -13,7 +13,6 @@ import io.github.manami.persistence.importer.xml.parser.MalSaxParser
 import io.github.manami.persistence.importer.xml.parser.ManamiSaxParser
 import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
 import java.nio.file.Path
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -41,7 +40,7 @@ internal class PersistenceFacade
             if (strategy.filterAnime(anime)) {
                 eventBus.post(FilterListChangedEvent)
 
-                if(removeFromWatchList(anime.infoLink)) {
+                if(removeFromWatchList(anime)) {
                     eventBus.post(WatchListChangedEvent)
                 }
 
@@ -63,12 +62,12 @@ internal class PersistenceFacade
     }
 
 
-    override fun removeFromFilterList(infoLink: InfoLink): Boolean {
-        if (!infoLink.isValid()) {
+    override fun removeFromFilterList(anime: MinimalEntry): Boolean {
+        if (!anime.isValidMinimalEntry()) {
             return false
         }
 
-        if (strategy.removeFromFilterList(infoLink)) {
+        if (strategy.removeFromFilterList(anime)) {
             eventBus.post(FilterListChangedEvent)
             return true
         }
@@ -80,11 +79,11 @@ internal class PersistenceFacade
     override fun addAnime(anime: Anime): Boolean {
         if (anime.isValidAnime() && strategy.addAnime(anime)) {
             if (anime.infoLink.isValid()) {
-                if(removeFromFilterList(anime.infoLink)) {
+                if(removeFromFilterList(anime)) {
                     eventBus.post(FilterListChangedEvent)
                 }
 
-                if(removeFromWatchList(anime.infoLink)) {
+                if(removeFromWatchList(anime)) {
                     eventBus.post(WatchListChangedEvent)
                 }
             }
@@ -107,8 +106,8 @@ internal class PersistenceFacade
     }
 
 
-    override fun removeAnime(id: UUID): Boolean {
-        if (strategy.removeAnime(id)) {
+    override fun removeAnime(anime: Anime): Boolean {
+        if (strategy.removeAnime(anime)) {
             eventBus.post(AnimeListChangedEvent)
             return true
         }
@@ -122,7 +121,7 @@ internal class PersistenceFacade
             if (strategy.watchAnime(anime)) {
                 eventBus.post(WatchListChangedEvent)
 
-                if(removeFromFilterList(anime.infoLink)) {
+                if(removeFromFilterList(anime)) {
                     eventBus.post(FilterListChangedEvent)
                 }
 
@@ -144,12 +143,12 @@ internal class PersistenceFacade
     }
 
 
-    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
-        if (!infoLink.isValid()) {
+    override fun removeFromWatchList(anime: MinimalEntry): Boolean {
+        if (!anime.isValidMinimalEntry()) {
             return false
         }
 
-        if (strategy.removeFromWatchList(infoLink)) {
+        if (strategy.removeFromWatchList(anime)) {
             eventBus.post(WatchListChangedEvent)
             return true
         }

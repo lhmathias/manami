@@ -34,13 +34,18 @@ internal class CommandServiceImpl @Inject constructor(
      * Executes a specific command.
      *
      * @param command {@link Command} to process.
+     * @return true if the command was executed successful
      */
-    override fun executeCommand(command: ReversibleCommand) {
-        if (command.execute()) {
+    override fun executeCommand(command: ReversibleCommand): Boolean {
+        val executionResult = command.execute()
+
+        if (executionResult) {
             done.add(command)
             isUnsaved = true
-            eventBus.post(AnimeListChangedEvent)
+            eventBus.post(AnimeListChangedEvent) //FIXME: This can't be happening here anymore
         }
+
+        return executionResult
     }
 
 

@@ -1,25 +1,25 @@
 package io.github.manami.core.commands
 
-import io.github.manami.core.Manami
 import io.github.manami.dto.entities.FilterListEntry
+import io.github.manami.persistence.PersistenceHandler
 
 /**
  * Deletes an entry from filterlist.
  *
  * @param anime {@link FilterListEntry} that is supposed to be deleted.
- * @param application Instance of the application which reveals access to the persistence functionality.
+ * @param persistence
  */
 internal class CmdDeleteFilterEntry(
         private val anime: FilterListEntry,
-        private val application: Manami
-) : AbstractReversibleCommand(application) {
+        private val persistence: PersistenceHandler
+) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return app.removeFromFilterList(anime.infoLink)
+        return persistence.removeFromFilterList(anime)
     }
 
 
     override fun undo() {
-        app.filterAnime(anime)
+        persistence.filterAnime(anime)
     }
 }

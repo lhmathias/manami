@@ -30,8 +30,8 @@ interface AnimeListHandler {
 
 
     /**
-     * @param id ID of the anime.
+     * @param anime
      * @return true if an entry was removed.
      */
-    fun removeAnime(id: UUID): Boolean
+    fun removeAnime(anime: Anime): Boolean
 }

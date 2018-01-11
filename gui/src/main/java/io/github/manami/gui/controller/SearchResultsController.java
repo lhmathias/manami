@@ -6,7 +6,7 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.commands.CmdDeleteFilterEntry;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.dto.entities.FilterListEntry;
@@ -43,7 +43,7 @@ public class SearchResultsController {
   /**
    * Instance of the application.
    */
-  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
 
   /**
    * Instance of the main application.

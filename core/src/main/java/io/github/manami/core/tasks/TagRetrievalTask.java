@@ -6,7 +6,7 @@ import static com.google.common.collect.Sets.symmetricDifference;
 import com.google.common.collect.ImmutableSet;
 import io.github.manami.cache.Cache;
 import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
 import java.util.Observer;
@@ -33,7 +33,7 @@ public class TagRetrievalTask extends AbstractTask<Void> {
   /**
    * Core application.
    */
-  private final Manami app;
+  private final ManamiImpl app;
 
   private final String tagUrl;
 
@@ -51,7 +51,7 @@ public class TagRetrievalTask extends AbstractTask<Void> {
    * @param list List which being checked for related anime.
    * @param observer Observer which is being notified about the progress. It also gets the result as a list through notification.
    */
-  public TagRetrievalTask(final Cache cache, final Manami app, final String tagUrl, final Observer observer) {
+  public TagRetrievalTask(final Cache cache, final ManamiImpl app, final String tagUrl, final Observer observer) {
     this.app = app;
     this.cache = cache;
     this.tagUrl = tagUrl;

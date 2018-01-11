@@ -12,5 +12,5 @@ interface WatchListHandler {
 
     fun watchAnime(anime: MinimalEntry): Boolean
 
-    fun removeFromWatchList(infoLink: InfoLink): Boolean
+    fun removeFromWatchList(anime: MinimalEntry): Boolean
 }

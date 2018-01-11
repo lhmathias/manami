@@ -3,11 +3,9 @@ package io.github.manami.persistence.inmemory
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.InternalPersistenceHandler
-import io.github.manami.persistence.PersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
 import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -34,8 +32,8 @@ internal class InMemoryPersistenceHandler @Inject constructor(
     }
 
 
-    override fun removeFromFilterList(infoLink: InfoLink): Boolean {
-        return filterListHandler.removeFromFilterList(infoLink)
+    override fun removeFromFilterList(anime: MinimalEntry): Boolean {
+        return filterListHandler.removeFromFilterList(anime)
     }
 
 
@@ -54,8 +52,8 @@ internal class InMemoryPersistenceHandler @Inject constructor(
     }
 
 
-    override fun removeAnime(id: UUID): Boolean {
-        return animeListHandler.removeAnime(id)
+    override fun removeAnime(anime: Anime): Boolean {
+        return animeListHandler.removeAnime(anime)
     }
 
 
@@ -74,8 +72,8 @@ internal class InMemoryPersistenceHandler @Inject constructor(
     }
 
 
-    override fun removeFromWatchList(infoLink: InfoLink): Boolean {
-        return watchListHandler.removeFromWatchList(infoLink)
+    override fun removeFromWatchList(anime: MinimalEntry): Boolean {
+        return watchListHandler.removeFromWatchList(anime)
     }
 
 

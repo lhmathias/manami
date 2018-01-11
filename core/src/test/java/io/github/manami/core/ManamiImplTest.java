@@ -45,9 +45,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
-public class ManamiTest {
+public class ManamiImplTest {
 
-  private static final Logger log = LoggerFactory.getLogger(ManamiTest.class);
+  private static final Logger log = LoggerFactory.getLogger(ManamiImplTest.class);
   private static final String TEST_ANIME_LIST_FILE_XML = "test_anime_list.xml";
   private static final String TEST_ANIME_LIST_FILE_JSON = "test_anime_list.json";
   private static final String TEST_MAL_LIST_FILE = "mal_export.xml";
@@ -104,7 +104,7 @@ public class ManamiTest {
     final Config config = new Config(eventBusMock);
     config.setFile(Paths.get("."));
 
-    final Manami app = new Manami(cacheMock, cmdService, config, persistenceFacade,
+    final ManamiImpl app = new ManamiImpl(cacheMock, cmdService, config, persistenceFacade,
         serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -152,7 +152,7 @@ public class ManamiTest {
     final Config config = new Config(eventBusMock);
     config.setFile(Paths.get("."));
 
-    final Manami app = new Manami(cacheMock, cmdService, config, persistenceFacade,
+    final ManamiImpl app = new ManamiImpl(cacheMock, cmdService, config, persistenceFacade,
         serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -240,7 +240,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -262,7 +262,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry(EMPTY,
@@ -287,7 +287,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry("Death Note", new InfoLink(EMPTY));
@@ -311,7 +311,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -336,7 +336,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -362,7 +362,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
@@ -386,7 +386,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -408,7 +408,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -432,7 +432,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -456,7 +456,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
@@ -482,7 +482,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -503,7 +503,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
@@ -527,7 +527,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -549,7 +549,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -571,7 +571,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry(EMPTY,
@@ -596,7 +596,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry("Death Note", new InfoLink(EMPTY));
@@ -620,7 +620,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -645,7 +645,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -671,7 +671,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
@@ -697,7 +697,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -718,7 +718,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -740,7 +740,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -769,7 +769,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -797,7 +797,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", null);
@@ -826,7 +826,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -854,7 +854,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -882,7 +882,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -910,7 +910,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime(null, new InfoLink("https://myanimelist.net/anime/1535"));
@@ -939,7 +939,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -967,7 +967,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final InfoLink infoLink = new InfoLink("https://myanimelist.net/anime/1535");
@@ -996,7 +996,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -1017,7 +1017,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -1045,7 +1045,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -1075,7 +1075,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -1096,7 +1096,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -1119,7 +1119,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -1148,7 +1148,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime entry = new Anime("Death Note", new InfoLink("https://myanimelist.net/anime/1535"));
@@ -1182,7 +1182,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry("Death Note",
@@ -1208,7 +1208,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final FilterListEntry entry = new FilterListEntry("Death Note", AbstractMinimalEntry.NO_IMG_THUMB,
@@ -1238,7 +1238,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry("Death Note",
@@ -1264,7 +1264,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final WatchListEntry entry = new WatchListEntry("Death Note", AbstractMinimalEntry.NO_IMG_THUMB,
@@ -1295,7 +1295,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final List<Anime> list = newArrayList();
@@ -1343,7 +1343,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final List<Anime> list = newArrayList();
@@ -1385,7 +1385,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Path file = Files.createFile(Paths.get(tempFolder + separator + "tempfile.xml"));
@@ -1407,7 +1407,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final List<Anime> list = newArrayList();
@@ -1436,7 +1436,7 @@ public class ManamiTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testSearchStringIsBlank() {
     // given
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacadeMock, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -1452,7 +1452,7 @@ public class ManamiTest {
   @Test(groups = UNIT_TEST_GROUP)
   public void testSearch() {
     // given
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacadeMock, serviceRepositoryMock, eventBusMock);
 
     // when
@@ -1473,7 +1473,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime bokuDake = new Anime("Boku dake ga Inai Machi",
@@ -1529,7 +1529,7 @@ public class ManamiTest {
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
 
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
 
     final Anime bokuDake = new Anime("Boku dake ga Inai Machi",
@@ -1578,7 +1578,7 @@ public class ManamiTest {
         new InMemoryWatchListHandler());
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
     final ClassPathResource resource = new ClassPathResource(TEST_ANIME_LIST_FILE_JSON);
 
@@ -1619,7 +1619,7 @@ public class ManamiTest {
         new InMemoryWatchListHandler());
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
     final ClassPathResource resource = new ClassPathResource(TEST_MAL_LIST_FILE);
 
@@ -1700,7 +1700,7 @@ public class ManamiTest {
         new InMemoryWatchListHandler());
     final PersistenceFacade persistenceFacade = new PersistenceFacade(inMemoryPersistenceHandler,
         eventBusMock);
-    final Manami app = new Manami(cacheMock, new CommandService(eventBusMock), configMock,
+    final ManamiImpl app = new ManamiImpl(cacheMock, new CommandService(eventBusMock), configMock,
         persistenceFacade, serviceRepositoryMock, eventBusMock);
     final ClassPathResource resource = new ClassPathResource("animelist.dtd");
 

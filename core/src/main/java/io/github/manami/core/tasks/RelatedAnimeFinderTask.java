@@ -6,7 +6,7 @@ import static com.google.common.collect.Sets.newHashSet;
 
 import com.sun.javafx.collections.ObservableSetWrapper;
 import io.github.manami.cache.Cache;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.tasks.events.ProgressState;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
@@ -56,7 +56,7 @@ public class RelatedAnimeFinderTask extends AbstractTask<Map<InfoLink, Anime>> {
   /**
    * Core application.
    */
-  private final Manami app;
+  private final ManamiImpl app;
 
   private final List<? extends MinimalEntry> list;
 
@@ -67,7 +67,7 @@ public class RelatedAnimeFinderTask extends AbstractTask<Map<InfoLink, Anime>> {
    * @param list List which being checked for related anime.
    * @param observer Observer which is being notified about the progress. It also gets the result as a list through notification.
    */
-  public RelatedAnimeFinderTask(final Cache cache, final Manami app, final List<? extends MinimalEntry> list, final Observer observer) {
+  public RelatedAnimeFinderTask(final Cache cache, final ManamiImpl app, final List<? extends MinimalEntry> list, final Observer observer) {
     this.app = app;
     this.cache = cache;
     this.list = list;

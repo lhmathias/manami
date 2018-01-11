@@ -1,13 +1,13 @@
 package io.github.manami.core.commands
 
-import io.github.manami.core.Manami
 import io.github.manami.dto.entities.Anime
+import io.github.manami.persistence.PersistenceHandler
 
 /**
  * Abstract reversible command.
  */
 internal abstract class AbstractReversibleCommand(
-        protected var app: Manami
+        private var persistenceHandler: PersistenceHandler
 ) : ReversibleCommand {
 
     /**
@@ -28,11 +28,11 @@ internal abstract class AbstractReversibleCommand(
 
     override fun execute(): Boolean {
         oldAnime?.id?.let { id ->
-            app.removeAnime(id)
+            persistenceHandler.removeAnime(id)
         }
 
         newAnime?.let { anime ->
-            return app.addAnime(anime)
+            return persistenceHandler.addAnime(anime)
         }
 
         return false
@@ -41,11 +41,11 @@ internal abstract class AbstractReversibleCommand(
 
     override fun undo() {
         newAnime?.id?.let { id ->
-            app.removeAnime(id)
+            persistenceHandler.removeAnime(id)
         }
 
         oldAnime?.let { anime ->
-            app.addAnime(anime)
+            persistenceHandler.addAnime(anime)
         }
     }
 

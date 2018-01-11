@@ -41,9 +41,9 @@ internal class InMemoryFilterListHandler : FilterListHandler {
     }
 
 
-    override fun removeFromFilterList(infoLink: InfoLink): Boolean {
-        if (infoLink.isValid()) {
-            return filterList.remove(infoLink) != null
+    override fun removeFromFilterList(anime: MinimalEntry): Boolean {
+        if (anime.isValidMinimalEntry()) {
+            return filterList.remove(anime.infoLink) != null
         }
 
         return false

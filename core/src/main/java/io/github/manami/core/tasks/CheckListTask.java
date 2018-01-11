@@ -9,7 +9,7 @@ import static org.springframework.util.Assert.notNull;
 
 import com.google.common.collect.ImmutableList;
 import io.github.manami.cache.Cache;
-import io.github.manami.core.Manami;
+import io.github.manami.core.ManamiImpl;
 import io.github.manami.core.config.CheckListConfig;
 import io.github.manami.core.tasks.events.AbstractEvent.EventType;
 import io.github.manami.core.tasks.events.CrcEvent;
@@ -53,7 +53,7 @@ public class CheckListTask extends AbstractTask<Void> {
   private Path currentWorkingDir = null;
   private int currentProgress = 0;
   private int progressMax = 0;
-  private final Manami app;
+  private final ManamiImpl app;
 
 
   /**
@@ -64,7 +64,7 @@ public class CheckListTask extends AbstractTask<Void> {
    * @param cache Cache
    * @param observer Observer
    */
-  public CheckListTask(final CheckListConfig config, final Path file, final Cache cache, final Manami app, final Observer observer) {
+  public CheckListTask(final CheckListConfig config, final Path file, final Cache cache, final ManamiImpl app, final Observer observer) {
     this.config = config;
     this.cache = cache;
     this.app = app;

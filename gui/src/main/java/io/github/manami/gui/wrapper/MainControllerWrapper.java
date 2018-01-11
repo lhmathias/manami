@@ -29,7 +29,7 @@ public class MainControllerWrapper {
   /**
    * The window's title.
    */
-  public static final String APPNAME = "Manami";
+  public static final String APPNAME = "ManamiImpl";
 
   private MainController mainController;
 

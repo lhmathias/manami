@@ -1,6 +1,6 @@
 package io.github.manami.core.tasks.events
 
-import io.github.manami.core.Manami
+import io.github.manami.core.ManamiImpl
 import io.github.manami.core.commands.CmdDeleteDeadFilterListEntry
 import io.github.manami.core.commands.CmdDeleteDeadWatchListEntry
 import io.github.manami.core.commands.ReversibleCommand
@@ -11,7 +11,7 @@ import io.github.manami.dto.entities.WatchListEntry
 
 class DeadLinkEvent(
         private val entry: MinimalEntry,
-        private val app: Manami
+        private val app: ManamiImpl
 ) : AbstractEvent(), ReversibleCommandEvent {
 
     private var command: ReversibleCommand? = null
