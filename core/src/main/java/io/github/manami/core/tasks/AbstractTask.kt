@@ -1,4 +1,4 @@
-package io.github.manami.core.services
+package io.github.manami.core.tasks
 
 import io.github.manami.dto.LoggerDelegate
 import org.slf4j.Logger

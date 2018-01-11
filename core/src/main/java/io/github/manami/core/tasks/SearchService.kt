@@ -1,7 +1,7 @@
-package io.github.manami.core.services
+package io.github.manami.core.tasks
 
 import com.google.common.eventbus.EventBus
-import io.github.manami.core.services.events.SearchResultEvent
+import io.github.manami.core.tasks.events.SearchResultEvent
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.MinimalEntry

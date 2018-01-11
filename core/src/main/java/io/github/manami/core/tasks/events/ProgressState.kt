@@ -1,4 +1,4 @@
-package io.github.manami.core.services.events
+package io.github.manami.core.tasks.events
 
 
 /**

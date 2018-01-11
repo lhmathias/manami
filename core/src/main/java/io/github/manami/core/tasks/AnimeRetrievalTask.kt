@@ -1,4 +1,4 @@
-package io.github.manami.core.services
+package io.github.manami.core.tasks
 
 import io.github.manami.cache.Cache
 import io.github.manami.dto.entities.Anime

@@ -1,4 +1,4 @@
-package io.github.manami.core.services;
+package io.github.manami.core.tasks;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newCopyOnWriteArrayList;
@@ -8,8 +8,8 @@ import io.github.manami.cache.Cache;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
 import io.github.manami.core.Manami;
-import io.github.manami.core.services.events.AdvancedProgressState;
-import io.github.manami.core.services.events.ProgressState;
+import io.github.manami.core.tasks.events.AdvancedProgressState;
+import io.github.manami.core.tasks.events.ProgressState;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
 import java.security.SecureRandom;

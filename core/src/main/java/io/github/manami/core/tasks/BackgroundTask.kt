@@ -1,4 +1,4 @@
-package io.github.manami.core.services
+package io.github.manami.core.tasks
 
 
 /**

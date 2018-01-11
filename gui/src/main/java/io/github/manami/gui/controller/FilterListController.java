@@ -10,9 +10,9 @@ import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEn
 import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CommandService;
-import io.github.manami.core.services.AnimeRetrievalTask;
-import io.github.manami.core.services.RelatedAnimeFinderTask;
-import io.github.manami.core.services.ServiceRepository;
+import io.github.manami.core.tasks.AnimeRetrievalTask;
+import io.github.manami.core.tasks.RelatedAnimeFinderTask;
+import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;

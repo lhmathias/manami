@@ -4,7 +4,7 @@ import com.google.common.eventbus.EventBus
 import io.github.manami.cache.Cache
 import io.github.manami.core.commands.CommandService
 import io.github.manami.core.config.Config
-import io.github.manami.core.services.*
+import io.github.manami.core.tasks.*
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.PersistenceHandler

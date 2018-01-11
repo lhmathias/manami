@@ -1,6 +1,6 @@
-package io.github.manami.core.services.events
+package io.github.manami.core.tasks.events
 
-import io.github.manami.core.services.events.AbstractEvent.EventType
+import io.github.manami.core.tasks.events.AbstractEvent.EventType
 import io.github.manami.dto.entities.Anime
 
 

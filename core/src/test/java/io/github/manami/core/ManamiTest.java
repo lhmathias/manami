@@ -17,7 +17,7 @@ import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.core.config.Config;
-import io.github.manami.core.services.ServiceRepository;
+import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.FilterListEntry;

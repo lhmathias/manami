@@ -1,4 +1,4 @@
-package io.github.manami.core.services;
+package io.github.manami.core.tasks;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.springframework.util.Assert.notNull;

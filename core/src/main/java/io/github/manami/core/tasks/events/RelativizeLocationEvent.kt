@@ -1,4 +1,4 @@
-package io.github.manami.core.services.events
+package io.github.manami.core.tasks.events
 
 import io.github.manami.core.Manami
 import io.github.manami.core.commands.CmdChangeLocation
