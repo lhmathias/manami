@@ -13,7 +13,7 @@ import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.core.config.CheckListConfig;
 import io.github.manami.core.config.Config;
-import io.github.manami.core.services.CheckListService;
+import io.github.manami.core.services.CheckListTask;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.core.services.events.AbstractEvent.EventType;
 import io.github.manami.core.services.events.CrcEvent;
@@ -121,7 +121,7 @@ public class CheckListController implements Observer {
   /**
    * Service instance.
    */
-  private CheckListService service;
+  private CheckListTask service;
 
   private int amountOfEntries = 0;
 
@@ -154,7 +154,7 @@ public class CheckListController implements Observer {
       showProgressControls(true);
       final CheckListConfig config = new CheckListConfig(cbLocations.isSelected(), cbCrc.isSelected(), cbMetaData.isSelected(),
           cbDeadEntries.isSelected());
-      service = new CheckListService(config, appConfig.getFile(), Main.CONTEXT.getBean(Cache.class), Main.CONTEXT.getBean(Manami.class), this);
+      service = new CheckListTask(config, appConfig.getFile(), Main.CONTEXT.getBean(Cache.class), Main.CONTEXT.getBean(Manami.class), this);
       serviceRepo.startService(service);
     }
   }

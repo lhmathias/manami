@@ -43,9 +43,9 @@ import java.util.zip.Checksum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CheckListService extends AbstractService<Void> {
+public class CheckListTask extends AbstractTask<Void> {
 
-  private static final Logger log = LoggerFactory.getLogger(CheckListService.class);
+  private static final Logger log = LoggerFactory.getLogger(CheckListTask.class);
   private static final String MSG_DEAD_INFOLINK = "The infoLink seems to not exist anymore for %s.";
   private final Cache cache;
   private final List<Anime> list;
@@ -64,7 +64,7 @@ public class CheckListService extends AbstractService<Void> {
    * @param cache Cache
    * @param observer Observer
    */
-  public CheckListService(final CheckListConfig config, final Path file, final Cache cache, final Manami app, final Observer observer) {
+  public CheckListTask(final CheckListConfig config, final Path file, final Cache cache, final Manami app, final Observer observer) {
     this.config = config;
     this.cache = cache;
     this.app = app;

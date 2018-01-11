@@ -8,20 +8,17 @@ import java.util.*
 /**
  * Retrieves an entity of an {@link Anime} by providing the info link URL.
  */
-class AnimeRetrievalService(
+internal class AnimeRetrievalTask(
         private val cache: Cache,
         private val infoLink: InfoLink
-) : AbstractService<Void>(), BackgroundService {
+) : AbstractTask(), BackgroundTask {
 
 
     override fun execute() {
         val anime: Optional<Anime> = cache.fetchAnime(infoLink)
 
-        if (anime.isPresent && !isInterrupt()) {
-            setChanged()
-            notifyObservers(true)
-            setChanged()
-            notifyObservers(anime.get())
+        if (anime.isPresent) {
+            anime.get()
         }
     }
 }

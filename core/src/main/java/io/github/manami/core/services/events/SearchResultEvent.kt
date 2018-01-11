@@ -1,4 +1,4 @@
-package io.github.manami.gui.events;
+package io.github.manami.core.services.events;
 
 import io.github.manami.dto.entities.MinimalEntry
 
@@ -8,9 +8,9 @@ import io.github.manami.dto.entities.MinimalEntry
  */
 class SearchResultEvent(val searchString: String) {
 
-    private val animeListSearchResultList = mutableListOf<MinimalEntry>()
-    private val filterListSearchResultList = mutableListOf<MinimalEntry>()
-    private val watchListSearchResultList = mutableListOf<MinimalEntry>()
+    private val animeListSearchResultList: MutableList<MinimalEntry> = mutableListOf()
+    private val filterListSearchResultList: MutableList<MinimalEntry> = mutableListOf()
+    private val watchListSearchResultList: MutableList<MinimalEntry> = mutableListOf()
 
     /**
      * @return The list containing search results from anime list.

@@ -29,11 +29,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Extracts and counts recommendations for a list of anime. Always start {@link BackgroundService}s using the {@link ServiceRepository}!
+ * Extracts and counts recommendations for a list of anime. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
  */
-public class RecommendationsRetrievalService extends AbstractService<List<Anime>> {
+public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
 
-  private static final Logger log = LoggerFactory.getLogger(RecommendationsRetrievalService.class);
+  private static final Logger log = LoggerFactory.getLogger(RecommendationsRetrievalTask.class);
   /**
    * Max percentage rate which the shown recommendations can make out of all entries.
    */
@@ -70,7 +70,7 @@ public class RecommendationsRetrievalService extends AbstractService<List<Anime>
   private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 
-  public RecommendationsRetrievalService(final Manami app, final Cache cache, final Observer observer) {
+  public RecommendationsRetrievalTask(final Manami app, final Cache cache, final Observer observer) {
     extractor = new MyAnimeListNetAnimeExtractor();
     urlList = newCopyOnWriteArrayList();
     recommendationsAll = newConcurrentMap();

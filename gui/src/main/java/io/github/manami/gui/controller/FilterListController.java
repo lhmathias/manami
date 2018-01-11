@@ -10,8 +10,8 @@ import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEn
 import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CommandService;
-import io.github.manami.core.services.AnimeRetrievalService;
-import io.github.manami.core.services.RelatedAnimeFinderService;
+import io.github.manami.core.services.AnimeRetrievalTask;
+import io.github.manami.core.services.RelatedAnimeFinderTask;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.FilterListEntry;
@@ -77,7 +77,7 @@ public class FilterListController extends AbstractAnimeListController implements
   /**
    * List of all actively running services.
    */
-  private final ObservableQueue<AnimeRetrievalService> serviceList = new ObservableQueue<>();
+  private final ObservableQueue<AnimeRetrievalTask> serviceList = new ObservableQueue<>();
 
   /**
    * Root container.
@@ -120,7 +120,7 @@ public class FilterListController extends AbstractAnimeListController implements
   public void initialize() {
     recommendedEntries = newArrayList();
 
-    serviceList.addListener((ListChangeListener<AnimeRetrievalService>) arg0 -> {
+    serviceList.addListener((ListChangeListener<AnimeRetrievalTask>) arg0 -> {
       final int size = serviceList.size();
       final String text = String.format("Preparing entries: %s", size);
 
@@ -162,7 +162,7 @@ public class FilterListController extends AbstractAnimeListController implements
     }
 
     if (!app.filterListEntryExists(normalizedInfoLink)) {
-      final AnimeRetrievalService retrievalService = new AnimeRetrievalService(cache, normalizedInfoLink);
+      final AnimeRetrievalTask retrievalService = new AnimeRetrievalTask(cache, normalizedInfoLink);
       retrievalService.addObserver(this);
       serviceList.offer(retrievalService);
 
@@ -185,7 +185,7 @@ public class FilterListController extends AbstractAnimeListController implements
       return;
     }
 
-    if (observable instanceof AnimeRetrievalService && object instanceof Anime) {
+    if (observable instanceof AnimeRetrievalTask && object instanceof Anime) {
       processAnimeRetrievalResult((Anime) object);
     }
 
@@ -242,7 +242,7 @@ public class FilterListController extends AbstractAnimeListController implements
     Collections.shuffle(filterList, new SecureRandom());
     Collections.shuffle(filterList, new SecureRandom());
     Collections.shuffle(filterList, new SecureRandom());
-    serviceRepo.startService(new RelatedAnimeFinderService(cache, app, filterList, this));
+    serviceRepo.startService(new RelatedAnimeFinderTask(cache, app, filterList, this));
   }
 
 

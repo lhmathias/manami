@@ -21,7 +21,7 @@ import javax.inject.Named
  * This is a facade which is used by the application to hide which strategy is actually used.
  */
 @Named
-class PersistenceFacade
+internal class PersistenceFacade
     @Inject
     constructor(
         @Named("inMemoryStrategy") private val strategy: InternalPersistenceHandler, //Currently used db persistence strategy.

@@ -18,11 +18,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Finds related anime in info site links. Always start {@link BackgroundService}s using the {@link ServiceRepository}!
+ * Finds related anime in info site links. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
  */
-public class TagRetrievalService extends AbstractService<Void> {
+public class TagRetrievalTask extends AbstractTask<Void> {
 
-  private static final Logger log = LoggerFactory.getLogger(TagRetrievalService.class);
+  private static final Logger log = LoggerFactory.getLogger(TagRetrievalTask.class);
   private static final String LOG_MSG_LAST_PAGE = "Last page. No more entries for this genre.";
 
   /**
@@ -51,7 +51,7 @@ public class TagRetrievalService extends AbstractService<Void> {
    * @param list List which being checked for related anime.
    * @param observer Observer which is being notified about the progress. It also gets the result as a list through notification.
    */
-  public TagRetrievalService(final Cache cache, final Manami app, final String tagUrl, final Observer observer) {
+  public TagRetrievalTask(final Cache cache, final Manami app, final String tagUrl, final Observer observer) {
     this.app = app;
     this.cache = cache;
     this.tagUrl = tagUrl;

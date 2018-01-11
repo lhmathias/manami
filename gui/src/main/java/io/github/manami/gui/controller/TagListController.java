@@ -7,7 +7,7 @@ import io.github.manami.Main;
 import io.github.manami.cache.Cache;
 import io.github.manami.core.Manami;
 import io.github.manami.core.services.ServiceRepository;
-import io.github.manami.core.services.TagRetrievalService;
+import io.github.manami.core.services.TagRetrievalTask;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.dto.entities.MinimalEntry;
@@ -72,7 +72,7 @@ public class TagListController extends AbstractAnimeListController implements Ob
 
   private Tab tab;
 
-  private TagRetrievalService service;
+  private TagRetrievalTask service;
 
   private final List<Anime> originalOrder = newArrayList();
 
@@ -92,7 +92,7 @@ public class TagListController extends AbstractAnimeListController implements Ob
     }
 
     clear();
-    service = new TagRetrievalService(cache, app, urlString, this);
+    service = new TagRetrievalTask(cache, app, urlString, this);
     serviceRepo.startService(service);
     txtUrl.setText(EMPTY);
     Platform.runLater(() -> {
@@ -171,14 +171,14 @@ public class TagListController extends AbstractAnimeListController implements Ob
       return;
     }
 
-    if (observable instanceof TagRetrievalService && object instanceof Anime) {
+    if (observable instanceof TagRetrievalTask && object instanceof Anime) {
       final Anime anime = (Anime) object;
       originalOrder.add(anime);
       addEntryToGui(anime); // create GUI components
       showEntries();
     }
 
-    if (observable instanceof TagRetrievalService && object instanceof Boolean) {
+    if (observable instanceof TagRetrievalTask && object instanceof Boolean) {
       Platform.runLater(() -> {
         progressIndicator.setVisible(false);
         lblProgressMsg.setVisible(false);

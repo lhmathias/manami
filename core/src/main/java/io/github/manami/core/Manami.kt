@@ -4,14 +4,10 @@ import com.google.common.eventbus.EventBus
 import io.github.manami.cache.Cache
 import io.github.manami.core.commands.CommandService
 import io.github.manami.core.config.Config
-import io.github.manami.core.services.CacheInitializationService
-import io.github.manami.core.services.SearchService
-import io.github.manami.core.services.ServiceRepository
-import io.github.manami.core.services.ThumbnailBackloadService
+import io.github.manami.core.services.*
 import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.*
-import io.github.manami.persistence.ApplicationPersistence
-import io.github.manami.persistence.PersistenceFacade
+import io.github.manami.persistence.PersistenceHandler
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.util.*
@@ -30,11 +26,11 @@ private const val FILE_SUFFIX_JSON = ".json"
 class Manami @Inject constructor(
         private val cmdService: CommandService,
         private val config: Config,
-        private val persistence: PersistenceFacade,
-        private val serviceRepo: ServiceRepository,
+        private val persistence: PersistenceHandler,
+        private val taskConductor: TaskConductor,
         private val cache: Cache,
         private val eventBus: EventBus
-) : ApplicationPersistence {
+) : ManamiCore {
 
     private val log: Logger by LoggerDelegate()
 
@@ -67,8 +63,8 @@ class Manami @Inject constructor(
         persistence.clearAll()
         persistence.open(file)
         config.file = file
-        serviceRepo.startService(ThumbnailBackloadService(cache, persistence))
-        serviceRepo.startService(CacheInitializationService(cache, persistence.fetchAnimeList()))
+        taskConductor.safelyStart(ThumbnailBackloadTask(cache, persistence))
+        taskConductor.safelyStart(CacheInitializationTask(cache, persistence.fetchAnimeList()))
     }
 
 
@@ -185,7 +181,7 @@ class Manami @Inject constructor(
     fun search(searchString: String) {
         if (searchString.isNotBlank()) {
             log.info("Initiated search for [{}]", searchString)
-            serviceRepo.startService(SearchService(searchString, persistence, eventBus))
+            taskConductor.safelyStart(SearchService(searchString, persistence, eventBus))
         }
     }
 

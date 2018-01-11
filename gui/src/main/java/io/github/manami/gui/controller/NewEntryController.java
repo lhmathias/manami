@@ -10,7 +10,7 @@ import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddAnime;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.core.config.Config;
-import io.github.manami.core.services.AnimeRetrievalService;
+import io.github.manami.core.services.AnimeRetrievalTask;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.dto.AnimeType;
 import io.github.manami.dto.entities.Anime;
@@ -305,7 +305,7 @@ public class NewEntryController implements Observer {
    * Checks the currently given value of the textfield and tries to automatically fill out the form.
    */
   private void autoFillForm() {
-    AnimeRetrievalService retrievalService;
+    AnimeRetrievalTask retrievalService;
 
     convertUrlIfNecessary();
 
@@ -314,7 +314,7 @@ public class NewEntryController implements Observer {
     if (infoLink.isValid()) {
       setDisableAutoCompleteWidgets(true);
 
-      retrievalService = new AnimeRetrievalService(Main.CONTEXT.getBean(Cache.class), infoLink);
+      retrievalService = new AnimeRetrievalTask(Main.CONTEXT.getBean(Cache.class), infoLink);
       retrievalService.addObserver(this);
       serviceRepo.startService(retrievalService);
 
@@ -387,7 +387,7 @@ public class NewEntryController implements Observer {
       return;
     }
 
-    if (observable instanceof AnimeRetrievalService && object instanceof Anime) {
+    if (observable instanceof AnimeRetrievalTask && object instanceof Anime) {
       final Anime anime = (Anime) object;
 
       if (anime != null) {

@@ -17,12 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This service is called whenever a new list is opened. It creates cache entries if necessary. Always start {@link BackgroundService}s using the
+ * This service is called whenever a new list is opened. It creates cache entries if necessary. Always start {@link BackgroundTask}s using the
  * {@link ServiceRepository}!
  */
-public class CacheInitializationService extends AbstractService<Void> {
+public class CacheInitializationTask extends AbstractTask<Void> {
 
-  private static final Logger log = LoggerFactory.getLogger(CacheInitializationService.class);
+  private static final Logger log = LoggerFactory.getLogger(CacheInitializationTask.class);
   private static final int MAX_THREADS = Runtime.getRuntime().availableProcessors();
 
   /**
@@ -45,7 +45,7 @@ public class CacheInitializationService extends AbstractService<Void> {
    *
    * @param cache Cache
    */
-  public CacheInitializationService(final Cache cache, final List<Anime> list) {
+  public CacheInitializationTask(final Cache cache, final List<Anime> list) {
     this.cache = cache;
     this.list = list;
     initializeThreadPools();

@@ -13,7 +13,7 @@ import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CmdDeleteWatchListEntry;
 import io.github.manami.core.commands.CommandService;
-import io.github.manami.core.services.AnimeRetrievalService;
+import io.github.manami.core.services.AnimeRetrievalTask;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
@@ -68,7 +68,7 @@ public class WatchListController extends AbstractAnimeListController implements 
   /**
    * List of all actively running services.
    */
-  private final ObservableQueue<AnimeRetrievalService> serviceList = new ObservableQueue<>(newConcurrentLinkedQueue());
+  private final ObservableQueue<AnimeRetrievalTask> serviceList = new ObservableQueue<>(newConcurrentLinkedQueue());
 
   /**
    * {@link TextField} for adding a new entry.
@@ -99,7 +99,7 @@ public class WatchListController extends AbstractAnimeListController implements 
    * Fills the GUI with all the entries which are already in the database.
    */
   public void initialize() {
-    serviceList.addListener((ListChangeListener<AnimeRetrievalService>) arg0 -> {
+    serviceList.addListener((ListChangeListener<AnimeRetrievalTask>) arg0 -> {
       final int size = serviceList.size();
       final String text = String.format("Preparing entries: %s", size);
 
@@ -147,7 +147,7 @@ public class WatchListController extends AbstractAnimeListController implements 
     }
 
     if (!app.watchListEntryExists(normalizedInfoLink)) {
-      final AnimeRetrievalService retrievalService = new AnimeRetrievalService(cache, normalizedInfoLink);
+      final AnimeRetrievalTask retrievalService = new AnimeRetrievalTask(cache, normalizedInfoLink);
       retrievalService.addObserver(this);
       serviceList.offer(retrievalService);
 
@@ -215,7 +215,7 @@ public class WatchListController extends AbstractAnimeListController implements 
       return;
     }
 
-    if (observable instanceof AnimeRetrievalService && object instanceof Anime) {
+    if (observable instanceof AnimeRetrievalTask && object instanceof Anime) {
       final Optional<WatchListEntry> anime = WatchListEntry.valueOf((Anime) object);
 
       if (anime.isPresent()) {

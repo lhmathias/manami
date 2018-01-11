@@ -6,7 +6,7 @@ import static io.github.manami.gui.components.Icons.createIconCancel;
 import io.github.manami.Main;
 import io.github.manami.cache.Cache;
 import io.github.manami.core.Manami;
-import io.github.manami.core.services.RelatedAnimeFinderService;
+import io.github.manami.core.services.RelatedAnimeFinderTask;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.core.services.events.ProgressState;
 import io.github.manami.dto.entities.Anime;
@@ -43,7 +43,7 @@ public class RelatedAnimeController extends AbstractAnimeListController implemen
   /**
    * The corresponding background service.
    */
-  private RelatedAnimeFinderService service;
+  private RelatedAnimeFinderTask service;
 
   /**
    * Instance of the service repository.
@@ -108,7 +108,7 @@ public class RelatedAnimeController extends AbstractAnimeListController implemen
    * Starts the service.
    */
   private void start() {
-    service = new RelatedAnimeFinderService(Main.CONTEXT.getBean(Cache.class), app, app.fetchAnimeList(), this);
+    service = new RelatedAnimeFinderTask(Main.CONTEXT.getBean(Cache.class), app, app.fetchAnimeList(), this);
     showProgressControls(true);
     clearComponentList();
     serviceRepo.startService(service);

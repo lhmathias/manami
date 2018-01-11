@@ -23,11 +23,11 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 /**
- * Finds related anime in info site links. Always start {@link BackgroundService}s using the {@link ServiceRepository}!
+ * Finds related anime in info site links. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
  */
-public class RelatedAnimeFinderService extends AbstractService<Map<InfoLink, Anime>> {
+public class RelatedAnimeFinderTask extends AbstractTask<Map<InfoLink, Anime>> {
 
-  private static final Logger log = LoggerFactory.getLogger(RelatedAnimeFinderService.class);
+  private static final Logger log = LoggerFactory.getLogger(RelatedAnimeFinderTask.class);
   /**
    * Contains all anime which are already in the anime list.
    */
@@ -67,7 +67,7 @@ public class RelatedAnimeFinderService extends AbstractService<Map<InfoLink, Ani
    * @param list List which being checked for related anime.
    * @param observer Observer which is being notified about the progress. It also gets the result as a list through notification.
    */
-  public RelatedAnimeFinderService(final Cache cache, final Manami app, final List<? extends MinimalEntry> list, final Observer observer) {
+  public RelatedAnimeFinderTask(final Cache cache, final Manami app, final List<? extends MinimalEntry> list, final Observer observer) {
     this.app = app;
     this.cache = cache;
     this.list = list;

@@ -11,7 +11,7 @@ import io.github.manami.cache.Cache;
 import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
-import io.github.manami.core.services.RecommendationsRetrievalService;
+import io.github.manami.core.services.RecommendationsRetrievalTask;
 import io.github.manami.core.services.ServiceRepository;
 import io.github.manami.core.services.events.AdvancedProgressState;
 import io.github.manami.core.services.events.ProgressState;
@@ -98,7 +98,7 @@ public class RecommendationsController extends AbstractAnimeListController imple
   /**
    * Service instance.
    */
-  private RecommendationsRetrievalService service;
+  private RecommendationsRetrievalTask service;
 
   private final List<Anime> originalOrder = newArrayList();
 
@@ -138,7 +138,7 @@ public class RecommendationsController extends AbstractAnimeListController imple
 
 
   private void start() {
-    service = new RecommendationsRetrievalService(app, cache, this);
+    service = new RecommendationsRetrievalTask(app, cache, this);
     showProgressControls(true);
     clearComponentList();
     serviceRepo.startService(service);
