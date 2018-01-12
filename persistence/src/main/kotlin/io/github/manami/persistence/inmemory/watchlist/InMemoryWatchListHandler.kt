@@ -28,7 +28,7 @@ internal class InMemoryWatchListHandler : WatchListHandler {
 
 
     override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (!anime.isValidMinimalEntry() || watchList.containsKey(anime.infoLink)) {
+        if (!anime.isValid() || watchList.containsKey(anime.infoLink)) {
             return false
         }
 
@@ -45,7 +45,7 @@ internal class InMemoryWatchListHandler : WatchListHandler {
 
 
     override fun removeFromWatchList(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
+        if (anime.isValid()) {
             return watchList.remove(anime.infoLink) != null
         }
 
@@ -58,7 +58,7 @@ internal class InMemoryWatchListHandler : WatchListHandler {
 
 
     fun updateOrCreate(entry: WatchListEntry) {
-        if (entry.isValidMinimalEntry()) {
+        if (entry.isValid()) {
             watchList.put(entry.infoLink, entry)
         }
     }

@@ -21,7 +21,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the FilterListEntry is a valid MinimalEntry") {
-            val result = filterListEntry.isValidMinimalEntry()
+            val result = filterListEntry.isValid()
 
 
             it("must return true") {
@@ -39,7 +39,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the FilterListEntry is a valid MinimalEntry") {
-            val result = filterListEntry.isValidMinimalEntry()
+            val result = filterListEntry.isValid()
 
 
             it("must return false") {
@@ -57,7 +57,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the FilterListEntry is a valid MinimalEntry") {
-            val result = filterListEntry.isValidMinimalEntry()
+            val result = filterListEntry.isValid()
 
 
             it("must return false") {
@@ -75,7 +75,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the FilterListEntry is a valid MinimalEntry") {
-            val result = filterListEntry.isValidMinimalEntry()
+            val result = filterListEntry.isValid()
 
 
             it("must return false. A FilterListEntry must provide a valid InfoLink, because the infoLink is it's identifier.") {
@@ -92,7 +92,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the WatchListEntry is a valid MinimalEntry") {
-            val result = watchListEntry.isValidMinimalEntry()
+            val result = watchListEntry.isValid()
 
 
             it("must return true") {
@@ -110,7 +110,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the WatchListEntry is a valid MinimalEntry") {
-            val result = watchListEntry.isValidMinimalEntry()
+            val result = watchListEntry.isValid()
 
 
             it("must return false. A WatchListEntry must provide a valid InfoLink, because the infoLink is it's identifier.") {
@@ -128,7 +128,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the WatchListEntry is a valid MinimalEntry") {
-            val result = watchListEntry.isValidMinimalEntry()
+            val result = watchListEntry.isValid()
 
 
             it("must return false") {
@@ -146,7 +146,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the WatchListEntry is a valid MinimalEntry") {
-            val result = watchListEntry.isValidMinimalEntry()
+            val result = watchListEntry.isValid()
 
 
             it("must return false") {
@@ -168,7 +168,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the Anime is a valid MinimalEntry") {
-            val result = anime.isValidMinimalEntry()
+            val result = anime.isValid()
 
 
             it("must return true") {
@@ -185,7 +185,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the Anime is a valid MinimalEntry") {
-            val result = anime.isValidMinimalEntry()
+            val result = anime.isValid()
 
 
             it("must return false") {
@@ -202,7 +202,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the Anime is a valid MinimalEntry") {
-            val result = anime.isValidMinimalEntry()
+            val result = anime.isValid()
 
 
             it("must return false") {
@@ -218,7 +218,7 @@ class MinimalEntrySpec : Spek({
         )
 
         on("checking if the Anime is a valid MinimalEntry") {
-            val result = anime.isValidMinimalEntry()
+            val result = anime.isValid()
 
 
             it("must return true, because Anime have an actual ID as an identifier. They may exist on your HDD, but might not have a corresponding entry on sites like MAL due to their database rules.") {

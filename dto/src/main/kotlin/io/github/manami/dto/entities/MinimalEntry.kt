@@ -10,7 +10,7 @@ interface MinimalEntry {
 
     var infoLink: InfoLink
 
-    fun isValidMinimalEntry() = title.isNotBlank() && infoLink.isValid()
+    fun isValid() = title.isNotBlank() && infoLink.isValid()
 
     companion object {
         /** Placeholder image in case no image is available. */

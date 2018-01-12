@@ -35,8 +35,5 @@ data class Anime(
         }
 
 
-    fun isValidAnime() = isValidMinimalEntry() && location.isNotBlank()
-
-
-    override fun isValidMinimalEntry() = title.isNotBlank()
+    override fun isValid() = title.isNotBlank() && location.isNotBlank()
 }

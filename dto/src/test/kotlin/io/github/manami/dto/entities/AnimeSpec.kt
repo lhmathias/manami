@@ -28,7 +28,7 @@ class AnimeSpec : Spek({
         }
 
         on("checking if the anime is valid") {
-            val result = anime.isValidAnime()
+            val result = anime.isValid()
 
             it("must return true, because the default parameter are using valid values") {
                 assertThat(result).isTrue()
@@ -41,7 +41,7 @@ class AnimeSpec : Spek({
         val anime = Anime("", InfoLink("http://myanimelist.net/anime/1535"))
 
         on("checking if the anime is valid") {
-            val result = anime.isValidAnime()
+            val result = anime.isValid()
 
             it("must return false, because a title cannot be empty") {
                 assertThat(result).isFalse()
@@ -54,7 +54,7 @@ class AnimeSpec : Spek({
         val anime = Anime("     ", InfoLink("http://myanimelist.net/anime/1535"))
 
         on("checking if the anime is valid") {
-            val result = anime.isValidAnime()
+            val result = anime.isValid()
 
             it("must return false, because a title cannot solely consist of whitespaces") {
                 assertThat(result).isFalse()
@@ -68,7 +68,7 @@ class AnimeSpec : Spek({
         anime.location = ""
 
         on("checking if the anime is valid") {
-            val result = anime.isValidAnime()
+            val result = anime.isValid()
 
             it("must return false, because a location cannot be empty") {
                 assertThat(result).isFalse()
@@ -82,7 +82,7 @@ class AnimeSpec : Spek({
         anime.location = "   "
 
         on("checking if the anime is valid") {
-            val result = anime.isValidAnime()
+            val result = anime.isValid()
 
             it("must return false, because a location cannot solely consist of whitespaces") {
                 assertThat(result).isFalse()

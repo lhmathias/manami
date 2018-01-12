@@ -36,7 +36,7 @@ internal class PersistenceFacade
     )
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
+        if (anime.isValid()) {
             if (strategy.filterAnime(anime)) {
                 eventBus.post(FilterListChangedEvent)
 
@@ -63,7 +63,7 @@ internal class PersistenceFacade
 
 
     override fun removeFromFilterList(anime: MinimalEntry): Boolean {
-        if (!anime.isValidMinimalEntry()) {
+        if (!anime.isValid()) {
             return false
         }
 
@@ -77,7 +77,7 @@ internal class PersistenceFacade
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (anime.isValidAnime() && strategy.addAnime(anime)) {
+        if (anime.isValid() && strategy.addAnime(anime)) {
             if (anime.infoLink.isValid()) {
                 if(removeFromFilterList(anime)) {
                     eventBus.post(FilterListChangedEvent)
@@ -117,7 +117,7 @@ internal class PersistenceFacade
 
 
     override fun watchAnime(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
+        if (anime.isValid()) {
             if (strategy.watchAnime(anime)) {
                 eventBus.post(WatchListChangedEvent)
 
@@ -144,7 +144,7 @@ internal class PersistenceFacade
 
 
     override fun removeFromWatchList(anime: MinimalEntry): Boolean {
-        if (!anime.isValidMinimalEntry()) {
+        if (!anime.isValid()) {
             return false
         }
 
@@ -168,7 +168,7 @@ internal class PersistenceFacade
     override fun addAnimeList(list: MutableList<Anime>) {
         val validAnimeList: MutableList<Anime> = mutableListOf()
 
-        list.filter { it.isValidAnime() }.toCollection(validAnimeList)
+        list.filter { it.isValid() }.toCollection(validAnimeList)
 
         strategy.addAnimeList(validAnimeList)
         eventBus.post(AnimeListChangedEvent)
@@ -178,7 +178,7 @@ internal class PersistenceFacade
     override fun addFilterList(list: MutableList<FilterListEntry>) {
         val validEntryList: MutableList<FilterListEntry> = mutableListOf()
 
-        list.filter { it.isValidMinimalEntry() }.toCollection(validEntryList)
+        list.filter { it.isValid() }.toCollection(validEntryList)
 
         strategy.addFilterList(validEntryList)
         eventBus.post(FilterListChangedEvent)
@@ -188,7 +188,7 @@ internal class PersistenceFacade
     override fun addWatchList(list: MutableList<WatchListEntry>) {
         val validEntryList: MutableList<WatchListEntry> = mutableListOf()
 
-        list.filter { it.isValidMinimalEntry() }.toCollection(validEntryList)
+        list.filter { it.isValid() }.toCollection(validEntryList)
 
 
         strategy.addWatchList(validEntryList)
@@ -199,19 +199,19 @@ internal class PersistenceFacade
     override fun updateOrCreate(entry: MinimalEntry) {
         when (entry) {
             is Anime -> {
-                if(entry.isValidAnime()) {
+                if(entry.isValid()) {
                     strategy.updateOrCreate(entry)
                     eventBus.post(AnimeListChangedEvent)
                 }
             }
             is FilterListEntry -> {
-                if(entry.isValidMinimalEntry()) {
+                if(entry.isValid()) {
                     strategy.updateOrCreate(entry)
                     eventBus.post(FilterListChangedEvent)
                 }
             }
             is WatchListEntry -> {
-                if(entry.isValidMinimalEntry()) {
+                if(entry.isValid()) {
                     strategy.updateOrCreate(entry)
                     eventBus.post(WatchListChangedEvent)
                 }

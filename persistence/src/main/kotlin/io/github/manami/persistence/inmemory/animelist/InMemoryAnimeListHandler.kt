@@ -15,7 +15,7 @@ internal class InMemoryAnimeListHandler : AnimeListHandler {
 
 
     override fun addAnime(anime: Anime): Boolean {
-        if (!anime.isValidAnime() || isInList(anime)) {
+        if (!anime.isValid() || isInList(anime)) {
             return false
         }
 
@@ -63,7 +63,7 @@ internal class InMemoryAnimeListHandler : AnimeListHandler {
 
 
     fun updateOrCreate(anime: Anime) {
-        if (anime.isValidAnime()) {
+        if (anime.isValid()) {
             animeList.put(anime.id, anime)
         }
     }

@@ -13,7 +13,7 @@ internal class InMemoryFilterListHandler : FilterListHandler {
     private val filterList: MutableMap<InfoLink, FilterListEntry> = ConcurrentHashMap()
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
-        if (!anime.isValidMinimalEntry() || filterList.containsKey(anime.infoLink)) {
+        if (!anime.isValid() || filterList.containsKey(anime.infoLink)) {
             return false
         }
 
@@ -42,7 +42,7 @@ internal class InMemoryFilterListHandler : FilterListHandler {
 
 
     override fun removeFromFilterList(anime: MinimalEntry): Boolean {
-        if (anime.isValidMinimalEntry()) {
+        if (anime.isValid()) {
             return filterList.remove(anime.infoLink) != null
         }
 
@@ -55,7 +55,7 @@ internal class InMemoryFilterListHandler : FilterListHandler {
 
 
     fun updateOrCreate(entry: FilterListEntry) {
-        if (entry.isValidMinimalEntry()) {
+        if (entry.isValid()) {
             filterList.put(entry.infoLink, entry)
         }
     }
