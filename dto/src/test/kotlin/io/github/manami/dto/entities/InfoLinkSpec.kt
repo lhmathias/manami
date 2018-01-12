@@ -119,4 +119,95 @@ class InfoLinkSpec : Spek({
             }
         }
     }
+
+
+    given("a valid MAL url with query parameter") {
+        val url = "https://myanimelist.net/anime.php?id=1535"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be normalized") {
+                assertThat(result.toString()).isEqualTo("https://myanimelist.net/anime/1535")
+            }
+        }
+    }
+
+
+    given("a valid MAL url with search query") {
+        val url = "https://myanimelist.net/anime/1535/Death_Note?q=death%20note"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be normalized") {
+                assertThat(result.toString()).isEqualTo("https://myanimelist.net/anime/1535")
+            }
+        }
+    }
+
+
+    given("a valid default MAL url with SEO title in it") {
+        val url = "https://myanimelist.net/anime/1535/Death_Note"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be normalized") {
+                assertThat(result.toString()).isEqualTo("https://myanimelist.net/anime/1535")
+            }
+        }
+    }
+
+
+    given("a valid MAL url which has already been normalized") {
+        val url = "https://myanimelist.net/anime/1535"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be normalized") {
+                assertThat(result.toString()).isEqualTo("https://myanimelist.net/anime/1535")
+            }
+        }
+    }
+
+
+    given("a valid MAL url which has already been normalized, but wuth http instead of https") {
+        val url = "http://myanimelist.net/anime/1535"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be normalized") {
+                assertThat(result.toString()).isEqualTo("https://myanimelist.net/anime/1535")
+            }
+        }
+    }
+
+
+    given("not a valid MAL InfoLink URL") {
+        val url = "https://myanimelist.net/news?_location=mal_h_m"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be returned as is") {
+                assertThat(result.toString()).isEqualTo(url)
+            }
+        }
+    }
+
+
+    given("a valid default MAL url with SEO title in it and blanks at the beginning and at the end") {
+        val url = "https://myanimelist.net/anime/1535/Death_Note"
+
+        on("creating an InfoLink using this URL") {
+            val result = InfoLink(url)
+
+            it("must be normalized") {
+                assertThat(result.toString()).isEqualTo("https://myanimelist.net/anime/1535")
+            }
+        }
+    }
 })
