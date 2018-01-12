@@ -10,6 +10,7 @@ import io.github.manami.dto.entities.*
 import io.github.manami.persistence.PersistenceHandler
 import org.slf4j.Logger
 import java.nio.file.Path
+import java.nio.file.Paths
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -34,12 +35,9 @@ class ManamiImpl @Inject constructor(
     private val log: Logger by LoggerDelegate()
 
 
-    /**
-     * Creates a new empty List.
-     */
     override fun newList() {
         resetCommandHistory()
-        config.file = null
+        config.file = Paths.get("./")
         persistence.clearAll()
     }
 
@@ -53,35 +51,20 @@ class ManamiImpl @Inject constructor(
     }
 
 
-    /**
-     * Opens a file.
-     *
-     * @param file File to open.
-     */
     override fun open(file: Path) {
         persistence.clearAll()
         persistence.open(file)
         config.file = file
         taskConductor.safelyStart(ThumbnailBackloadTask(cache, persistence))
-        taskConductor.safelyStart(CacheInitializationTask(cache, persistence.fetchAnimeList()))
+        taskConductor.safelyStart(CacheInitializationTask(cache, persistence))
     }
 
 
-    /**
-     * Exports the file.
-     *
-     * @param file File to exportToJsonFile to.
-     */
     override fun export(file: Path) {
         persistence.exportToJsonFile(file)
     }
 
 
-    /**
-     * Imports a file either XML (MAL List) or JSON.
-     *
-     * @param file File to import.
-     */
     override fun importFile(file: Path) {
         when {
             file.toString().endsWith(FILE_SUFFIX_XML) -> persistence.importMalFile(file)
@@ -90,9 +73,6 @@ class ManamiImpl @Inject constructor(
     }
 
 
-    /**
-     * Saves the opened file.
-     */
     override fun save() {
         if (persistence.save(config.file)) {
             cmdService.setUnsaved(false)
@@ -174,9 +154,6 @@ class ManamiImpl @Inject constructor(
     }
 
 
-    /**
-     * Searches for a specific string and fires an event with the search results.
-     */
     override fun search(searchString: String) {
         if (searchString.isNotBlank()) {
             log.info("Initiated search for [{}]", searchString)

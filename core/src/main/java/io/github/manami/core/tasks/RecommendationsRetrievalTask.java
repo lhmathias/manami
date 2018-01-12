@@ -28,40 +28,27 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Extracts and counts recommendations for a list of anime. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
- */
+/*
+ // Extracts and counts recommendations for a list of anime. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
 public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
 
   private static final Logger log = LoggerFactory.getLogger(RecommendationsRetrievalTask.class);
-  /**
-   * Max percentage rate which the shown recommendations can make out of all entries.
-   */
+   //Max percentage rate which the shown recommendations can make out of all entries.
   private static final int MAX_PERCENTAGE = 80;
 
-  /**
-   * Max number of entries of which a recommendations list can consist.
-   */
+   // Max number of entries of which a recommendations list can consist.
   private static final int MAX_NUMBER_OF_ENTRIES = 100;
 
-  /**
-   * List to be searched for recommendations.
-   */
+   //List to be searched for recommendations.
   private final List<InfoLink> urlList;
 
-  /**
-   * List which is being given to the GUI.
-   */
+   // List which is being given to the GUI.
   private List<Anime> resultList;
 
-  /**
-   * All possible recommendations
-   */
+   // All possible recommendations
   private Map<InfoLink, Integer> recommendationsAll;
 
-  /**
-   * All recommendations that make 80% of all written user recommendations.
-   */
+   // All recommendations that make 80% of all written user recommendations.
   private List<InfoLink> userRecomList;
   private final AnimeExtractor extractor;
   private final ManamiImpl app;
@@ -121,10 +108,8 @@ public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
     for (int i = 0; i < userRecomList.size() && !isInterrupt(); i++) {
       setChanged();
 
-      /*
-       * +1 on i because i starts with 0 and +1 because the value
-       * indicates the next entry to be loaded
-       */
+        //+1 on i because i starts with 0 and +1 because the value
+        //indicates the next entry to be loaded
       final int nextEntryIndex = i + 2;
 
       notifyObservers(new AdvancedProgressState(nextEntryIndex, userRecomList.size(), cache.fetchAnime(userRecomList.get(i)).get()));
@@ -210,4 +195,4 @@ public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
     recommendationsAll.clear();
     super.reset();
   }
-}
+}*/

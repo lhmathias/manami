@@ -27,8 +27,8 @@ internal abstract class AbstractReversibleCommand(
 
 
     override fun execute(): Boolean {
-        oldAnime?.id?.let { id ->
-            persistenceHandler.removeAnime(id)
+        oldAnime?.let { anime ->
+            persistenceHandler.removeAnime(anime)
         }
 
         newAnime?.let { anime ->
@@ -40,8 +40,8 @@ internal abstract class AbstractReversibleCommand(
 
 
     override fun undo() {
-        newAnime?.id?.let { id ->
-            persistenceHandler.removeAnime(id)
+        newAnime?.let { anime ->
+            persistenceHandler.removeAnime(anime)
         }
 
         oldAnime?.let { anime ->

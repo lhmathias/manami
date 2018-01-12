@@ -18,7 +18,7 @@ class Config @Inject constructor(
     /**
      * File which is currently being worked on.
      */
-    var file: Path = Paths.get(".")
+    var file: Path = Paths.get("./")
         set(file) {
             field = file
             eventBus.post(OpenedFileChangedEvent())

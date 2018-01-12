@@ -43,6 +43,7 @@ import java.util.zip.Checksum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
 public class CheckListTask extends AbstractTask<Void> {
 
   private static final Logger log = LoggerFactory.getLogger(CheckListTask.class);
@@ -56,14 +57,6 @@ public class CheckListTask extends AbstractTask<Void> {
   private final ManamiImpl app;
 
 
-  /**
-   * Constructor.
-   *
-   * @param config Contains the configuration which features to check.
-   * @param file Currently opened file.
-   * @param cache Cache
-   * @param observer Observer
-   */
   public CheckListTask(final CheckListConfig config, final Path file, final Cache cache, final ManamiImpl app, final Observer observer) {
     this.config = config;
     this.cache = cache;
@@ -142,9 +135,7 @@ public class CheckListTask extends AbstractTask<Void> {
   }
 
 
-  /**
-   * Checks every entry. A location must be set, exist and contain at least one file.
-   */
+  //Checks every entry. A location must be set, exist and contain at least one file.
   private void checkLocations() {
     try {
       for (int index = 0; index < list.size() && !isInterrupt(); index++) {
@@ -185,11 +176,9 @@ public class CheckListTask extends AbstractTask<Void> {
           log.error("An error occurred during file check: ", e);
         }
 
-        /*
-         * 04 conversion to relative path possible? At this point we
-         * know the directory exists. If wen can access it directly it's
-         * an absolute path.
-         */
+        //04 conversion to relative path possible? At this point we
+        //know the directory exists. If wen can access it directly it's
+        //an absolute path.
         final Path dir = Paths.get(anime.getLocation());
         if (Files.exists(dir) && Files.isDirectory(dir)) {
           fireRelativizePathEvent(anime);
@@ -411,10 +400,6 @@ public class CheckListTask extends AbstractTask<Void> {
   }
 
 
-  /**
-   * @param currentEntry
-   * @return
-   */
   private void checkEntryForDeadLink(final MinimalEntry currentEntry) {
     updateProgress();
 
@@ -436,4 +421,4 @@ public class CheckListTask extends AbstractTask<Void> {
     event.setMessage(String.format(MSG_DEAD_INFOLINK, currentEntry.getTitle()));
     fire(event);
   }
-}
+}*/
