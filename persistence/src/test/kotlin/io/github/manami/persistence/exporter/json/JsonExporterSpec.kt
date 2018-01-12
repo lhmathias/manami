@@ -17,6 +17,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.springframework.core.io.ClassPathResource
 import java.net.URL
@@ -32,6 +34,7 @@ private const val EXPECTED_RECOMMENDATIONS_FILE = "test_recommendations_list.jso
 private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.json"
 
 
+@RunWith(JUnitPlatform::class)
 class JsonExporterSpec : Spek({
 
     val separator: String = FileSystems.getDefault().separator

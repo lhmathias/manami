@@ -16,6 +16,8 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.springframework.core.io.ClassPathResource
 import java.net.URL
@@ -24,6 +26,7 @@ import java.net.URL
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.json"
 
 
+@RunWith(JUnitPlatform::class)
 class JsonImporterSpec : Spek({
 
     val file = ClassPathResource(TEST_ANIME_LIST_FILE).file.toPath()

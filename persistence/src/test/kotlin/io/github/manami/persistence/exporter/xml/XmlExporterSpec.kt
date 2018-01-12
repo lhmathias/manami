@@ -17,6 +17,8 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.springframework.core.io.ClassPathResource
 import java.net.URL
@@ -29,6 +31,7 @@ import java.nio.file.Paths
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.xml"
 private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.xml"
 
+@RunWith(JUnitPlatform::class)
 class XmlExporterSpec : Spek({
 
     val separator: String = FileSystems.getDefault().separator

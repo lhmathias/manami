@@ -11,10 +11,13 @@ import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.mockito.ArgumentMatchers
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import java.net.URL
 
+
+@RunWith(JUnitPlatform::class)
 class ImportMigrationPostProcessorSpec : Spek({
 
     val eventBusMock = mock(EventBus::class.java)

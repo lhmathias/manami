@@ -36,7 +36,6 @@ enum class AnimeType(val value: String) {
          * @param name Type as String value.
          * @return The corresponding AnimeType or null if no type matches.
          */
-        @JvmStatic
         fun findByName(name: String): AnimeType? {
             return values().firstOrNull { it.value.equals(name, ignoreCase = true) }
         }

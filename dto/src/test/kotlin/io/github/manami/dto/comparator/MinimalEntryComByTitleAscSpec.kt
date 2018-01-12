@@ -51,7 +51,7 @@ class MinimalEntryComByTitleAscSpec : Spek({
             val result: Int = comparator.compare(steinsGate, steinsGate)
 
             it("must return 0 to indicate that the titles are equal") {
-                assertThat(result).IsZero()
+                assertThat(result).isZero()
             }
         }
     }
@@ -74,7 +74,7 @@ class MinimalEntryComByTitleAscSpec : Spek({
             val result: Int = comparator.compare(emptyTitle, steinsGate)
 
             it("must return 0 to indicate that the titles are not comparable.") {
-                assertThat(result).IsZero()
+                assertThat(result).isZero()
             }
         }
 
@@ -83,7 +83,7 @@ class MinimalEntryComByTitleAscSpec : Spek({
             val result: Int = comparator.compare(steinsGate, emptyTitle)
 
             it("must return 0 to indicate that the titles are not comparable.") {
-                assertThat(result).IsZero()
+                assertThat(result).isZero()
             }
         }
     }

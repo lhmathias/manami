@@ -12,7 +12,6 @@ object ToolVersion {
 
     private val log: Logger = LoggerFactory.getLogger(ToolVersion::class.java)
 
-    @JvmStatic
     fun getToolVersion(): String {
         val propertiesPath = "/META-INF/maven/io.github.manami/persistence/pom.properties"
 

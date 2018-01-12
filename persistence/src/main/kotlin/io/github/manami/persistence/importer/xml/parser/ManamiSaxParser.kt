@@ -7,7 +7,6 @@ import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.InternalPersistenceHandler
-import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.importer.xml.postprocessor.ImportDocument
 import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
 import org.slf4j.Logger
@@ -16,8 +15,6 @@ import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
 import java.net.MalformedURLException
 import java.net.URL
-import javax.inject.Inject
-import javax.inject.Named
 
 
 private const val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbnail URL from [{}]"

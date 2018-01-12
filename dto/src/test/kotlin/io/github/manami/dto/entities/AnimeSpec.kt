@@ -101,5 +101,13 @@ class AnimeSpec : Spek({
                 assertThat(anime.episodes).isEqualTo(4)
             }
         }
+
+        on("setting the amount of episodes to an valid value") {
+            anime.episodes *= 2
+
+            it("must not change the number of episodes") {
+                assertThat(anime.episodes).isEqualTo(8)
+            }
+        }
     }
 })

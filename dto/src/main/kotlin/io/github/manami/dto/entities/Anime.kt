@@ -8,7 +8,7 @@ import java.util.UUID.randomUUID
 /**
  * Represents a "physical" Anime with all it's saved meta information stored in your HDD.
  */
-data class Anime @JvmOverloads constructor(
+data class Anime(
         /** Main title of the anime. */
         override var title: String,
         /** URL to a website which contains additional information. */

@@ -18,6 +18,8 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.springframework.core.io.ClassPathResource
 import java.net.URL
@@ -26,6 +28,7 @@ import java.net.URL
 private const val MAL_EXPORT_FILE = "mal_export.xml"
 
 
+@RunWith(JUnitPlatform::class)
 class MalSaxParserSpec : Spek({
 
     val eventBusMock: EventBus = mock(EventBus::class.java)

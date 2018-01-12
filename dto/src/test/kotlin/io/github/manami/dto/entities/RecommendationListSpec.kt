@@ -12,7 +12,11 @@ import org.junit.runner.RunWith
 class RecommendationListSpec : Spek({
 
     given("a newly created RecommendationList") {
-        val recommendationList = RecommendationList()
+        var recommendationList = RecommendationList()
+
+        beforeEachTest {
+            recommendationList = RecommendationList()
+        }
 
         on("checking if the list is empty") {
             val isEmpty = recommendationList.isEmpty()
@@ -53,17 +57,55 @@ class RecommendationListSpec : Spek({
                 assertThat(recommendationList.get(infoLink)).isEqualTo(recommendation)
             }
         }
+
+        on("checking if the list contains a Recommendation") {
+            val result = recommendationList.contains(
+                    Recommendation(
+                            InfoLink("http://myanimelist.net/anime/1535"),
+                            231
+                    )
+            )
+
+            it("must return false") {
+                assertThat(result).isFalse()
+            }
+        }
+
+        on("retrieving iterator") {
+            val result = recommendationList.iterator()
+
+            it("must not have any new items") {
+                assertThat(result.hasNext()).isFalse()
+            }
+        }
     }
 
     given("a recommendation list containing one recommendation") {
         val infoLinkUrl = "http://myanimelist.net/anime/1535"
         val initialValue = 5
-        val recommendationList = RecommendationList()
-        recommendationList.addRecommendation(Recommendation(InfoLink(infoLinkUrl), initialValue))
+        var recommendationList = RecommendationList()
+
+
+        beforeEachTest {
+            recommendationList = RecommendationList().apply {
+                addRecommendation(
+                        Recommendation(
+                                InfoLink(infoLinkUrl),
+                                initialValue
+                        )
+                )
+            }
+        }
+
 
         on("adding a new instance of the same infoLinkUrl with a different amount") {
             val newValue = 15
-            recommendationList.addRecommendation(Recommendation(InfoLink(infoLinkUrl), newValue))
+            recommendationList.addRecommendation(
+                    Recommendation(
+                            InfoLink(infoLinkUrl),
+                            newValue
+                    )
+            )
 
             it("must contain only one entry") {
                 assertThat(recommendationList.size).isOne()
@@ -71,6 +113,61 @@ class RecommendationListSpec : Spek({
 
             it("must contain the infoLink with the sum of both values as amount") {
                 assertThat(recommendationList.get(InfoLink(infoLinkUrl))?.amount).isEqualTo(initialValue + newValue)
+            }
+        }
+
+        on("checking if the list contains the Recommendation (different instance)") {
+            val result = recommendationList.contains(
+                    Recommendation(
+                            InfoLink(infoLinkUrl),
+                            initialValue
+                    )
+            )
+
+            it("must return true") {
+                assertThat(result).isTrue()
+            }
+        }
+
+        on("checking if the list contains the recommendations (different instance) using containsAll") {
+            val result = recommendationList.containsAll(
+                    mutableListOf(
+                            Recommendation(
+                                    InfoLink(infoLinkUrl),
+                                    initialValue
+                            )
+                    )
+            )
+
+            it("must return true") {
+                assertThat(result).isTrue()
+            }
+        }
+
+        on("checking if the list containsAll of recommendations which reside in the list and some which don't") {
+            val result = recommendationList.containsAll(
+                    mutableListOf(
+                            Recommendation(
+                                    InfoLink(infoLinkUrl),
+                                    initialValue
+                            ),
+                            Recommendation(
+                                    InfoLink("http://myanimelist.net/anime/35180"),
+                                    5
+                            )
+                    )
+            )
+
+            it("must return false") {
+                assertThat(result).isFalse()
+            }
+        }
+
+        on("retrieving iterator") {
+            val result = recommendationList.iterator()
+
+            it("must not have new items") {
+                assertThat(result.hasNext()).isTrue()
             }
         }
     }
