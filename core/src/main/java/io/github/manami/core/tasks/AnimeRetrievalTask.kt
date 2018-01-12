@@ -18,7 +18,7 @@ internal class AnimeRetrievalTask(
         val anime: Optional<Anime> = cache.fetchAnime(infoLink)
 
         if (anime.isPresent) {
-            anime.get()
+            anime.get() //FIXME: Do I really need a task for that? If so the result has to be returned somehow
         }
     }
 }
