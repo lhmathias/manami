@@ -1,13 +1,11 @@
 package io.github.manami.core.tasks
 
-import io.github.manami.dto.LoggerDelegate
+import io.github.manami.common.LoggerDelegate
 import org.slf4j.Logger
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicBoolean
-import javax.inject.Named
 
-@Named
-internal class TaskConductorImpl : TaskConductor{
+internal object TaskConductorImpl : TaskConductor{
 
     private val log: Logger by LoggerDelegate()
     private val taskList: MutableMap<String, BackgroundTask> = ConcurrentHashMap()

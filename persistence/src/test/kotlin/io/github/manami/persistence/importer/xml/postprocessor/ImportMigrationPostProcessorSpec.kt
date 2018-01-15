@@ -1,6 +1,7 @@
 package io.github.manami.persistence.importer.xml.postprocessor
 
-import com.google.common.eventbus.EventBus
+import com.google.common.eventbus.Subscribe
+import io.github.manami.common.EventBus
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
@@ -13,23 +14,32 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito.*
 import java.net.URL
+
+
+private class EventBusListener {
+
+    var receivedFileImportExceptionEvent = 0
+
+    @Subscribe
+    fun listen(obj: FileImportExceptionEvent) {
+        receivedFileImportExceptionEvent++
+    }
+}
 
 
 @RunWith(JUnitPlatform::class)
 class ImportMigrationPostProcessorSpec : Spek({
 
-    val eventBusMock = mock(EventBus::class.java)
-
+    val eventBusListener = EventBusListener()
+    EventBus.register(eventBusListener)
 
     beforeEachTest {
-        reset(eventBusMock)
+        eventBusListener.receivedFileImportExceptionEvent = 0
     }
 
-
     given("an invalid document version") {
-        val processor = ImportMigrationPostProcessor(eventBusMock)
+        val processor = ImportMigrationPostProcessor
 
         on("start processing") {
             processor.process(
@@ -42,7 +52,7 @@ class ImportMigrationPostProcessorSpec : Spek({
             )
 
             it("must fire a FileImportExceptionEvent") {
-                verify(eventBusMock, times(1)).post(isA(FileImportExceptionEvent::class.java))
+                assertThat(eventBusListener.receivedFileImportExceptionEvent).isOne()
             }
         }
     }
@@ -57,7 +67,7 @@ class ImportMigrationPostProcessorSpec : Spek({
                 thumbnail
             )
         )
-        val processor = ImportMigrationPostProcessor(mock(EventBus::class.java))
+        val processor = ImportMigrationPostProcessor
 
         on("processing the document") {
             processor.process(
@@ -79,10 +89,9 @@ class ImportMigrationPostProcessorSpec : Spek({
     given("a document version less than 2.10.3") {
         val filterList: MutableList<FilterListEntry> = mutableListOf()
         val watchList: MutableList<WatchListEntry> = mutableListOf()
-        val processor = ImportMigrationPostProcessor(mock(EventBus::class.java))
+        val processor = ImportMigrationPostProcessor
 
         context("filter and watch list entries with old cdn picture urls, other picture urls and the new cdn url") {
-
             filterList.apply {
                 add(
                     FilterListEntry(
@@ -181,7 +190,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         val animeList: MutableList<Anime> = mutableListOf()
         val filterList: MutableList<FilterListEntry> = mutableListOf()
         val watchList: MutableList<WatchListEntry> = mutableListOf()
-        val processor = ImportMigrationPostProcessor(mock(EventBus::class.java))
+        val processor = ImportMigrationPostProcessor
 
         context("MAL entries with and without http and www and anidb link") {
 
@@ -242,7 +251,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         val animeList: MutableList<Anime> = mutableListOf()
         val filterList: MutableList<FilterListEntry> = mutableListOf()
         val watchList: MutableList<WatchListEntry> = mutableListOf()
-        val processor = ImportMigrationPostProcessor(mock(EventBus::class.java))
+        val processor = ImportMigrationPostProcessor
 
         context("MAL entries with and without http and www and anidb link") {
 

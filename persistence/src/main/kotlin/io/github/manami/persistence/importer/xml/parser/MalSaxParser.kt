@@ -6,12 +6,9 @@ import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.InternalPersistenceHandler
-import io.github.manami.persistence.PersistenceFacade
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
-import javax.inject.Inject
-import javax.inject.Named
 
 
 internal class MalSaxParser(private val persistence: InternalPersistenceHandler) : DefaultHandler() {

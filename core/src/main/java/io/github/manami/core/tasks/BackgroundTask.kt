@@ -4,7 +4,7 @@ package io.github.manami.core.tasks
 /**
  * A Task running in background
  */
-interface BackgroundTask {
+internal interface BackgroundTask {
 
     /**
      * Start the task execution.

@@ -6,14 +6,13 @@ import static io.github.manami.gui.components.Icons.createIconFilterList;
 import static io.github.manami.gui.components.Icons.createIconRemove;
 import static io.github.manami.gui.components.Icons.createIconWatchList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.springframework.util.Assert.notNull;
 
 import io.github.manami.Main;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CommandService;
-import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc;
+import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.FilterListEntry;
 import io.github.manami.dto.entities.InfoLink;
@@ -51,7 +50,7 @@ public abstract class AbstractAnimeListController {
   /**
    * Application
    */
-  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  private final Manami app = Main.CONTEXT.getBean(Manami.class);
 
   /**
    * Instance of the main application.
@@ -136,7 +135,7 @@ public abstract class AbstractAnimeListController {
 
   protected List<AnimeGuiComponentsListEntry> sortComponentEntries() {
     final List<AnimeGuiComponentsListEntry> sortList = newArrayList(getComponentList().values());
-    Collections.sort(sortList, (objA, objB) -> new MinimalEntryComByTitleAsc().compare(objA.getAnime(), objB.getAnime()));
+    Collections.sort(sortList, (objA, objB) -> new MinimalEntryCompByTitleAsc().compare(objA.getAnime(), objB.getAnime()));
     return sortList;
   }
 

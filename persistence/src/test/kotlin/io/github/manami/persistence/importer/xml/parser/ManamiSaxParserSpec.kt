@@ -1,14 +1,13 @@
 package io.github.manami.persistence.importer.xml.parser
 
-import com.google.common.eventbus.EventBus
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
+import io.github.manami.persistence.InternalPersistenceHandler
 import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.importer.xml.XmlImporter
-import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
 import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
@@ -20,9 +19,9 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.springframework.core.io.ClassPathResource
 import java.net.URL
+import java.nio.file.Path
+import java.nio.file.Paths
 
 
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.xml"
@@ -31,21 +30,19 @@ private const val TEST_ANIME_LIST_FILE = "test_anime_list.xml"
 @RunWith(JUnitPlatform::class)
 class ManamiSaxParserSpec : Spek({
 
-    val eventBusMock: EventBus = Mockito.mock(EventBus::class.java)
-    val file = ClassPathResource(TEST_ANIME_LIST_FILE).file.toPath()
-    val persistenceFacade = PersistenceFacade(
-            InMemoryPersistenceHandler(
-                    InMemoryAnimeListHandler(),
-                    InMemoryFilterListHandler(),
-                    InMemoryWatchListHandler()
-            ),
-            eventBusMock
+    val file: Path = Paths.get(this::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
+
+    val persistenceFacade: InternalPersistenceHandler = InMemoryPersistenceHandler(
+            InMemoryAnimeListHandler(),
+            InMemoryFilterListHandler(),
+            InMemoryWatchListHandler()
     )
 
 
     given("Importer instance for Manami") {
+
         val importer = XmlImporter(
-                ManamiSaxParser(persistenceFacade, ImportMigrationPostProcessor(eventBusMock)),
+                ManamiSaxParser(persistenceFacade),
                 MalSaxParser(persistenceFacade)
         ).using(XmlImporter.XmlStrategy.MANAMI)
 

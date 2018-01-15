@@ -1,18 +1,14 @@
 package io.github.manami.persistence.importer.xml.postprocessor
 
-import com.google.common.eventbus.EventBus
-import io.github.manami.dto.LoggerDelegate
+import io.github.manami.common.EventBus
+import io.github.manami.common.LoggerDelegate
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.utility.Version
 import org.slf4j.Logger
 import java.net.MalformedURLException
 import java.net.URL
-import javax.inject.Inject
-import javax.inject.Named
 
-internal class ImportMigrationPostProcessor(
-        private val eventBus: EventBus
-) {
+internal object ImportMigrationPostProcessor {
 
     private val log: Logger by LoggerDelegate()
 
@@ -24,7 +20,7 @@ internal class ImportMigrationPostProcessor(
     fun process(importDocument: ImportDocument) {
         if (!Version.isValid(importDocument.documentVersion)) {
             log.warn("Document version is not valid.")
-            eventBus.post(FileImportExceptionEvent("Document version is not valid. Unable to import file."))
+            EventBus.publish(FileImportExceptionEvent("Document version is not valid. Unable to import file."))
             return
         }
 

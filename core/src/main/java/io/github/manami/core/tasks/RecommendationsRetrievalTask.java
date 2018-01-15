@@ -2,31 +2,6 @@ package io.github.manami.core.tasks;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newCopyOnWriteArrayList;
-import static com.google.common.collect.Maps.newConcurrentMap;
-
-import io.github.manami.cache.Cache;
-import io.github.manami.cache.strategies.headlessbrowser.extractor.AnimeExtractor;
-import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.mal.MyAnimeListNetAnimeExtractor;
-import io.github.manami.core.ManamiImpl;
-import io.github.manami.core.tasks.events.AdvancedProgressState;
-import io.github.manami.core.tasks.events.ProgressState;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import java.security.SecureRandom;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Observer;
-import java.util.Optional;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /*
  // Extracts and counts recommendations for a list of anime. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
@@ -51,13 +26,13 @@ public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
    // All recommendations that make 80% of all written user recommendations.
   private List<InfoLink> userRecomList;
   private final AnimeExtractor extractor;
-  private final ManamiImpl app;
-  private final Cache cache;
+  private final Manami app;
+  private final CacheI cache;
   private final AtomicInteger progress = new AtomicInteger(0);
   private final ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 
 
-  public RecommendationsRetrievalTask(final ManamiImpl app, final Cache cache, final Observer observer) {
+  public RecommendationsRetrievalTask(final Manami app, final CacheI cache, final Observer observer) {
     extractor = new MyAnimeListNetAnimeExtractor();
     urlList = newCopyOnWriteArrayList();
     recommendationsAll = newConcurrentMap();

@@ -4,8 +4,8 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
-import io.github.manami.cache.Cache;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.cache.CacheI;
+import io.github.manami.core.Manami;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.core.tasks.TagRetrievalTask;
 import io.github.manami.dto.entities.Anime;
@@ -31,12 +31,12 @@ public class TagListController extends AbstractAnimeListController implements Ob
   /**
    * Instance of the application.
    */
-  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  private final Manami app = Main.CONTEXT.getBean(Manami.class);
 
   /**
-   * Instance of the cache.
+   * Instance of the cacheI.
    */
-  private final Cache cache = Main.CONTEXT.getBean(Cache.class);
+  private final CacheI cacheI = Main.CONTEXT.getBean(CacheI.class);
 
   /**
    * Instance of the service repository.
@@ -92,7 +92,7 @@ public class TagListController extends AbstractAnimeListController implements Ob
     }
 
     clear();
-    service = new TagRetrievalTask(cache, app, urlString, this);
+    service = new TagRetrievalTask(cacheI, app, urlString, this);
     serviceRepo.startService(service);
     txtUrl.setText(EMPTY);
     Platform.runLater(() -> {

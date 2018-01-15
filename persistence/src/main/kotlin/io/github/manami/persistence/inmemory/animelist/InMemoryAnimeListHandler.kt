@@ -1,15 +1,13 @@
 package io.github.manami.persistence.inmemory.animelist
 
-import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
+import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.persistence.AnimeListHandler
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Named
 
-@Named
-internal class InMemoryAnimeListHandler : AnimeListHandler {
+internal class InMemoryAnimeListHandler() : AnimeListHandler {
 
     private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
 
@@ -26,9 +24,7 @@ internal class InMemoryAnimeListHandler : AnimeListHandler {
 
 
     override fun fetchAnimeList(): MutableList<Anime> {
-        val sortList: MutableList<Anime> = animeList.values.toMutableList()
-        Collections.sort(sortList, MinimalEntryComByTitleAsc())
-        return sortList.toMutableList()
+        return animeList.values.sortedWith(MinimalEntryCompByTitleAsc).toMutableList()
     }
 
 

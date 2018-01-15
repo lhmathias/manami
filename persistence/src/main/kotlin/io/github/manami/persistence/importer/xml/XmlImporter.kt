@@ -8,15 +8,12 @@ import io.github.manami.persistence.importer.xml.parser.ManamiSaxParser
 import org.xml.sax.ContentHandler
 import org.xml.sax.InputSource
 import java.nio.file.Path
-import javax.inject.Inject
-import javax.inject.Named
 import javax.xml.parsers.SAXParserFactory
 
 /**
  * Importer for opening xml files which are specific for this application.
  */
-@Named("xmlImporter")
-internal class XmlImporter @Inject constructor(
+internal class XmlImporter(
         private val manamiSaxParser: ManamiSaxParser,
         private val malSaxParser: MalSaxParser
 ) : Importer {
@@ -26,7 +23,7 @@ internal class XmlImporter @Inject constructor(
     /**
      * Strategy for XML import.
      */
-    enum class XmlStrategy {
+    internal enum class XmlStrategy {
         /**
          * Strategy for opening manami files.
          */

@@ -4,7 +4,7 @@ import io.github.manami.dto.entities.MinimalEntry
 import java.util.*
 
 
-class MinimalEntryComByTitleAsc : Comparator<MinimalEntry> {
+object MinimalEntryCompByTitleAsc : Comparator<MinimalEntry> {
 
     override fun compare(objA: MinimalEntry, objB: MinimalEntry): Int {
         var ret = 0

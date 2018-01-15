@@ -1,7 +1,7 @@
 package io.github.manami.core.commands
 
 
-interface CommandService {
+internal interface CommandService {
 
     fun isUnsaved(): Boolean
 

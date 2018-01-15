@@ -4,8 +4,8 @@ import static io.github.manami.core.config.Config.NOTIFICATION_DURATION;
 import static io.github.manami.gui.components.Icons.createIconCancel;
 
 import io.github.manami.Main;
-import io.github.manami.cache.Cache;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.cache.CacheI;
+import io.github.manami.core.Manami;
 import io.github.manami.core.tasks.RelatedAnimeFinderTask;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.core.tasks.events.ProgressState;
@@ -38,7 +38,7 @@ public class RelatedAnimeController extends AbstractAnimeListController implemen
   /**
    * Application
    */
-  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  private final Manami app = Main.CONTEXT.getBean(Manami.class);
 
   /**
    * The corresponding background service.
@@ -108,7 +108,7 @@ public class RelatedAnimeController extends AbstractAnimeListController implemen
    * Starts the service.
    */
   private void start() {
-    service = new RelatedAnimeFinderTask(Main.CONTEXT.getBean(Cache.class), app, app.fetchAnimeList(), this);
+    service = new RelatedAnimeFinderTask(Main.CONTEXT.getBean(CacheI.class), app, app.fetchAnimeList(), this);
     showProgressControls(true);
     clearComponentList();
     serviceRepo.startService(service);

@@ -1,6 +1,6 @@
 package io.github.manami.core.tasks
 
-import com.google.common.eventbus.EventBus
+import io.github.manami.common.EventBus
 import io.github.manami.core.tasks.events.SearchResultEvent
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
@@ -15,8 +15,7 @@ private const val MAX_LEVENSHTEIN_DISTANCE = 2
 
 internal class SearchService(
         private val searchString: String,
-        private val persistence: PersistenceHandler,
-        private val eventBus: EventBus
+        private val persistence: PersistenceHandler
 ) : AbstractTask() {
 
   private val event = SearchResultEvent(searchString)
@@ -27,7 +26,7 @@ internal class SearchService(
     persistence.fetchFilterList().forEach(this::checkEntry)
     persistence.fetchWatchList().forEach(this::checkEntry)
 
-    eventBus.post(event)
+    EventBus.publish(event)
   }
 
 

@@ -1,6 +1,6 @@
 package io.github.manami.persistence
 
-import com.google.common.eventbus.EventBus
+import io.github.manami.common.EventBus
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.events.AnimeListChangedEvent
 import io.github.manami.persistence.events.FilterListChangedEvent
@@ -11,37 +11,38 @@ import io.github.manami.persistence.importer.json.JsonImporter
 import io.github.manami.persistence.importer.xml.XmlImporter
 import io.github.manami.persistence.importer.xml.parser.MalSaxParser
 import io.github.manami.persistence.importer.xml.parser.ManamiSaxParser
-import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
+import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
+import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
+import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
+import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
 import java.nio.file.Path
-import javax.inject.Inject
-import javax.inject.Named
+
 
 /**
  * This is a facade which is used by the application to hide which strategy is actually used.
  */
-@Named
-internal class PersistenceFacade
-    @Inject
-    constructor(
-        @Named("inMemoryStrategy") private val strategy: InternalPersistenceHandler, //Currently used db persistence strategy.
-        private val eventBus: EventBus
-) : PersistenceHandler {
+object PersistenceFacade : PersistenceHandler {
 
+    private val strategy: InternalPersistenceHandler = InMemoryPersistenceHandler(
+            InMemoryAnimeListHandler(),
+            InMemoryFilterListHandler(),
+            InMemoryWatchListHandler()
+    )
     private val jsonExporter = JsonExporter(strategy)
     private val jsonImporter = JsonImporter(strategy)
     private val xmlExporter  = XmlExporter(strategy)
     private val xmlImporter = XmlImporter(
-            ManamiSaxParser(strategy, ImportMigrationPostProcessor(eventBus)),
+            ManamiSaxParser(strategy),
             MalSaxParser(strategy)
     )
 
     override fun filterAnime(anime: MinimalEntry): Boolean {
         if (anime.isValid()) {
             if (strategy.filterAnime(anime)) {
-                eventBus.post(FilterListChangedEvent)
+                EventBus.publish(FilterListChangedEvent)
 
                 if(removeFromWatchList(anime)) {
-                    eventBus.post(WatchListChangedEvent)
+                    EventBus.publish(WatchListChangedEvent)
                 }
 
                 return true
@@ -68,7 +69,7 @@ internal class PersistenceFacade
         }
 
         if (strategy.removeFromFilterList(anime)) {
-            eventBus.post(FilterListChangedEvent)
+            EventBus.publish(FilterListChangedEvent)
             return true
         }
 
@@ -80,15 +81,15 @@ internal class PersistenceFacade
         if (anime.isValid() && strategy.addAnime(anime)) {
             if (anime.infoLink.isValid()) {
                 if(removeFromFilterList(anime)) {
-                    eventBus.post(FilterListChangedEvent)
+                    EventBus.publish(FilterListChangedEvent)
                 }
 
                 if(removeFromWatchList(anime)) {
-                    eventBus.post(WatchListChangedEvent)
+                    EventBus.publish(WatchListChangedEvent)
                 }
             }
 
-            eventBus.post(AnimeListChangedEvent)
+            EventBus.publish(AnimeListChangedEvent)
             return true
         }
 
@@ -108,7 +109,7 @@ internal class PersistenceFacade
 
     override fun removeAnime(anime: Anime): Boolean {
         if (strategy.removeAnime(anime)) {
-            eventBus.post(AnimeListChangedEvent)
+            EventBus.publish(AnimeListChangedEvent)
             return true
         }
 
@@ -119,10 +120,10 @@ internal class PersistenceFacade
     override fun watchAnime(anime: MinimalEntry): Boolean {
         if (anime.isValid()) {
             if (strategy.watchAnime(anime)) {
-                eventBus.post(WatchListChangedEvent)
+                EventBus.publish(WatchListChangedEvent)
 
                 if(removeFromFilterList(anime)) {
-                    eventBus.post(FilterListChangedEvent)
+                    EventBus.publish(FilterListChangedEvent)
                 }
 
                 return true
@@ -149,7 +150,7 @@ internal class PersistenceFacade
         }
 
         if (strategy.removeFromWatchList(anime)) {
-            eventBus.post(WatchListChangedEvent)
+            EventBus.publish(WatchListChangedEvent)
             return true
         }
 
@@ -159,9 +160,9 @@ internal class PersistenceFacade
 
     override fun clearAll() {
         strategy.clearAll()
-        eventBus.post(AnimeListChangedEvent)
-        eventBus.post(FilterListChangedEvent)
-        eventBus.post(WatchListChangedEvent)
+        EventBus.publish(AnimeListChangedEvent)
+        EventBus.publish(FilterListChangedEvent)
+        EventBus.publish(WatchListChangedEvent)
     }
 
 
@@ -171,7 +172,7 @@ internal class PersistenceFacade
         list.filter { it.isValid() }.toCollection(validAnimeList)
 
         strategy.addAnimeList(validAnimeList)
-        eventBus.post(AnimeListChangedEvent)
+        EventBus.publish(AnimeListChangedEvent)
     }
 
 
@@ -181,7 +182,7 @@ internal class PersistenceFacade
         list.filter { it.isValid() }.toCollection(validEntryList)
 
         strategy.addFilterList(validEntryList)
-        eventBus.post(FilterListChangedEvent)
+        EventBus.publish(FilterListChangedEvent)
     }
 
 
@@ -192,7 +193,7 @@ internal class PersistenceFacade
 
 
         strategy.addWatchList(validEntryList)
-        eventBus.post(WatchListChangedEvent)
+        EventBus.publish(WatchListChangedEvent)
     }
 
 
@@ -201,19 +202,19 @@ internal class PersistenceFacade
             is Anime -> {
                 if(entry.isValid()) {
                     strategy.updateOrCreate(entry)
-                    eventBus.post(AnimeListChangedEvent)
+                    EventBus.publish(AnimeListChangedEvent)
                 }
             }
             is FilterListEntry -> {
                 if(entry.isValid()) {
                     strategy.updateOrCreate(entry)
-                    eventBus.post(FilterListChangedEvent)
+                    EventBus.publish(FilterListChangedEvent)
                 }
             }
             is WatchListEntry -> {
                 if(entry.isValid()) {
                     strategy.updateOrCreate(entry)
-                    eventBus.post(WatchListChangedEvent)
+                    EventBus.publish(WatchListChangedEvent)
                 }
             }
         }

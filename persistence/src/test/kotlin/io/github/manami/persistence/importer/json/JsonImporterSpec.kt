@@ -1,12 +1,11 @@
 package io.github.manami.persistence.importer.json
 
-import com.google.common.eventbus.EventBus
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.PersistenceFacade
+import io.github.manami.persistence.InternalPersistenceHandler
 import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
@@ -18,9 +17,9 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.springframework.core.io.ClassPathResource
 import java.net.URL
+import java.nio.file.Path
+import java.nio.file.Paths
 
 
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.json"
@@ -29,16 +28,14 @@ private const val TEST_ANIME_LIST_FILE = "test_anime_list.json"
 @RunWith(JUnitPlatform::class)
 class JsonImporterSpec : Spek({
 
-    val file = ClassPathResource(TEST_ANIME_LIST_FILE).file.toPath()
-    val persistenceFacade = PersistenceFacade(
-            InMemoryPersistenceHandler(
-                    InMemoryAnimeListHandler(),
-                    InMemoryFilterListHandler(),
-                    InMemoryWatchListHandler()
-            ),
-            Mockito.mock(EventBus::class.java)
+    val file: Path = Paths.get(JsonImporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
+    val persistenceFacade: InternalPersistenceHandler = InMemoryPersistenceHandler(
+            InMemoryAnimeListHandler(),
+            InMemoryFilterListHandler(),
+            InMemoryWatchListHandler()
     )
-    
+
+
     given("a json importer instance and a file") {
         val jsonImporter = JsonImporter(persistenceFacade)
         

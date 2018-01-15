@@ -1,13 +1,12 @@
 package io.github.manami.persistence.importer.json
 
+import io.github.manami.common.LoggerDelegate
 import io.github.manami.dto.AnimeType
-import io.github.manami.dto.LoggerDelegate
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.InternalPersistenceHandler
-import io.github.manami.persistence.PersistenceFacade
 import io.github.manami.persistence.importer.Importer
 import org.json.JSONArray
 import org.json.JSONTokener
@@ -19,12 +18,11 @@ import java.lang.StringBuilder
 import java.net.MalformedURLException
 import java.net.URL
 import java.nio.file.Path
-import javax.inject.Inject
-import javax.inject.Named
 
 
 private const val URL_PARSING_EXCEPTION_MESSAGE = "Unable to import [{}]"
 private const val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the type is unknown."
+
 
 /**
  * Imports a list from a valid JSON file.

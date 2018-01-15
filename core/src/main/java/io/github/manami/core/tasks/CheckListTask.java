@@ -1,63 +1,21 @@
 package io.github.manami.core.tasks;
 
-import static java.nio.file.Files.isRegularFile;
-import static java.nio.file.Files.newDirectoryStream;
-import static org.apache.commons.lang3.StringUtils.EMPTY;
-import static org.apache.commons.lang3.StringUtils.isBlank;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
-import static org.springframework.util.Assert.notNull;
-
-import com.google.common.collect.ImmutableList;
-import io.github.manami.cache.Cache;
-import io.github.manami.core.ManamiImpl;
-import io.github.manami.core.config.CheckListConfig;
-import io.github.manami.core.tasks.events.AbstractEvent.EventType;
-import io.github.manami.core.tasks.events.CrcEvent;
-import io.github.manami.core.tasks.events.DeadLinkEvent;
-import io.github.manami.core.tasks.events.EpisodesDifferEvent;
-import io.github.manami.core.tasks.events.ProgressState;
-import io.github.manami.core.tasks.events.RelativizeLocationEvent;
-import io.github.manami.core.tasks.events.SimpleLocationEvent;
-import io.github.manami.core.tasks.events.TitleDifferEvent;
-import io.github.manami.core.tasks.events.TypeDifferEvent;
-import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.MinimalEntry;
-import io.github.manami.persistence.utility.PathResolver;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.DirectoryStream;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Observer;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.zip.CRC32;
-import java.util.zip.Checksum;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /*
 public class CheckListTask extends AbstractTask<Void> {
 
   private static final Logger log = LoggerFactory.getLogger(CheckListTask.class);
   private static final String MSG_DEAD_INFOLINK = "The infoLink seems to not exist anymore for %s.";
-  private final Cache cache;
+  private final CacheI cache;
   private final List<Anime> list;
   private final CheckListConfig config;
   private Path currentWorkingDir = null;
   private int currentProgress = 0;
   private int progressMax = 0;
-  private final ManamiImpl app;
+  private final Manami app;
 
 
-  public CheckListTask(final CheckListConfig config, final Path file, final Cache cache, final ManamiImpl app, final Observer observer) {
+  public CheckListTask(final CheckListConfig config, final Path file, final CacheI cache, final Manami app, final Observer observer) {
     this.config = config;
     this.cache = cache;
     this.app = app;

@@ -5,7 +5,7 @@ import java.nio.file.Path
 /**
  * Interface for an exporter.
  */
-interface Exporter {
+internal interface Exporter {
 
     /**
      * Writes all three lists animelist, filterlist and watchlist to a specified file.

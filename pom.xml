@@ -18,6 +18,7 @@
     <module>gui</module>
     <module>persistence</module>
     <module>dto</module>
+    <module>common</module>
   </modules>
 
   <properties>
@@ -31,78 +32,7 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>javax.inject</groupId>
-        <artifactId>javax.inject</artifactId>
-        <version>1</version>
-      </dependency>
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>1.2.3</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.json</groupId>
-        <artifactId>json</artifactId>
-        <version>20170516</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.6</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>4.3.11.RELEASE</version>
-      </dependency>
-      <dependency>
-        <groupId>org.controlsfx</groupId>
-        <artifactId>controlsfx</artifactId>
-        <version>8.40.13</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>23.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.3</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testng</groupId>
-        <artifactId>testng</artifactId>
-        <version>6.11</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>2.13.0</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>commons-validator</groupId>
-        <artifactId>commons-validator</artifactId>
-        <version>1.6</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.5</version>
-      </dependency>
+      <!-- manami dependencies -->
       <dependency>
         <groupId>io.github.manami</groupId>
         <artifactId>cache</artifactId>
@@ -120,15 +50,82 @@
       </dependency>
       <dependency>
         <groupId>io.github.manami</groupId>
-        <artifactId>dto</artifactId>
+        <artifactId>persistence</artifactId>
         <version>${manami.version}</version>
-        <scope>test</scope>
-        <type>test-jar</type>
       </dependency>
       <dependency>
         <groupId>io.github.manami</groupId>
-        <artifactId>persistence</artifactId>
+        <artifactId>common</artifactId>
         <version>${manami.version}</version>
+      </dependency>
+
+      <!-- logging -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.2.3</version>
+      </dependency>
+
+      <!-- commons -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>3.6</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-validator</groupId>
+        <artifactId>commons-validator</artifactId>
+        <version>1.6</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>2.5</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-text</artifactId>
+        <version>1.2</version>
+      </dependency>
+
+      <!-- others -->
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20170516</version>
+      </dependency>
+      <dependency>
+        <groupId>org.controlsfx</groupId>
+        <artifactId>controlsfx</artifactId>
+        <version>8.40.13</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>23.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>httpclient</artifactId>
+        <version>4.5.3</version>
+      </dependency>
+
+      <!-- testing -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>2.13.0</version>
+        <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.assertj</groupId>
@@ -136,11 +133,8 @@
         <version>3.8.0</version>
         <scope>test</scope>
       </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-text</artifactId>
-        <version>1.2</version>
-      </dependency>
+
+      <!-- kotlin -->
       <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib-jdk8</artifactId>

@@ -6,14 +6,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -26,10 +18,9 @@ import io.github.manami.dto.entities.RecommendationList;
 
 /**
  * Facade for all inquiries against a cache.
- * It orchestrates the use of concrete {@link io.github.manami.cache.Cache}
+ * It orchestrates the use of concrete {@link Cache}
  * implementations.
  */
-@Named
 public final class CacheManager implements Cache {
 
     private static final Logger log = LoggerFactory.getLogger(CacheManager.class);
@@ -56,7 +47,6 @@ public final class CacheManager implements Cache {
     private LoadingCache<InfoLink, RecommendationList> recommendationsCache = null;
 
 
-    @Inject
     public CacheManager(final DaemonRestRetrievalStrategy daemonRestRetrievalStrategy, final HeadlessBrowserRetrievalStrategy headlessBrowserRetrievalStrategy) {
         this.daemonRestRetrievalStrategy = daemonRestRetrievalStrategy;
         this.headlessBrowserRetrievalStrategy = headlessBrowserRetrievalStrategy;

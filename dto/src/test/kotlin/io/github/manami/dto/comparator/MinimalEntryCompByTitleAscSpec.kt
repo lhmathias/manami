@@ -12,9 +12,9 @@ import org.junit.runner.RunWith
 import java.net.URL
 
 @RunWith(JUnitPlatform::class)
-class MinimalEntryComByTitleAscSpec : Spek({
+class MinimalEntryCompByTitleAscSpec : Spek({
 
-    val comparator = MinimalEntryComByTitleAsc()
+    val comparator = MinimalEntryCompByTitleAsc
 
     given("two different and valid watch list entries") {
         val gintama = WatchListEntry("Gintama",

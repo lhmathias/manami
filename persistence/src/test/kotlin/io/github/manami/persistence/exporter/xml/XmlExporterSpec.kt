@@ -1,12 +1,12 @@
 package io.github.manami.persistence.exporter.xml
 
-import com.google.common.eventbus.EventBus
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.PersistenceFacade
+import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.exporter.json.JsonExporterSpec
 import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
@@ -19,11 +19,8 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito.mock
-import org.springframework.core.io.ClassPathResource
 import java.net.URL
 import java.nio.charset.StandardCharsets
-import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -34,25 +31,21 @@ private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.xml"
 @RunWith(JUnitPlatform::class)
 class XmlExporterSpec : Spek({
 
-    val separator: String = FileSystems.getDefault().separator
     var tempFolder: Path = Paths.get(".")
     var file: Path = Paths.get(".")
-    val persistenceFacade = PersistenceFacade(
-        InMemoryPersistenceHandler(
-                InMemoryAnimeListHandler(),
-                InMemoryFilterListHandler(),
-                InMemoryWatchListHandler()
-        ),
-        mock(EventBus::class.java)
+    val persistence: InternalPersistenceHandler = InMemoryPersistenceHandler(
+            InMemoryAnimeListHandler(),
+            InMemoryFilterListHandler(),
+            InMemoryWatchListHandler()
     )
 
 
     given("a XmlExporter filled with a pre-filled persistence facade") {
-        val xmlExporter = XmlExporter(persistenceFacade)
+        val xmlExporter = XmlExporter(persistence)
 
         beforeEachTest {
-            tempFolder = Files.createTempDirectory(System.currentTimeMillis().toString())
-            file = Files.createFile(Paths.get("$tempFolder$separator$ANIME_LIST_EXPORT_FILE"))
+            tempFolder = createTempDir().toPath()
+            file = createTempFile(suffix = ANIME_LIST_EXPORT_FILE, directory = tempFolder.toFile()).toPath()
         }
 
         afterEachTest {
@@ -70,9 +63,9 @@ class XmlExporterSpec : Spek({
                 AnimeType.TV,
                 "/anime/series/boku_dake_ga_inai_machi"
             )
-    
-            persistenceFacade.addAnime(bokuDake)
-    
+
+            persistence.addAnime(bokuDake)
+
             val rurouniKenshin = Anime(
                 "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
                 InfoLink("https://myanimelist.net/anime/44"),
@@ -80,26 +73,26 @@ class XmlExporterSpec : Spek({
                 AnimeType.OVA,
                 "/anime/series/rurouni_kenshin"
             )
-    
-            persistenceFacade.addAnime(rurouniKenshin)
-    
+
+            persistence.addAnime(rurouniKenshin)
+
             val deathNoteRewrite = WatchListEntry(
                 "Death Note Rewrite",
                 InfoLink("https://myanimelist.net/anime/2994"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/13/8518t.jpg")
             )
-    
-            persistenceFacade.watchAnime(deathNoteRewrite)
-    
+
+            persistence.watchAnime(deathNoteRewrite)
+
             val gintama = FilterListEntry(
                 "Gintama",
                 InfoLink("https://myanimelist.net/anime/918"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg")
             )
-    
-            persistenceFacade.filterAnime(gintama)
+
+            persistence.filterAnime(gintama)
         }
-        
+
         on("exporting the list to a file") {
             xmlExporter.save(file)
             
@@ -108,9 +101,9 @@ class XmlExporterSpec : Spek({
                 Files.readAllLines(file, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
                 val actual: String = normalizeXml(exportedFileBuilder.toString())
 
-                val resource = ClassPathResource(TEST_ANIME_LIST_FILE)
+                val resource: Path =  Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
                 val expectedFileBuilder = StringBuilder()
-                Files.readAllLines(resource.file.toPath(), StandardCharsets.UTF_8).map(expectedFileBuilder::append)
+                Files.readAllLines(resource, StandardCharsets.UTF_8).map(expectedFileBuilder::append)
                 val expected: String = normalizeXml(expectedFileBuilder.toString())
 
                 assertThat(expected).isEqualTo(actual)

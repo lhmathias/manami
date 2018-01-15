@@ -1,6 +1,6 @@
 package io.github.manami.core.tasks
 
-interface TaskConductor {
+internal interface TaskConductor {
 
     /**
      * Will start a {@see BackgroundTask} if and only if no other task of the same type is already running.

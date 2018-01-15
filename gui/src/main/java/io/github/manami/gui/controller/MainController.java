@@ -24,7 +24,7 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import io.github.manami.Main;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdChangeEpisodes;
 import io.github.manami.core.commands.CmdChangeInfoLink;
 import io.github.manami.core.commands.CmdChangeLocation;
@@ -36,7 +36,7 @@ import io.github.manami.core.commands.ReversibleCommand;
 import io.github.manami.core.config.Config;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc;
+import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc;
 import io.github.manami.dto.entities.Anime;
 import io.github.manami.dto.entities.InfoLink;
 import io.github.manami.gui.controller.callbacks.AnimeEpisodesCallback;
@@ -93,7 +93,7 @@ public class MainController implements Observer {
   /**
    * Instance of the main application.
    */
-  final private ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  final private Manami app = Main.CONTEXT.getBean(Manami.class);
 
   /**
    * Instance of the main application.
@@ -495,7 +495,7 @@ public class MainController implements Observer {
     checkEntryRelevantMenuItems();
     checkCommandMenuItems();
     checkDirtyFlagAnimeListTab();
-    FXCollections.sort(tvAnimeList.getItems(), new MinimalEntryComByTitleAsc());
+    FXCollections.sort(tvAnimeList.getItems(), new MinimalEntryCompByTitleAsc());
     refreshTableView();
     updateAutoCompletion();
   }

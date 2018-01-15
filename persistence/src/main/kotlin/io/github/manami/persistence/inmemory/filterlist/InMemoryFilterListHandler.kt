@@ -1,13 +1,11 @@
 package io.github.manami.persistence.inmemory.filterlist
 
-import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
+import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.FilterListHandler
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Named
 
-@Named
+
 internal class InMemoryFilterListHandler : FilterListHandler {
 
     private val filterList: MutableMap<InfoLink, FilterListEntry> = ConcurrentHashMap()
@@ -30,9 +28,7 @@ internal class InMemoryFilterListHandler : FilterListHandler {
 
 
     override fun fetchFilterList(): MutableList<FilterListEntry> {
-        val sortList = filterList.values.toMutableList()
-        Collections.sort(sortList, MinimalEntryComByTitleAsc())
-        return sortList.toMutableList()
+        return filterList.values.sortedWith(MinimalEntryCompByTitleAsc).toMutableList()
     }
 
 

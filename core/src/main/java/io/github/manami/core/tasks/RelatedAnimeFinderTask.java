@@ -4,24 +4,6 @@ import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
 import static com.google.common.collect.Sets.newHashSet;
 
-import com.sun.javafx.collections.ObservableSetWrapper;
-import io.github.manami.cache.Cache;
-import io.github.manami.core.ManamiImpl;
-import io.github.manami.core.tasks.events.ProgressState;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.MinimalEntry;
-import java.util.List;
-import java.util.Map;
-import java.util.Observer;
-import java.util.Optional;
-import java.util.Stack;
-import javafx.collections.ObservableSet;
-import javafx.collections.SetChangeListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-
 /**
  * Finds related anime in info site links. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
  */
@@ -41,14 +23,14 @@ public class RelatedAnimeFinderTask extends AbstractTask<Map<InfoLink, Anime>> {
    // Anime which have already been checked.
   private final ObservableSet<InfoLink> checkedAnime;
 
-  private final Cache cache;
+  private final CacheI cache;
 
-  private final ManamiImpl app;
+  private final Manami app;
 
   private final List<? extends MinimalEntry> list;
 
 
-  public RelatedAnimeFinderTask(final Cache cache, final ManamiImpl app, final List<? extends MinimalEntry> list, final Observer observer) {
+  public RelatedAnimeFinderTask(final CacheI cache, final Manami app, final List<? extends MinimalEntry> list, final Observer observer) {
     this.app = app;
     this.cache = cache;
     this.list = list;

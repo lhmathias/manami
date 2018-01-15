@@ -4,10 +4,10 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
-import io.github.manami.cache.Cache;
+import io.github.manami.cache.CacheI;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CommandService;
 import io.github.manami.core.tasks.AnimeRetrievalTask;
@@ -52,12 +52,12 @@ public class FilterListController extends AbstractAnimeListController implements
   /**
    * Instance of the application.
    */
-  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  private final Manami app = Main.CONTEXT.getBean(Manami.class);
 
   /**
-   * Instance of the cache.
+   * Instance of the cacheI.
    */
-  private final Cache cache = Main.CONTEXT.getBean(Cache.class);
+  private final CacheI cacheI = Main.CONTEXT.getBean(CacheI.class);
 
   /**
    * Contains all possible extractors.
@@ -162,7 +162,7 @@ public class FilterListController extends AbstractAnimeListController implements
     }
 
     if (!app.filterListEntryExists(normalizedInfoLink)) {
-      final AnimeRetrievalTask retrievalService = new AnimeRetrievalTask(cache, normalizedInfoLink);
+      final AnimeRetrievalTask retrievalService = new AnimeRetrievalTask(cacheI, normalizedInfoLink);
       retrievalService.addObserver(this);
       serviceList.offer(retrievalService);
 
@@ -242,7 +242,7 @@ public class FilterListController extends AbstractAnimeListController implements
     Collections.shuffle(filterList, new SecureRandom());
     Collections.shuffle(filterList, new SecureRandom());
     Collections.shuffle(filterList, new SecureRandom());
-    serviceRepo.startService(new RelatedAnimeFinderTask(cache, app, filterList, this));
+    serviceRepo.startService(new RelatedAnimeFinderTask(cacheI, app, filterList, this));
   }
 
 

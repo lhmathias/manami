@@ -1,16 +1,13 @@
 package io.github.manami.persistence.inmemory
 
 import io.github.manami.dto.entities.*
-import io.github.manami.persistence.ApplicationPersistence
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.*
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
 import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
-import javax.inject.Inject
-import javax.inject.Named
 
-@Named("inMemoryStrategy")
-internal class InMemoryPersistenceHandler @Inject constructor(
+
+internal class InMemoryPersistenceHandler(
         private val animeListHandler: InMemoryAnimeListHandler,
         private val filterListHandler: InMemoryFilterListHandler,
         private val watchListHandler: InMemoryWatchListHandler

@@ -6,10 +6,10 @@ import static io.github.manami.gui.components.Icons.createIconDelete;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
-import io.github.manami.cache.Cache;
+import io.github.manami.cache.CacheI;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.commands.CmdDeleteWatchListEntry;
 import io.github.manami.core.commands.CommandService;
@@ -43,7 +43,7 @@ public class WatchListController extends AbstractAnimeListController implements 
   /**
    * Instance of the application.
    */
-  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  private final Manami app = Main.CONTEXT.getBean(Manami.class);
 
   /**
    * Contains all possible extractors.
@@ -51,9 +51,9 @@ public class WatchListController extends AbstractAnimeListController implements 
   private final ExtractorList extractors = Main.CONTEXT.getBean(ExtractorList.class);
 
   /**
-   * Instance of the cache.
+   * Instance of the cacheI.
    */
-  private final Cache cache = Main.CONTEXT.getBean(Cache.class);
+  private final CacheI cacheI = Main.CONTEXT.getBean(CacheI.class);
 
   /**
    * Instance of the main application.
@@ -147,7 +147,7 @@ public class WatchListController extends AbstractAnimeListController implements 
     }
 
     if (!app.watchListEntryExists(normalizedInfoLink)) {
-      final AnimeRetrievalTask retrievalService = new AnimeRetrievalTask(cache, normalizedInfoLink);
+      final AnimeRetrievalTask retrievalService = new AnimeRetrievalTask(cacheI, normalizedInfoLink);
       retrievalService.addObserver(this);
       serviceList.offer(retrievalService);
 
@@ -199,7 +199,7 @@ public class WatchListController extends AbstractAnimeListController implements 
 
   @Override
   protected List<? extends MinimalEntry> getEntryList() {
-    return Main.CONTEXT.getBean(ManamiImpl.class).fetchWatchList();
+    return Main.CONTEXT.getBean(Manami.class).fetchWatchList();
   }
 
 

@@ -1,21 +1,6 @@
 package io.github.manami.core.tasks;
 
 import static com.google.common.collect.Sets.newHashSet;
-import static com.google.common.collect.Sets.symmetricDifference;
-
-import com.google.common.collect.ImmutableSet;
-import io.github.manami.cache.Cache;
-import io.github.manami.cache.strategies.headlessbrowser.JavaUrlConnection;
-import io.github.manami.core.ManamiImpl;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import java.util.Observer;
-import java.util.Optional;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Finds related anime in info site links. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
@@ -26,10 +11,10 @@ public class TagRetrievalTask extends AbstractTask<Void> {
   private static final String LOG_MSG_LAST_PAGE = "Last page. No more entries for this genre.";
 
 
-  private final Cache cache;
+  private final CacheI cache;
 
 
-  private final ManamiImpl app;
+  private final Manami app;
 
   private final String tagUrl;
 
@@ -41,7 +26,7 @@ public class TagRetrievalTask extends AbstractTask<Void> {
   private final Pattern pattern;
 
 
-  public TagRetrievalTask(final Cache cache, final ManamiImpl app, final String tagUrl, final Observer observer) {
+  public TagRetrievalTask(final CacheI cache, final Manami app, final String tagUrl, final Observer observer) {
     this.app = app;
     this.cache = cache;
     this.tagUrl = tagUrl;

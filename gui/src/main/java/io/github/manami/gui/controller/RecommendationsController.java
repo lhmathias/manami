@@ -7,8 +7,8 @@ import static io.github.manami.gui.utility.DialogLibrary.JSON_FILTER;
 import static io.github.manami.gui.utility.DialogLibrary.showExportDialog;
 
 import io.github.manami.Main;
-import io.github.manami.cache.Cache;
-import io.github.manami.core.ManamiImpl;
+import io.github.manami.cache.CacheI;
+import io.github.manami.core.Manami;
 import io.github.manami.core.commands.CmdAddFilterEntry;
 import io.github.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.tasks.RecommendationsRetrievalTask;
@@ -47,9 +47,9 @@ public class RecommendationsController extends AbstractAnimeListController imple
    */
   private final ServiceRepository serviceRepo = Main.CONTEXT.getBean(ServiceRepository.class);
 
-  private final ManamiImpl app = Main.CONTEXT.getBean(ManamiImpl.class);
+  private final Manami app = Main.CONTEXT.getBean(Manami.class);
 
-  private final Cache cache = Main.CONTEXT.getBean(Cache.class);
+  private final CacheI cacheI = Main.CONTEXT.getBean(CacheI.class);
 
   /**
    * Container holding all the progress components.
@@ -138,7 +138,7 @@ public class RecommendationsController extends AbstractAnimeListController imple
 
 
   private void start() {
-    service = new RecommendationsRetrievalTask(app, cache, this);
+    service = new RecommendationsRetrievalTask(app, cacheI, this);
     showProgressControls(true);
     clearComponentList();
     serviceRepo.startService(service);

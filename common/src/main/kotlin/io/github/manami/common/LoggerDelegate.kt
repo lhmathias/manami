@@ -1,4 +1,4 @@
-package io.github.manami.dto
+package io.github.manami.common
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

@@ -1,11 +1,10 @@
 package io.github.manami.persistence.exporter.xml
 
-import io.github.manami.dto.LoggerDelegate
-import io.github.manami.dto.ToolVersion
+import io.github.manami.common.LoggerDelegate
+import io.github.manami.persistence.utility.ToolVersion
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.InternalPersistenceHandler
 import io.github.manami.persistence.exporter.Exporter
 import io.github.manami.persistence.utility.PathResolver
@@ -18,8 +17,6 @@ import java.io.PrintWriter
 import java.lang.Exception
 import java.nio.file.Files
 import java.nio.file.Path
-import javax.inject.Inject
-import javax.inject.Named
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
 import javax.xml.parsers.ParserConfigurationException
@@ -34,7 +31,6 @@ private const val RELATIVE_PATH_SEPARATOR = "/"
 internal class XmlExporter(private val persistence: InternalPersistenceHandler) : Exporter {
 
     private val log: Logger by LoggerDelegate()
-
     private var doc: Document? = null
 
     /**

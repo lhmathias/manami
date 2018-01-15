@@ -1,18 +1,13 @@
 package io.github.manami.core.commands
 
-import com.google.common.eventbus.EventBus
+import io.github.manami.common.EventBus
 import io.github.manami.persistence.events.AnimeListChangedEvent
 import java.util.*
-import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Command service keeps track of actions and is responsible for knowing if a file is dirty or not.
  */
-@Named
-internal class CommandServiceImpl @Inject constructor(
-        private val eventBus: EventBus
-) : CommandService {
+internal object CommandServiceImpl : CommandService {
 
     /**
      * Indicates whether the document is dirty or not.
@@ -42,7 +37,7 @@ internal class CommandServiceImpl @Inject constructor(
         if (executionResult) {
             done.add(command)
             isUnsaved = true
-            eventBus.post(AnimeListChangedEvent) //FIXME: This can't be happening here anymore
+            EventBus.publish(AnimeListChangedEvent) //FIXME: This can't be happening here anymore
         }
 
         return executionResult

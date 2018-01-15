@@ -1,6 +1,6 @@
 package io.github.manami.core.config
 
-import io.github.manami.dto.LoggerDelegate
+import io.github.manami.common.LoggerDelegate
 import org.apache.commons.io.IOUtils
 import org.slf4j.Logger
 import java.nio.charset.Charset

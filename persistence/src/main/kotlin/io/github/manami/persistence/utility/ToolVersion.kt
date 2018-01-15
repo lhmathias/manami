@@ -1,4 +1,4 @@
-package io.github.manami.dto
+package io.github.manami.persistence.utility
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -15,7 +15,7 @@ object ToolVersion {
     fun getToolVersion(): String {
         val propertiesPath = "/META-INF/maven/io.github.manami/persistence/pom.properties"
 
-        try {
+        try {//TODO: check if we can do this the same way we access resources in tests
             ToolVersion::class.java.getResourceAsStream(propertiesPath).use { stream ->
                 val properties = Properties()
                 properties.load(stream)

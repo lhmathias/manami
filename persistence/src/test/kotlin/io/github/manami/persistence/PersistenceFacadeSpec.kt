@@ -1,6 +1,7 @@
 package io.github.manami.persistence
 
-import com.google.common.eventbus.EventBus
+import com.google.common.eventbus.Subscribe
+import io.github.manami.common.EventBus
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
@@ -9,10 +10,6 @@ import io.github.manami.dto.entities.WatchListEntry
 import io.github.manami.persistence.events.AnimeListChangedEvent
 import io.github.manami.persistence.events.FilterListChangedEvent
 import io.github.manami.persistence.events.WatchListChangedEvent
-import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
-import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
-import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
-import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -20,34 +17,45 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers
-import org.mockito.Mockito.*
 import java.net.URL
-import java.util.*
+
+
+private class EventBusListener {
+
+    var receivedAnimeListChangedEvent = 0
+    var receivedFilterListChangedEvent = 0
+    var receivedWatchListChangedEvent = 0
+
+    @Subscribe
+    fun listen(obj: AnimeListChangedEvent) {
+        receivedAnimeListChangedEvent++
+    }
+
+    @Subscribe
+    fun listen(obj: FilterListChangedEvent) {
+        receivedFilterListChangedEvent++
+    }
+
+    @Subscribe
+    fun listen(obj: WatchListChangedEvent) {
+        receivedWatchListChangedEvent++
+    }
+}
 
 
 @RunWith(JUnitPlatform::class)
 class PersistenceFacadeSpec : Spek({
 
-    var inMemoryPersistenceHandler = InMemoryPersistenceHandler(
-        InMemoryAnimeListHandler(),
-        InMemoryFilterListHandler(),
-        InMemoryWatchListHandler()
-    )
-
-    var eventBusMock = mock(EventBus::class.java)
-    var persistenceFacade = PersistenceFacade(inMemoryPersistenceHandler, eventBusMock)
+    val persistenceFacade = PersistenceFacade
+    val eventBusListener = EventBusListener()
+    EventBus.register(eventBusListener)
 
 
     beforeEachTest {
-        inMemoryPersistenceHandler = InMemoryPersistenceHandler(
-            InMemoryAnimeListHandler(),
-            InMemoryFilterListHandler(),
-            InMemoryWatchListHandler()
-        )
-
-        eventBusMock = mock(EventBus::class.java)
-        persistenceFacade = PersistenceFacade(inMemoryPersistenceHandler, eventBusMock)
+        persistenceFacade.clearAll()
+        eventBusListener.receivedAnimeListChangedEvent = 0
+        eventBusListener.receivedFilterListChangedEvent = 0
+        eventBusListener.receivedWatchListChangedEvent = 0
     }
 
 
@@ -65,9 +73,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not fire a FilterListChangedEvent or any other list change event.") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase filter list") {
@@ -83,9 +91,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must not fire a FilterListChangedEvent or any other list change event.") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase filter list") {
@@ -113,9 +121,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not fire a FilterListChangedEvent or any other list change event") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase filter list") {
@@ -131,9 +139,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must not fire a FilterListChangedEvent or any other list change event") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase filter list") {
@@ -162,9 +170,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase filter list") {
@@ -180,9 +188,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase filter list") {
@@ -212,9 +220,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase filter list") {
@@ -230,9 +238,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase filter list") {
@@ -255,7 +263,10 @@ class PersistenceFacadeSpec : Spek({
         beforeEachTest {
             persistenceFacade.filterAnime(anime)
 
-            reset(eventBusMock) // otherwise we've got 2 invocations of post(???ListChangedEvent())
+            //reset events counter or else we get 2 instead of 1
+            eventBusListener.receivedAnimeListChangedEvent = 0
+            eventBusListener.receivedFilterListChangedEvent = 0
+            eventBusListener.receivedWatchListChangedEvent = 0
         }
 
         on("removing the filter entry") {
@@ -270,9 +281,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
         }
 
@@ -285,9 +296,9 @@ class PersistenceFacadeSpec : Spek({
             ))
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -301,9 +312,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -327,9 +338,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not fire a WatchListChangedEvent or any other list change event") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase watchlist") {
@@ -345,9 +356,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must not fire a WatchListChangedEvent or any other list change event") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase watchlist") {
@@ -375,9 +386,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not fire a WatchListChangedEvent or any other list change event") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase watchlist") {
@@ -393,9 +404,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must not fire a WatchListChangedEvent or any other list change event") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase watchlist") {
@@ -424,9 +435,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a WatchListChangedEvent") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must increase watchlist") {
@@ -442,9 +453,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire a WatchListChangedEvent") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must increase watchlist") {
@@ -474,9 +485,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a WatchListChangedEvent") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must increase watchlist") {
@@ -492,9 +503,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire a WatchListChangedEvent") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must increase watchlist") {
@@ -517,7 +528,10 @@ class PersistenceFacadeSpec : Spek({
         beforeEachTest {
             persistenceFacade.watchAnime(anime)
 
-            reset(eventBusMock) // otherwise we've got 2 invocations of post(???ListChangedEvent())
+            //reset events counter or else we get 2 instead of 1
+            eventBusListener.receivedAnimeListChangedEvent = 0
+            eventBusListener.receivedFilterListChangedEvent = 0
+            eventBusListener.receivedWatchListChangedEvent = 0
         }
 
         on("removing the watchlist entry") {
@@ -532,9 +546,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a WatchListChangedEvent") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
         }
 
@@ -547,9 +561,9 @@ class PersistenceFacadeSpec : Spek({
             ))
 
             it("must fire a WatchListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must contain the changed value") {
@@ -563,9 +577,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire a WatchListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must contain the changed value") {
@@ -589,9 +603,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not fire an AnimeListChangedEvent or any other list change event.") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase animelist") {
@@ -607,9 +621,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must not fire an AnimeListChangedEvent or any other list change event.") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not increase animelist") {
@@ -637,9 +651,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire an AnimeListChangedEvent or any other list change event") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
@@ -653,9 +667,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent or any other list change event") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
@@ -681,9 +695,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire an AnimeListChangedEvent, but no other list change event") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
@@ -699,9 +713,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but no other list change event") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
@@ -734,9 +748,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire an AnimeListChangedEvent, but no other list change event") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
@@ -752,9 +766,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but no other list change event") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
@@ -777,7 +791,10 @@ class PersistenceFacadeSpec : Spek({
         beforeEachTest {
             persistenceFacade.addAnime(anime)
 
-            reset(eventBusMock) // otherwise we've got 2 invocations of post(???ListChangedEvent())
+            //reset events counter or else we get 2 instead of 1
+            eventBusListener.receivedAnimeListChangedEvent = 0
+            eventBusListener.receivedFilterListChangedEvent = 0
+            eventBusListener.receivedWatchListChangedEvent = 0
         }
 
         on("removing the entry") {
@@ -792,9 +809,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire a WatchListChangedEvent") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not exist on the list, because it has been removed") {
@@ -818,9 +835,9 @@ class PersistenceFacadeSpec : Spek({
             )
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must not change the new value, because unlike Watch- and FilterListEntries Animes own a specific UUID. Their InfoLinks can change.") {
@@ -838,9 +855,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -854,9 +871,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -870,9 +887,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -886,9 +903,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -902,9 +919,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -918,9 +935,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -934,9 +951,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(entry)
 
             it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the changed value") {
@@ -970,7 +987,10 @@ class PersistenceFacadeSpec : Spek({
                     )
             )
 
-            reset(eventBusMock) // otherwise we've got 2 invocations of post(????ListChangedEvent())
+            //reset events counter or else we get 2 instead of 1
+            eventBusListener.receivedAnimeListChangedEvent = 0
+            eventBusListener.receivedFilterListChangedEvent = 0
+            eventBusListener.receivedWatchListChangedEvent = 0
         }
 
         on("clearing all") {
@@ -989,9 +1009,9 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire an event for each list") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
         }
     }
@@ -1016,9 +1036,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addFilterList(list)
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the exact same amount of entries that has been inserted") {
@@ -1048,9 +1068,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addFilterList(list)
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain only the one valid entry") {
@@ -1080,9 +1100,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addWatchList(list)
 
             it("must fire a WatchListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must contain the exact same amount of entries that has been inserted") {
@@ -1112,9 +1132,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addWatchList(list)
 
             it("must fire a WatchListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, never()).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, times(1)).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
 
             it("must contain only the one valid entry") {
@@ -1144,9 +1164,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addAnimeList(list)
 
             it("must fire a AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain the exact same amount of entries that has been inserted") {
@@ -1176,9 +1196,9 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addAnimeList(list)
 
             it("must fire a AnimeListChangedEvent, but none of the other list change events") {
-                verify(eventBusMock, times(1)).post(isA(AnimeListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(FilterListChangedEvent::class.java))
-                verify(eventBusMock, never()).post(isA(WatchListChangedEvent::class.java))
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must contain only the one valid entry") {

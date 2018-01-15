@@ -1,24 +1,18 @@
 package io.github.manami.persistence.inmemory.watchlist
 
-import com.google.common.collect.ImmutableList
-import io.github.manami.dto.comparator.MinimalEntryComByTitleAsc
+import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.WatchListHandler
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import javax.inject.Named
 
 
-@Named
 internal class InMemoryWatchListHandler : WatchListHandler {
 
     private val watchList: MutableMap<InfoLink, WatchListEntry> = ConcurrentHashMap()
 
 
     override fun fetchWatchList(): MutableList<WatchListEntry> {
-        val sortList: MutableList<WatchListEntry> = watchList.values.toMutableList()
-        Collections.sort(sortList, MinimalEntryComByTitleAsc())
-        return ImmutableList.copyOf(sortList)
+        return watchList.values.sortedWith(MinimalEntryCompByTitleAsc).toMutableList()
     }
 
 

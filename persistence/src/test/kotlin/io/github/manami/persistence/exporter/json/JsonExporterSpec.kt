@@ -1,12 +1,12 @@
 package io.github.manami.persistence.exporter.json
 
-import com.google.common.eventbus.EventBus
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.PersistenceFacade
+import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.importer.xml.parser.MalSaxParserSpec
 import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
 import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
 import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
@@ -19,11 +19,8 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito
-import org.springframework.core.io.ClassPathResource
 import java.net.URL
 import java.nio.charset.StandardCharsets
-import java.nio.file.FileSystems
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -37,23 +34,18 @@ private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.json"
 @RunWith(JUnitPlatform::class)
 class JsonExporterSpec : Spek({
 
-    val separator: String = FileSystems.getDefault().separator
     var tempFolder: Path = Paths.get(".")
     var file: Path = Paths.get(".")
 
-    val persistenceFacade = PersistenceFacade(
-            InMemoryPersistenceHandler(
-                    InMemoryAnimeListHandler(),
-                    InMemoryFilterListHandler(),
-                    InMemoryWatchListHandler()
-            ),
-            Mockito.mock(EventBus::class.java)
+    val persistenceFacade: InternalPersistenceHandler = InMemoryPersistenceHandler(
+            InMemoryAnimeListHandler(),
+            InMemoryFilterListHandler(),
+            InMemoryWatchListHandler()
     )
 
-
     beforeEachTest {
-        tempFolder = Files.createTempDirectory(System.currentTimeMillis().toString())
-        file = Files.createFile(Paths.get("$tempFolder$separator$ANIME_LIST_EXPORT_FILE"))
+        tempFolder = createTempDir().toPath()
+        file = createTempFile(suffix = ANIME_LIST_EXPORT_FILE, directory = tempFolder.toFile()).toPath()
     }
 
 
@@ -110,9 +102,10 @@ class JsonExporterSpec : Spek({
             jsonExporter.save(file)
 
             it("must contain the same list within the file as in the persistence facade") {
-                var expectedFileBuilder = StringBuilder()
-                val expectedFile = ClassPathResource(EXPECTED_ANIME_LIST_FILE)
-                Files.readAllLines(expectedFile.file.toPath(), StandardCharsets.UTF_8).map(expectedFileBuilder::append)
+                val expectedFileBuilder = StringBuilder()
+                val expectedFile: Path = Paths.get(MalSaxParserSpec::class.java.classLoader.getResource(EXPECTED_ANIME_LIST_FILE).toURI())
+
+                Files.readAllLines(expectedFile, StandardCharsets.UTF_8).map(expectedFileBuilder::append)
 
                 val exportedFileBuilder = StringBuilder()
                 Files.readAllLines(file, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
@@ -153,9 +146,10 @@ class JsonExporterSpec : Spek({
             jsonExporter.exportList(list, file)
 
             it("must contain the same list within the file as in the persistence facade") {
-                var expectedFileBuilder = StringBuilder()
-                val expectedFile = ClassPathResource(EXPECTED_RECOMMENDATIONS_FILE)
-                Files.readAllLines(expectedFile.file.toPath(), StandardCharsets.UTF_8).map(expectedFileBuilder::append)
+                val expectedFileBuilder = StringBuilder()
+                val expectedFile: Path =  Paths.get(JsonExporterSpec::class.java.classLoader.getResource(EXPECTED_RECOMMENDATIONS_FILE).toURI())
+
+                Files.readAllLines(expectedFile, StandardCharsets.UTF_8).map(expectedFileBuilder::append)
 
                 val exportedFileBuilder = StringBuilder()
                 Files.readAllLines(file, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
