@@ -1,7 +1,7 @@
 package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.FilterListEntry
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 /**
  * Adds an Anime to the filterlist.
@@ -11,7 +11,7 @@ import io.github.manami.persistence.PersistenceHandler
  */
 internal class CmdAddFilterEntry(
         private val entry: FilterListEntry,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {

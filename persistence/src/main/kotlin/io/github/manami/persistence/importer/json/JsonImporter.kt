@@ -6,7 +6,7 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import io.github.manami.persistence.importer.Importer
 import org.json.JSONArray
 import org.json.JSONTokener
@@ -27,7 +27,7 @@ private const val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the typ
 /**
  * Imports a list from a valid JSON file.
  */
-internal class JsonImporter(private val persistence: InternalPersistenceHandler) : Importer {
+internal class JsonImporter(private val persistence: InternalPersistence) : Importer {
 
     private val log: Logger by LoggerDelegate()
     private val animeListEntries: MutableList<Anime> = mutableListOf()

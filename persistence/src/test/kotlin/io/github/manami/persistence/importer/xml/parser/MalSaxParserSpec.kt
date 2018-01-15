@@ -5,12 +5,12 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import io.github.manami.persistence.importer.xml.XmlImporter
-import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
-import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
-import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
-import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
+import io.github.manami.persistence.inmemory.InMemoryPersistence
+import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeList
+import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterList
+import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchList
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -18,7 +18,6 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import java.net.URI
 import java.net.URL
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -31,10 +30,10 @@ private const val MAL_EXPORT_FILE = "mal_export.xml"
 class MalSaxParserSpec : Spek({
 
     val file: Path = Paths.get(MalSaxParserSpec::class.java.classLoader.getResource(MAL_EXPORT_FILE).toURI())
-    val persistenceFacade: InternalPersistenceHandler = InMemoryPersistenceHandler(
-            InMemoryAnimeListHandler(),
-            InMemoryFilterListHandler(),
-            InMemoryWatchListHandler()
+    val persistenceFacade: InternalPersistence = InMemoryPersistence(
+            InMemoryAnimeList(),
+            InMemoryFilterList(),
+            InMemoryWatchList()
     )
 
 

@@ -4,7 +4,7 @@ import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.MinimalEntry
 import io.github.manami.dto.entities.WatchListEntry
 
-interface WatchListHandler {
+interface WatchList {
 
     fun fetchWatchList(): MutableList<WatchListEntry>
 

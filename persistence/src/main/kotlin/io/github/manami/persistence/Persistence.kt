@@ -2,14 +2,12 @@ package io.github.manami.persistence
 
 
 import io.github.manami.dto.entities.Anime
-import io.github.manami.dto.entities.FilterListEntry
-import io.github.manami.dto.entities.WatchListEntry
 import java.nio.file.Path
 
-interface PersistenceHandler : ApplicationPersistence, InternalPersistenceHandler {
+interface Persistence : ApplicationPersistence, InternalPersistence {
 
     /**
-     * Opens a manami file containing all three lists animelist, filterlist and watchlist which has been saved using {@see PersistenceHandler#save}
+     * Opens a manami file containing all three lists animelist, filterlist and watchlist which has been saved using {@see Persistence#save}
      */
     fun open(file: Path)
 
@@ -21,7 +19,7 @@ interface PersistenceHandler : ApplicationPersistence, InternalPersistenceHandle
     fun importMalFile(file: Path)
 
     /**
-     * Import function of a file which has been created using {@see PersistenceHandler#exportListToJsonFile}
+     * Import function of a file which has been created using {@see Persistence#exportListToJsonFile}
      */
     fun importJsonFile(file: Path)
 

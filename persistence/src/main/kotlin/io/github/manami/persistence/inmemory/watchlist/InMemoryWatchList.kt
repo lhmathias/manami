@@ -2,11 +2,11 @@ package io.github.manami.persistence.inmemory.watchlist
 
 import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manami.dto.entities.*
-import io.github.manami.persistence.WatchListHandler
+import io.github.manami.persistence.WatchList
 import java.util.concurrent.ConcurrentHashMap
 
 
-internal class InMemoryWatchListHandler : WatchListHandler {
+internal class InMemoryWatchList : WatchList {
 
     private val watchList: MutableMap<InfoLink, WatchListEntry> = ConcurrentHashMap()
 

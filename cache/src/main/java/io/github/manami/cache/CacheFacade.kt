@@ -5,7 +5,7 @@ import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.RecommendationList
 import java.util.*
 
-object InMemoryCache: Cache {
+object CacheFacade : Cache {
 
     override fun fetchAnime(infoLink: InfoLink?): Optional<Anime> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

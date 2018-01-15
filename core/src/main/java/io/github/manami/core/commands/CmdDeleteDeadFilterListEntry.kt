@@ -1,12 +1,12 @@
 package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.FilterListEntry
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 
 internal class CmdDeleteDeadFilterListEntry(
         private val anime: FilterListEntry,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {

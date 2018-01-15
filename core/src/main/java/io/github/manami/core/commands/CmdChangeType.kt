@@ -2,7 +2,7 @@ package io.github.manami.core.commands
 
 import io.github.manami.dto.AnimeType
 import io.github.manami.dto.entities.Anime
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 /**
  * Command for changing the type.
@@ -14,7 +14,7 @@ import io.github.manami.persistence.PersistenceHandler
 internal class CmdChangeType(
         private val anime: Anime,
         private val newValue: AnimeType,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     init {

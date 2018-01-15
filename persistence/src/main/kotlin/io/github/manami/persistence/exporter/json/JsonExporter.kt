@@ -3,7 +3,7 @@ package io.github.manami.persistence.exporter.json
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import io.github.manami.persistence.exporter.Exporter
 import org.json.JSONWriter
 import java.io.PrintWriter
@@ -12,7 +12,7 @@ import java.nio.file.Path
 /**
  * Exports a list to valid json.
  */
-internal class JsonExporter(private val persistence: InternalPersistenceHandler) : Exporter {
+internal class JsonExporter(private val persistence: InternalPersistence) : Exporter {
 
     override fun save(file: Path): Boolean {
         PrintWriter(file.toFile()).use { printWriter ->

@@ -6,7 +6,7 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.MinimalEntry
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 import org.apache.commons.lang3.StringUtils.containsIgnoreCase
 import org.apache.commons.text.similarity.LevenshteinDistance
 
@@ -15,7 +15,7 @@ private const val MAX_LEVENSHTEIN_DISTANCE = 2
 
 internal class SearchService(
         private val searchString: String,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractTask() {
 
   private val event = SearchResultEvent(searchString)

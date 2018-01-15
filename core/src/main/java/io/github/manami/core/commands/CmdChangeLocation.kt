@@ -1,7 +1,7 @@
 package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.Anime
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 
 /**
@@ -14,7 +14,7 @@ import io.github.manami.persistence.PersistenceHandler
 internal class CmdChangeLocation(
         private val anime: Anime,
         private val newValue: String,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     init {

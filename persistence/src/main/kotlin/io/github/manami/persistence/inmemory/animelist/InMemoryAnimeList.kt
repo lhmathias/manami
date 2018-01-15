@@ -3,11 +3,11 @@ package io.github.manami.persistence.inmemory.animelist
 import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.InfoLink
-import io.github.manami.persistence.AnimeListHandler
+import io.github.manami.persistence.AnimeList
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-internal class InMemoryAnimeListHandler() : AnimeListHandler {
+internal class InMemoryAnimeList : AnimeList {
 
     private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
 

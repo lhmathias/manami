@@ -2,16 +2,16 @@ package io.github.manami.persistence.inmemory
 
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.*
-import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
-import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
-import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
+import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeList
+import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterList
+import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchList
 
 
-internal class InMemoryPersistenceHandler(
-        private val animeListHandler: InMemoryAnimeListHandler,
-        private val filterListHandler: InMemoryFilterListHandler,
-        private val watchListHandler: InMemoryWatchListHandler
-) : ApplicationPersistence, InternalPersistenceHandler {
+internal class InMemoryPersistence(
+        private val animeListHandler: InMemoryAnimeList,
+        private val filterListHandler: InMemoryFilterList,
+        private val watchListHandler: InMemoryWatchList
+) : ApplicationPersistence, InternalPersistence {
 
 
     override fun filterAnime(anime: MinimalEntry): Boolean {

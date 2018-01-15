@@ -11,22 +11,22 @@ import io.github.manami.persistence.importer.json.JsonImporter
 import io.github.manami.persistence.importer.xml.XmlImporter
 import io.github.manami.persistence.importer.xml.parser.MalSaxParser
 import io.github.manami.persistence.importer.xml.parser.ManamiSaxParser
-import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
-import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
-import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
-import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
+import io.github.manami.persistence.inmemory.InMemoryPersistence
+import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeList
+import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterList
+import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchList
 import java.nio.file.Path
 
 
 /**
  * This is a facade which is used by the application to hide which strategy is actually used.
  */
-object PersistenceFacade : PersistenceHandler {
+object PersistenceFacade : Persistence {
 
-    private val strategy: InternalPersistenceHandler = InMemoryPersistenceHandler(
-            InMemoryAnimeListHandler(),
-            InMemoryFilterListHandler(),
-            InMemoryWatchListHandler()
+    private val strategy: InternalPersistence = InMemoryPersistence(
+            InMemoryAnimeList(),
+            InMemoryFilterList(),
+            InMemoryWatchList()
     )
     private val jsonExporter = JsonExporter(strategy)
     private val jsonImporter = JsonImporter(strategy)

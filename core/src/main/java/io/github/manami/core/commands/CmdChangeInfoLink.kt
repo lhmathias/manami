@@ -2,7 +2,7 @@ package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.InfoLink
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 
 /**
@@ -15,7 +15,7 @@ import io.github.manami.persistence.PersistenceHandler
 internal class CmdChangeInfoLink(
         private val anime: Anime,
         private val newValue: InfoLink,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     init {

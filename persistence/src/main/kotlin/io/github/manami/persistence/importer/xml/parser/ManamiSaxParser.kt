@@ -6,7 +6,7 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import io.github.manami.persistence.importer.xml.postprocessor.ImportDocument
 import io.github.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
 import org.slf4j.Logger
@@ -21,7 +21,7 @@ private const val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbna
 
 
 internal class ManamiSaxParser(
-        private val persistence: InternalPersistenceHandler
+        private val persistence: InternalPersistence
 ) : DefaultHandler() {
 
     private val log: Logger by LoggerDelegate()

@@ -2,11 +2,11 @@ package io.github.manami.persistence.inmemory.filterlist
 
 import io.github.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manami.dto.entities.*
-import io.github.manami.persistence.FilterListHandler
+import io.github.manami.persistence.FilterList
 import java.util.concurrent.ConcurrentHashMap
 
 
-internal class InMemoryFilterListHandler : FilterListHandler {
+internal class InMemoryFilterList : FilterList {
 
     private val filterList: MutableMap<InfoLink, FilterListEntry> = ConcurrentHashMap()
 

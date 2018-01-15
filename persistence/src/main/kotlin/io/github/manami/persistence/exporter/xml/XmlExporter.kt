@@ -5,7 +5,7 @@ import io.github.manami.persistence.utility.ToolVersion
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import io.github.manami.persistence.exporter.Exporter
 import io.github.manami.persistence.utility.PathResolver
 import org.slf4j.Logger
@@ -28,7 +28,7 @@ import javax.xml.transform.stream.StreamResult
 
 private const val RELATIVE_PATH_SEPARATOR = "/"
 
-internal class XmlExporter(private val persistence: InternalPersistenceHandler) : Exporter {
+internal class XmlExporter(private val persistence: InternalPersistence) : Exporter {
 
     private val log: Logger by LoggerDelegate()
     private var doc: Document? = null

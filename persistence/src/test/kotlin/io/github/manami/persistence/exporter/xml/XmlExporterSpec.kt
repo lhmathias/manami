@@ -5,12 +5,12 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import io.github.manami.persistence.exporter.json.JsonExporterSpec
-import io.github.manami.persistence.inmemory.InMemoryPersistenceHandler
-import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeListHandler
-import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterListHandler
-import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchListHandler
+import io.github.manami.persistence.inmemory.InMemoryPersistence
+import io.github.manami.persistence.inmemory.animelist.InMemoryAnimeList
+import io.github.manami.persistence.inmemory.filterlist.InMemoryFilterList
+import io.github.manami.persistence.inmemory.watchlist.InMemoryWatchList
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
@@ -33,10 +33,10 @@ class XmlExporterSpec : Spek({
 
     var tempFolder: Path = Paths.get(".")
     var file: Path = Paths.get(".")
-    val persistence: InternalPersistenceHandler = InMemoryPersistenceHandler(
-            InMemoryAnimeListHandler(),
-            InMemoryFilterListHandler(),
-            InMemoryWatchListHandler()
+    val persistence: InternalPersistence = InMemoryPersistence(
+            InMemoryAnimeList(),
+            InMemoryFilterList(),
+            InMemoryWatchList()
     )
 
 

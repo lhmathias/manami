@@ -5,7 +5,7 @@ import io.github.manami.dto.entities.InfoLink
 import java.util.*
 
 
-interface AnimeListHandler {
+interface AnimeList {
 
     /**
      * Adds an {@link Anime} if it is not already in the list.

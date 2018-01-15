@@ -1,7 +1,7 @@
 package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.Anime
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 /**
  * Command for changing the value of an episode.
@@ -13,7 +13,7 @@ import io.github.manami.persistence.PersistenceHandler
 internal class CmdChangeEpisodes(
         private val anime: Anime,
         private val newValue: Int,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     init {

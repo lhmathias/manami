@@ -1,13 +1,13 @@
 package io.github.manami.core.tasks
 
 import io.github.manami.cache.Cache
-import io.github.manami.cache.InMemoryCache
+import io.github.manami.cache.CacheFacade
 import io.github.manami.common.LoggerDelegate
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.MinimalEntry
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 import org.apache.http.client.methods.CloseableHttpResponse
 import org.apache.http.client.methods.RequestBuilder
 import org.apache.http.impl.client.CloseableHttpClient
@@ -21,12 +21,12 @@ private const val HTTP_STATUS_OK = 200
 
 
 internal class ThumbnailBackloadTask(
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractTask() {
 
   private val log: Logger by LoggerDelegate()
   private val httpClient: CloseableHttpClient = HttpClients.createDefault()
-  private val cache: Cache = InMemoryCache
+  private val cache: Cache = CacheFacade
 
 
   override fun execute() {

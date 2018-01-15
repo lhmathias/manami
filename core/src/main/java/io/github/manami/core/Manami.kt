@@ -7,7 +7,7 @@ import io.github.manami.core.tasks.*
 import io.github.manami.dto.entities.*
 import io.github.manami.persistence.ApplicationPersistence
 import io.github.manami.persistence.PersistenceFacade
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -25,7 +25,7 @@ object Manami : ApplicationPersistence{
     private val log: Logger by LoggerDelegate()
     private val cmdService: CommandService = CommandServiceImpl
     private val config = Config
-    private val persistence: PersistenceHandler = PersistenceFacade
+    private val persistence: Persistence = PersistenceFacade
     private val taskConductor: TaskConductor = TaskConductorImpl
 
 

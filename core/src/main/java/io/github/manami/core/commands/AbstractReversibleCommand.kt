@@ -1,13 +1,13 @@
 package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.Anime
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 /**
  * Abstract reversible command.
  */
 internal abstract class AbstractReversibleCommand(
-        private var persistenceHandler: PersistenceHandler
+        private var persistenceHandler: Persistence
 ) : ReversibleCommand {
 
     /**

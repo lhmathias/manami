@@ -5,13 +5,13 @@ import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.FilterListEntry
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.WatchListEntry
-import io.github.manami.persistence.InternalPersistenceHandler
+import io.github.manami.persistence.InternalPersistence
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
 
 
-internal class MalSaxParser(private val persistence: InternalPersistenceHandler) : DefaultHandler() {
+internal class MalSaxParser(private val persistence: InternalPersistence) : DefaultHandler() {
 
     /**
      * Actual anime object.

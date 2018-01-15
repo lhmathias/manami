@@ -1,12 +1,12 @@
 package io.github.manami.core.tasks
 
 import io.github.manami.cache.Cache
-import io.github.manami.cache.InMemoryCache
+import io.github.manami.cache.CacheFacade
 import io.github.manami.core.tasks.ListRandomizer.randomizeOrder
 import io.github.manami.dto.entities.Anime
 import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.MinimalEntry
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 
 /**
@@ -14,10 +14,10 @@ import io.github.manami.persistence.PersistenceHandler
  * Always start {@link BackgroundTask}s using the {@link TaskConductor}!
  */
 internal class CacheInitializationTask(
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractTask() {
 
-    private val cache: Cache = InMemoryCache
+    private val cache: Cache = CacheFacade
 
     override fun execute() {
         val animeList: MutableList<Anime> = persistence.fetchAnimeList()

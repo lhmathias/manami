@@ -5,7 +5,7 @@ import io.github.manami.dto.entities.InfoLink
 import io.github.manami.dto.entities.MinimalEntry
 
 
-interface FilterListHandler {
+interface FilterList {
 
     /**
      * Adds a URL to the filter list.

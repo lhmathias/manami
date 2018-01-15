@@ -1,7 +1,7 @@
 package io.github.manami.core.commands
 
 import io.github.manami.dto.entities.Anime
-import io.github.manami.persistence.PersistenceHandler
+import io.github.manami.persistence.Persistence
 
 /**
  * Command for deleting an entry from animelist.
@@ -11,7 +11,7 @@ import io.github.manami.persistence.PersistenceHandler
  */
 internal class CmdDeleteAnime(
         private val anime: Anime,
-        private val persistence: PersistenceHandler
+        private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
     init {
