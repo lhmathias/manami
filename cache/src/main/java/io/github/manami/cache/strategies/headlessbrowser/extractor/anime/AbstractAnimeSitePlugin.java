@@ -5,10 +5,10 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static org.apache.commons.lang3.StringUtils.normalizeSpace;
 
-import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.MinimalEntry;
+import io.github.manamiproject.manami.dto.AnimeType;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.MinimalEntry;
 import java.net.URL;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;

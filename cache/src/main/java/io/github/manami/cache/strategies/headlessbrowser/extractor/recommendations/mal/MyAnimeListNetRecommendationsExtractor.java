@@ -19,9 +19,9 @@ import org.apache.commons.lang3.StringUtils;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.Extractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.recommendations.RecommendationsExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.util.mal.MyAnimeListNetUtil;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.Recommendation;
-import io.github.manami.dto.entities.RecommendationList;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.Recommendation;
+import io.github.manamiproject.manami.dto.entities.RecommendationList;
 
 @Named
 @Extractor

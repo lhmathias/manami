@@ -4,7 +4,7 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 
 import com.google.common.eventbus.AllowConcurrentEvents;
 import com.google.common.eventbus.Subscribe;
-import io.github.manami.core.config.Config;
+import io.github.manamiproject.manami.core.config.Config;
 import io.github.manami.dto.events.AnimeListChangedEvent;
 import io.github.manami.dto.events.ApplicationContextStartedEvent;
 import io.github.manami.dto.events.OpenedFileChangedEvent;

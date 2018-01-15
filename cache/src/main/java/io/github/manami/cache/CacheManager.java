@@ -2,6 +2,7 @@ package io.github.manami.cache;
 
 import static com.google.common.collect.Sets.newHashSet;
 
+import io.github.manamiproject.manami.cache.Cache;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -12,9 +13,9 @@ import com.google.common.cache.LoadingCache;
 
 import io.github.manami.cache.strategies.daemon.DaemonRestRetrievalStrategy;
 import io.github.manami.cache.strategies.headlessbrowser.HeadlessBrowserRetrievalStrategy;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.RecommendationList;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.RecommendationList;
 
 /**
  * Facade for all inquiries against a cache.

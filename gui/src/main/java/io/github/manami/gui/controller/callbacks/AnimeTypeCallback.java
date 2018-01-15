@@ -1,7 +1,7 @@
 package io.github.manami.gui.controller.callbacks;
 
-import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.AnimeType;
+import io.github.manamiproject.manami.dto.entities.Anime;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.ChoiceBoxTableCell;

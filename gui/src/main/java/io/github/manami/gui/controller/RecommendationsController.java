@@ -1,25 +1,25 @@
 package io.github.manami.gui.controller;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manami.core.config.Config.NOTIFICATION_DURATION;
+import static io.github.manamiproject.manami.core.config.Config.NOTIFICATION_DURATION;
 import static io.github.manami.gui.components.Icons.createIconCancel;
 import static io.github.manami.gui.utility.DialogLibrary.JSON_FILTER;
 import static io.github.manami.gui.utility.DialogLibrary.showExportDialog;
 
 import io.github.manami.Main;
 import io.github.manami.cache.CacheI;
-import io.github.manami.core.Manami;
-import io.github.manami.core.commands.CmdAddFilterEntry;
-import io.github.manami.core.commands.CmdAddWatchListEntry;
+import io.github.manamiproject.manami.core.Manami;
+import io.github.manamiproject.manami.core.commands.CmdAddFilterEntry;
+import io.github.manamiproject.manami.core.commands.CmdAddWatchListEntry;
 import io.github.manami.core.tasks.RecommendationsRetrievalTask;
 import io.github.manami.core.tasks.ServiceRepository;
-import io.github.manami.core.tasks.events.AdvancedProgressState;
-import io.github.manami.core.tasks.events.ProgressState;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterListEntry;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.MinimalEntry;
-import io.github.manami.dto.entities.WatchListEntry;
+import io.github.manamiproject.manami.core.tasks.events.AdvancedProgressState;
+import io.github.manamiproject.manami.core.tasks.events.ProgressState;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.FilterListEntry;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.MinimalEntry;
+import io.github.manamiproject.manami.dto.entities.WatchListEntry;
 import io.github.manami.gui.components.AnimeGuiComponentsListEntry;
 import io.github.manami.gui.wrapper.MainControllerWrapper;
 import java.nio.file.Path;

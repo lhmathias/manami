@@ -12,9 +12,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import io.github.manami.cache.strategies.headlessbrowser.extractor.util.mal.MyAnimeListNetUtil;
-import io.github.manami.dto.AnimeType;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.AnimeType;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 
 public class MyAnimeListNetAnimeExtractorTest {
 

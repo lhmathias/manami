@@ -1,6 +1,6 @@
 package io.github.manami.gui.controller;
 
-import static io.github.manami.core.config.Config.NOTIFICATION_DURATION;
+import static io.github.manamiproject.manami.core.config.Config.NOTIFICATION_DURATION;
 import static io.github.manami.gui.components.Icons.createIconCancel;
 import static io.github.manami.gui.components.Icons.createIconEdit;
 import static io.github.manami.gui.components.Icons.createIconRemove;
@@ -9,17 +9,17 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
 import io.github.manami.cache.CacheI;
-import io.github.manami.core.Manami;
-import io.github.manami.core.commands.CommandService;
-import io.github.manami.core.config.CheckListConfig;
-import io.github.manami.core.config.Config;
+import io.github.manamiproject.manami.core.Manami;
+import io.github.manamiproject.manami.core.commands.CommandService;
+import io.github.manamiproject.manami.core.config.CheckListConfig;
+import io.github.manamiproject.manami.core.config.Config;
 import io.github.manami.core.tasks.CheckListTask;
 import io.github.manami.core.tasks.ServiceRepository;
-import io.github.manami.core.tasks.events.AbstractEvent.EventType;
-import io.github.manami.core.tasks.events.CrcEvent;
-import io.github.manami.core.tasks.events.Event;
-import io.github.manami.core.tasks.events.ProgressState;
-import io.github.manami.core.tasks.events.ReversibleCommandEvent;
+import io.github.manamiproject.manami.core.tasks.events.AbstractEvent.EventType;
+import io.github.manamiproject.manami.core.tasks.events.CrcEvent;
+import io.github.manamiproject.manami.core.tasks.events.Event;
+import io.github.manamiproject.manami.core.tasks.events.ProgressState;
+import io.github.manamiproject.manami.core.tasks.events.ReversibleCommandEvent;
 import io.github.manami.gui.components.CheckListEntry;
 import io.github.manami.gui.utility.HyperlinkBuilder;
 import io.github.manami.gui.wrapper.MainControllerWrapper;

@@ -2,7 +2,7 @@ package io.github.manami.cache.strategies.headlessbrowser;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
 import org.apache.http.HttpStatus;

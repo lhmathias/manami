@@ -3,7 +3,7 @@ package io.github.manami.cache.strategies.headlessbrowser.extractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.recommendations.RecommendationsExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.RelatedAnimeExtractor;
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 import java.util.List;
 import java.util.Optional;
 import javax.inject.Inject;

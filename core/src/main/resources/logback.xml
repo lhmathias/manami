@@ -28,7 +28,7 @@
   <!-- LOGGER -->
   <root level="OFF" />
 
-  <logger name="io.github.manami" level="DEBUG" additivity="false">
+  <logger name="io.github.manamiproject.manami" level="DEBUG" additivity="false">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </logger>

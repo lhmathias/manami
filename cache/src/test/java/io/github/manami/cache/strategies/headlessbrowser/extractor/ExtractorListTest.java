@@ -10,7 +10,7 @@ import io.github.manami.cache.strategies.headlessbrowser.extractor.recommendatio
 import io.github.manami.cache.strategies.headlessbrowser.extractor.recommendations.mal.MyAnimeListNetRecommendationsExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.RelatedAnimeExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.mal.MyAnimeListNetRelatedAnimeExtractor;
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 import java.util.List;
 import java.util.Optional;
 import org.testng.annotations.BeforeMethod;

@@ -5,12 +5,12 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
 import io.github.manami.cache.CacheI;
-import io.github.manami.core.Manami;
+import io.github.manamiproject.manami.core.Manami;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manami.core.tasks.TagRetrievalTask;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.MinimalEntry;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.MinimalEntry;
 import io.github.manami.gui.components.AnimeGuiComponentsListEntry;
 import java.util.List;
 import java.util.Observable;

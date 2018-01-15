@@ -3,11 +3,11 @@ package io.github.manami.gui.events;
 import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.github.manami.core.tasks.events.SearchResultEvent;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.FilterListEntry;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.WatchListEntry;
+import io.github.manamiproject.manami.core.tasks.events.SearchResultEvent;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.FilterListEntry;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.WatchListEntry;
 import org.testng.annotations.Test;
 
 public class SearchResultEventTest {

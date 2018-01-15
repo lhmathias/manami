@@ -6,11 +6,11 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
-import io.github.manami.core.Manami;
-import io.github.manami.core.commands.CmdDeleteFilterEntry;
-import io.github.manami.core.commands.CommandService;
-import io.github.manami.dto.entities.FilterListEntry;
-import io.github.manami.dto.entities.MinimalEntry;
+import io.github.manamiproject.manami.core.Manami;
+import io.github.manamiproject.manami.core.commands.CmdDeleteFilterEntry;
+import io.github.manamiproject.manami.core.commands.CommandService;
+import io.github.manamiproject.manami.dto.entities.FilterListEntry;
+import io.github.manamiproject.manami.dto.entities.MinimalEntry;
 import io.github.manami.dto.events.SearchResultEvent;
 import io.github.manami.gui.components.AnimeGuiComponentsListEntry;
 import java.awt.Desktop;

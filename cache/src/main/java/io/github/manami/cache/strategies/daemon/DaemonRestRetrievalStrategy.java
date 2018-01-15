@@ -10,9 +10,9 @@ import javax.inject.Named;
 import io.github.manami.cache.strategies.AnimeRetrieval;
 import io.github.manami.cache.strategies.RecommendationsRetrieval;
 import io.github.manami.cache.strategies.RelatedAnimeRetrieval;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.RecommendationList;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.RecommendationList;
 
 /**
  * External REST service

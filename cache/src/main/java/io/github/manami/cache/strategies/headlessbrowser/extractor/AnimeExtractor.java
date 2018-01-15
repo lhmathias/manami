@@ -1,6 +1,6 @@
 package io.github.manami.cache.strategies.headlessbrowser.extractor;
 
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 
 public interface AnimeExtractor {
 

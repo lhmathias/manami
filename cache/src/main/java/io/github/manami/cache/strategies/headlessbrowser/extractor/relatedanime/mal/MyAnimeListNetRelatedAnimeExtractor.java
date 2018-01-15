@@ -15,7 +15,7 @@ import javax.inject.Named;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.Extractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.RelatedAnimeExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.util.mal.MyAnimeListNetUtil;
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 
 @Named
 @Extractor

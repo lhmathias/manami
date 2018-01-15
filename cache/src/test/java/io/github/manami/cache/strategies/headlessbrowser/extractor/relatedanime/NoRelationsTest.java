@@ -4,7 +4,7 @@ import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.mal.MyAnimeListNetRelatedAnimeExtractor;
-import io.github.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Set;

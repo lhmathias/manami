@@ -1,7 +1,7 @@
 package io.github.manami;
 
 import com.google.common.eventbus.EventBus;
-import io.github.manami.core.config.ConfigFileWatchdog;
+import io.github.manamiproject.manami.core.config.ConfigFileWatchdog;
 import io.github.manami.core.config.ContextConfigurationBean;
 import io.github.manami.dto.events.ApplicationContextStartedEvent;
 import java.io.IOException;

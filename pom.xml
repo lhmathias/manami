@@ -7,7 +7,7 @@
     <maven>3.3.9</maven>
   </prerequisites>
 
-  <groupId>io.github.manami</groupId>
+  <groupId>io.github.manamiproject.manami</groupId>
   <artifactId>parent</artifactId>
   <version>3.0.0</version>
   <packaging>pom</packaging>
@@ -34,27 +34,27 @@
     <dependencies>
       <!-- manami dependencies -->
       <dependency>
-        <groupId>io.github.manami</groupId>
+        <groupId>io.github.manamiproject.manami</groupId>
         <artifactId>cache</artifactId>
         <version>${manami.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.github.manami</groupId>
+        <groupId>io.github.manamiproject.manami</groupId>
         <artifactId>core</artifactId>
         <version>${manami.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.github.manami</groupId>
+        <groupId>io.github.manamiproject.manami</groupId>
         <artifactId>dto</artifactId>
         <version>${manami.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.github.manami</groupId>
+        <groupId>io.github.manamiproject.manami</groupId>
         <artifactId>persistence</artifactId>
         <version>${manami.version}</version>
       </dependency>
       <dependency>
-        <groupId>io.github.manami</groupId>
+        <groupId>io.github.manamiproject.manami</groupId>
         <artifactId>common</artifactId>
         <version>${manami.version}</version>
       </dependency>
@@ -265,7 +265,7 @@
             </descriptorRefs>
             <archive>
               <manifest>
-                <mainClass>io.github.manami.Main</mainClass>
+                <mainClass>io.github.manamiproject.manami.Main</mainClass>
               </manifest>
               <manifestEntries>
                 <Built-By>love for anime</Built-By>

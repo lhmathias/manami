@@ -3,7 +3,7 @@ package io.github.manami.cache.strategies.headlessbrowser.extractor.recommendati
 import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.github.manami.dto.entities.RecommendationList;
+import io.github.manamiproject.manami.dto.entities.RecommendationList;
 import java.io.IOException;
 import java.nio.file.Files;
 import org.springframework.core.io.ClassPathResource;

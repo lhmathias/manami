@@ -9,9 +9,9 @@ import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.recommendations.RecommendationsExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.RelatedAnimeExtractor;
-import io.github.manami.dto.entities.Anime;
-import io.github.manami.dto.entities.InfoLink;
-import io.github.manami.dto.entities.RecommendationList;
+import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.dto.entities.RecommendationList;
 import java.util.Optional;
 import java.util.Set;
 import javax.inject.Inject;
