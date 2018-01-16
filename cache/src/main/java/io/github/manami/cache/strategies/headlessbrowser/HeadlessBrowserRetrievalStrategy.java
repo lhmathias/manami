@@ -9,6 +9,7 @@ import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.recommendations.RecommendationsExtractor;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.relatedanime.RelatedAnimeExtractor;
+import io.github.manamiproject.manami.cache.Cache;
 import io.github.manamiproject.manami.dto.entities.Anime;
 import io.github.manamiproject.manami.dto.entities.InfoLink;
 import io.github.manamiproject.manami.dto.entities.RecommendationList;
@@ -22,7 +23,7 @@ import javax.inject.Named;
  * page an extract the relavant data.
  */
 @Named
-public class HeadlessBrowserRetrievalStrategy implements AnimeRetrieval, RelatedAnimeRetrieval, RecommendationsRetrieval {
+public class HeadlessBrowserRetrievalStrategy implements Cache {
 
   /**
    * Wrapper for all extractors.

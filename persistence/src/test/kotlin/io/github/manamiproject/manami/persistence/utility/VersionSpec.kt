@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.persistence.utility
 
-import io.github.manamiproject.manami.persistence.utility.Version
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
