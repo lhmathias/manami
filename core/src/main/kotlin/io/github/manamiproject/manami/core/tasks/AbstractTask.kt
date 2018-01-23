@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.core.tasks
 
-import io.github.manami.dto.LoggerDelegate
+import io.github.manamiproject.manami.common.LoggerDelegate
 import org.slf4j.Logger
 import java.util.concurrent.Callable
 import java.util.concurrent.FutureTask
