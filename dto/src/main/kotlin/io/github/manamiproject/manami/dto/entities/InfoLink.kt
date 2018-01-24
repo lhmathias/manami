@@ -54,7 +54,7 @@ data class InfoLink private constructor (val url: URL?) {
 
         private fun normalizeUrl(url: String): String {
             return when {
-                url.contains("myanimelist.net") -> MyAnimeListNormalizer.normalize(url)
+                url.contains(DOMAINS.MAL.value) -> MyAnimeListNormalizer.normalize(url)
                 else -> url
             }
         }
@@ -62,10 +62,16 @@ data class InfoLink private constructor (val url: URL?) {
 }
 
 
+enum class DOMAINS(val value: String) {
+    MAL("myanimelist.net"),
+    ANIDB("anidb.net");
+}
+
+
 private object MyAnimeListNormalizer {
 
     fun normalize(url: String): String {
-        val prefix = "https://myanimelist.net/anime"
+        val prefix = "https://${DOMAINS.MAL.value}/anime"
         var normalizedUrl = url
 
         //remove everything after the ID and noramlize prefix if necesary

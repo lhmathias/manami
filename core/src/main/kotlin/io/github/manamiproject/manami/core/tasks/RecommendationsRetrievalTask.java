@@ -25,7 +25,7 @@ public class RecommendationsRetrievalTask extends AbstractTask<List<Anime>> {
 
    // All recommendations that make 80% of all written user recommendations.
   private List<InfoLink> userRecomList;
-  private final AnimeExtractor extractor;
+  private final Extractors extractor;
   private final Manami app;
   private final CacheI cache;
   private final AtomicInteger progress = new AtomicInteger(0);

@@ -4,7 +4,7 @@ import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
 
-abstract class AbstractAnimeDataCache<KEY, VALUE> (
+internal abstract class AbstractAnimeDataCache<KEY, VALUE> (
         load: (KEY) -> VALUE
 ) : AnimeDataCache<KEY, VALUE> {
 

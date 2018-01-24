@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.dto.AnimeType
 import java.net.URL
 import java.util.*
 
-data class AnimeEntry(
+internal data class AnimeEntry(
     var id: UUID,
     var title: String,
     var synonyms: Set<String>,

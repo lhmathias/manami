@@ -3,7 +3,6 @@ package io.github.manamiproject.manami.cache
 import io.github.manamiproject.manami.dto.entities.Anime
 import io.github.manamiproject.manami.dto.entities.InfoLink
 import io.github.manamiproject.manami.dto.entities.RecommendationList
-import java.util.*
 
 
 /**
@@ -17,7 +16,7 @@ interface Cache {
    * @param infoLink URL of the info link site.
    * @return Optional of an instance of an {@link Anime} corresponding to the link.
    */
-  fun fetchAnime(infoLink: InfoLink): Optional<Anime>
+  fun fetchAnime(infoLink: InfoLink): Anime?
 
 
   /**

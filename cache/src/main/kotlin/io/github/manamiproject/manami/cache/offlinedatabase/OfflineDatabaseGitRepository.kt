@@ -11,7 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-class OfflineDatabaseGitRepository {
+internal class OfflineDatabaseGitRepository {
 
     private val log: Logger by LoggerDelegate()
     private val repo: Path = Paths.get("..").resolve("..").resolve("database")

@@ -2,7 +2,7 @@ package io.github.manamiproject.manami.cache.offlinedatabase
 
 import io.github.manamiproject.manami.dto.entities.InfoLink
 
-class Database(
+internal class Database(
         val animeMetaData: MutableSet<AnimeEntry> = mutableSetOf(),
         val deadEntries: Set<InfoLink>  = mutableSetOf()
 ) {
