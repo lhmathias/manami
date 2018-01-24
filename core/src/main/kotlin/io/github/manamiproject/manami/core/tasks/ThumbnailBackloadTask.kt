@@ -14,7 +14,6 @@ import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClients
 import org.slf4j.Logger
 import org.slf4j.MDC
-import java.util.*
 
 
 private const val HTTP_STATUS_OK = 200
@@ -44,12 +43,9 @@ internal class ThumbnailBackloadTask(
     MDC.put("infoLink", entry.infoLink.toString())
 
     if (MinimalEntry.NO_IMG_THUMB == entry.thumbnail) {
-      val cachedAnime: Optional<Anime> = cache.fetchAnime(entry.infoLink)
-
-      log.debug("Loading thumbnail")
-
-      if (cachedAnime.isPresent) {
-        updateThumbnail(entry, cachedAnime.get())
+      cache.fetchAnime(entry.infoLink)?.let {
+        log.debug("Loading thumbnail")
+        updateThumbnail(entry, it)
       }
     }
   }
@@ -72,11 +68,9 @@ internal class ThumbnailBackloadTask(
     val responseCodeThumbnail = response.statusLine.statusCode
 
     if (responseCodeThumbnail != HTTP_STATUS_OK) {
-      val updatedAnime: Optional<Anime> = cache.fetchAnime(entry.infoLink)
-
-      if (updatedAnime.isPresent) {
+      cache.fetchAnime(entry.infoLink)?.let {
         log.debug("Updating thumbnail.")
-        updateThumbnail(entry, updatedAnime.get())
+        updateThumbnail(entry, it)
       }
     }
   }
