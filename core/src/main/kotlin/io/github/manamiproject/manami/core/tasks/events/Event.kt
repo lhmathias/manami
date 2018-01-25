@@ -1,13 +1,13 @@
 package io.github.manamiproject.manami.core.tasks.events
 
-import io.github.manamiproject.manami.core.tasks.events.AbstractEvent.EventType
-import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.core.tasks.events.AbstractChecklistEvent.ChecklistEventType
+import io.github.manamiproject.manami.dto.entities.MinimalEntry
 
 
 interface Event {
 
-    var type: EventType
+    var type: ChecklistEventType
     var title: String
     var message: String
-    var anime: Anime?
+    var anime: MinimalEntry?
 }

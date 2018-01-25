@@ -1,9 +1,9 @@
 package io.github.manamiproject.manami.core.tasks.events
 
-import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.dto.entities.MinimalEntry
 
-abstract class AbstractEvent(
-        override var anime: Anime? = null
+abstract class AbstractChecklistEvent(
+        override var anime: MinimalEntry? = null
 ) : Event {
 
     init {
@@ -14,13 +14,13 @@ abstract class AbstractEvent(
         }
     }
 
-    override var type: EventType = EventType.INFO
+    override var type: ChecklistEventType = ChecklistEventType.INFO
 
     override var title: String = ""
 
     override var message = ""
 
-    enum class EventType {
+    enum class ChecklistEventType {
         ERROR, WARNING, INFO;
     }
 }

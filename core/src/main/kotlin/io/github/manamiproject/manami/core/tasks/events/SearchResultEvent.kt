@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.dto.entities.MinimalEntry
 
 
 /**
- * Contains a {@link List} of {@link MinimalEntry} for each list type.
+ * Contains a {@link List} of {@link MinimalEntry} for each list typeChecklist.
  */
 class SearchResultEvent(val searchString: String) {
 
