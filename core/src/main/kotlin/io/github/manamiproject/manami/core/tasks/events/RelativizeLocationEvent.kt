@@ -1,19 +1,20 @@
 package io.github.manamiproject.manami.core.tasks.events
 
-import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.core.commands.CmdChangeLocation
+import io.github.manamiproject.manami.core.commands.ReversibleCommand
 import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.persistence.Persistence
 
 class RelativizeLocationEvent(
         private val animeEntry: Anime,
         private val newValue: String,
-        private val app: Manami
+        private val persistence: Persistence
 ) : AbstractEvent(animeEntry), ReversibleCommandEvent {
 
-    private val command: CmdChangeLocation = CmdChangeLocation(animeEntry, newValue, app)
+    private val command: ReversibleCommand = CmdChangeLocation(animeEntry, newValue, persistence)
 
 
-    override fun getCommand(): CmdChangeLocation {
+    override fun getCommand(): ReversibleCommand {
         return command
     }
 }

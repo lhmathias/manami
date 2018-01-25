@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.core.commands
 /**
  * Interface for reversible commands.
  */
-internal interface ReversibleCommand : Command {
+interface ReversibleCommand : Command {
 
     /**
      * Undoes the last reversible command.

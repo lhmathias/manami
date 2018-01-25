@@ -1,19 +1,20 @@
 package io.github.manamiproject.manami.core.tasks.events
 
-import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.core.commands.CmdChangeTitle
+import io.github.manamiproject.manami.core.commands.ReversibleCommand
 import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.persistence.Persistence
 
 class TitleDifferEvent(
-        private var animeEntry: Anime,
-        private var newValue: String,
-        private var app: Manami
+        private val animeEntry: Anime,
+        private val newValue: String,
+        private val persistence: Persistence
 ) : AbstractEvent(animeEntry), ReversibleCommandEvent {
 
-    private val command: CmdChangeTitle = CmdChangeTitle(animeEntry, newValue, app)
+    private val command: ReversibleCommand = CmdChangeTitle(animeEntry, newValue, persistence)
 
 
-    override fun getCommand(): CmdChangeTitle {
+    override fun getCommand(): ReversibleCommand {
         return command
     }
 }
