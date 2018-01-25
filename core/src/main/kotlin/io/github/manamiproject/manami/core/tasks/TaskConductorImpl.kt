@@ -26,7 +26,7 @@ internal object TaskConductorImpl : TaskConductor {
                 taskList.remove(createIdentifier(task))
             }
 
-            taskList.put(createIdentifier(task), task)
+            taskList[createIdentifier(task)] = task
             log.info("Starting task of type [{}]", createIdentifier(task))
             task.start()
         }
