@@ -26,7 +26,7 @@
     <java.target.version>1.8</java.target.version>
     <manami.version>3.0.0</manami.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <kotlin.version>1.2.20</kotlin.version>
+    <kotlin.version>1.2.21</kotlin.version>
     <kotlin.compiler.apiVersion>1.2</kotlin.compiler.apiVersion>
   </properties>
 
@@ -190,9 +190,32 @@
   </dependencyManagement>
 
   <dependencies>
+    <!-- kotlin -->
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
+    </dependency>
+
+    <!-- testing -->
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.spek</groupId>
+      <artifactId>spek-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.spek</groupId>
+      <artifactId>spek-junit-platform-engine</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-runner</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
     </dependency>
   </dependencies>
 

@@ -25,25 +25,5 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.spek</groupId>
-      <artifactId>spek-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.spek</groupId>
-      <artifactId>spek-junit-platform-engine</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-runner</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-    </dependency>
   </dependencies>
 </project>

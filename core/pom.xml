@@ -30,10 +30,6 @@
       <artifactId>common</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
     </dependency>
@@ -46,20 +42,8 @@
       <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-text</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.spek</groupId>
-      <artifactId>spek-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.spek</groupId>
-      <artifactId>spek-junit-platform-engine</artifactId>
     </dependency>
   </dependencies>
 </project>
