@@ -5,5 +5,5 @@ import io.github.manamiproject.manami.dto.entities.RecommendationList
 
 internal interface RecommendationsExtractor : Extractor {
 
-    fun extractRecommendations(html: String): RecommendationList?
+    fun extractRecommendations(html: String): RecommendationList
 }

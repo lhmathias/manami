@@ -17,6 +17,7 @@ internal class OfflineDatabaseGitRepository {
     private val repo: Path = Paths.get("..").resolve("..").resolve("database")
     private val databaseFile: Path = repo.resolve("manami-offline-database.json")
     private val deadEntriesFile: Path = repo.resolve("notFound.json")
+
     val database: Database = Database()
 
 
@@ -56,7 +57,7 @@ internal class OfflineDatabaseGitRepository {
         try {
             Files.createDirectories(repo)
             Git.cloneRepository()
-                    .setURI("https://github.com/manami-project/manami-offline-database.git")
+                    .setURI("https://github.com/manami-project/anime-offline-database.git")
                     .setDirectory(repo.toFile())
                     .call()
         } catch (e: GitAPIException) {
