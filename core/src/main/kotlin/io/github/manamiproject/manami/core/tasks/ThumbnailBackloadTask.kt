@@ -29,13 +29,13 @@ internal class ThumbnailBackloadTask(
 
 
   override fun execute() {
-    persistence.fetchFilterList().parallelStream().forEach(this::loadThumbnailIfNotExists)
-    persistence.fetchWatchList().parallelStream().forEach(this::loadThumbnailIfNotExists)
+    httpClient.use {
+      persistence.fetchFilterList().parallelStream().forEach(this::loadThumbnailIfNotExists)
+      persistence.fetchWatchList().parallelStream().forEach(this::loadThumbnailIfNotExists)
 
-    persistence.fetchFilterList().parallelStream().forEach(this::updateThumbnailIfNotAvailable)
-    persistence.fetchWatchList().parallelStream().forEach(this::updateThumbnailIfNotAvailable)
-
-    httpClient.close()
+      persistence.fetchFilterList().parallelStream().forEach(this::updateThumbnailIfNotAvailable)
+      persistence.fetchWatchList().parallelStream().forEach(this::updateThumbnailIfNotAvailable)
+    }
   }
 
 

@@ -31,7 +31,7 @@ class RecommendationListSpec : Spek({
             }
 
             it("must have a size of 0") {
-                assertThat(recommendationList.size).isZero()
+                assertThat(recommendationList).hasSize(0)
             }
         }
 
@@ -108,7 +108,7 @@ class RecommendationListSpec : Spek({
             )
 
             it("must contain only one entry") {
-                assertThat(recommendationList.size).isOne()
+                assertThat(recommendationList).hasSize(1)
             }
 
             it("must contain the infoLink with the sum of both values as amount") {
