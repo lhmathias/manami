@@ -16,6 +16,6 @@ internal object Config {
     var file: Path = Paths.get("./")
         set(file) {
             field = file
-            EventBus.publish(OpenedFileChangedEvent())
+            EventBus.publish(OpenedFileChangedEvent)
         }
 }
