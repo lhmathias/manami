@@ -258,8 +258,22 @@ class ImportMigrationPostProcessorSpec : Spek({
             animeList.apply {
                 add(
                         Anime(
+                                "Some local title without infoLink",
+                                InfoLink("")
+                        )
+                )
+
+                add(
+                        Anime(
                                 "Suzumiya Haruhi no Shoushitsu",
                                 InfoLink("http://myanimelist.net/anime/7311")
+                        )
+                )
+
+                add(
+                        Anime(
+                                "Made in Abyss",
+                                InfoLink("http://www.myanimelist.net/anime/34599")
                         )
                 )
 
@@ -295,6 +309,13 @@ class ImportMigrationPostProcessorSpec : Spek({
 
                 add(
                         FilterListEntry(
+                                "Ginga Eiyuu Densetsu",
+                                InfoLink("http://www.myanimelist.net/anime/820")
+                        )
+                )
+
+                add(
+                        FilterListEntry(
                                 "Haikyuu!! Second Season",
                                 InfoLink("http://anidb.net/a10981")
                         )
@@ -303,14 +324,14 @@ class ImportMigrationPostProcessorSpec : Spek({
                 add(
                         FilterListEntry(
                                 "Hajime no Ippo",
-                                InfoLink("http://www.myanimelist.net/anime/263")
+                                InfoLink("https://www.myanimelist.net/anime/263")
                         )
                 )
 
                 add(
                         FilterListEntry(
-                                "Code Geass: Hangyaku no Lelouch R2",
-                                InfoLink("https://myanimelist.net/anime/33486")
+                                "One Punch Man",
+                                InfoLink("https://myanimelist.net/anime/30276")
                         )
                 )
 
@@ -324,6 +345,13 @@ class ImportMigrationPostProcessorSpec : Spek({
 
                     add(
                             WatchListEntry(
+                                    "Koe no Katachi",
+                                    InfoLink("http://www.myanimelist.net/anime/28851")
+                            )
+                    )
+
+                    add(
+                            WatchListEntry(
                                     "Eiga Koe no Katachi",
                                     InfoLink("http://anidb.net/a10937")
                             )
@@ -332,7 +360,7 @@ class ImportMigrationPostProcessorSpec : Spek({
                     add(
                             WatchListEntry(
                                     "Clannad: After Story",
-                                    InfoLink("http://www.myanimelist.net/anime/4181")
+                                    InfoLink("https://www.myanimelist.net/anime/4181")
                             )
                     )
 
@@ -357,24 +385,28 @@ class ImportMigrationPostProcessorSpec : Spek({
             )
 
             it("must change only change the old MAL picture links in animelist") {
-                assertThat(animeList[0].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/7311"))
-                assertThat(animeList[1].infoLink).isEqualTo(InfoLink("http://anidb.net/a8667"))
-                assertThat(animeList[2].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/1535"))
-                assertThat(animeList[3].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/31043"))
+                assertThat(animeList[0].infoLink).isEqualTo(InfoLink(""))
+                assertThat(animeList[1].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/7311"))
+                assertThat(animeList[2].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/34599"))
+                assertThat(animeList[3].infoLink).isEqualTo(InfoLink("http://anidb.net/a8667"))
+                assertThat(animeList[4].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/1535"))
+                assertThat(animeList[5].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/31043"))
             }
 
             it("must change only change the old MAL picture links in filterlist") {
                 assertThat(filterList[0].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/918"))
-                assertThat(filterList[1].infoLink).isEqualTo(InfoLink("http://anidb.net/a10981"))
-                assertThat(filterList[2].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/263"))
-                assertThat(filterList[3].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/33486"))
+                assertThat(filterList[1].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/820"))
+                assertThat(filterList[2].infoLink).isEqualTo(InfoLink("http://anidb.net/a10981"))
+                assertThat(filterList[3].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/263"))
+                assertThat(filterList[4].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/30276"))
             }
 
             it("must change only change the old MAL picture links in watchlist") {
                 assertThat(watchList[0].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/32281"))
-                assertThat(watchList[1].infoLink).isEqualTo(InfoLink("http://anidb.net/a10937"))
-                assertThat(watchList[2].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/4181"))
-                assertThat(watchList[3].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/34599"))
+                assertThat(watchList[1].infoLink).isEqualTo(InfoLink("http://www.myanimelist.net/anime/28851"))
+                assertThat(watchList[2].infoLink).isEqualTo(InfoLink("http://anidb.net/a10937"))
+                assertThat(watchList[3].infoLink).isEqualTo(InfoLink("https://www.myanimelist.net/anime/4181"))
+                assertThat(watchList[4].infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/34599"))
             }
         }
     }

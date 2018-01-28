@@ -5,7 +5,6 @@ import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.persistence.utility.Version
 import io.github.manamiproject.manami.dto.entities.*
 import org.slf4j.Logger
-import java.net.MalformedURLException
 import java.net.URL
 
 internal object ImportMigrationPostProcessor {
@@ -47,6 +46,7 @@ internal object ImportMigrationPostProcessor {
         }
 
         log.info("Migrating list to version 2.14.2.")
+
         animeListEntries.forEach(this::migrateMalInfoLinkToHttps)
         filterListEntries.forEach(this::migrateMalInfoLinkToHttps)
         watchListEntries.forEach(this::migrateMalInfoLinkToHttps)
@@ -75,6 +75,7 @@ internal object ImportMigrationPostProcessor {
         }
 
         log.info("Migrating list to version 2.10.3.")
+
         filterListEntries.forEach(this::migrateCdnUrl)
         watchListEntries.forEach(this::migrateCdnUrl)
     }
@@ -85,12 +86,8 @@ internal object ImportMigrationPostProcessor {
         val newCdnUrl = "https://myanimelist.cdn-dena.com"
         val thumbnail = anime.thumbnail.toString()
 
-        try {
-            if (thumbnail.startsWith(oldCdnUrl)) {
-                anime.thumbnail = URL(thumbnail.replace(oldCdnUrl, newCdnUrl))
-            }
-        } catch (e: MalformedURLException) {
-            log.error("Converting thumbnail URL for [{}] created an error", anime.title, e)
+        if (thumbnail.startsWith(oldCdnUrl)) {
+            anime.thumbnail = URL(thumbnail.replace(oldCdnUrl, newCdnUrl))
         }
     }
 }

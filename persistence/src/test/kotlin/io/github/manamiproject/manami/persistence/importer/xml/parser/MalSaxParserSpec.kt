@@ -50,7 +50,7 @@ class MalSaxParserSpec : Spek({
                 val fetchAnimeList: MutableList<Anime> = persistenceFacade.fetchAnimeList()
                 assertThat(fetchAnimeList).isNotNull()
                 assertThat(fetchAnimeList).isNotEmpty()
-                assertThat(fetchAnimeList.size).isEqualTo(2)
+                assertThat(fetchAnimeList).hasSize(2)
 
                 val deathNote: Anime = fetchAnimeList[0]
                 assertThat(deathNote).isNotNull()
@@ -73,7 +73,7 @@ class MalSaxParserSpec : Spek({
                 val fetchFilterList: MutableList<FilterListEntry> = persistenceFacade.fetchFilterList()
                 assertThat(fetchFilterList).isNotNull()
                 assertThat(fetchFilterList).isNotEmpty()
-                assertThat(fetchFilterList.size).isEqualTo(2)
+                assertThat(fetchFilterList).hasSize(2)
 
                 val matanteiLokiRagnarok: FilterListEntry = fetchFilterList[0]
                 assertThat(matanteiLokiRagnarok).isNotNull()
@@ -92,7 +92,7 @@ class MalSaxParserSpec : Spek({
                 val fetchWatchList: MutableList<WatchListEntry> = persistenceFacade.fetchWatchList()
                 assertThat(fetchWatchList).isNotNull()
                 assertThat(fetchWatchList).isNotEmpty()
-                assertThat(fetchWatchList.size).isEqualTo(2)
+                assertThat(fetchWatchList).hasSize(2)
 
                 val akatsukiNoYona: WatchListEntry = fetchWatchList[0]
                 assertThat(akatsukiNoYona).isNotNull()

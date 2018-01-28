@@ -32,7 +32,7 @@ internal class InMemoryWatchList : WatchList {
             else -> return false
         }
 
-        watchList.put(anime.infoLink, entry)
+        watchList[entry.infoLink] = entry
 
         return true
     }
@@ -53,7 +53,7 @@ internal class InMemoryWatchList : WatchList {
 
     fun updateOrCreate(entry: WatchListEntry) {
         if (entry.isValid()) {
-            watchList.put(entry.infoLink, entry)
+            watchList[entry.infoLink] = entry
         }
     }
 }

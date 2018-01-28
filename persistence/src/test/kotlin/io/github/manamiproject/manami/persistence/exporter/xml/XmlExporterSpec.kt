@@ -32,7 +32,6 @@ private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.xml"
 class XmlExporterSpec : Spek({
 
     var tempFolder: Path = Paths.get(".")
-    var file: Path = Paths.get(".")
     val persistence: InternalPersistence = InMemoryPersistence(
             InMemoryAnimeList(),
             InMemoryFilterList(),
@@ -45,7 +44,7 @@ class XmlExporterSpec : Spek({
 
         beforeEachTest {
             tempFolder = createTempDir().toPath()
-            file = createTempFile(suffix = ANIME_LIST_EXPORT_FILE, directory = tempFolder.toFile()).toPath()
+
         }
 
         afterEachTest {
@@ -93,12 +92,36 @@ class XmlExporterSpec : Spek({
             persistence.filterAnime(gintama)
         }
 
-        on("exporting the list to a file") {
+        on("exporting the list to an existing file") {
+            val file: Path = createTempFile(suffix = ANIME_LIST_EXPORT_FILE, directory = tempFolder.toFile()).toPath()
             xmlExporter.save(file)
             
             it("must contain the same list within the file as in the persistence facade") {
                 val exportedFileBuilder = StringBuilder()
                 Files.readAllLines(file, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
+                val actual: String = normalizeXml(exportedFileBuilder.toString())
+
+                val resource: Path =  Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
+                val expectedFileBuilder = StringBuilder()
+                Files.readAllLines(resource, StandardCharsets.UTF_8).map(expectedFileBuilder::append)
+                val expected: String = normalizeXml(expectedFileBuilder.toString())
+
+                assertThat(expected).isEqualTo(actual)
+            }
+        }
+
+        on("exporting the list to a non-existing file") {
+            val outputFile = tempFolder.resolve(Paths.get("test-output.xml"))
+            xmlExporter.save(outputFile)
+
+            it("must create the file") {
+                assertThat(outputFile).exists()
+                assertThat(outputFile).isRegularFile()
+            }
+
+            it("must contain the same list within the file as in the persistence facade") {
+                val exportedFileBuilder = StringBuilder()
+                Files.readAllLines(outputFile, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
                 val actual: String = normalizeXml(exportedFileBuilder.toString())
 
                 val resource: Path =  Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())

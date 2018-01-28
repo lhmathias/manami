@@ -79,7 +79,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isZero()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(0)
             }
 
             it("must not exist on the filterList") {
@@ -97,11 +97,19 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isZero()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(0)
             }
 
             it("must not exist on the filterList") {
                 assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isFalse()
+            }
+        }
+
+        on("removing it from list") {
+            val result = persistenceFacade.removeFromFilterList(entry)
+
+            it("must always return false, because invalid entries can't be removed, because by definition they can't be added anyway") {
+                assertThat(result).isFalse()
             }
         }
     }
@@ -127,7 +135,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isZero()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(0)
             }
 
             it("must not exist on the filterList") {
@@ -145,11 +153,19 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isZero()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(0)
             }
 
             it("must not exist on the filterList") {
                 assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isFalse()
+            }
+        }
+
+        on("removing it from list") {
+            val result = persistenceFacade.removeFromFilterList(entry)
+
+            it("must always return false, because invalid entries can't be removed, because by definition they can't be added anyway") {
+                assertThat(result).isFalse()
             }
         }
     }
@@ -176,7 +192,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isOne()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
             }
 
             it("must exist on the filterList") {
@@ -194,7 +210,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isOne()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
             }
 
             it("must exist on the filterList") {
@@ -202,7 +218,7 @@ class PersistenceFacadeSpec : Spek({
             }
         }
     }
-    
+
 
     given("a valid FilterListEntry and an empty list") {
         val infoLink = "http://myanimelist.net/anime/1535"
@@ -226,7 +242,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isOne()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
             }
 
             it("must exist on the filterList") {
@@ -244,7 +260,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList().size).isOne()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
             }
 
             it("must exist on the filterList") {
@@ -344,7 +360,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isZero()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(0)
             }
 
             it("must not exist on the watchlist") {
@@ -362,11 +378,19 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isZero()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(0)
             }
 
             it("must not exist on the watchlist") {
                 assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isFalse()
+            }
+        }
+
+        on("removing it from list") {
+            val result = persistenceFacade.removeFromWatchList(entry)
+
+            it("must always return false, because invalid entries can't be removed, because by definition they can't be added anyway") {
+                assertThat(result).isFalse()
             }
         }
     }
@@ -392,7 +416,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isZero()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(0)
             }
 
             it("must not exist on the watchlist") {
@@ -410,11 +434,19 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isZero()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(0)
             }
 
             it("must not exist on the watchlist") {
                 assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isFalse()
+            }
+        }
+
+        on("removing it from list") {
+            val result = persistenceFacade.removeFromWatchList(entry)
+
+            it("must always return false, because invalid entries can't be removed, because by definition they can't be added anyway") {
+                assertThat(result).isFalse()
             }
         }
     }
@@ -441,7 +473,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isOne()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
             }
 
             it("must exist on the watchlist") {
@@ -459,7 +491,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isOne()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
             }
 
             it("must exist on the watchlist") {
@@ -491,7 +523,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isOne()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
             }
 
             it("must exist on the watchlist") {
@@ -509,7 +541,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList().size).isOne()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
             }
 
             it("must exist on the watchlist") {
@@ -589,7 +621,7 @@ class PersistenceFacadeSpec : Spek({
     }
 
 
-    given("an Anime without a title and an empty list") {
+    given("an anime without a title and an empty list") {
         val entry = Anime(
                 "",
                 InfoLink("http://myanimelist.net/anime/1535")
@@ -609,7 +641,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isZero()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(0)
             }
 
             it("must not exist in the list") {
@@ -627,7 +659,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must not increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isZero()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(0)
             }
 
             it("must not exist in the list") {
@@ -637,7 +669,7 @@ class PersistenceFacadeSpec : Spek({
     }
 
 
-    given("an Anime without a valid InfoLink and an empty list") {
+    given("an anime without a valid InfoLink and an empty list") {
         val entry = Anime(
                 "Death Note",
                 InfoLink("")
@@ -657,7 +689,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
 
             //TODO: okay so what happens if we check the animeExists function. Especially with multiple entries having no infolink
@@ -673,7 +705,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
 
             //TODO: okay so what happens if we check the animeExists function. Especially with multiple entries having no infolink
@@ -681,7 +713,7 @@ class PersistenceFacadeSpec : Spek({
     }
 
 
-    given("a valid minimal Anime and an empty list") {
+    given("a valid minimal anime and an empty list") {
         val entry = Anime(
                 "Death Note",
                 InfoLink("http://myanimelist.net/anime/1535")
@@ -694,14 +726,14 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(result).isTrue()
             }
 
-            it("must fire an AnimeListChangedEvent, but no other list change event") {
+            it("must fire an animeListChangedEvent, but no other list change event") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
                 assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
                 assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
 
             it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
 
             it("must exist on the list") {
@@ -719,17 +751,25 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
 
             it("must exist on the list") {
                 assertThat(persistenceFacade.animeEntryExists(entry.infoLink)).isTrue()
             }
         }
+
+        on("removing anime") {
+            val result = persistenceFacade.removeAnime(entry)
+
+            it("must return false, because there the entry does not exist in the list and therefore couldn't be removed") {
+                assertThat(result).isFalse()
+            }
+        }
     }
 
 
-    given("a valid Anime and an empty list") {
+    given("a valid anime and an empty list") {
         val entry = Anime(
                 "Death Note",
                 InfoLink("http://myanimelist.net/anime/1535"),
@@ -754,7 +794,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
 
             it("must exist on the list") {
@@ -772,7 +812,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
 
             it("must exist on the list") {
@@ -845,7 +885,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must result in an additional entry") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isEqualTo(2)
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(2)
             }
         }
 
@@ -1014,7 +1054,170 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
         }
+
+        on("adding the title from animelist to filterlist") {
+            val anime: Anime = persistenceFacade.fetchAnimeList()[0]
+            val result = persistenceFacade.filterAnime(anime)
+
+            it("must return false, because you cannot filter an anime that already resides in the animelist. To protect the user against mistakes a title has to be manually removed from the animelist first.") {
+                assertThat(result).isFalse()
+            }
+
+            it("must result in animelist still having one entry") {
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
+            }
+
+            it("must result in filterlist still having one entry") {
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
+            }
+
+            it("must result in watchlist still having one entry") {
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
+            }
+
+            it("must fire an event for both animelist and filterlist") {
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
+            }
+        }
+
+        on("adding the title from animelist to watchlist") {
+            val anime: Anime = persistenceFacade.fetchAnimeList()[0]
+            val result = persistenceFacade.watchAnime(anime)
+
+            it("must return false, because you cannot put an anime to the watchlist if it already resides in the animelist. To protect the user against mistakes a title has to be manually removed from the animelist first.") {
+                assertThat(result).isFalse()
+            }
+
+            it("must result in animelist still having one entry") {
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
+            }
+
+            it("must result in filterlist still having one entry") {
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
+            }
+
+            it("must result in watchlist still having one entry") {
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
+            }
+
+            it("must fire an event for both animelist and filterlist") {
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
+            }
+        }
+
+        on("adding the title from filterlist to animelist") {
+            val filterListEntry: FilterListEntry = persistenceFacade.fetchFilterList()[0]
+            val result = persistenceFacade.addAnime(Anime(filterListEntry.title, filterListEntry.infoLink))
+
+            it("must return true, because the title has been added to animelist") {
+                assertThat(result).isTrue()
+            }
+
+            it("must result in animelist having two entries") {
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(2)
+            }
+
+            it("must result in filterlist having no more entries") {
+                assertThat(persistenceFacade.fetchFilterList()).isEmpty()
+            }
+
+            it("must result in watchlist still having one entry") {
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
+            }
+
+            it("must fire an event for both animelist and filterlist") {
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
+            }
+        }
+
+        on("adding the title from filterlist to watchlist") {
+            val filterListEntry: FilterListEntry = persistenceFacade.fetchFilterList()[0]
+            val result = persistenceFacade.watchAnime(filterListEntry)
+
+            it("must return true, because the title has been added to watchlist") {
+                assertThat(result).isTrue()
+            }
+
+            it("must result in animelist still having one entry") {
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
+            }
+
+            it("must result in filterlist having no more entries") {
+                assertThat(persistenceFacade.fetchFilterList()).isEmpty()
+            }
+
+            it("must result in watchlist having two entries") {
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(2)
+            }
+
+            it("must fire an event for both animelist and filterlist") {
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
+            }
+        }
+
+        on("adding the title from watchlist to animelist") {
+            val watchListEntry: WatchListEntry = persistenceFacade.fetchWatchList()[0]
+            val result = persistenceFacade.addAnime(Anime(watchListEntry.title, watchListEntry.infoLink))
+
+            it("must return true, because the title has been added to animelist") {
+                assertThat(result).isTrue()
+            }
+
+            it("must result in animelist having two entries") {
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(2)
+            }
+
+            it("must result in filterlist still one entry") {
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
+            }
+
+            it("must result in watchlist having no more entries") {
+                assertThat(persistenceFacade.fetchWatchList()).isEmpty()
+            }
+
+            it("must fire an event for both animelist and watchlist") {
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
+            }
+        }
+
+        on("adding the title from watchlist to filterlist") {
+            val watchListEntry: WatchListEntry = persistenceFacade.fetchWatchList()[0]
+            val result = persistenceFacade.filterAnime(watchListEntry)
+
+            it("must return true, because the title has been added to filterlist") {
+                assertThat(result).isTrue()
+            }
+
+            it("must result in animelist still having one entry") {
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
+            }
+
+            it("must result in filterlist having two entries") {
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(2)
+            }
+
+            it("must result in watchlist having no more entries") {
+                assertThat(persistenceFacade.fetchWatchList()).isEmpty()
+            }
+
+            it("must fire an event for both animelist and watchlist") {
+                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
+                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
+                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
+            }
+        }
     }
+
 
     given("a list of valid FilterListEntries and an empty filterlist") {
         val list: MutableList<FilterListEntry> = mutableListOf(
@@ -1042,7 +1245,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must contain the exact same amount of entries that has been inserted") {
-                assertThat(persistenceFacade.fetchFilterList().size).isEqualTo(list.size)
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(list.size)
             }
         }
     }
@@ -1074,7 +1277,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must contain only the one valid entry") {
-                assertThat(persistenceFacade.fetchFilterList().size).isOne()
+                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
             }
         }
     }
@@ -1106,7 +1309,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must contain the exact same amount of entries that has been inserted") {
-                assertThat(persistenceFacade.fetchWatchList().size).isEqualTo(list.size)
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(list.size)
             }
         }
     }
@@ -1138,13 +1341,13 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must contain only the one valid entry") {
-                assertThat(persistenceFacade.fetchWatchList().size).isOne()
+                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
             }
         }
     }
 
 
-    given("a list of valid Anime and an empty list") {
+    given("a list of valid anime and an empty list") {
         val list: MutableList<Anime> = mutableListOf(
                 Anime(
                         "Death Note",
@@ -1170,13 +1373,13 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must contain the exact same amount of entries that has been inserted") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isEqualTo(list.size)
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(list.size)
             }
         }
     }
 
 
-    given("a list of one valid and two invalid Anime and an empty animelist") {
+    given("a list of one valid and two invalid anime and an empty animelist") {
         val list: MutableList<Anime> = mutableListOf(
                 Anime(
                         "",
@@ -1202,7 +1405,7 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must contain only the one valid entry") {
-                assertThat(persistenceFacade.fetchAnimeList().size).isOne()
+                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
             }
         }
     }

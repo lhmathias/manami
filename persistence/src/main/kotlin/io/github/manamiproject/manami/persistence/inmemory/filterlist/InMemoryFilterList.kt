@@ -21,7 +21,7 @@ internal class InMemoryFilterList : FilterList {
             else -> return false
         }
 
-        filterList.put(entry.infoLink, entry)
+        filterList[entry.infoLink] = entry
 
         return true
     }
@@ -52,7 +52,7 @@ internal class InMemoryFilterList : FilterList {
 
     fun updateOrCreate(entry: FilterListEntry) {
         if (entry.isValid()) {
-            filterList.put(entry.infoLink, entry)
+            filterList[entry.infoLink] = entry
         }
     }
 }

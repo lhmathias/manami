@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.persistence.importer.xml.parser
 
-import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.dto.AnimeType
 import io.github.manamiproject.manami.dto.entities.Anime
 import io.github.manamiproject.manami.dto.entities.FilterListEntry
@@ -9,22 +8,15 @@ import io.github.manamiproject.manami.dto.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.xml.postprocessor.ImportDocument
 import io.github.manamiproject.manami.persistence.importer.xml.postprocessor.ImportMigrationPostProcessor
-import org.slf4j.Logger
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
 import java.lang.StringBuilder
-import java.net.MalformedURLException
 import java.net.URL
-
-
-private const val THUMBNAIL_PARSING_EXCEPTION: String = "Unable to parse thumbnail URL from [{}]"
 
 
 internal class ManamiSaxParser(
         private val persistence: InternalPersistence
 ) : DefaultHandler() {
-
-    private val log: Logger by LoggerDelegate()
 
     /**
      * This is the builder for the text within the elements.
@@ -75,32 +67,24 @@ internal class ManamiSaxParser(
 
 
     private fun createFilterEntry(attributes: Attributes) {
-        try {
-            val entry = FilterListEntry(
-                    attributes.getValue("title").trim(),
-                    InfoLink(attributes.getValue("infoLink").trim()),
-                    URL(attributes.getValue("thumbnail").trim())
-            )
+        val entry = FilterListEntry(
+                attributes.getValue("title").trim(),
+                InfoLink(attributes.getValue("infoLink").trim()),
+                URL(attributes.getValue("thumbnail").trim())
+        )
 
-            importDocument.filterListEntries.add(entry)
-        } catch (e: MalformedURLException) {
-            log.error(THUMBNAIL_PARSING_EXCEPTION, attributes.getValue("title"))
-        }
+        importDocument.filterListEntries.add(entry)
     }
 
 
     private fun createWatchListEntry(attributes: Attributes) {
-        try {
-            val entry = WatchListEntry(
-                    attributes.getValue("title").trim(),
-                    InfoLink(attributes.getValue("infoLink").trim()),
-                    URL(attributes.getValue("thumbnail").trim())
-            )
+        val entry = WatchListEntry(
+                attributes.getValue("title").trim(),
+                InfoLink(attributes.getValue("infoLink").trim()),
+                URL(attributes.getValue("thumbnail").trim())
+        )
 
-            importDocument.watchListEntries.add(entry)
-        } catch (e: MalformedURLException) {
-            log.error(THUMBNAIL_PARSING_EXCEPTION, attributes.getValue("title"))
-        }
+        importDocument.watchListEntries.add(entry)
     }
 
 

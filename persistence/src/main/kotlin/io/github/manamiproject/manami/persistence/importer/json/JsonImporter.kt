@@ -13,16 +13,12 @@ import org.json.JSONTokener
 import org.slf4j.Logger
 import java.io.BufferedReader
 import java.io.FileReader
-import java.io.IOException
 import java.lang.StringBuilder
-import java.net.MalformedURLException
 import java.net.URL
 import java.nio.file.Path
 
 
-private const val URL_PARSING_EXCEPTION_MESSAGE = "Unable to import [{}]"
 private const val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the type is unknown."
-
 
 /**
  * Imports a list from a valid JSON file.
@@ -36,24 +32,19 @@ internal class JsonImporter(private val persistence: InternalPersistence) : Impo
 
 
     override fun importFile(file: Path) {
-        try {
-            val fileReader = FileReader(file.toFile())
-            val br = BufferedReader(fileReader)
-            val strBuilder = StringBuilder()
+        val fileReader = FileReader(file.toFile())
+        val strBuilder = StringBuilder()
 
-            br.lines().forEach { line -> strBuilder.append(line).append('\n') }
-
-            val tokener = JSONTokener(strBuilder.toString())
-            val jsonArr = JSONArray(tokener)
-
-            extractAnimeList(jsonArr)
-            extractWatchList(jsonArr)
-            extractFilterList(jsonArr)
-
-            br.close()
-        } catch (e: IOException) {
-            log.error("An error occurred while trying to import JSON file: ", e)
+        BufferedReader(fileReader).use {
+            it.lines().forEach { line -> strBuilder.append(line).append('\n') }
         }
+
+        val tokener = JSONTokener(strBuilder.toString())
+        val jsonArr = JSONArray(tokener)
+
+        extractAnimeList(jsonArr)
+        extractWatchList(jsonArr)
+        extractFilterList(jsonArr)
     }
 
 
@@ -78,6 +69,7 @@ internal class JsonImporter(private val persistence: InternalPersistence) : Impo
 
             animeListEntries.add(curAnime)
         }
+
         persistence.addAnimeList(animeListEntries)
     }
 
@@ -89,18 +81,16 @@ internal class JsonImporter(private val persistence: InternalPersistence) : Impo
             val thumbnail: String = animeListArr.getJSONObject(i).getString("thumbnail").trim()
             val title: String = animeListArr.getJSONObject(i).getString("title").trim()
             var infoLink: String = animeListArr.getJSONObject(i).getString("infoLink")
+
             infoLink = infoLink.trim()
 
             if (title.isNotBlank() && infoLink.isNotBlank()) {
-                try {
-                    watchListEntries.add(WatchListEntry(title, InfoLink(infoLink), URL(thumbnail)))
-                } catch (e: MalformedURLException) {
-                    log.error(URL_PARSING_EXCEPTION_MESSAGE, title, e)
-                }
+                watchListEntries.add(WatchListEntry(title, InfoLink(infoLink), URL(thumbnail)))
             } else {
-                log.debug(UNKNOWN_TYPE_MESSAGE, title)
+                log.warn(UNKNOWN_TYPE_MESSAGE, title)
             }
         }
+
         persistence.addWatchList(watchListEntries)
     }
 
@@ -115,13 +105,9 @@ internal class JsonImporter(private val persistence: InternalPersistence) : Impo
             infoLink = infoLink.trim()
 
             if (title.isNotBlank()) {
-                try {
-                    filterListEntries.add(FilterListEntry(title, InfoLink(infoLink), URL(thumbnail)))
-                } catch (e: MalformedURLException) {
-                    log.error(URL_PARSING_EXCEPTION_MESSAGE, title, e)
-                }
+                filterListEntries.add(FilterListEntry(title, InfoLink(infoLink), URL(thumbnail)))
             } else {
-                log.debug(UNKNOWN_TYPE_MESSAGE, title)
+                log.warn(UNKNOWN_TYPE_MESSAGE, title)
             }
         }
 

@@ -52,7 +52,7 @@ class ManamiSaxParserSpec : Spek({
                 val fetchAnimeList: MutableList<Anime> = persistenceFacade.fetchAnimeList()
                 assertThat(fetchAnimeList).isNotNull()
                 assertThat(fetchAnimeList).isNotEmpty()
-                assertThat(fetchAnimeList.size).isEqualTo(2)
+                assertThat(fetchAnimeList).hasSize(2)
 
                 val bokuDake: Anime = fetchAnimeList[0]
                 assertThat(bokuDake).isNotNull()
@@ -75,7 +75,7 @@ class ManamiSaxParserSpec : Spek({
                 val fetchFilterList: MutableList<FilterListEntry> = persistenceFacade.fetchFilterList()
                 assertThat(fetchFilterList).isNotNull()
                 assertThat(fetchFilterList).isNotEmpty()
-                assertThat(fetchFilterList.size).isOne()
+                assertThat(fetchFilterList).hasSize(1)
 
                 val gintama: FilterListEntry = fetchFilterList[0]
                 assertThat(gintama).isNotNull()
@@ -87,7 +87,7 @@ class ManamiSaxParserSpec : Spek({
                 val fetchWatchList: MutableList<WatchListEntry> = persistenceFacade.fetchWatchList()
                 assertThat(fetchWatchList).isNotNull()
                 assertThat(fetchWatchList).isNotEmpty()
-                assertThat(fetchWatchList.size).isOne()
+                assertThat(fetchWatchList).hasSize(1)
 
                 val deathNoteRewrite: WatchListEntry = fetchWatchList[0]
                 assertThat(deathNoteRewrite).isNotNull()

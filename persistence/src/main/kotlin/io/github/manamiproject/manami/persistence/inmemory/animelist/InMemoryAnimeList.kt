@@ -7,6 +7,7 @@ import io.github.manamiproject.manami.persistence.AnimeList
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
+
 internal class InMemoryAnimeList : AnimeList {
 
     private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
@@ -17,7 +18,7 @@ internal class InMemoryAnimeList : AnimeList {
             return false
         }
 
-        animeList.put(anime.id, anime)
+        animeList[anime.id] = anime
 
         return true
     }
@@ -60,7 +61,7 @@ internal class InMemoryAnimeList : AnimeList {
 
     fun updateOrCreate(anime: Anime) {
         if (anime.isValid()) {
-            animeList.put(anime.id, anime)
+            animeList[anime.id] = anime
         }
     }
 }

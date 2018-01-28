@@ -36,19 +36,22 @@ object PersistenceFacade : Persistence {
             MalSaxParser(strategy)
     )
 
+
     override fun filterAnime(anime: MinimalEntry): Boolean {
         if (anime.isValid()) {
+            if(strategy.animeEntryExists(anime.infoLink)) {
+                return false
+            }
+
             if (strategy.filterAnime(anime)) {
                 EventBus.publish(FilterListChangedEvent)
-
-                if(removeFromWatchList(anime)) {
-                    EventBus.publish(WatchListChangedEvent)
-                }
+                removeFromWatchList(anime)
 
                 return true
             }
 
         }
+
         return false
     }
 
@@ -80,13 +83,8 @@ object PersistenceFacade : Persistence {
     override fun addAnime(anime: Anime): Boolean {
         if (anime.isValid() && strategy.addAnime(anime)) {
             if (anime.infoLink.isValid()) {
-                if(removeFromFilterList(anime)) {
-                    EventBus.publish(FilterListChangedEvent)
-                }
-
-                if(removeFromWatchList(anime)) {
-                    EventBus.publish(WatchListChangedEvent)
-                }
+                removeFromFilterList(anime)
+                removeFromWatchList(anime)
             }
 
             EventBus.publish(AnimeListChangedEvent)
@@ -119,12 +117,13 @@ object PersistenceFacade : Persistence {
 
     override fun watchAnime(anime: MinimalEntry): Boolean {
         if (anime.isValid()) {
+            if(strategy.animeEntryExists(anime.infoLink)) {
+                return false
+            }
+
             if (strategy.watchAnime(anime)) {
                 EventBus.publish(WatchListChangedEvent)
-
-                if(removeFromFilterList(anime)) {
-                    EventBus.publish(FilterListChangedEvent)
-                }
+                removeFromFilterList(anime)
 
                 return true
             }
