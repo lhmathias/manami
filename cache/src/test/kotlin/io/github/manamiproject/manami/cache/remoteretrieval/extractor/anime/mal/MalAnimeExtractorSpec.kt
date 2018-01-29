@@ -2,16 +2,22 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal
 
 import io.github.manamiproject.manami.dto.AnimeType
 import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.dto.entities.InfoLink
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
+import java.net.URL
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
+
+@RunWith(JUnitPlatform::class)
 class MalAnimeExtractorSpec : Spek({
 
     val malAnimeExtractor = MalAnimeExtractor()
@@ -33,7 +39,7 @@ class MalAnimeExtractorSpec : Spek({
             }
 
             it("must contain the correct infolink") {
-                assertThat(extractedAnime?.infoLink).isEqualTo("http://myanimelist.net/anime/1535")
+                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("http://myanimelist.net/anime/1535"))
             }
 
             it("must extract the correct type") {
@@ -45,11 +51,11 @@ class MalAnimeExtractorSpec : Spek({
             }
 
             it("must extract the correct picture") {
-                assertThat(extractedAnime?.picture).isEqualTo("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg")
+                assertThat(extractedAnime?.picture).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/9/9453.jpg"))
             }
 
             it("must extract the correct thumbnail") {
-                assertThat(extractedAnime?.thumbnail).isEqualTo("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
+                assertThat(extractedAnime?.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"))
             }
         }
     }
