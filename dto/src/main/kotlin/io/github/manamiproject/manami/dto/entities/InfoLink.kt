@@ -62,25 +62,29 @@ data class InfoLink private constructor (val url: URL?) {
 }
 
 
-enum class DOMAINS(val value: String) {
+private enum class DOMAINS(val value: String) {
     MAL("myanimelist.net"),
     ANIDB("anidb.net");
+}
+
+enum class NORMALIZED_ANIME_DOMAIN(val value: String) {
+    MAL("https://${DOMAINS.MAL.value}/anime/"),
+    ANIDB("http://anidb.net/a");
 }
 
 
 private object MyAnimeListNormalizer {
 
     fun normalize(url: String): String {
-        val prefix = "https://${DOMAINS.MAL.value}/anime"
         var normalizedUrl = url
 
         //remove everything after the ID and noramlize prefix if necesary
         Regex(".*?/[0-9]+").find(normalizedUrl)?.let { matchResult ->
             normalizedUrl = matchResult.value
 
-            if(!normalizedUrl.startsWith(prefix)) {
+            if(!normalizedUrl.startsWith(NORMALIZED_ANIME_DOMAIN.MAL.value)) {
                 Regex("[0-9]+").find(normalizedUrl)?.let { idMatcherResult ->
-                    normalizedUrl = "$prefix/${idMatcherResult.value}"
+                    normalizedUrl = "${NORMALIZED_ANIME_DOMAIN.MAL.value}${idMatcherResult.value.replace("/", "")}"
                 }
             }
         }

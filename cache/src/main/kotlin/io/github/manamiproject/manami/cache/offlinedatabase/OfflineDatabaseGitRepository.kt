@@ -22,7 +22,7 @@ internal class OfflineDatabaseGitRepository {
 
 
     init {
-        if (Files.exists(repo)) {
+        if (Files.exists(databaseFile)) {
             updateRepo()
         } else {
             cloneRepo()
@@ -32,8 +32,7 @@ internal class OfflineDatabaseGitRepository {
             readDatabaseFile()
             readDeadEntriesFile()
         } catch (e: IOException) {
-            // TODO Auto-generated catch block
-            e.printStackTrace()
+            log.error("Error reading database files: ", e)
         }
     }
 

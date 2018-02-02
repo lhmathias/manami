@@ -5,7 +5,6 @@ import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.dto.entities.InfoLink
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -56,7 +55,7 @@ class RelatedAnimeCacheSpec : Spek({
             }
 
             it("set of infolinks is not empty") {
-                assertThat(result).isNotEmpty
+                assertThat(result).isNotEmpty()
             }
 
             it("returns the correct entry") {

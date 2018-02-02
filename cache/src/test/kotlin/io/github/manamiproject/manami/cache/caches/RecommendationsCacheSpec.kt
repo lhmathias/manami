@@ -62,10 +62,10 @@ class RecommendationsCacheSpec : Spek({
             val result: RecommendationList = cache.get(deathNoteInfoLink)
 
             it("must not call the remote retrieval strategy, because it the entry already resides in the cache") {
-                verify(remoteRetrievalMock, never()).fetchAnime(deathNoteInfoLink)
+                verify(remoteRetrievalMock, never()).fetchRecommendations(deathNoteInfoLink)
             }
 
-            it("result != null") {
+            it("must not return null") {
                 assertThat(result).isNotNull()
             }
 

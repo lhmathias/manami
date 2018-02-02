@@ -56,7 +56,7 @@ class AnimeCacheSpec : Spek({
                 verify(remoteRetrievalMock, never()).fetchAnime(deathNoteInfoLink)
             }
 
-            it("result != null") {
+            it("must not return null") {
                 assertThat(result).isNotNull()
             }
 
