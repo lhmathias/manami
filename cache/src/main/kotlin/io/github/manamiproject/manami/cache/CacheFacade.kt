@@ -35,7 +35,8 @@ object CacheFacade : Cache {
                         entry.type,
                         "/",
                         entry.thumbnail,
-                        entry.picture
+                        entry.picture,
+                        entry.id
                 )
 
                 animeEntryCache.populate(infoLink, anime)

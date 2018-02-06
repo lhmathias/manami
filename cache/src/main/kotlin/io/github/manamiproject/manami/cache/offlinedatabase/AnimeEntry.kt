@@ -12,6 +12,6 @@ internal data class AnimeEntry(
     var episodes: Int,
     var picture: URL,
     var thumbnail: URL,
-    var sources: MutableSet<URL>,
-    var relations: MutableSet<URL>
+    var sources: Set<URL>,
+    var relations: Set<URL>
 )
