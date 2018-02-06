@@ -1,10 +1,7 @@
 package io.github.manamiproject.manami.persistence.importer.xml.parser
 
 import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.dto.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import org.xml.sax.Attributes
 import org.xml.sax.helpers.DefaultHandler
@@ -49,7 +46,7 @@ internal class MalSaxParser(private val persistence: InternalPersistence) : Defa
     override fun endElement(namespaceUri: String, localName: String, qName: String) {
 
         when (qName) {
-            "series_animedb_id" -> infoLink = InfoLink("https://myanimelist.net/anime/${strBuilder.toString().trim()}")
+            "series_animedb_id" -> infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}${strBuilder.toString().trim()}")
             "series_title" -> title = strBuilder.toString().trim()
             "series_type" -> animeType = AnimeType.findByName(strBuilder.toString().trim())
             "series_episodes" -> {
