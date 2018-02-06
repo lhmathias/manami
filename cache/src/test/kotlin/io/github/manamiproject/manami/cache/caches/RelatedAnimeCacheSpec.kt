@@ -5,6 +5,7 @@ import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -21,7 +22,7 @@ class RelatedAnimeCacheSpec : Spek({
         val remoteRetrievalMock = mock<RemoteRetrieval> {
             on {
                 fetchRelatedAnime(isA())
-            } doReturn mutableSetOf(InfoLink("https://myanimelist.net/anime/2994"))
+            } doReturn mutableSetOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))
         }
 
         val cache = RelatedAnimeCache(remoteRetrievalMock)
@@ -41,11 +42,11 @@ class RelatedAnimeCacheSpec : Spek({
         val cache = RelatedAnimeCache(remoteRetrievalMock)
 
         val deathNoteInfoLink = InfoLink("http://myanimelist.net/anime/1535")
-        val deathNoteRelatedAnime = mutableSetOf(InfoLink("https://myanimelist.net/anime/2994"))
+        val deathNoteRelatedAnime = mutableSetOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))
         cache.populate(deathNoteInfoLink, deathNoteRelatedAnime)
 
         val madeInAbyssInfoLink = InfoLink("http://myanimelist.net/anime/34599")
-        cache.populate(madeInAbyssInfoLink, mutableSetOf(InfoLink("https://myanimelist.net/anime/36862")))
+        cache.populate(madeInAbyssInfoLink, mutableSetOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}36862")))
 
         on("fetching related anime for this infolink") {
             val result: Set<InfoLink> = cache.get(deathNoteInfoLink)

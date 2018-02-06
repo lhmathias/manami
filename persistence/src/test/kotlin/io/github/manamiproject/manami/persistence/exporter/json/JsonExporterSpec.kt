@@ -1,10 +1,7 @@
 package io.github.manamiproject.manami.persistence.exporter.json
 
 import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.dto.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.xml.parser.MalSaxParserSpec
 import io.github.manamiproject.manami.persistence.inmemory.InMemoryPersistence
@@ -63,7 +60,7 @@ class JsonExporterSpec : Spek({
         context("an animelist, a filterlist and a watchlist") {
             val bokuDake = Anime(
                     "Boku dake ga Inai Machi",
-                    InfoLink("https://myanimelist.net/anime/31043"),
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}31043"),
                     12,
                     AnimeType.TV,
                     "/anime/series/boku_dake_ga_inai_machi"
@@ -73,7 +70,7 @@ class JsonExporterSpec : Spek({
 
             val rurouniKenshin = Anime(
                     "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-                    InfoLink("https://myanimelist.net/anime/44"),
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}44"),
                     4,
                     AnimeType.OVA,
                     "/anime/series/rurouni_kenshin"
@@ -83,7 +80,7 @@ class JsonExporterSpec : Spek({
 
             val deathNoteRewrite = WatchListEntry(
                     "Death Note Rewrite",
-                    InfoLink("https://myanimelist.net/anime/2994"),
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"),
                     URL("https://cdn.myanimelist.net/images/anime/13/8518t.jpg")
             )
 
@@ -91,7 +88,7 @@ class JsonExporterSpec : Spek({
 
             val gintama = FilterListEntry(
                     "Gintama",
-                    InfoLink("https://myanimelist.net/anime/918"),
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}918"),
                     URL("https://cdn.myanimelist.net/images/anime/2/10038t.jpg")
             )
 
@@ -123,7 +120,7 @@ class JsonExporterSpec : Spek({
         context("a pre-defined list") {
             val bokuDake = Anime(
                     "Boku dake ga Inai Machi",
-                    InfoLink("https://myanimelist.net/anime/31043"),
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}31043"),
                     12,
                     AnimeType.TV,
                     "/anime/series/boku_dake_ga_inai_machi"
@@ -133,7 +130,7 @@ class JsonExporterSpec : Spek({
 
             val rurouniKenshin = Anime(
                     "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-                    InfoLink("https://myanimelist.net/anime/44"),
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}44"),
                     4,
                     AnimeType.OVA,
                     "/anime/series/rurouni_kenshin"

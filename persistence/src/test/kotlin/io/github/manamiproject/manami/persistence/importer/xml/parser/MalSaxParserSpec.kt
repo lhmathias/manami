@@ -1,10 +1,7 @@
 package io.github.manamiproject.manami.persistence.importer.xml.parser
 
 import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.dto.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.xml.XmlImporter
 import io.github.manamiproject.manami.persistence.inmemory.InMemoryPersistence
@@ -55,7 +52,7 @@ class MalSaxParserSpec : Spek({
                 val deathNote: Anime = fetchAnimeList[0]
                 assertThat(deathNote).isNotNull()
                 assertThat(deathNote.episodes).isEqualTo(37)
-                assertThat(deathNote.infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/1535"))
+                assertThat(deathNote.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
                 assertThat(deathNote.location).isEqualTo("/")
                 assertThat(deathNote.title).isEqualTo("Death Note")
                 assertThat(deathNote.type).isEqualTo(AnimeType.TV)
@@ -63,7 +60,7 @@ class MalSaxParserSpec : Spek({
                 val rurouniKenshin: Anime = fetchAnimeList[1]
                 assertThat(rurouniKenshin).isNotNull()
                 assertThat(rurouniKenshin.episodes).isEqualTo(94)
-                assertThat(rurouniKenshin.infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/45"))
+                assertThat(rurouniKenshin.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}45"))
                 assertThat(rurouniKenshin.location).isEqualTo("/")
                 assertThat(rurouniKenshin.title).isEqualTo("Rurouni Kenshin: Meiji Kenkaku Romantan")
                 assertThat(rurouniKenshin.type).isEqualTo(AnimeType.TV)
@@ -77,13 +74,13 @@ class MalSaxParserSpec : Spek({
 
                 val matanteiLokiRagnarok: FilterListEntry = fetchFilterList[0]
                 assertThat(matanteiLokiRagnarok).isNotNull()
-                assertThat(matanteiLokiRagnarok.infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/335"))
+                assertThat(matanteiLokiRagnarok.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}335"))
                 assertThat(matanteiLokiRagnarok.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/qm_50.gif"))
                 assertThat(matanteiLokiRagnarok.title).isEqualTo("Matantei Loki Ragnarok")
 
                 val saiunkokuMonogatari: FilterListEntry = fetchFilterList[1]
                 assertThat(saiunkokuMonogatari).isNotNull()
-                assertThat(saiunkokuMonogatari.infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/957"))
+                assertThat(saiunkokuMonogatari.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}957"))
                 assertThat(saiunkokuMonogatari.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/qm_50.gif"))
                 assertThat(saiunkokuMonogatari.title).isEqualTo("Saiunkoku Monogatari")
             }
@@ -96,13 +93,13 @@ class MalSaxParserSpec : Spek({
 
                 val akatsukiNoYona: WatchListEntry = fetchWatchList[0]
                 assertThat(akatsukiNoYona).isNotNull()
-                assertThat(akatsukiNoYona.infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/25013"))
+                assertThat(akatsukiNoYona.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}25013"))
                 assertThat(akatsukiNoYona.title).isEqualTo("Akatsuki no Yona")
                 assertThat(akatsukiNoYona.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/qm_50.gif"))
 
                 val aldnoahZero: WatchListEntry = fetchWatchList[1]
                 assertThat(aldnoahZero).isNotNull()
-                assertThat(aldnoahZero.infoLink).isEqualTo(InfoLink("https://myanimelist.net/anime/27655"))
+                assertThat(aldnoahZero.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}27655"))
                 assertThat(aldnoahZero.title).isEqualTo("Aldnoah.Zero 2nd Season")
                 assertThat(aldnoahZero.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/qm_50.gif"))
             }

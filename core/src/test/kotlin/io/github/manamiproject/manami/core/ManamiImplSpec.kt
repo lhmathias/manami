@@ -63,7 +63,7 @@ class ManamiImplSpec : Spek({
         }
 
         on("checking if entry exists in filterlist") {
-            val entry = InfoLink("https://myanimelist.net/anime/1535")
+            val entry = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             manami.filterListEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -80,7 +80,7 @@ class ManamiImplSpec : Spek({
         }
 
         on("checking if entry exists in animelist") {
-            val entry = InfoLink("https://myanimelist.net/anime/1535")
+            val entry = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             manami.animeEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -97,7 +97,7 @@ class ManamiImplSpec : Spek({
         }
 
         on("checking if entry exists in watchlist") {
-            val entry = InfoLink("https://myanimelist.net/anime/1535")
+            val entry = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             manami.animeEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -108,7 +108,7 @@ class ManamiImplSpec : Spek({
         on("calling updateOrCreate") {
             val entry = WatchListEntry(
                     "Death Note",
-                    InfoLink("https://myanimelist.net/anime/1535")
+                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             )
             manami.updateOrCreate(entry)
 

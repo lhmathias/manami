@@ -2,10 +2,7 @@ package io.github.manamiproject.manami.cache.caches
 
 import com.nhaarman.mockito_kotlin.*
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.Recommendation
-import io.github.manamiproject.manami.dto.entities.RecommendationList
+import io.github.manamiproject.manami.dto.entities.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -21,9 +18,9 @@ class RecommendationsCacheSpec : Spek({
             on {
                 fetchRecommendations(isA())
             } doReturn RecommendationList().apply {
-                addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/1575"), 435))
-                addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/19"), 63))
-                addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/10620"), 58))
+                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1575"), 435))
+                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}19"), 63))
+                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}10620"), 58))
             }
         }
 
@@ -45,16 +42,16 @@ class RecommendationsCacheSpec : Spek({
 
         val deathNoteInfoLink = InfoLink("http://myanimelist.net/anime/1535")
         val deathNoteRecommendations = RecommendationList().apply {
-            addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/1575"), 435))
-            addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/19"), 63))
-            addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/10620"), 58))
+            addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1575"), 435))
+            addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}19"), 63))
+            addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}10620"), 58))
         }
         cache.populate(deathNoteInfoLink, deathNoteRecommendations)
 
         val madeInAbyssInfoLink = InfoLink("http://myanimelist.net/anime/34599")
         cache.populate(madeInAbyssInfoLink, RecommendationList().apply {
-                addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/11061"), 20))
-                addRecommendation(Recommendation(InfoLink("https://myanimelist.net/anime/13125"), 14))
+                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}11061"), 20))
+                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}13125"), 14))
             }
         )
 

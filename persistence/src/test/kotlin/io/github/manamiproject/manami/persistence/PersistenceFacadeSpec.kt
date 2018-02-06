@@ -3,10 +3,7 @@ package io.github.manamiproject.manami.persistence
 import com.google.common.eventbus.Subscribe
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.dto.entities.*
 import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
 import io.github.manamiproject.manami.persistence.events.FilterListChangedEvent
 import io.github.manamiproject.manami.persistence.events.WatchListChangedEvent
@@ -954,7 +951,7 @@ class PersistenceFacadeSpec : Spek({
         }
 
         on("changing it's infolink using the instance from fetching the list") {
-            val newInfoLink = InfoLink("https://myanimelist.net/anime/123456789")
+            val newInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}123456789")
             val entry = persistenceFacade.fetchAnimeList()[0].apply { this.infoLink = newInfoLink }
             persistenceFacade.updateOrCreate(entry)
 
@@ -1016,14 +1013,14 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.filterAnime(
                     FilterListEntry(
                             "Gintama.",
-                            InfoLink("https://myanimelist.net/anime/34096")
+                            InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}34096")
                     )
             )
 
             persistenceFacade.watchAnime(
                     WatchListEntry(
                             "Kimi no Na wa.",
-                            InfoLink("https://myanimelist.net/anime/32281")
+                            InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}32281")
                     )
             )
 
