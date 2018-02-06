@@ -40,7 +40,10 @@
     <dependency>
       <groupId>net.sourceforge.nekohtml</groupId>
       <artifactId>nekohtml</artifactId>
-      <version>1.9.22</version>
+    </dependency>
+    <dependency>
+      <groupId>khttp</groupId>
+      <artifactId>khttp</artifactId>
     </dependency>
   </dependencies>
 </project>
