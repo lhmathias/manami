@@ -46,9 +46,11 @@ class XmlExporterSpec : Spek({
         }
 
         afterEachTest {
-            Files.walk(tempFolder)
-                    .sorted(Comparator.reverseOrder())
-                    .forEach(Files::delete)
+            if(Files.exists(tempFolder)) {
+                Files.walk(tempFolder)
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(Files::delete)
+            }
         }
 
         context("an animelist, a filterlist and a watchlist") {

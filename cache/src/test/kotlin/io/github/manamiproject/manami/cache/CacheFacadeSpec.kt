@@ -25,9 +25,11 @@ class CacheFacadeSpec : Spek({
     afterEachTest {
         val databaseFolder: Path = Paths.get("database")
 
-        Files.walk(databaseFolder)
-                .sorted(Comparator.reverseOrder())
-                .map(Files::deleteIfExists)
+        if(Files.exists(databaseFolder)) {
+            Files.walk(databaseFolder)
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(Files::delete)
+        }
     }
 
     given("no offline database and a valid MAL infolink") {

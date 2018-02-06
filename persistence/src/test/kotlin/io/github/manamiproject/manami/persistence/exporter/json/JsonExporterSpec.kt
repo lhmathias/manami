@@ -48,9 +48,11 @@ class JsonExporterSpec : Spek({
 
 
     afterEachTest {
-        Files.walk(tempFolder)
-                .sorted(Comparator.reverseOrder())
-                .forEach(Files::delete)
+        if(Files.exists(tempFolder)) {
+            Files.walk(tempFolder)
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(Files::delete)
+        }
     }
 
 
