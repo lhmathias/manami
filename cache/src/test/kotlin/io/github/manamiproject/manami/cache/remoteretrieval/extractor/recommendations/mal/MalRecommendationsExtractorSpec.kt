@@ -22,7 +22,7 @@ class MalRecommendationsExtractorSpec : Spek({
 
     given("raw html with recommendations") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("mal/mal_recommendations.html").toURI())
+        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_recommendations.html").toURI())
         Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
 
         on("extracting recommendations") {
@@ -81,7 +81,7 @@ class MalRecommendationsExtractorSpec : Spek({
 
     given("raw html of an entry without recommendations") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("mal/mal_no_recommendations.html").toURI())
+        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_recommendations.html").toURI())
         Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
 
         on("extracting recommendations") {
@@ -89,6 +89,32 @@ class MalRecommendationsExtractorSpec : Spek({
 
             it("must return an empty list") {
                 assertThat(recommendationList).isEmpty()
+            }
+        }
+    }
+
+
+    given("a valid MAL infolink") {
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+
+        on("checking responsibility") {
+            val result: Boolean = malRecommendationsExtractor.isResponsible(infoLink)
+
+            it("must return true") {
+                assertThat(result).isTrue()
+            }
+        }
+    }
+
+
+    given("a valid ANIDB infolink") {
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}4563")
+
+        on("checking responsibility") {
+            val result: Boolean = malRecommendationsExtractor.isResponsible(infoLink)
+
+            it("must return true") {
+                assertThat(result).isFalse()
             }
         }
     }

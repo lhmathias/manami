@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.dto.comparator
 
-import io.github.manamiproject.manami.dto.comparator.MinimalEntryCompByTitleAsc
 import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.dto.entities.WatchListEntry
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
@@ -19,13 +19,13 @@ class MinimalEntryCompByTitleAscSpec : Spek({
 
     given("two different and valid watch list entries") {
         val gintama = WatchListEntry("Gintama",
-                InfoLink("http://myanimelist.net/anime/28977"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg")
         )
 
         val steinsGate = WatchListEntry(
                 "Steins;Gate",
-                InfoLink("http://myanimelist.net/anime/9253"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
         )
 
@@ -61,12 +61,12 @@ class MinimalEntryCompByTitleAscSpec : Spek({
     given("a valid watch list entry and a watch list entry with blank title") {
         val steinsGate = WatchListEntry(
                 "Steins;Gate",
-                InfoLink("http://myanimelist.net/anime/9253"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
         )
 
         val emptyTitle = WatchListEntry("",
-                InfoLink("http://myanimelist.net/anime/33352"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}33352"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/11/89398t.jpg")
         )
 

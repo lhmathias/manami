@@ -20,7 +20,7 @@ class FilterListEntrySpec : Spek({
     given("a valid anime") {
         val anime = Anime(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 37,
                 AnimeType.TV,
                 "/anime/series/death_note",
@@ -44,7 +44,7 @@ class FilterListEntrySpec : Spek({
     given("a valid watch list entry") {
         val watchListEntry = WatchListEntry(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 

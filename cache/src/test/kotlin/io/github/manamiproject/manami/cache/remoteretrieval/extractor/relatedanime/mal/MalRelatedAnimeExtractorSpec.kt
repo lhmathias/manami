@@ -22,7 +22,7 @@ class MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html with related anime") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("mal/mal_related_anime.html").toURI())
+        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_related_anime.html").toURI())
         Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
 
         on("extracting related anime") {
@@ -46,9 +46,10 @@ class MalRelatedAnimeExtractorSpec : Spek({
         }
     }
 
+
     given("raw html without any relations") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("mal/mal_no_relations.html").toURI())
+        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_relations.html").toURI())
         Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
 
         on("extracting related anime") {
@@ -60,9 +61,10 @@ class MalRelatedAnimeExtractorSpec : Spek({
         }
     }
 
+
     given("raw html without any related anime, but one adaption entry") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("mal/mal_no_related_anime_but_one_adaption.html").toURI())
+        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_related_anime_but_one_adaption.html").toURI())
         Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
 
         on("extracting related anime") {
@@ -70,6 +72,32 @@ class MalRelatedAnimeExtractorSpec : Spek({
 
             it("must return an empty list") {
                 assertThat(relatedAnime).isEmpty()
+            }
+        }
+    }
+
+
+    given("a valid MAL infolink") {
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+
+        on("checking responsibility") {
+            val result: Boolean = malRelatedAnimeExtractor.isResponsible(infoLink)
+
+            it("must return true") {
+                assertThat(result).isTrue()
+            }
+        }
+    }
+
+
+    given("a valid ANIDB infolink") {
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}4563")
+
+        on("checking responsibility") {
+            val result: Boolean = malRelatedAnimeExtractor.isResponsible(infoLink)
+
+            it("must return true") {
+                assertThat(result).isFalse()
             }
         }
     }

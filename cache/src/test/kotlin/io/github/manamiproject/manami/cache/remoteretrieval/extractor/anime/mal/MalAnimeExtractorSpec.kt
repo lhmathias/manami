@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal
 import io.github.manamiproject.manami.dto.AnimeType
 import io.github.manamiproject.manami.dto.entities.Anime
 import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -24,7 +25,7 @@ class MalAnimeExtractorSpec : Spek({
 
     given("raw html from mal") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("mal/mal_anime_data.html").toURI())
+        val htmlFile: Path = Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_anime_data.html").toURI())
         Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
 
         on("extracting information") {
@@ -39,7 +40,7 @@ class MalAnimeExtractorSpec : Spek({
             }
 
             it("must contain the correct infolink") {
-                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("http://myanimelist.net/anime/1535"))
+                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
             }
 
             it("must extract the correct type") {
@@ -56,6 +57,30 @@ class MalAnimeExtractorSpec : Spek({
 
             it("must extract the correct thumbnail") {
                 assertThat(extractedAnime?.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"))
+            }
+        }
+    }
+
+    given("a valid MAL infolink") {
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+
+        on("checking responsibility") {
+            val result: Boolean = malAnimeExtractor.isResponsible(infoLink)
+
+            it("must return true") {
+                assertThat(result).isTrue()
+            }
+        }
+    }
+
+    given("a valid ANIDB infolink") {
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}4563")
+
+        on("checking responsibility") {
+            val result: Boolean = malAnimeExtractor.isResponsible(infoLink)
+
+            it("must return true") {
+                assertThat(result).isFalse()
             }
         }
     }

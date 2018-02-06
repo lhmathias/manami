@@ -1,8 +1,6 @@
 package io.github.manamiproject.manami.cache.caches
 
-import com.nhaarman.mockito_kotlin.doReturn
-import com.nhaarman.mockito_kotlin.isA
-import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.*
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.dto.entities.InfoLink
 import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
@@ -13,7 +11,7 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito
+import org.mockito.Mockito.mock
 
 @RunWith(JUnitPlatform::class)
 class RelatedAnimeCacheSpec : Spek({
@@ -28,31 +26,31 @@ class RelatedAnimeCacheSpec : Spek({
         val cache = RelatedAnimeCache(remoteRetrievalMock)
 
         on("fetching related anime for this infolink") {
-            val infoLink = InfoLink("http://myanimelist.net/anime/1535")
+            val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             cache.get(infoLink)
 
             it("must call the remote retrieval strategy to fetch the entry, because it does not exist in the cache") {
-                Mockito.verify(remoteRetrievalMock, Mockito.times(1)).fetchRelatedAnime(infoLink)
+                verify(remoteRetrievalMock, times(1)).fetchRelatedAnime(infoLink)
             }
         }
     }
 
     given("a cache populated with two entries") {
-        val remoteRetrievalMock = Mockito.mock(RemoteRetrieval::class.java)
+        val remoteRetrievalMock = mock(RemoteRetrieval::class.java)
         val cache = RelatedAnimeCache(remoteRetrievalMock)
 
-        val deathNoteInfoLink = InfoLink("http://myanimelist.net/anime/1535")
+        val deathNoteInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         val deathNoteRelatedAnime = mutableSetOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))
         cache.populate(deathNoteInfoLink, deathNoteRelatedAnime)
 
-        val madeInAbyssInfoLink = InfoLink("http://myanimelist.net/anime/34599")
+        val madeInAbyssInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}34599")
         cache.populate(madeInAbyssInfoLink, mutableSetOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}36862")))
 
         on("fetching related anime for this infolink") {
             val result: Set<InfoLink> = cache.get(deathNoteInfoLink)
 
             it("must not call the remote retrieval strategy, because it the entry already resides in the cache") {
-                Mockito.verify(remoteRetrievalMock, Mockito.never()).fetchAnime(deathNoteInfoLink)
+                verify(remoteRetrievalMock, never()).fetchAnime(deathNoteInfoLink)
             }
 
             it("set of infolinks is not empty") {

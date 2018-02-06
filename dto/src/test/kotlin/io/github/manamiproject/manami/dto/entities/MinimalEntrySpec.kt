@@ -20,7 +20,7 @@ class MinimalEntrySpec : Spek({
     given("a valid FilterListEntry") {
         val filterListEntry = FilterListEntry(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 
@@ -38,7 +38,7 @@ class MinimalEntrySpec : Spek({
     given("a FilterListEntry without title") {
         val filterListEntry = FilterListEntry(
                 "",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 
@@ -56,7 +56,7 @@ class MinimalEntrySpec : Spek({
     given("a FilterListEntry with a blank title") {
         val filterListEntry = FilterListEntry(
                 "   ",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 
@@ -91,7 +91,7 @@ class MinimalEntrySpec : Spek({
 
     given("a valid WatchListEntry") {
         val watchListEntry = WatchListEntry("Death Note",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 
@@ -127,7 +127,7 @@ class MinimalEntrySpec : Spek({
     given("a WatchListEntry without title") {
         val watchListEntry = WatchListEntry(
                 "",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 
@@ -145,7 +145,7 @@ class MinimalEntrySpec : Spek({
     given("a WatchListEntry with a blank title") {
         val watchListEntry = WatchListEntry(
                 "   ",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 
@@ -163,7 +163,7 @@ class MinimalEntrySpec : Spek({
     given("a valid Anime") {
         val anime = Anime(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 37,
                 AnimeType.TV,
                 "/death_note",
@@ -185,7 +185,7 @@ class MinimalEntrySpec : Spek({
     given("an Anime without title") {
         val anime = Anime(
                 "",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         on("checking if the Anime is a valid MinimalEntry") {
@@ -202,7 +202,7 @@ class MinimalEntrySpec : Spek({
     given("an Anime with a blank title") {
         val anime = Anime(
                 "   ",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         on("checking if the Anime is a valid MinimalEntry") {

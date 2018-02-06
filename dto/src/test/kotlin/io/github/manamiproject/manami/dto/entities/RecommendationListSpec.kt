@@ -36,7 +36,7 @@ class RecommendationListSpec : Spek({
         }
 
         on("adding a new recommendation") {
-            val infoLink = InfoLink("http://myanimelist.net/anime/1535")
+            val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             val recommendation = Recommendation(infoLink, 103)
 
             recommendationList.addRecommendation(recommendation)
@@ -61,7 +61,7 @@ class RecommendationListSpec : Spek({
         on("checking if the list contains a Recommendation") {
             val result = recommendationList.contains(
                     Recommendation(
-                            InfoLink("http://myanimelist.net/anime/1535"),
+                            InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                             231
                     )
             )
@@ -81,7 +81,7 @@ class RecommendationListSpec : Spek({
     }
 
     given("a recommendation list containing one recommendation") {
-        val infoLinkUrl = "http://myanimelist.net/anime/1535"
+        val infoLinkUrl = "${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"
         val initialValue = 5
         var recommendationList = RecommendationList()
 
@@ -152,7 +152,7 @@ class RecommendationListSpec : Spek({
                                     initialValue
                             ),
                             Recommendation(
-                                    InfoLink("http://myanimelist.net/anime/35180"),
+                                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}35180"),
                                     5
                             )
                     )

@@ -59,7 +59,7 @@ class PersistenceFacadeSpec : Spek({
     given("a FilterListEntry without a title and an empty list") {
         val entry = FilterListEntry(
                 "",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         on("filtering that entry") {
@@ -169,7 +169,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a FilterListEntry without a thumbnail and an empty list") {
-        val infoLink = "http://myanimelist.net/anime/1535"
+        val infoLink = "${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"
         val entry = FilterListEntry(
                 "Death Note",
                 InfoLink(infoLink)
@@ -218,7 +218,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a valid FilterListEntry and an empty list") {
-        val infoLink = "http://myanimelist.net/anime/1535"
+        val infoLink = "${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"
         val entry = FilterListEntry(
                 "Death Note",
                 InfoLink(infoLink),
@@ -270,7 +270,7 @@ class PersistenceFacadeSpec : Spek({
     given("one filter entry in the filter list") {
         val anime = FilterListEntry(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         beforeEachTest {
@@ -340,7 +340,7 @@ class PersistenceFacadeSpec : Spek({
     given("a WatchListEntry without a title and an empty list") {
         val entry = WatchListEntry(
                 "",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         on("adding that entry to the watchlist") {
@@ -450,7 +450,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a WatchListEntry without a thumbnail and an empty list") {
-        val infoLink = "http://myanimelist.net/anime/1535"
+        val infoLink = "${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"
         val entry = WatchListEntry(
                 "Death Note",
                 InfoLink(infoLink)
@@ -499,7 +499,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a valid WatchListEntry and an empty list") {
-        val infoLink = "http://myanimelist.net/anime/1535"
+        val infoLink = "${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"
         val entry = WatchListEntry(
                 "Death Note",
                 InfoLink(infoLink),
@@ -551,7 +551,7 @@ class PersistenceFacadeSpec : Spek({
     given("one filter entry in the watchlist") {
         val anime = WatchListEntry(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         beforeEachTest {
@@ -621,7 +621,7 @@ class PersistenceFacadeSpec : Spek({
     given("an anime without a title and an empty list") {
         val entry = Anime(
                 "",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         on("adding that entry") {
@@ -713,7 +713,7 @@ class PersistenceFacadeSpec : Spek({
     given("a valid minimal anime and an empty list") {
         val entry = Anime(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         on("adding that entry") {
@@ -769,7 +769,7 @@ class PersistenceFacadeSpec : Spek({
     given("a valid anime and an empty list") {
         val entry = Anime(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535"),
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                 37,
                 AnimeType.TV,
                 "/death_note",
@@ -822,7 +822,7 @@ class PersistenceFacadeSpec : Spek({
     given("one anime entry in the list") {
         val anime = Anime(
                 "Death Note",
-                InfoLink("http://myanimelist.net/anime/1535")
+                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         )
 
         beforeEachTest {
@@ -862,7 +862,7 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.updateOrCreate(
                     Anime(
                             "Death Note",
-                            InfoLink("http://myanimelist.net/anime/1535"),
+                            InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
                             37,
                             AnimeType.TV,
                             "/death_note",
@@ -1006,7 +1006,7 @@ class PersistenceFacadeSpec : Spek({
             persistenceFacade.addAnime(
                     Anime(
                             "Death Note",
-                            InfoLink("http://myanimelist.net/anime/1535")
+                            InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                     )
             )
 
@@ -1220,15 +1220,15 @@ class PersistenceFacadeSpec : Spek({
         val list: MutableList<FilterListEntry> = mutableListOf(
                 FilterListEntry(
                         "Death Note",
-                        InfoLink("http://myanimelist.net/anime/1535")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                 ),
                 FilterListEntry(
                         "Gintama",
-                        InfoLink("http://myanimelist.net/anime/28977")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977")
                 ),
                 FilterListEntry(
                         "Steins;Gate",
-                        InfoLink("http://myanimelist.net/anime/9253")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253")
                 )
         )
 
@@ -1252,11 +1252,11 @@ class PersistenceFacadeSpec : Spek({
         val list: MutableList<FilterListEntry> = mutableListOf(
                 FilterListEntry(
                         "",
-                        InfoLink("http://myanimelist.net/anime/1535")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                 ),
                 FilterListEntry(
                         "Gintama",
-                        InfoLink("http://myanimelist.net/anime/28977")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977")
                 ),
                 FilterListEntry(
                         "Steins;Gate",
@@ -1284,15 +1284,15 @@ class PersistenceFacadeSpec : Spek({
         val list: MutableList<WatchListEntry> = mutableListOf(
                 WatchListEntry(
                         "Death Note",
-                        InfoLink("http://myanimelist.net/anime/1535")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                 ),
                 WatchListEntry(
                         "Gintama",
-                        InfoLink("http://myanimelist.net/anime/28977")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977")
                 ),
                 WatchListEntry(
                         "Steins;Gate",
-                        InfoLink("http://myanimelist.net/anime/9253")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253")
                 )
         )
 
@@ -1316,11 +1316,11 @@ class PersistenceFacadeSpec : Spek({
         val list: MutableList<WatchListEntry> = mutableListOf(
                 WatchListEntry(
                         "",
-                        InfoLink("http://myanimelist.net/anime/1535")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                 ),
                 WatchListEntry(
                         "Gintama",
-                        InfoLink("http://myanimelist.net/anime/28977")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977")
                 ),
                 WatchListEntry(
                         "Steins;Gate",
@@ -1348,15 +1348,15 @@ class PersistenceFacadeSpec : Spek({
         val list: MutableList<Anime> = mutableListOf(
                 Anime(
                         "Death Note",
-                        InfoLink("http://myanimelist.net/anime/1535")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                 ),
                 Anime(
                         "Gintama",
-                        InfoLink("http://myanimelist.net/anime/28977")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977")
                 ),
                 Anime(
                         "Steins;Gate",
-                        InfoLink("http://myanimelist.net/anime/9253")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253")
                 )
         )
 
@@ -1380,15 +1380,15 @@ class PersistenceFacadeSpec : Spek({
         val list: MutableList<Anime> = mutableListOf(
                 Anime(
                         "",
-                        InfoLink("http://myanimelist.net/anime/1535")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
                 ),
                 Anime(
                         "Gintama",
-                        InfoLink("http://myanimelist.net/anime/28977")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977")
                 ),
                 Anime(
                         "Steins;Gate",
-                        InfoLink("http://myanimelist.net/anime/9253")
+                        InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253")
                 ).apply { location = "" }
         )
 

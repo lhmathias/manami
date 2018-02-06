@@ -27,11 +27,11 @@ class RecommendationsCacheSpec : Spek({
         val cache = RecommendationsCache(remoteRetrievalMock)
 
         on("fetching an anime from this infolink") {
-            val infoLink = InfoLink("http://myanimelist.net/anime/1535")
+            val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             cache.get(infoLink)
 
             it("must call the remote retrieval strategy to fetch the entry, because it does not exist in the cache") {
-                Mockito.verify(remoteRetrievalMock, Mockito.times(1)).fetchRecommendations(infoLink)
+                verify(remoteRetrievalMock, times(1)).fetchRecommendations(infoLink)
             }
         }
     }
@@ -40,7 +40,7 @@ class RecommendationsCacheSpec : Spek({
         val remoteRetrievalMock = mock(RemoteRetrieval::class.java)
         val cache = RecommendationsCache(remoteRetrievalMock)
 
-        val deathNoteInfoLink = InfoLink("http://myanimelist.net/anime/1535")
+        val deathNoteInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         val deathNoteRecommendations = RecommendationList().apply {
             addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1575"), 435))
             addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}19"), 63))
@@ -48,7 +48,7 @@ class RecommendationsCacheSpec : Spek({
         }
         cache.populate(deathNoteInfoLink, deathNoteRecommendations)
 
-        val madeInAbyssInfoLink = InfoLink("http://myanimelist.net/anime/34599")
+        val madeInAbyssInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}34599")
         cache.populate(madeInAbyssInfoLink, RecommendationList().apply {
                 addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}11061"), 20))
                 addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}13125"), 14))
