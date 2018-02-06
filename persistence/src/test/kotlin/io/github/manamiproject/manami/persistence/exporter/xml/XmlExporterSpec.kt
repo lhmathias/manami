@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.Comparator
 
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.xml"
 private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.xml"
@@ -48,10 +49,9 @@ class XmlExporterSpec : Spek({
         }
 
         afterEachTest {
-            if (Files.isDirectory(tempFolder)) {
-                Files.list(tempFolder).forEach(Files::delete)
-                Files.delete(tempFolder)
-            }
+            Files.walk(tempFolder)
+                    .sorted(Comparator.reverseOrder())
+                    .forEach(Files::delete)
         }
 
         context("an animelist, a filterlist and a watchlist") {
