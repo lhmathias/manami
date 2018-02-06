@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache
 import io.github.manamiproject.manami.dto.AnimeType
 import io.github.manamiproject.manami.dto.entities.Anime
 import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -11,7 +12,6 @@ import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Tag
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -27,11 +27,11 @@ class CacheFacadeSpec : Spek({
 
         Files.walk(databaseFolder)
                 .sorted(Comparator.reverseOrder())
-                .forEach(Files::delete)
+                .map(Files::deleteIfExists)
     }
 
     given("no offline database and a valid MAL infolink") {
-        val infoLink = InfoLink("https://myanimelist.net/anime/1535")
+        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
 
         on("fetching the anime via cache") {
             val result: Anime? = CacheFacade.fetchAnime(infoLink)
@@ -62,6 +62,22 @@ class CacheFacadeSpec : Spek({
 
             it("must return the correct id") {
                 assertThat(result?.id).isEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
+            }
+        }
+
+        on("fetching the related anime via cache") {
+            val result: Set<InfoLink> = CacheFacade.fetchRelatedAnime(infoLink)
+
+            it("must not be empty") {
+                assertThat(result).isNotEmpty()
+            }
+
+            it("must contain one entry") {
+                assertThat(result).hasSize(1)
+            }
+
+            it("must contain the correct related anime") {
+                assertThat(result.contains(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))).isTrue()
             }
         }
     }
