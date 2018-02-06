@@ -28,4 +28,8 @@ internal abstract class AbstractAnimeDataCache<KEY, VALUE> (
     override fun populate(key: KEY, value: VALUE) {
         cache.put(key, Optional.ofNullable(value))
     }
+
+    override fun invalidate() {
+        cache.invalidateAll()
+    }
 }

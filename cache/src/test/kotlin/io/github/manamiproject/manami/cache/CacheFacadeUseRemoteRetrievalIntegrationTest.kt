@@ -17,48 +17,22 @@ import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 
-
 @RunWith(JUnitPlatform::class)
 @Tag("integrationTest")
-class CacheFacadeNoOfflineDatabaseSpec : Spek({
+class CacheFacadeUseRemoteRetrievalIntegrationTest : Spek({
 
     beforeEachTest {
         removeOfflineDatabase()
     }
 
+
     afterEachTest {
         removeOfflineDatabase()
     }
 
-    given("an invalid infolink") {
-        val infoLink = InfoLink("abcdefgh")
 
-        on("fetching an anime from cache using this infolink") {
-            val result = CacheFacade.fetchAnime(infoLink)
-
-            it("must be null") {
-                assertThat(result).isNull()
-            }
-        }
-
-        on("fetching related anime from cache using this infolink") {
-            val result = CacheFacade.fetchRelatedAnime(infoLink)
-
-            it("must be null") {
-                assertThat(result).isEmpty()
-            }
-        }
-
-        on("fetching recommendations from cache using this infolink") {
-            val result = CacheFacade.fetchRecommendations(infoLink)
-
-            it("must be empty") {
-                assertThat(result).isEmpty()
-            }
-        }
-    }
-
-    given("no offline database to enforce cloning of the git repo and a valid MAL infolink") {
+    given("an invalidated cache and a valid MAL infolink") {
+        CacheFacade.invalidate()
         val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
 
         on("fetching the anime via cache") {
@@ -88,8 +62,8 @@ class CacheFacadeNoOfflineDatabaseSpec : Spek({
                 assertThat(result?.location).isEqualTo("/")
             }
 
-            it("must return the correct id") {
-                assertThat(result?.id).isEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
+            it("must return a newly generated id") {
+                assertThat(result?.id).isNotEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
             }
         }
 
@@ -110,7 +84,8 @@ class CacheFacadeNoOfflineDatabaseSpec : Spek({
         }
     }
 
-    given("no offline database to enforce cloning of the git repo and a valid ANIDB infolink") {
+
+    given("an invalidated cache and a valid ANIDB infolink") {
         val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}4563")
 
         on("fetching the anime via cache") {
@@ -140,8 +115,8 @@ class CacheFacadeNoOfflineDatabaseSpec : Spek({
                 assertThat(result?.location).isEqualTo("/")
             }
 
-            it("must return the correct id") {
-                assertThat(result?.id).isEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
+            it("must return a newly generated id") {
+                assertThat(result?.id).isNotEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
             }
         }
 
@@ -165,15 +140,16 @@ class CacheFacadeNoOfflineDatabaseSpec : Spek({
             }
         }
     }
-})
+}) {
+    companion object {
+        fun removeOfflineDatabase() {
+            val databaseFolder: Path = Paths.get("database")
 
-
-fun removeOfflineDatabase() {
-    val databaseFolder: Path = Paths.get("database")
-
-    if(Files.exists(databaseFolder)) {
-        Files.walk(databaseFolder)
-                .sorted(Comparator.reverseOrder())
-                .forEach(Files::delete)
+            if(Files.exists(databaseFolder)) {
+                Files.walk(databaseFolder)
+                        .sorted(Comparator.reverseOrder())
+                        .forEach(Files::delete)
+            }
+        }
     }
 }

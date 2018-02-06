@@ -10,12 +10,17 @@ import io.github.manamiproject.manami.cache.caches.AnimeCache
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractors
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal.MalAnimeExtractor
+import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.mal.MalRecommendationsExtractor
+import io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.mal.MalRelatedAnimeExtractor
 
 
 object CacheFacade : Cache {
+
     private val remoteRetrieval = RemoteRetrieval(
         Extractors(
-            MalAnimeExtractor()
+            MalAnimeExtractor(),
+            MalRelatedAnimeExtractor(),
+            MalRecommendationsExtractor()
         )
     )
     private val animeEntryCache: AnimeCache = AnimeCache(remoteRetrieval)
@@ -78,5 +83,11 @@ object CacheFacade : Cache {
         }
 
         return recommendationsCache.get(infoLink)
+    }
+
+    override fun invalidate() {
+        animeEntryCache.invalidate()
+        relatedAnimeCache.invalidate()
+        recommendationsCache.invalidate()
     }
 }
