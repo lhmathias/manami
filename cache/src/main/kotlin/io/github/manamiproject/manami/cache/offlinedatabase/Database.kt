@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.dto.entities.InfoLink
 
 internal class Database(
         val animeMetaData: MutableSet<AnimeEntry> = mutableSetOf(),
-        val deadEntries: Set<InfoLink>  = mutableSetOf()
+        val deadEntries: MutableSet<InfoLink>  = mutableSetOf()
 ) {
 
     fun addAnimeEntry(anime: AnimeEntry) {
@@ -12,6 +12,6 @@ internal class Database(
     }
 
     fun addDeadEntry(infoLink: InfoLink) {
-        deadEntries.plus(infoLink)
+        deadEntries.add(infoLink)
     }
 }

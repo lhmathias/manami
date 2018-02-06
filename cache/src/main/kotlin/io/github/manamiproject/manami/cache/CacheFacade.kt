@@ -26,7 +26,7 @@ object CacheFacade : Cache {
     init {
         offlineDatabaseGitRepository.database.animeMetaData.forEach { entry ->
             entry.sources.forEach { infoLinkUrl ->
-                val infoLink = InfoLink(infoLinkUrl.toString())
+                val infoLink = InfoLink(infoLinkUrl)
 
                 val anime = Anime(
                         entry.title,
@@ -42,16 +42,16 @@ object CacheFacade : Cache {
 
                 val relatedAnime: MutableSet<InfoLink> = mutableSetOf()
 
-                entry.relations
-                        .filter { url -> url.host == infoLink.url?.host }
-                        .forEach { relation -> relatedAnime.add(InfoLink(relation.toString())) }
+                entry?.relations
+                        ?.filter { url -> url.host == infoLink.url?.host }
+                        ?.forEach { relation -> relatedAnime.add(InfoLink(relation)) }
 
                 relatedAnimeCache.populate(infoLink, relatedAnime)
             }
+        }
 
-            offlineDatabaseGitRepository.database.deadEntries.forEach { infoLink ->
-                animeEntryCache.populate(infoLink, null)
-            }
+        offlineDatabaseGitRepository.database.deadEntries.forEach { infoLink ->
+            animeEntryCache.populate(infoLink, null)
         }
     }
 

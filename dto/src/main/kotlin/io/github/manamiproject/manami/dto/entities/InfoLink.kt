@@ -42,6 +42,10 @@ data class InfoLink private constructor (val url: URL?) {
             return InfoLink(createUrl(url.trim()))
         }
 
+        operator fun invoke(url: URL): InfoLink {
+            return InfoLink(url)
+        }
+
         private fun createUrl(url: String): URL? {
             val normalizedUrl: String = normalizeUrl(url)
 

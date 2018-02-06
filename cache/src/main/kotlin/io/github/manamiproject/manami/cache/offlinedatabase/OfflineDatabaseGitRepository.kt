@@ -1,8 +1,11 @@
 package io.github.manamiproject.manami.cache.offlinedatabase
 
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.dto.AnimeType
 import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.slf4j.Logger
@@ -14,15 +17,18 @@ import java.nio.file.Paths
 internal class OfflineDatabaseGitRepository {
 
     private val log: Logger by LoggerDelegate()
-    private val repo: Path = Paths.get("..").resolve("..").resolve("database")
-    private val databaseFile: Path = repo.resolve("manami-offline-database.json")
-    private val deadEntriesFile: Path = repo.resolve("notFound.json")
+    private val repo: Path = Paths.get("database")
+    private val databaseFile: Path = repo.resolve("anime-offline-database.json")
+    private val deadEntriesFile: Path = repo.resolve("not-found.json")
+    private val gson: Gson = GsonBuilder().apply {
+        registerTypeAdapter(AnimeType::class.java, AnimeTypeDeserializer())
+    }.create()
 
     val database: Database = Database()
 
 
     init {
-        if (Files.exists(databaseFile)) {
+        if (Files.exists(repo)) {
             updateRepo()
         } else {
             cloneRepo()
@@ -69,8 +75,9 @@ internal class OfflineDatabaseGitRepository {
 
     private fun readDatabaseFile() {
         if (Files.exists(databaseFile) && Files.isRegularFile(databaseFile)) {
+            log.debug("Reading database file")
             val content = String(Files.readAllBytes(databaseFile))
-            val animeMetaData: AnimeMetaData? = Gson().fromJson(content, AnimeMetaData::class.java)
+            val animeMetaData: AnimeMetaData? = gson.fromJson(content, AnimeMetaData::class.java)
 
             animeMetaData?.data?.forEach(database::addAnimeEntry)
         }
@@ -79,22 +86,17 @@ internal class OfflineDatabaseGitRepository {
 
     private fun readDeadEntriesFile() {
         if (Files.exists(deadEntriesFile) && Files.isRegularFile(deadEntriesFile)) {
+            log.debug("reading not-found file")
             val content = String(Files.readAllBytes(deadEntriesFile))
-            val deadEntries: DeadEntries? = Gson().fromJson(content, DeadEntries::class.java)
+            val deadEntries: DeadEntries? = gson.fromJson(content, DeadEntries::class.java)
 
             deadEntries?.mal?.forEach { id ->
-                createMalInfoLinkFromId(id).let { urlString -> database.addDeadEntry(urlString) }
+                database.addDeadEntry(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}$id"))
             }
 
             deadEntries?.anidb?.forEach { id ->
-                createAnidbInfoLinkFromId(id).let { urlString -> database.addDeadEntry(urlString) }
+                database.addDeadEntry(InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}$id"))
             }
         }
     }
-
-
-    private fun createMalInfoLinkFromId(id: Int) = InfoLink("http://myanimelist.net/anime/$id")
-
-
-    private fun createAnidbInfoLinkFromId(id: Int) = InfoLink("https://anidb.net/a$id")
 }
