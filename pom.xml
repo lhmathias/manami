@@ -115,11 +115,6 @@
         <version>23.0</version>
       </dependency>
       <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>4.5.3</version>
-      </dependency>
-      <dependency>
         <groupId>org.eclipse.jgit</groupId>
         <artifactId>org.eclipse.jgit</artifactId>
         <version>4.10.0.201712302008-r</version>
