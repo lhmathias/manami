@@ -2,6 +2,7 @@ package io.github.manamiproject.manami.cache.offlinedatabase
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.dto.AnimeType
 import io.github.manamiproject.manami.dto.entities.InfoLink
@@ -10,6 +11,7 @@ import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.slf4j.Logger
 import java.io.IOException
+import java.lang.Exception
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -50,6 +52,8 @@ internal class OfflineDatabaseGitRepository {
             Git.open(repo.toFile())
                     .pull()
                     .call()
+
+            EventBus.publish(OfflineDatabaseUpdatedSuccessfullyEvent)
         } catch (e: Exception) {
             log.error("Error updating offline database: ", e)
         }
