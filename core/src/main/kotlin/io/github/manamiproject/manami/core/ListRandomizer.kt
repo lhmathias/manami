@@ -1,4 +1,4 @@
-package io.github.manamiproject.manami.core.tasks
+package io.github.manamiproject.manami.core
 
 import java.security.SecureRandom
 

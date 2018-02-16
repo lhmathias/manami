@@ -13,7 +13,7 @@ import org.apache.commons.text.similarity.LevenshteinDistance
 
 private const val MAX_LEVENSHTEIN_DISTANCE = 2
 
-internal class SearchService(
+internal class SearchTask(
         private val searchString: String,
         private val persistence: Persistence
 ) : AbstractTask() {

@@ -151,7 +151,7 @@ object Manami : ApplicationPersistence {
     fun search(searchString: String) {
         if (searchString.isNotBlank()) {
             log.info("Initiated search for [{}]", searchString)
-            taskConductor.safelyStart(SearchService(searchString, persistence))
+            taskConductor.safelyStart(SearchTask(searchString, persistence))
         }
     }
 
