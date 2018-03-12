@@ -7,6 +7,7 @@ import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseGitRe
 import io.github.manamiproject.manami.cache.caches.RecommendationsCache
 import io.github.manamiproject.manami.cache.caches.RelatedAnimeCache
 import io.github.manamiproject.manami.cache.caches.AnimeCache
+import io.github.manamiproject.manami.cache.populator.CachePopulator
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractors
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal.MalAnimeExtractor
@@ -23,42 +24,13 @@ object CacheFacade : Cache {
             MalRecommendationsExtractor()
         )
     )
-    private val animeEntryCache: AnimeCache = AnimeCache(remoteRetrieval)
-    private val relatedAnimeCache: RelatedAnimeCache = RelatedAnimeCache(remoteRetrieval)
-    private val recommendationsCache: RecommendationsCache = RecommendationsCache(remoteRetrieval)
-    private val offlineDatabaseGitRepository: OfflineDatabaseGitRepository = OfflineDatabaseGitRepository()
+    private val animeEntryCache = AnimeCache(remoteRetrieval)
+    private val relatedAnimeCache = RelatedAnimeCache(remoteRetrieval)
+    private val recommendationsCache = RecommendationsCache(remoteRetrieval)
+    private val cachePopulator = CachePopulator(animeEntryCache, relatedAnimeCache, OfflineDatabaseGitRepository())
 
     init {
-        offlineDatabaseGitRepository.database.animeMetaData.forEach { entry ->
-            entry.sources.forEach { infoLinkUrl ->
-                val infoLink = InfoLink(infoLinkUrl)
-
-                val anime = Anime(
-                        entry.title,
-                        infoLink,
-                        entry.episodes,
-                        entry.type,
-                        "/",
-                        entry.thumbnail,
-                        entry.picture,
-                        entry.id
-                )
-
-                animeEntryCache.populate(infoLink, anime)
-
-                val relatedAnime: MutableSet<InfoLink> = mutableSetOf()
-
-                entry?.relations
-                        ?.filter { url -> url.host == infoLink.url?.host }
-                        ?.forEach { relation -> relatedAnime.add(InfoLink(relation)) }
-
-                relatedAnimeCache.populate(infoLink, relatedAnime)
-            }
-        }
-
-        offlineDatabaseGitRepository.database.deadEntries.forEach { infoLink ->
-            animeEntryCache.populate(infoLink, null)
-        }
+        cachePopulator.populate()
     }
 
     override fun fetchAnime(infoLink: InfoLink): Anime? {

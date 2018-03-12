@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.cache.caches
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
+import java.lang.Exception
 import java.util.*
 
 internal abstract class AbstractAnimeDataCache<KEY, VALUE> (

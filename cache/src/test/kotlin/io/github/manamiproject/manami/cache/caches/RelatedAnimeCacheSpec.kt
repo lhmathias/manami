@@ -20,7 +20,7 @@ class RelatedAnimeCacheSpec : Spek({
         val remoteRetrievalMock = mock<RemoteRetrieval> {
             on {
                 fetchRelatedAnime(isA())
-            } doReturn mutableSetOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))
+            } doReturn setOf(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))
         }
 
         val cache = RelatedAnimeCache(remoteRetrievalMock)
