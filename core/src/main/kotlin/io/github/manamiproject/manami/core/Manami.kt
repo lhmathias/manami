@@ -50,7 +50,7 @@ object Manami : ApplicationPersistence {
         persistence.open(file)
         config.file = file
         taskConductor.safelyStart(ThumbnailBackloadTask(persistence))
-        taskConductor.safelyStart(CacheInitializationTask(persistence))
+        taskConductor.safelyStart(RecommendationsCacheInitializationTask(persistence))
     }
 
 
