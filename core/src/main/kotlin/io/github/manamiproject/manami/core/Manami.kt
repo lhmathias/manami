@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.core
 import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
+import io.github.manamiproject.manami.core.config.ConfigFileWatchdog
 import io.github.manamiproject.manami.core.tasks.*
 import io.github.manamiproject.manami.persistence.ApplicationPersistence
 import io.github.manamiproject.manami.persistence.PersistenceFacade
@@ -27,6 +28,11 @@ object Manami : ApplicationPersistence {
     private val config = Config
     private val persistence: Persistence = PersistenceFacade
     private val taskConductor: TaskConductor = TaskConductorImpl
+
+
+    fun init() {
+        ConfigFileWatchdog(Paths.get(".")).validate()
+    }
 
 
     fun newList() {
