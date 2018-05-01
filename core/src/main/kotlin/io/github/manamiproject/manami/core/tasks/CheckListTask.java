@@ -72,7 +72,7 @@ public class CheckListTask extends AbstractTask<Void> {
 
           long amount = 0L;
           try {
-            amount = Files.list(optDir.get()).filter(p -> isRegularFile(p)).count();
+            amount = Files.list(optDir.get()).filter(p -> isRegularFile(p)).size();
           } catch (final IOException e) {
             log.error("An error occurred detecting the amount of files for {}: ", entry.getTitle(), e);
           }
