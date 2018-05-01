@@ -1,3 +1,5 @@
+package io.github.manamiproject.manami.common
+
 import com.google.common.eventbus.Subscribe
 import io.github.manamiproject.manami.common.EventBus
 import org.assertj.core.api.Assertions.assertThat
