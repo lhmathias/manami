@@ -1,4 +1,5 @@
-import io.github.manamiproject.manami.common.LoggerDelegate
+package io.github.manamiproject.manami.common
+
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
