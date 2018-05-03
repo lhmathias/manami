@@ -15,11 +15,17 @@ internal class CmdAddFilterEntry(
 ) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return persistence.filterAnime(entry)
+        return if(entry.isValid()) {
+            persistence.filterAnime(entry)
+        } else {
+            false
+        }
     }
 
 
     override fun undo() {
-        persistence.removeFromFilterList(entry)
+        if(entry.isValid()) {
+            persistence.removeFromFilterList(entry)
+        }
     }
 }

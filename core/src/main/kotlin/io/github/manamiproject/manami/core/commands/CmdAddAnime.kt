@@ -15,11 +15,17 @@ internal class CmdAddAnime(
 ) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return persistence.addAnime(anime)
+        return if(anime.isValid()) {
+            persistence.addAnime(anime)
+        } else {
+            false
+        }
     }
 
 
     override fun undo() {
-        persistence.removeAnime(anime)
+        if(anime.isValid()) {
+            persistence.removeAnime(anime)
+        }
     }
 }
