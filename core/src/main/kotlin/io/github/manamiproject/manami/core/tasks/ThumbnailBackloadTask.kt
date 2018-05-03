@@ -3,10 +3,10 @@ package io.github.manamiproject.manami.core.tasks
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.MinimalEntry
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.MinimalEntry
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import org.slf4j.Logger
 import org.slf4j.MDC

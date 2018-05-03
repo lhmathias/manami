@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.core.commands
 
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import io.github.manamiproject.manami.persistence.PersistenceFacade
 import org.assertj.core.api.Assertions.assertThat

@@ -5,10 +5,10 @@ import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
 import io.github.manamiproject.manami.core.config.ConfigFileWatchdog
 import io.github.manamiproject.manami.core.tasks.*
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.ApplicationPersistence
 import io.github.manamiproject.manami.persistence.PersistenceFacade
 import io.github.manamiproject.manami.persistence.Persistence
-import io.github.manamiproject.manami.dto.entities.*
 import org.slf4j.Logger
 import java.nio.file.Path
 import java.nio.file.Paths

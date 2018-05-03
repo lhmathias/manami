@@ -2,7 +2,7 @@ package io.github.manami.gui.controller.callbacks;
 
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import io.github.manamiproject.manami.dto.entities.Anime;
+import io.github.manamiproject.manami.entities.Anime;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;

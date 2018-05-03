@@ -17,7 +17,7 @@
     <module>core</module>
     <module>gui</module>
     <module>persistence</module>
-    <module>dto</module>
+    <module>entities</module>
     <module>common</module>
   </modules>
 
@@ -47,7 +47,7 @@
       </dependency>
       <dependency>
         <groupId>io.github.manamiproject.manami</groupId>
-        <artifactId>dto</artifactId>
+        <artifactId>entities</artifactId>
         <version>${manami.version}</version>
       </dependency>
       <dependency>

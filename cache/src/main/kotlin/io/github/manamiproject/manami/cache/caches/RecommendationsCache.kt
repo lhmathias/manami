@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.cache.caches
 
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.RecommendationList
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.RecommendationList
 
 
 internal class RecommendationsCache(

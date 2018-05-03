@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.headlessbrowser.strategies
 
 import io.github.manamiproject.manami.cache.remoteretrieval.headlessbrowser.HeadlessBrowser
-import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.entities.InfoLink
 import khttp.get
 import java.util.*
 

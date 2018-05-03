@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.cache.offlinedatabase
 
-import io.github.manamiproject.manami.dto.AnimeType
+import io.github.manamiproject.manami.entities.AnimeType
 import java.net.URL
 import java.util.*
 

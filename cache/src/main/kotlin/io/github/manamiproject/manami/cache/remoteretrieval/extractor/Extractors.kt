@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.cache.remoteretrieval.extractor
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.AnimeExtractor
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.RecommendationsExtractor
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.RelatedAnimeExtractor
-import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.entities.InfoLink
 
 internal class Extractors(
         vararg extractor: Extractor

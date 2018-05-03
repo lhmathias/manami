@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime
 
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractor
-import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.entities.InfoLink
 
 internal interface RelatedAnimeExtractor : Extractor {
 

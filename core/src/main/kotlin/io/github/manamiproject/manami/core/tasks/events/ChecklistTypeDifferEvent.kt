@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.core.tasks.events
 
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.entities.AnimeType
+import io.github.manamiproject.manami.entities.Anime
 
 class ChecklistTypeDifferEvent(
         animeEntry: Anime,

@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.core.commands
 
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 
 

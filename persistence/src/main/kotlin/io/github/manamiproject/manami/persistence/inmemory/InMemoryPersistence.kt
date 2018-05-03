@@ -1,9 +1,9 @@
 package io.github.manamiproject.manami.persistence.inmemory
 
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.inmemory.animelist.InMemoryAnimeList
 import io.github.manamiproject.manami.persistence.inmemory.filterlist.InMemoryFilterList
 import io.github.manamiproject.manami.persistence.inmemory.watchlist.InMemoryWatchList
-import io.github.manamiproject.manami.dto.entities.*
 import io.github.manamiproject.manami.persistence.ApplicationPersistence
 import io.github.manamiproject.manami.persistence.InternalPersistence
 

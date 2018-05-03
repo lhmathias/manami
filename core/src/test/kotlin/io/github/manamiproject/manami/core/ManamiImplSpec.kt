@@ -3,9 +3,9 @@ package io.github.manamiproject.manami.core
 import io.github.manamiproject.manami.core.commands.CommandService
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.tasks.TaskConductor
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given

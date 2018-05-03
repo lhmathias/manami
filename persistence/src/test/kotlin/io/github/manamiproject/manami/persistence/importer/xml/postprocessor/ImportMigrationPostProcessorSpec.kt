@@ -2,10 +2,10 @@ package io.github.manamiproject.manami.persistence.importer.xml.postprocessor
 
 import com.google.common.eventbus.Subscribe
 import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.WatchListEntry
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context

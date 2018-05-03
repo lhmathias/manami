@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.persistence.exporter.json
 
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.exporter.Exporter
 import org.json.JSONWriter

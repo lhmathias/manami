@@ -5,10 +5,10 @@ import com.google.gson.GsonBuilder
 import io.github.manamiproject.manami.cache.populator.CacheEntrySource
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.AnimeType
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.slf4j.Logger

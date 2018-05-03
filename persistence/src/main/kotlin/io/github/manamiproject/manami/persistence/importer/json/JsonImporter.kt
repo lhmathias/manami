@@ -1,11 +1,11 @@
 package io.github.manamiproject.manami.persistence.importer.json
 
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.AnimeType
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.Importer
 import org.json.JSONArray

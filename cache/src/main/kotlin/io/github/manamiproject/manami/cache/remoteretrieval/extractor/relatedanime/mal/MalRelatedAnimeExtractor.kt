@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.mal
 
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.RelatedAnimeExtractor
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import org.cyberneko.html.parsers.DOMParser
 import org.w3c.dom.NodeList
 import org.xml.sax.InputSource

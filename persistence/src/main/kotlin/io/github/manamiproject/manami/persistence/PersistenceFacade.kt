@@ -1,6 +1,7 @@
 package io.github.manamiproject.manami.persistence
 
 import io.github.manamiproject.manami.common.EventBus
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
 import io.github.manamiproject.manami.persistence.events.FilterListChangedEvent
 import io.github.manamiproject.manami.persistence.events.WatchListChangedEvent
@@ -14,7 +15,6 @@ import io.github.manamiproject.manami.persistence.inmemory.InMemoryPersistence
 import io.github.manamiproject.manami.persistence.inmemory.animelist.InMemoryAnimeList
 import io.github.manamiproject.manami.persistence.inmemory.filterlist.InMemoryFilterList
 import io.github.manamiproject.manami.persistence.inmemory.watchlist.InMemoryWatchList
-import io.github.manamiproject.manami.dto.entities.*
 import java.nio.file.Path
 
 

@@ -2,8 +2,8 @@ package io.github.manamiproject.manami.persistence.importer.xml.postprocessor
 
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.utility.Version
-import io.github.manamiproject.manami.dto.entities.*
 import org.slf4j.Logger
 import java.net.URL
 

@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.persistence.inmemory.animelist
 
-import io.github.manamiproject.manami.dto.comparator.MinimalEntryCompByTitleAsc
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.entities.comparator.MinimalEntryCompByTitleAsc
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.persistence.AnimeList
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap

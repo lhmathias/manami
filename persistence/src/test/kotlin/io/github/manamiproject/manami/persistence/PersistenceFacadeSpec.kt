@@ -2,8 +2,7 @@ package io.github.manamiproject.manami.persistence
 
 import com.google.common.eventbus.Subscribe
 import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.*
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
 import io.github.manamiproject.manami.persistence.events.FilterListChangedEvent
 import io.github.manamiproject.manami.persistence.events.WatchListChangedEvent

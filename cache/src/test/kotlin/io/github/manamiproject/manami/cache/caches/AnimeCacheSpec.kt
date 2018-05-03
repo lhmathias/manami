@@ -4,9 +4,9 @@ import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.isA
 import com.nhaarman.mockito_kotlin.mock
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given

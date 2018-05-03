@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.populator
 
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
 
 interface CacheEntrySource {
 

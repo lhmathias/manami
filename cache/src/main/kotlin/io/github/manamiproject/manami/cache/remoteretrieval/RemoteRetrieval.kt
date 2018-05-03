@@ -2,12 +2,11 @@ package io.github.manamiproject.manami.cache.remoteretrieval
 
 import io.github.manamiproject.manami.cache.AnimeRetrieval
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractors
-import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.remoteretrieval.headlessbrowser.HeadlessBrowserStrategies
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.RecommendationList
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.RecommendationList
 import org.slf4j.Logger
 
 internal class RemoteRetrieval(

@@ -15,7 +15,7 @@
   <dependencies>
     <dependency>
       <groupId>io.github.manamiproject.manami</groupId>
-      <artifactId>dto</artifactId>
+      <artifactId>entities</artifactId>
     </dependency>
     <dependency>
       <groupId>io.github.manamiproject.manami</groupId>

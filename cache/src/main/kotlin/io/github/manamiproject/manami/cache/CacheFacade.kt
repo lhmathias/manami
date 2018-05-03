@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.cache
 
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.RecommendationList
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.RecommendationList
 import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseGitRepository
 import io.github.manamiproject.manami.cache.caches.RecommendationsCache
 import io.github.manamiproject.manami.cache.caches.RelatedAnimeCache

@@ -2,7 +2,10 @@ package io.github.manamiproject.manami.cache.caches
 
 import com.nhaarman.mockito_kotlin.*
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
-import io.github.manamiproject.manami.dto.entities.*
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.Recommendation
+import io.github.manamiproject.manami.entities.RecommendationList
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -10,7 +13,6 @@ import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import org.mockito.Mockito
 import org.mockito.Mockito.mock
 
 @RunWith(JUnitPlatform::class)

@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.persistence
 
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
-import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.WatchListEntry
 
 interface InternalPersistence : ApplicationPersistence {
 

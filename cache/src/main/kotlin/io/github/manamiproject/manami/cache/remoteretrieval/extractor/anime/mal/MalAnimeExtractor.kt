@@ -1,8 +1,7 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal
 
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.AnimeExtractor
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.*
+import io.github.manamiproject.manami.entities.*
 import org.cyberneko.html.parsers.DOMParser
 import org.xml.sax.InputSource
 import java.io.StringReader

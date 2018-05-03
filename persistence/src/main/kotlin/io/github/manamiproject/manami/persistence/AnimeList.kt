@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.persistence
 
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
 
 
 interface AnimeList {

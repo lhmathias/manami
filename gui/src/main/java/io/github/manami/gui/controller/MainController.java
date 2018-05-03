@@ -1,7 +1,7 @@
 package io.github.manami.gui.controller;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manamiproject.manami.dto.entities.Anime.copyAnime;
+import static io.github.manamiproject.manami.entities.Anime.copyAnime;
 import static io.github.manami.gui.components.Icons.createIconDelete;
 import static io.github.manami.gui.components.Icons.createIconExit;
 import static io.github.manami.gui.components.Icons.createIconExport;
@@ -35,10 +35,10 @@ import io.github.manamiproject.manami.core.commands.CommandService;
 import io.github.manamiproject.manami.core.commands.ReversibleCommand;
 import io.github.manamiproject.manami.core.config.Config;
 import io.github.manami.core.tasks.ServiceRepository;
-import io.github.manamiproject.manami.dto.AnimeType;
-import io.github.manamiproject.manami.dto.comparator.MinimalEntryCompByTitleAsc;
-import io.github.manamiproject.manami.dto.entities.Anime;
-import io.github.manamiproject.manami.dto.entities.InfoLink;
+import io.github.manamiproject.manami.entities.AnimeType;
+import io.github.manamiproject.manami.entities.comparator.MinimalEntryCompByTitleAsc;
+import io.github.manamiproject.manami.entities.Anime;
+import io.github.manamiproject.manami.entities.InfoLink;
 import io.github.manami.gui.controller.callbacks.AnimeEpisodesCallback;
 import io.github.manami.gui.controller.callbacks.AnimeInfoLinkCallback;
 import io.github.manami.gui.controller.callbacks.AnimeTypeCallback;

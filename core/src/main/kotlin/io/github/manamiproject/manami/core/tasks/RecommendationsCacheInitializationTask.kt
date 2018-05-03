@@ -3,9 +3,8 @@ package io.github.manamiproject.manami.core.tasks
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.core.ListRandomizer.randomizeOrder
-import io.github.manamiproject.manami.dto.entities.Anime
-import io.github.manamiproject.manami.dto.entities.InfoLink
-import io.github.manamiproject.manami.dto.entities.MinimalEntry
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.MinimalEntry
 import io.github.manamiproject.manami.persistence.Persistence
 
 

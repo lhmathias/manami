@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.persistence.inmemory.filterlist
 
-import io.github.manamiproject.manami.dto.comparator.MinimalEntryCompByTitleAsc
+import io.github.manamiproject.manami.entities.*
+import io.github.manamiproject.manami.entities.comparator.MinimalEntryCompByTitleAsc
 import io.github.manamiproject.manami.persistence.FilterList
-import io.github.manamiproject.manami.dto.entities.*
 import java.util.concurrent.ConcurrentHashMap
 
 

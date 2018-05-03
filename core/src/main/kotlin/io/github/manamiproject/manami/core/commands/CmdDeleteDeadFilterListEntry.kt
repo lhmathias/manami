@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.core.commands
 
-import io.github.manamiproject.manami.dto.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 
 

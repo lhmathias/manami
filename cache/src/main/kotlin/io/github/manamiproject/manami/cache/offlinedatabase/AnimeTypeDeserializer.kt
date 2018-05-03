@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.cache.offlinedatabase
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
-import io.github.manamiproject.manami.dto.AnimeType
+import io.github.manamiproject.manami.entities.AnimeType
 import java.lang.reflect.Type
 
 class AnimeTypeDeserializer : JsonDeserializer<AnimeType> {

@@ -1,7 +1,6 @@
 package io.github.manamiproject.manami.persistence.exporter.xml
 
-import io.github.manamiproject.manami.dto.AnimeType
-import io.github.manamiproject.manami.dto.entities.*
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.exporter.json.JsonExporterSpec
 import io.github.manamiproject.manami.persistence.inmemory.InMemoryPersistence

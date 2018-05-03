@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.persistence
 
 
-import io.github.manamiproject.manami.dto.entities.Anime
+import io.github.manamiproject.manami.entities.Anime
 import java.nio.file.Path
 
 interface Persistence : ApplicationPersistence, InternalPersistence {
