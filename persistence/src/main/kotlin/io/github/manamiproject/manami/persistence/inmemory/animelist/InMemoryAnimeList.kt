@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 internal class InMemoryAnimeList : AnimeList {
 
     private val animeList: MutableMap<UUID, Anime> = ConcurrentHashMap()
+    private val infoLinkIndex: MutableSet<InfoLink> = ConcurrentHashMap.newKeySet()
 
 
     override fun addAnime(anime: Anime): Boolean {
@@ -19,6 +20,10 @@ internal class InMemoryAnimeList : AnimeList {
         }
 
         animeList[anime.id] = anime
+
+        if(anime.infoLink.isValid()) {
+            infoLinkIndex.add(anime.infoLink)
+        }
 
         return true
     }
@@ -39,29 +44,38 @@ internal class InMemoryAnimeList : AnimeList {
 
 
     private fun isInList(infoLink: InfoLink): Boolean {
-        if (infoLink.isValid()) {
-            animeList.values.firstOrNull { it.infoLink == infoLink }?.let {
-                return true
-            }
+        return if (infoLink.isValid()) {
+            infoLinkIndex.contains(infoLink)
+        } else {
+            false
         }
-
-        return false
     }
 
 
     override fun removeAnime(anime: Anime): Boolean {
-        return animeList.remove(anime.id) != null
+        val removedEntry = animeList.remove(anime.id)
+
+        return if(removedEntry != null) {
+            if(removedEntry.infoLink.isValid()) {
+                infoLinkIndex.remove(removedEntry.infoLink)
+            }
+            true
+        } else {
+            false
+        }
     }
 
 
     fun clear() {
         animeList.clear()
+        infoLinkIndex.clear()
     }
 
 
     fun updateOrCreate(anime: Anime) {
         if (anime.isValid()) {
             animeList[anime.id] = anime
+            infoLinkIndex.add(anime.infoLink)
         }
     }
 }
