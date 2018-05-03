@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.dto.entities.MinimalEntry.Companion.NO_IMG
 import java.net.URL
 
 data class FilterListEntry(
-        override var title: String,
+        override var title: Title,
         override var infoLink: InfoLink,
         override var thumbnail: URL = NO_IMG_THUMB
 ) : MinimalEntry {

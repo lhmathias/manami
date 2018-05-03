@@ -3,8 +3,10 @@ package io.github.manamiproject.manami.dto.entities
 import java.net.URL
 
 
+typealias Title = String
+
 interface MinimalEntry {
-    var title: String
+    var title: Title
 
     var thumbnail: URL
 
