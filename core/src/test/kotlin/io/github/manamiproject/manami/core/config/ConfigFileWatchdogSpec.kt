@@ -1,15 +1,17 @@
 package io.github.manamiproject.manami.core.config
 
-import io.github.manamiproject.manami.core.config.ConfigFileWatchdog
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import java.nio.file.Files
 import java.nio.file.Files.createTempDirectory
 import java.nio.file.Path
 
+@RunWith(JUnitPlatform::class)
 class ConfigFileWatchdogSpec : Spek({
     
     given("a temp directory and a ConfigFileWatchDog instance") {

@@ -4,10 +4,13 @@ import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.slf4j.Logger
 import kotlin.reflect.*
 
 
+@RunWith(JUnitPlatform::class)
 class LoggerDelegateSpec : Spek({
 
     describe("an instance of the logger") {

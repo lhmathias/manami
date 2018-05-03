@@ -4,16 +4,22 @@ import io.github.manamiproject.manami.core.commands.CommandService
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.tasks.TaskConductor
 import io.github.manamiproject.manami.dto.entities.InfoLink
+import io.github.manamiproject.manami.dto.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.dto.entities.WatchListEntry
+import io.github.manamiproject.manami.persistence.Persistence
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
+import org.junit.platform.runner.JUnitPlatform
+import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import java.nio.file.Paths
 
+@RunWith(JUnitPlatform::class)
 class ManamiImplSpec : Spek({
 
+    val persistence : Persistence = mock(Persistence::class.java)
     val cmdService: CommandService = mock(CommandService::class.java)
     val config: Config = mock(Config::class.java)
     val taskConductor: TaskConductor = mock(TaskConductor::class.java)
