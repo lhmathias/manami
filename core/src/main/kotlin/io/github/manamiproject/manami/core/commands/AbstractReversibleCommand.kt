@@ -27,12 +27,28 @@ internal abstract class AbstractReversibleCommand(
 
 
     override fun execute(): Boolean {
+        if(oldAnime == null || newAnime == null) {
+            return false
+        }
+
         oldAnime?.let { anime ->
-            persistenceHandler.removeAnime(anime)
+            if (anime.isValid()) {
+                persistenceHandler.removeAnime(anime)
+            }
         }
 
         newAnime?.let { anime ->
-            return persistenceHandler.addAnime(anime)
+            return if(anime.isValid()) {
+                persistenceHandler.addAnime(anime)
+            } else {
+                oldAnime?.let { previousEntry ->
+                    if(previousEntry.isValid() && !persistenceHandler.animeEntryExists(previousEntry.infoLink)) {
+                        persistenceHandler.addAnime(previousEntry)
+                    }
+                }
+
+                false
+            }
         }
 
         return false
