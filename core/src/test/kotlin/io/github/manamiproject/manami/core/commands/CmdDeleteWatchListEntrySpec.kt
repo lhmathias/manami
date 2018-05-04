@@ -20,10 +20,6 @@ class CmdDeleteWatchListEntrySpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid watch list entry") {
         val entry = WatchListEntry(
                 "Death Note",

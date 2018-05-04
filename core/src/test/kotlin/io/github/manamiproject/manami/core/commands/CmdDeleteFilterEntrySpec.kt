@@ -19,10 +19,6 @@ class CmdDeleteFilterEntrySpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    afterEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid filter list entry") {
         val entry = FilterListEntry(
                 "Death Note",

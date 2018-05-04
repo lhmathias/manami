@@ -20,10 +20,6 @@ class CmdChangeLocationSpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid anime") {
         val newValue = "/death_note"
         val anime = Anime(

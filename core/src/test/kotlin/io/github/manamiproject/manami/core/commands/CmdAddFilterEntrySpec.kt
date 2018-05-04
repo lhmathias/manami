@@ -20,10 +20,6 @@ class CmdAddFilterEntrySpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid filter list entry") {
         val entry = FilterListEntry(
                 "Death Note",

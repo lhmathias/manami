@@ -20,10 +20,6 @@ class CmdChangeTypeSpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid anime") {
         val newValue = AnimeType.TV
         val anime = Anime(

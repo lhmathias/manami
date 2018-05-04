@@ -20,10 +20,6 @@ class CmdDeleteAnimeSpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    afterEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid anime") {
 
         val anime = Anime(

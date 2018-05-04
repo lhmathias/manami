@@ -20,10 +20,6 @@ class CmdChangeInfoLinkSpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid anime") {
         val newValue = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
         val anime = Anime(

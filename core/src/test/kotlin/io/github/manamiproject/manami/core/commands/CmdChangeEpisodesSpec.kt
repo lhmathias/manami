@@ -19,10 +19,6 @@ class CmdChangeEpisodesSpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
-        persistence.clearAll()
-    }
-
     given("a command with a valid anime") {
         val newValue = 37
         val anime = Anime(
