@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.core.commands
 
-import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.persistence.Persistence
@@ -16,15 +16,16 @@ import org.junit.runner.RunWith
 
 
 @RunWith(JUnitPlatform::class)
-class CmdAddAnimeSpec : Spek({
+class CmdDeleteAnimeSpec : Spek({
 
     val persistence: Persistence = PersistenceFacade
 
-    beforeEachTest {
+    afterEachTest {
         persistence.clearAll()
     }
 
     given("a command with a valid anime") {
+
         val anime = Anime(
                 "Death Note",
                 InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
@@ -33,17 +34,19 @@ class CmdAddAnimeSpec : Spek({
                 "/death_note"
         )
 
-        val cmdAddAnime = CmdAddAnime(anime, persistence)
+        persistence.addAnime(anime)
+
+        val cmdDeleteAnime = CmdDeleteAnime(anime, persistence)
 
         on("executing command") {
-            val result = cmdAddAnime.execute()
+            val result = cmdDeleteAnime.execute()
 
             it("must return true") {
                 assertThat(result).isTrue()
             }
 
-            it("must exist in persistence") {
-                assertThat(persistence.animeEntryExists(anime.infoLink)).isTrue()
+            it("must not exist in persistence") {
+                assertThat(persistence.animeEntryExists(anime.infoLink)).isFalse()
             }
         }
     }
@@ -57,31 +60,29 @@ class CmdAddAnimeSpec : Spek({
                 "/death_note"
         )
 
-        val cmdAddAnime = CmdAddAnime(anime, persistence)
-        cmdAddAnime.execute()
+        persistence.addAnime(anime)
+
+        val cmdDeleteAnime = CmdDeleteAnime(anime, persistence)
+        cmdDeleteAnime.execute()
 
         on("undo command") {
-            cmdAddAnime.undo()
+            cmdDeleteAnime.undo()
 
-            it("must result in anime being removed") {
-                assertThat(persistence.animeEntryExists(anime.infoLink)).isFalse()
+            it("must result in anime being restored") {
+                assertThat(persistence.animeEntryExists(anime.infoLink)).isTrue()
             }
         }
     }
 
     given("a command with an invalid anime") {
         val anime = Anime("    ", InfoLink("some-url"))
-        val cmdAddAnime = CmdAddAnime(anime, persistence)
+        val cmdDeleteAnime = CmdDeleteAnime(anime, persistence)
 
         on("executing command") {
-            val result = cmdAddAnime.execute()
+            val result = cmdDeleteAnime.execute()
 
             it("must return false") {
                 assertThat(result).isFalse()
-            }
-
-            it("must exist in persistence") {
-                assertThat(persistence.animeEntryExists(anime.infoLink)).isFalse()
             }
         }
     }

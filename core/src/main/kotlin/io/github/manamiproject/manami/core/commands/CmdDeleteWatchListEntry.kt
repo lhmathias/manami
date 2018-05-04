@@ -15,11 +15,17 @@ internal class CmdDeleteWatchListEntry(
 ) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return persistence.removeFromWatchList(anime)
+        return if(anime.isValid()) {
+            persistence.removeFromWatchList(anime)
+        } else {
+            false
+        }
     }
 
 
     override fun undo() {
-        persistence.watchAnime(anime)
+        if(anime.isValid() && !persistence.watchListEntryExists(anime.infoLink)) {
+            persistence.watchAnime(anime)
+        }
     }
 }

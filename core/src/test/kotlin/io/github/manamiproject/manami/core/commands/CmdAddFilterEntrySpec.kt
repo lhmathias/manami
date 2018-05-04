@@ -67,7 +67,6 @@ class CmdAddFilterEntrySpec : Spek({
 
     given("a command with an invalid entry") {
         val entry = FilterListEntry("    ", InfoLink("some-url"))
-
         val cmdAddFilterEntry = CmdAddFilterEntry(entry, persistence)
 
         on("executing command") {

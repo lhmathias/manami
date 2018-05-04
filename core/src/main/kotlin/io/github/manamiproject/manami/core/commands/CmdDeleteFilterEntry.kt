@@ -15,11 +15,17 @@ internal class CmdDeleteFilterEntry(
 ) : AbstractReversibleCommand(persistence) {
 
     override fun execute(): Boolean {
-        return persistence.removeFromFilterList(anime)
+        return if(anime.isValid()) {
+            persistence.removeFromFilterList(anime)
+        } else {
+            false
+        }
     }
 
 
     override fun undo() {
-        persistence.filterAnime(anime)
+        if(anime.isValid()  && !persistence.filterListEntryExists(anime.infoLink)) {
+            persistence.filterAnime(anime)
+        }
     }
 }

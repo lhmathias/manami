@@ -14,19 +14,18 @@ internal class CmdDeleteAnime(
         private val persistence: Persistence
 ) : AbstractReversibleCommand(persistence) {
 
-    init {
-        oldAnime = anime
-    }
-
-
     override fun execute(): Boolean {
-        oldAnime?.let { return persistence.removeAnime(it) }
-
-        return false
+        return if(anime.isValid()) {
+            persistence.removeAnime(anime)
+        } else {
+            false
+        }
     }
 
 
     override fun undo() {
-        oldAnime?.let { persistence.addAnime(it) }
+        if(anime.isValid() && !persistence.animeEntryExists(anime.infoLink)) {
+            persistence.addAnime(anime)
+        }
     }
 }

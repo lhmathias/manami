@@ -67,7 +67,6 @@ class CmdAddWatchListEntrySpec : Spek({
 
     given("a command with an invalid entry") {
         val entry = WatchListEntry("    ", InfoLink("some-url"))
-
         val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistence)
 
         on("executing command") {
