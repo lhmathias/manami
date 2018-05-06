@@ -11,14 +11,12 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import java.nio.file.Paths
 
 object ManamiImplSpec : Spek({
 
-    val persistence : Persistence = mock(Persistence::class.java)
+    val persistence: Persistence = mock(Persistence::class.java)
     val cmdService: CommandService = mock(CommandService::class.java)
     val config: Config = mock(Config::class.java)
     val taskConductor: TaskConductor = mock(TaskConductor::class.java)

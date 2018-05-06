@@ -6,7 +6,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
- * Contains the path for all configuration files as well as the path for the currently opened anime list file.
+ * Contains the path for the currently opened anime list file.
  */
 internal object Config {
 
