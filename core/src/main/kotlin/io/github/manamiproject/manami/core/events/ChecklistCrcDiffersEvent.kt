@@ -1,4 +1,4 @@
-package io.github.manamiproject.manami.core.tasks.events
+package io.github.manamiproject.manami.core.events
 
 import java.nio.file.Path
 

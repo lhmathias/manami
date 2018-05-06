@@ -8,7 +8,7 @@ import io.github.manami.cache.CacheI;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manami.core.tasks.RelatedAnimeFinderTask;
 import io.github.manami.core.tasks.ServiceRepository;
-import io.github.manamiproject.manami.core.tasks.events.ProgressState;
+import io.github.manamiproject.manami.core.events.ProgressState;
 import io.github.manamiproject.manami.entities.Anime;
 import io.github.manamiproject.manami.entities.InfoLink;
 import io.github.manamiproject.manami.entities.MinimalEntry;

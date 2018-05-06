@@ -5,7 +5,7 @@ import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 
 import com.google.common.eventbus.Subscribe;
 import io.github.manami.gui.controller.CheckListController;
-import io.github.manamiproject.manami.core.tasks.events.OpenedFileChangedEvent;
+import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;

@@ -3,7 +3,7 @@ package io.github.manami.gui.events;
 import static io.github.manami.dto.TestConst.UNIT_TEST_GROUP;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.github.manamiproject.manami.core.tasks.events.SearchResultEvent;
+import io.github.manamiproject.manami.core.events.SearchResultEvent;
 import io.github.manamiproject.manami.entities.Anime;
 import io.github.manamiproject.manami.entities.FilterListEntry;
 import io.github.manamiproject.manami.entities.InfoLink;

@@ -7,11 +7,8 @@ import static org.apache.commons.lang3.StringUtils.EMPTY;
 
 import io.github.manami.Main;
 import io.github.manamiproject.manami.core.Manami;
-import io.github.manamiproject.manami.core.commands.CmdDeleteFilterEntry;
-import io.github.manamiproject.manami.core.commands.CommandService;
 import io.github.manamiproject.manami.entities.FilterListEntry;
 import io.github.manamiproject.manami.entities.MinimalEntry;
-import io.github.manami.dto.events.SearchResultEvent;
 import io.github.manami.gui.components.AnimeGuiComponentsListEntry;
 import java.awt.Desktop;
 import java.net.URI;

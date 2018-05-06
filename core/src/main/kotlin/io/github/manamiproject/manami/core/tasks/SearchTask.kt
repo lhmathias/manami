@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.core.tasks
 
 import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.core.tasks.events.SearchResultEvent
+import io.github.manamiproject.manami.core.events.SearchResultEvent
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.MinimalEntry

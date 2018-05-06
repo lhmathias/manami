@@ -2,7 +2,7 @@ package io.github.manamiproject.manami.core.config
 
 import com.google.common.eventbus.Subscribe
 import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.core.tasks.events.OpenedFileChangedEvent
+import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given

@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.core.config
 
 import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.core.tasks.events.OpenedFileChangedEvent
+import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
 import java.nio.file.Path
 import java.nio.file.Paths
 
