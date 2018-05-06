@@ -22,7 +22,6 @@ import java.nio.file.Paths
 private const val MAL_EXPORT_FILE = "mal_export.xml"
 
 
-@RunWith(JUnitPlatform::class)
 class MalSaxParserSpec : Spek({
 
     val file: Path = Paths.get(MalSaxParserSpec::class.java.classLoader.getResource(MAL_EXPORT_FILE).toURI())

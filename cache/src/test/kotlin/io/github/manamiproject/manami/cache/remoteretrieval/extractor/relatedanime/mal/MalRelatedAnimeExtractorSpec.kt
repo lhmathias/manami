@@ -8,16 +8,13 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.lang.StringBuilder
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
-@RunWith(JUnitPlatform::class)
-class MalRelatedAnimeExtractorSpec : Spek({
+object MalRelatedAnimeExtractorSpec : Spek({
 
     val malRelatedAnimeExtractor = MalRelatedAnimeExtractor()
 

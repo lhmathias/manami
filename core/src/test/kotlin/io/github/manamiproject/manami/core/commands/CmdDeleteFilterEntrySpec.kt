@@ -1,23 +1,19 @@
 package io.github.manamiproject.manami.core.commands
 
+import com.nhaarman.mockito_kotlin.mock
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createFilterListPersistenceMock
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.persistence.Persistence
-import io.github.manamiproject.manami.persistence.PersistenceFacade
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.net.URL
 
-@RunWith(JUnitPlatform::class)
-class CmdDeleteFilterEntrySpec : Spek({
-
-    val persistence: Persistence = PersistenceFacade
+object CmdDeleteFilterEntrySpec : Spek({
 
     given("a command with a valid filter list entry") {
         val entry = FilterListEntry(
@@ -26,9 +22,11 @@ class CmdDeleteFilterEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        persistence.filterAnime(entry)
+        val persistenceMock: Persistence = createFilterListPersistenceMock(entry)
 
-        val cmdDeleteFilterEntry = CmdDeleteFilterEntry(entry, persistence)
+        persistenceMock.filterAnime(entry)
+
+        val cmdDeleteFilterEntry = CmdDeleteFilterEntry(entry, persistenceMock)
 
         on("executing command") {
             val result = cmdDeleteFilterEntry.execute()
@@ -38,7 +36,7 @@ class CmdDeleteFilterEntrySpec : Spek({
             }
 
             it("must exist not in persistence") {
-                assertThat(persistence.filterListEntryExists(entry.infoLink)).isFalse()
+                assertThat(persistenceMock.filterListEntryExists(entry.infoLink)).isFalse()
             }
         }
     }
@@ -50,23 +48,26 @@ class CmdDeleteFilterEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        persistence.filterAnime(entry)
+        val persistenceMock: Persistence = createFilterListPersistenceMock(entry)
 
-        val cmdDeleteFilterEntry = CmdDeleteFilterEntry(entry, persistence)
+        persistenceMock.filterAnime(entry)
+
+        val cmdDeleteFilterEntry = CmdDeleteFilterEntry(entry, persistenceMock)
         cmdDeleteFilterEntry.execute()
 
         on("undo command") {
             cmdDeleteFilterEntry.undo()
 
             it("must result in entry being restored") {
-                assertThat(persistence.filterListEntryExists(entry.infoLink)).isTrue()
+                assertThat(persistenceMock.filterListEntryExists(entry.infoLink)).isTrue()
             }
         }
     }
 
     given("a command with an invalid entry") {
+        val persistenceMock = mock<Persistence> { }
         val entry = FilterListEntry("    ", InfoLink("some-url"))
-        val cmdDeleteFilterEntry = CmdDeleteFilterEntry(entry, persistence)
+        val cmdDeleteFilterEntry = CmdDeleteFilterEntry(entry, persistenceMock)
 
         on("executing command") {
             val result = cmdDeleteFilterEntry.execute()

@@ -8,7 +8,6 @@ import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
-@RunWith(JUnitPlatform::class)
 class AnimeSpec : Spek({
 
     given("a valid anime created with mandatory parameters only") {
@@ -17,7 +16,6 @@ class AnimeSpec : Spek({
         beforeEachTest {
             anime = Anime("Death Note", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
         }
-
 
         on("setting the amount of episodes to an invalid value") {
             anime.episodes = -1

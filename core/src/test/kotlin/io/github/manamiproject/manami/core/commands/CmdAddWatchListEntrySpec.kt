@@ -1,24 +1,20 @@
 package io.github.manamiproject.manami.core.commands
 
+import com.nhaarman.mockito_kotlin.mock
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createWatchListPersistenceMock
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
-import io.github.manamiproject.manami.persistence.PersistenceFacade
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.net.URL
 
 
-@RunWith(JUnitPlatform::class)
-class CmdAddWatchListEntrySpec : Spek({
-
-    val persistence: Persistence = PersistenceFacade
+object CmdAddWatchListEntrySpec : Spek({
 
     given("a command with a valid watch list entry") {
         val entry = WatchListEntry(
@@ -27,7 +23,8 @@ class CmdAddWatchListEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistence)
+        val persistenceMock: Persistence = createWatchListPersistenceMock(entry)
+        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistenceMock)
 
         on("executing command") {
             val result = cmdAddWatchListEntry.execute()
@@ -37,7 +34,7 @@ class CmdAddWatchListEntrySpec : Spek({
             }
 
             it("must exist in persistence") {
-                assertThat(persistence.watchListEntryExists(entry.infoLink)).isTrue()
+                assertThat(persistenceMock.watchListEntryExists(entry.infoLink)).isTrue()
             }
         }
     }
@@ -49,21 +46,24 @@ class CmdAddWatchListEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistence)
+        val persistenceMock: Persistence = createWatchListPersistenceMock(entry)
+
+        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistenceMock)
         cmdAddWatchListEntry.execute()
 
         on("undo command") {
             cmdAddWatchListEntry.undo()
 
             it("must result in entry being removed") {
-                assertThat(persistence.watchListEntryExists(entry.infoLink)).isFalse()
+                assertThat(persistenceMock.watchListEntryExists(entry.infoLink)).isFalse()
             }
         }
     }
 
     given("a command with an invalid entry") {
+        val persistenceMock = mock<Persistence> { }
         val entry = WatchListEntry("    ", InfoLink("some-url"))
-        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistence)
+        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistenceMock)
 
         on("executing command") {
             val result = cmdAddWatchListEntry.execute()
@@ -73,7 +73,7 @@ class CmdAddWatchListEntrySpec : Spek({
             }
 
             it("must exist in persistence") {
-                assertThat(persistence.watchListEntryExists(entry.infoLink)).isFalse()
+                assertThat(persistenceMock.watchListEntryExists(entry.infoLink)).isFalse()
             }
         }
     }

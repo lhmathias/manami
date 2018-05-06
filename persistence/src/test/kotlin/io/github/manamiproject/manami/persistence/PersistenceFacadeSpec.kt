@@ -39,7 +39,6 @@ private class EventBusListener {
 }
 
 
-@RunWith(JUnitPlatform::class)
 class PersistenceFacadeSpec : Spek({
 
     val persistenceFacade = PersistenceFacade

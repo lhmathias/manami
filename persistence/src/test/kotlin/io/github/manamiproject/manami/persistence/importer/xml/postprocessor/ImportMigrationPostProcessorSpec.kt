@@ -28,7 +28,6 @@ private class EventBusListener {
 }
 
 
-@RunWith(JUnitPlatform::class)
 class ImportMigrationPostProcessorSpec : Spek({
 
     val eventBusListener = EventBusListener()

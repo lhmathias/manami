@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.core.commands
 
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createAnimeListPersistenceMock
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.InfoLink
@@ -11,28 +12,23 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 
 
-@RunWith(JUnitPlatform::class)
-class CmdChangeTypeSpec : Spek({
-
-    val persistence: Persistence = PersistenceFacade
+object CmdChangeTypeSpec : Spek({
 
     given("a command with a valid anime") {
         val newValue = AnimeType.TV
         val anime = Anime(
                 "Death Note",
                 InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
-                37,
-                AnimeType.OVA,
-                "/death_note"
+                type = AnimeType.OVA
         )
 
-        persistence.addAnime(anime)
+        val persistenceMock = createAnimeListPersistenceMock()
 
-        val cmdChangeType = CmdChangeType(anime, newValue, persistence)
+        persistenceMock.addAnime(anime)
+
+        val cmdChangeType = CmdChangeType(anime, newValue, persistenceMock)
 
         on("executing command") {
             val result = cmdChangeType.execute()
@@ -42,7 +38,7 @@ class CmdChangeTypeSpec : Spek({
             }
 
             it("must change it's entry in persistence") {
-                assertThat(persistence.fetchAnimeList()[0].type).isEqualTo(newValue)
+                assertThat(persistenceMock.fetchAnimeList()[0].type).isEqualTo(newValue)
             }
         }
     }
@@ -52,21 +48,21 @@ class CmdChangeTypeSpec : Spek({
         val anime = Anime(
                 "Death Note",
                 InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
-                37,
-                AnimeType.TV,
-                "/death_note"
+                type = AnimeType.TV
         )
 
-        persistence.addAnime(anime)
+        val persistenceMock = createAnimeListPersistenceMock()
 
-        val cmdChangeType = CmdChangeType(anime, newValue, persistence)
+        persistenceMock.addAnime(anime)
+
+        val cmdChangeType = CmdChangeType(anime, newValue, persistenceMock)
         cmdChangeType.execute()
 
         on("undo command") {
             cmdChangeType.undo()
 
             it("must restore the initial value in persistence") {
-                assertThat(persistence.fetchAnimeList()[0].type).isEqualTo(anime.type)
+                assertThat(persistenceMock.fetchAnimeList()[0].type).isEqualTo(anime.type)
             }
         }
     }

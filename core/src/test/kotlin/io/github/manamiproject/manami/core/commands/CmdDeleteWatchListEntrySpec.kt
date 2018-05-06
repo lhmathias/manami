@@ -1,24 +1,20 @@
 package io.github.manamiproject.manami.core.commands
 
+import com.nhaarman.mockito_kotlin.mock
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createWatchListPersistenceMock
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
-import io.github.manamiproject.manami.persistence.PersistenceFacade
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.net.URL
 
 
-@RunWith(JUnitPlatform::class)
-class CmdDeleteWatchListEntrySpec : Spek({
-
-    val persistence: Persistence = PersistenceFacade
+object CmdDeleteWatchListEntrySpec : Spek({
 
     given("a command with a valid watch list entry") {
         val entry = WatchListEntry(
@@ -27,9 +23,10 @@ class CmdDeleteWatchListEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val cmdDeleteWatchListEntry = CmdDeleteWatchListEntry(entry, persistence)
+        val persistenceMock: Persistence = createWatchListPersistenceMock(entry)
 
-        persistence.watchAnime(entry)
+        val cmdDeleteWatchListEntry = CmdDeleteWatchListEntry(entry, persistenceMock)
+        persistenceMock.watchAnime(entry)
 
         on("executing command") {
             val result = cmdDeleteWatchListEntry.execute()
@@ -39,7 +36,7 @@ class CmdDeleteWatchListEntrySpec : Spek({
             }
 
             it("must not exist in persistence") {
-                assertThat(persistence.watchListEntryExists(entry.infoLink)).isFalse()
+                assertThat(persistenceMock.watchListEntryExists(entry.infoLink)).isFalse()
             }
         }
     }
@@ -51,26 +48,29 @@ class CmdDeleteWatchListEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        persistence.watchAnime(entry)
+        val persistenceMock: Persistence = createWatchListPersistenceMock(entry)
 
-        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistence)
-        cmdAddWatchListEntry.execute()
+        persistenceMock.watchAnime(entry)
+
+        val cmdDeleteWatchListEntry = CmdDeleteWatchListEntry(entry, persistenceMock)
+        cmdDeleteWatchListEntry.execute()
 
         on("undo command") {
-            cmdAddWatchListEntry.undo()
+            cmdDeleteWatchListEntry.undo()
 
             it("must result in entry being restored") {
-                assertThat(persistence.watchListEntryExists(entry.infoLink)).isTrue()
+                assertThat(persistenceMock.watchListEntryExists(entry.infoLink)).isTrue()
             }
         }
     }
 
     given("a command with an invalid entry") {
+        val persistenceMock = mock<Persistence> { }
         val entry = WatchListEntry("    ", InfoLink("some-url"))
-        val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistence)
+        val cmdDeleteWatchListEntry = CmdDeleteWatchListEntry(entry, persistenceMock)
 
         on("executing command") {
-            val result = cmdAddWatchListEntry.execute()
+            val result = cmdDeleteWatchListEntry.execute()
 
             it("must return false") {
                 assertThat(result).isFalse()

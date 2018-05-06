@@ -5,12 +5,9 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 
 
-@RunWith(JUnitPlatform::class)
-class QueueSpec : Spek({
+object QueueSpec : Spek({
 
     given("an empty queue") {
         val queue : Queue<String> = Queue()

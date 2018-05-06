@@ -10,7 +10,6 @@ import org.junit.runner.RunWith
 import java.lang.IllegalArgumentException
 
 
-@RunWith(JUnitPlatform::class)
 class VersionSpec : Spek({
 
     given("a valid version string") {

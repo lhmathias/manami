@@ -21,7 +21,6 @@ import java.nio.file.Paths
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.json"
 
 
-@RunWith(JUnitPlatform::class)
 class JsonImporterSpec : Spek({
 
     val file: Path = Paths.get(JsonImporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())

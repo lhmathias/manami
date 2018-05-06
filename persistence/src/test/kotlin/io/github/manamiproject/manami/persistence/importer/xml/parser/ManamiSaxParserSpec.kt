@@ -22,7 +22,6 @@ import java.nio.file.Paths
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.xml"
 
 
-@RunWith(JUnitPlatform::class)
 class ManamiSaxParserSpec : Spek({
 
     val file: Path = Paths.get(this::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())

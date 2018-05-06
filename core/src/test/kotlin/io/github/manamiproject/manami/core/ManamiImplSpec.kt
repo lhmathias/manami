@@ -16,8 +16,7 @@ import org.junit.runner.RunWith
 import org.mockito.Mockito.*
 import java.nio.file.Paths
 
-@RunWith(JUnitPlatform::class)
-class ManamiImplSpec : Spek({
+object ManamiImplSpec : Spek({
 
     val persistence : Persistence = mock(Persistence::class.java)
     val cmdService: CommandService = mock(CommandService::class.java)

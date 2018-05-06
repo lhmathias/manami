@@ -10,14 +10,11 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Tag
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
 
-@RunWith(JUnitPlatform::class)
 @Tag("integrationTest")
 class CacheFacadeIntegrationTest : Spek({
 

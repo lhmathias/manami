@@ -11,8 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Files.createTempDirectory
 import java.nio.file.Path
 
-@RunWith(JUnitPlatform::class)
-class ConfigFileWatchdogSpec : Spek({
+object ConfigFileWatchdogSpec : Spek({
     
     given("a temp directory and a ConfigFileWatchDog instance") {
         val createTempDirectory: Path = createTempDirectory("test")

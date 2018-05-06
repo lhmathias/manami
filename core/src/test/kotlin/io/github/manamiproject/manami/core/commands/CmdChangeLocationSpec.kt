@@ -1,7 +1,8 @@
 package io.github.manamiproject.manami.core.commands
 
-import io.github.manamiproject.manami.entities.AnimeType
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createAnimeListPersistenceMock
 import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.persistence.Persistence
@@ -11,28 +12,23 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 
 
-@RunWith(JUnitPlatform::class)
-class CmdChangeLocationSpec : Spek({
-
-    val persistence: Persistence = PersistenceFacade
+object CmdChangeLocationSpec : Spek({
 
     given("a command with a valid anime") {
         val newValue = "/death_note"
         val anime = Anime(
                 "Death Note",
                 InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
-                37,
-                AnimeType.TV,
-                "/deathnote"
+                location = "/deathnote"
         )
 
-        persistence.addAnime(anime)
+        val persistenceMock = createAnimeListPersistenceMock()
 
-        val cmdChangeLocation = CmdChangeLocation(anime, newValue, persistence)
+        persistenceMock.addAnime(anime)
+
+        val cmdChangeLocation = CmdChangeLocation(anime, newValue, persistenceMock)
 
         on("executing command") {
             val result = cmdChangeLocation.execute()
@@ -42,7 +38,7 @@ class CmdChangeLocationSpec : Spek({
             }
 
             it("must change it's entry in persistence") {
-                assertThat(persistence.fetchAnimeList()[0].location).isEqualTo(newValue)
+                assertThat(persistenceMock.fetchAnimeList()[0].location).isEqualTo(newValue)
             }
         }
     }
@@ -52,21 +48,21 @@ class CmdChangeLocationSpec : Spek({
         val anime = Anime(
                 "Death Note",
                 InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
-                37,
-                AnimeType.TV,
-                "/death_note"
+                location = "/death_note"
         )
 
-        persistence.addAnime(anime)
+        val persistenceMock = createAnimeListPersistenceMock()
 
-        val cmdChangeLocation = CmdChangeLocation(anime, newValue, persistence)
+        persistenceMock.addAnime(anime)
+
+        val cmdChangeLocation = CmdChangeLocation(anime, newValue, persistenceMock)
         cmdChangeLocation.execute()
 
         on("undo command") {
             cmdChangeLocation.undo()
 
             it("must restore the initial value in persistence") {
-                assertThat(persistence.fetchAnimeList()[0].location).isEqualTo(anime.location)
+                assertThat(persistenceMock.fetchAnimeList()[0].location).isEqualTo(anime.location)
             }
         }
     }

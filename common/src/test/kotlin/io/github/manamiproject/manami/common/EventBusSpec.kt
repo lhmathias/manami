@@ -1,14 +1,11 @@
 package io.github.manamiproject.manami.common
 
 import com.google.common.eventbus.Subscribe
-import io.github.manamiproject.manami.common.EventBus
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 
 
 private class EventBusListener {
@@ -23,8 +20,7 @@ private class EventBusListener {
     }
 }
 
-@RunWith(JUnitPlatform::class)
-class EventBusSpec : Spek({
+object EventBusSpec : Spek({
 
     given("an event bus subscriber registered to the eventbus") {
         val eventBusListener = EventBusListener()

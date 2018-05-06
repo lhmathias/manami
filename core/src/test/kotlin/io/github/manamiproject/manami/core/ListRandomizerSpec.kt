@@ -8,8 +8,7 @@ import org.jetbrains.spek.api.dsl.on
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
-@RunWith(JUnitPlatform::class)
-class ListRandomizerSpec : Spek({
+object ListRandomizerSpec : Spek({
 
     given("a mutable list") {
         val list : List<Int> = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)

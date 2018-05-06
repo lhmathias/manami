@@ -11,8 +11,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Tag
-import org.junit.platform.runner.JUnitPlatform
-import org.junit.runner.RunWith
 import java.nio.file.*
 import java.util.*
 import java.util.zip.CRC32
@@ -21,7 +19,6 @@ import java.util.zip.CRC32
 private const val DATABASE_RESOURCE_FOLDER = "offlineDatabaseForUpdate"
 private const val DATABASE_TEST_DESTINATION_FOLDER = "./database"
 
-@RunWith(JUnitPlatform::class)
 @Tag("integrationTest")
 class OfflineDatabaseIntegrationTest : Spek({
 

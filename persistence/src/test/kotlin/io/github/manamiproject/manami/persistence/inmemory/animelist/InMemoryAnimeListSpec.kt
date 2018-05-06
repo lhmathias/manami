@@ -11,7 +11,6 @@ import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
 
-@RunWith(JUnitPlatform::class)
 class InMemoryAnimeListSpec : Spek({
 
     val inMemoryAnimeList = InMemoryAnimeList()

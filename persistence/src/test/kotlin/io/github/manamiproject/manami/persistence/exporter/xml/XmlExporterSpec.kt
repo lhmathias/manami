@@ -25,7 +25,6 @@ import java.util.Comparator
 private const val TEST_ANIME_LIST_FILE = "test_anime_list.xml"
 private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.xml"
 
-@RunWith(JUnitPlatform::class)
 class XmlExporterSpec : Spek({
 
     var tempFolder: Path = Paths.get(".")

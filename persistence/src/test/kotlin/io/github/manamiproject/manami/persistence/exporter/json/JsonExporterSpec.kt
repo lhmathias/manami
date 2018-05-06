@@ -28,7 +28,6 @@ private const val EXPECTED_RECOMMENDATIONS_FILE = "test_recommendations_list.jso
 private const val ANIME_LIST_EXPORT_FILE = "test_anime_list_export.json"
 
 
-@RunWith(JUnitPlatform::class)
 class JsonExporterSpec : Spek({
 
     var tempFolder: Path = Paths.get(".")

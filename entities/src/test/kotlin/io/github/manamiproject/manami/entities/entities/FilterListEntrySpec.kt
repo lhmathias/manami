@@ -10,7 +10,6 @@ import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import java.net.URL
 
-@RunWith(JUnitPlatform::class)
 class FilterListEntrySpec : Spek({
 
     given("a valid anime") {
