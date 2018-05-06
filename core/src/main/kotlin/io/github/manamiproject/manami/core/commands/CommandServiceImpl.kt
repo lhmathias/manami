@@ -37,7 +37,6 @@ internal object CommandServiceImpl : CommandService {
         if (executionResult) {
             done.add(command)
             isUnsaved = true
-            EventBus.publish(AnimeListChangedEvent) //FIXME: This can't be happening here anymore
         }
 
         return executionResult
