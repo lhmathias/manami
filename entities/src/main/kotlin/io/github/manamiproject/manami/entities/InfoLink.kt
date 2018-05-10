@@ -4,7 +4,7 @@ import org.apache.commons.validator.routines.UrlValidator
 import java.net.MalformedURLException
 import java.net.URL
 
-data class InfoLink private constructor (val url: URL?) {
+data class InfoLink internal constructor (val url: URL?) {
 
     /**
      * First checks a value is present and then checks if the given value is
@@ -26,7 +26,7 @@ data class InfoLink private constructor (val url: URL?) {
      *
      * @return
      */
-    fun isPresent(): Boolean {
+    private fun isPresent(): Boolean {
         return url != null && url.toString().isNotBlank()
     }
 
@@ -82,7 +82,7 @@ private object MyAnimeListNormalizer {
     fun normalize(url: String): String {
         var normalizedUrl = url
 
-        //remove everything after the ID and noramlize prefix if necesary
+        //remove everything after the ID and normalize prefix if necessary
         Regex(".*?/[0-9]+").find(normalizedUrl)?.let { matchResult ->
             normalizedUrl = matchResult.value
 
@@ -93,7 +93,7 @@ private object MyAnimeListNormalizer {
             }
         }
 
-        // correct deeplinks using .php=id=
+        //correct deep links using .php=id=
         if (normalizedUrl.contains(".php?id=")) {
             normalizedUrl = normalizedUrl.replace(".php?id=", "/")
         }
