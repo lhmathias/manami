@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.core.tasks;
 
-import static com.google.common.collect.Sets.newHashSet;
 
 /**
  * Finds related anime in info site links. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!

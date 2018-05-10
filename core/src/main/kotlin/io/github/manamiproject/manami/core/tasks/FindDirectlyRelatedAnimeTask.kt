@@ -12,7 +12,7 @@ import org.slf4j.Logger
  * Finds all directly related anime for infolinks.
  * Always start {@link BackgroundTask}s using the {@link ServiceRepository}!
  */
-internal class RelatedAnimeFinderTask(
+internal class FindDirectlyRelatedAnimeTask(
         private val cache: Cache,
         private val persistence: Persistence,
         private val list: List<InfoLink>

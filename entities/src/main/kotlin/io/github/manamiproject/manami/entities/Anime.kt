@@ -21,7 +21,7 @@ data class Anime(
         /** Type of the Anime (e.g.: TV, Special, OVA, ONA, etc.). */
         var type: AnimeType = AnimeType.TV,
         /** Location on the HDD. */
-        var location: Location = "/",
+        var location: Location = ".", //FIXME: should this be a Path object?
         /** Url for a thumbnail. */
         override var thumbnail: URL = MinimalEntry.NO_IMG_THUMB,
         /** Url for a picture. */

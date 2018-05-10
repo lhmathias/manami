@@ -1,9 +1,9 @@
-package io.github.manamiproject.manami.core.events
+package io.github.manamiproject.manami.core.events.checklist
 
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 
-class ChecklistTypeDifferEvent(
+class TypesDifferChecklistEvent(
         animeEntry: Anime,
         val newType: AnimeType
 ) : AbstractChecklistEvent(animeEntry) {

@@ -28,7 +28,7 @@ internal class RecommendationsCacheInitializationTask(
         }
     }
 
-    private fun initializeRecommendations(animeList: List<out MinimalEntry>) {
+    private fun initializeRecommendations(animeList: List<MinimalEntry>) {
         animeList.forEach{ cache.fetchRecommendations(it.infoLink) }
     }
 }

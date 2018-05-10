@@ -53,7 +53,7 @@ public class SearchResultsControllerWrapper {
 
 
   /**
-   * @param event Event which is fired when a file is opened.
+   * @param event ChecklistEvent which is fired when a file is opened.
    */
   @Subscribe
   public void searchResultEvent(final SearchResultEvent event) throws InterruptedException {

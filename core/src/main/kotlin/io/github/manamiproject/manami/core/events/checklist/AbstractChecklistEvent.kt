@@ -1,10 +1,10 @@
-package io.github.manamiproject.manami.core.events
+package io.github.manamiproject.manami.core.events.checklist
 
 import io.github.manamiproject.manami.entities.MinimalEntry
 
 abstract class AbstractChecklistEvent(
         override var anime: MinimalEntry? = null
-) : Event {
+) : ChecklistEvent {
 
     init {
         anime?.let {

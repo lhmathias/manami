@@ -31,7 +31,8 @@ internal class SearchTask(
 
 
   private fun checkEntry(entry: MinimalEntry) {
-    val isTitleNearlyEqual = LevenshteinDistance(MAX_LEVENSHTEIN_DISTANCE + 1).apply(entry.title.toLowerCase(), searchString.toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE
+    val isTitleNearlyEqual = LevenshteinDistance(MAX_LEVENSHTEIN_DISTANCE + 1)
+            .apply(entry.title.toLowerCase(), searchString.toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE
     val isInTitle = containsIgnoreCase(entry.title, searchString)
     val isInfoLinkEqual = searchString.equals(entry.infoLink.toString(), ignoreCase = true)
 

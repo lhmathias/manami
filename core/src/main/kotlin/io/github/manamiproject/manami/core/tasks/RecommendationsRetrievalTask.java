@@ -1,7 +1,5 @@
 package io.github.manamiproject.manami.core.tasks;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static com.google.common.collect.Lists.newCopyOnWriteArrayList;
 
 /*
  // Extracts and counts recommendations for a list of anime. Always start {@link BackgroundTask}s using the {@link ServiceRepository}!

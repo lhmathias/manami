@@ -1,10 +1,10 @@
-package io.github.manamiproject.manami.core.events
+package io.github.manamiproject.manami.core.events.checklist
 
 import io.github.manamiproject.manami.entities.Anime
 
-class ChecklistTitleDifferEvent(
-        animeEntry: Anime,
-        val newTitle: String
+class TitlesDifferChecklistEvent(
+       animeEntry: Anime,
+       newTitle: String
 ) : AbstractChecklistEvent(animeEntry) {
 
     init {

@@ -52,7 +52,7 @@ public class CheckListControllerWrapper {
 
 
   /**
-   * @param event Event which is fired when a file is opened.
+   * @param event ChecklistEvent which is fired when a file is opened.
    */
   @Subscribe
   public void changeEvent(final OpenedFileChangedEvent event) {

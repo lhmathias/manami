@@ -11,13 +11,13 @@ import io.github.manami.Main;
 import io.github.manami.cache.CacheI;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manamiproject.manami.core.commands.CommandService;
-import io.github.manamiproject.manami.core.config.CheckListConfig;
+import io.github.manamiproject.manami.core.tasks.checklist.CheckListConfig;
 import io.github.manamiproject.manami.core.config.Config;
 import io.github.manami.core.tasks.CheckListTask;
 import io.github.manami.core.tasks.ServiceRepository;
 import io.github.manamiproject.manami.core.tasks.events.AbstractEvent.EventType;
 import io.github.manamiproject.manami.core.tasks.events.CrcEvent;
-import io.github.manamiproject.manami.core.events.Event;
+import io.github.manamiproject.manami.core.events.checklist.ChecklistEvent;
 import io.github.manamiproject.manami.core.events.ProgressState;
 import io.github.manamiproject.manami.core.tasks.events.ReversibleCommandEvent;
 import io.github.manami.gui.components.CheckListEntry;
@@ -189,8 +189,8 @@ public class CheckListController implements Observer {
       });
     }
 
-    if (object instanceof Event) {
-      addEventEntry((Event) object);
+    if (object instanceof ChecklistEvent) {
+      addEventEntry((ChecklistEvent) object);
       updateTabTitle();
     }
 
@@ -256,32 +256,33 @@ public class CheckListController implements Observer {
   }
 
 
-  private void addEventEntry(final Event event) {
+  private void addEventEntry(final ChecklistEvent checklistEvent) {
     final CheckListEntry componentListEntry = new CheckListEntry();
-    componentListEntry.setPictureComponent(createIcon(event.getType()));
+    componentListEntry.setPictureComponent(createIcon(checklistEvent.getType()));
     final Font titleFont = Font.font(null, FontWeight.BOLD, 11);
 
-    if (event.getAnime() != null && event.getAnime().getInfoLink().isValid()) {
-      final Hyperlink title = HyperlinkBuilder.buildFrom(event.getTitle(), event.getAnime().getInfoLink().getUrl());
+    if (checklistEvent.getAnime() != null && checklistEvent.getAnime().getInfoLink().isValid()) {
+      final Hyperlink title = HyperlinkBuilder.buildFrom(
+          checklistEvent.getTitle(), checklistEvent.getAnime().getInfoLink().getUrl());
       title.setFont(titleFont);
       componentListEntry.setTitleComponent(title);
     } else {
-      final Label lblTitle = new Label(event.getTitle());
+      final Label lblTitle = new Label(checklistEvent.getTitle());
       lblTitle.setFont(titleFont);
       componentListEntry.setTitleComponent(lblTitle);
     }
 
-    final Label lblMessage = new Label(event.getMessage());
+    final Label lblMessage = new Label(checklistEvent.getMessage());
     lblMessage.setFont((Font.font(11.5)));
     lblMessage.setWrapText(true);
     componentListEntry.setMessageComponent(lblMessage);
 
-    if (event instanceof CrcEvent) {
-      addCrcEventButton((CrcEvent) event, componentListEntry);
+    if (checklistEvent instanceof CrcEvent) {
+      addCrcEventButton((CrcEvent) checklistEvent, componentListEntry);
     }
 
-    if (event instanceof ReversibleCommandEvent) {
-      addReversibleCommandEventButton((ReversibleCommandEvent) event, componentListEntry);
+    if (checklistEvent instanceof ReversibleCommandEvent) {
+      addReversibleCommandEventButton((ReversibleCommandEvent) checklistEvent, componentListEntry);
     }
 
     addComponentListEntryToGridPane(componentListEntry);
