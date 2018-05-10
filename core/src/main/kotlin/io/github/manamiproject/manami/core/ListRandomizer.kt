@@ -6,11 +6,11 @@ import java.util.Collections.shuffle
 object ListRandomizer {
 
     fun <T> randomizeOrder(list: List<T>): List<T> {
-        val mutableList = list.toMutableList()
-        shuffle(mutableList, SecureRandom())
-        shuffle(mutableList, SecureRandom())
-        shuffle(mutableList, SecureRandom())
-        shuffle(mutableList, SecureRandom())
+        val mutableList: MutableList<T> = list.toMutableList()
+        mutableList.shuffle(SecureRandom())
+        mutableList.shuffle(SecureRandom())
+        mutableList.shuffle(SecureRandom())
+        mutableList.shuffle(SecureRandom())
         return mutableList.toList()
     }
 }
