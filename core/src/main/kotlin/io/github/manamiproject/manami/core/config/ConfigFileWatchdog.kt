@@ -106,7 +106,7 @@ internal class ConfigFileWatchdog(path: Path) {
 
             val resourceFilename: String = String.format("releasebuild_%s", file.fileName)
             val resourceFileAsString: String = IOUtils.toString(ClassLoader.getSystemResourceAsStream(resourceFilename), Charset.forName("UTF-8"))
-            val fileAsLines: MutableList<String> = resourceFileAsString.split("\\r?\\n").toMutableList()
+            val fileAsLines: List<String> = resourceFileAsString.split("\\r?\\n").toList()
             Files.write(file, fileAsLines, StandardCharsets.UTF_8)
 
             log.info("File [{}] created under [{}]", fileName, file.toAbsolutePath())

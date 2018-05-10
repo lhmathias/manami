@@ -27,8 +27,8 @@ internal class InMemoryFilterList : FilterList {
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterListEntry> {
-        return filterList.values.sortedWith(MinimalEntryCompByTitleAsc).toMutableList()
+    override fun fetchFilterList(): List<FilterListEntry> {
+        return filterList.values.sortedWith(MinimalEntryCompByTitleAsc).toList()
     }
 
 

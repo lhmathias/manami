@@ -67,7 +67,7 @@ internal class JsonExporter(private val persistence: InternalPersistence) : Expo
     }
 
 
-    fun exportList(list: MutableList<Anime>, file: Path): Boolean {
+    fun exportList(list: List<Anime>, file: Path): Boolean {
         PrintWriter(file.toFile()).use { printWriter ->
             val writer = JSONWriter(printWriter).apply {
                 array()

@@ -36,7 +36,7 @@ class JsonImporterSpec : Spek({
             jsonImporter.importFile(file)
 
             it("must contain the same entries in the animelist") {
-                val fetchAnimeList: MutableList<Anime> = persistenceFacade.fetchAnimeList()
+                val fetchAnimeList: List<Anime> = persistenceFacade.fetchAnimeList()
                 assertThat(fetchAnimeList).isNotNull()
                 assertThat(fetchAnimeList).isNotEmpty()
                 assertThat(fetchAnimeList).hasSize(2)
@@ -59,7 +59,7 @@ class JsonImporterSpec : Spek({
             }
         
             it("must contain the same entries in the watchlist") {
-                val fetchWatchList: MutableList<WatchListEntry>  = persistenceFacade.fetchWatchList()
+                val fetchWatchList: List<WatchListEntry>  = persistenceFacade.fetchWatchList()
                 assertThat(fetchWatchList).isNotNull()
                 assertThat(fetchWatchList).isNotEmpty()
                 assertThat(fetchWatchList).hasSize(1)
@@ -73,7 +73,7 @@ class JsonImporterSpec : Spek({
             }
         
             it("must contain the same entries in the filterlist") {
-                val fetchFilterList: MutableList<FilterListEntry> = persistenceFacade.fetchFilterList()
+                val fetchFilterList: List<FilterListEntry> = persistenceFacade.fetchFilterList()
                 assertThat(fetchFilterList).isNotNull()
                 assertThat(fetchFilterList).isNotEmpty()
                 assertThat(fetchFilterList).hasSize(1)

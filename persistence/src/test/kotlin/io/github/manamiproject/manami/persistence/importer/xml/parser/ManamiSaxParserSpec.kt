@@ -32,7 +32,6 @@ class ManamiSaxParserSpec : Spek({
 
 
     given("Importer instance for Manami") {
-
         val importer = XmlImporter(
                 ManamiSaxParser(persistenceFacade),
                 MalSaxParser(persistenceFacade)
@@ -42,7 +41,7 @@ class ManamiSaxParserSpec : Spek({
             importer.importFile(file)
 
             it("must contain the same entries in the animelist as in the file") {
-                val fetchAnimeList: MutableList<Anime> = persistenceFacade.fetchAnimeList()
+                val fetchAnimeList: List<Anime> = persistenceFacade.fetchAnimeList()
                 assertThat(fetchAnimeList).isNotNull()
                 assertThat(fetchAnimeList).isNotEmpty()
                 assertThat(fetchAnimeList).hasSize(2)
@@ -65,7 +64,7 @@ class ManamiSaxParserSpec : Spek({
             }
 
             it("must contain the same entries in the filterlist as in the file") {
-                val fetchFilterList: MutableList<FilterListEntry> = persistenceFacade.fetchFilterList()
+                val fetchFilterList: List<FilterListEntry> = persistenceFacade.fetchFilterList()
                 assertThat(fetchFilterList).isNotNull()
                 assertThat(fetchFilterList).isNotEmpty()
                 assertThat(fetchFilterList).hasSize(1)
@@ -77,7 +76,7 @@ class ManamiSaxParserSpec : Spek({
             }
 
             it("must contain the same entries in the watchlist as in the file") {
-                val fetchWatchList: MutableList<WatchListEntry> = persistenceFacade.fetchWatchList()
+                val fetchWatchList: List<WatchListEntry> = persistenceFacade.fetchWatchList()
                 assertThat(fetchWatchList).isNotNull()
                 assertThat(fetchWatchList).isNotEmpty()
                 assertThat(fetchWatchList).hasSize(1)

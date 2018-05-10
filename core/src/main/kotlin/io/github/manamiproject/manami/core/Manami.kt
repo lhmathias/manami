@@ -86,7 +86,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterListEntry> {
+    override fun fetchFilterList(): List<FilterListEntry> {
         return persistence.fetchFilterList()
     }
 
@@ -114,7 +114,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    override fun fetchAnimeList(): MutableList<Anime> {
+    override fun fetchAnimeList(): List<Anime> {
         return persistence.fetchAnimeList()
     }
 
@@ -124,7 +124,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    override fun fetchWatchList(): MutableList<WatchListEntry> {
+    override fun fetchWatchList(): List<WatchListEntry> {
         return persistence.fetchWatchList()
     }
 
@@ -162,7 +162,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    fun exportList(list: MutableList<Anime>, file: Path) {
+    fun exportList(list: List<Anime>, file: Path) {
         if (file.toString().endsWith(FILE_SUFFIX_JSON)) {
             persistence.exportListToJsonFile(list, file)
         }

@@ -11,8 +11,8 @@ internal class InMemoryWatchList : WatchList {
     private val watchList: MutableMap<InfoLink, WatchListEntry> = ConcurrentHashMap()
 
 
-    override fun fetchWatchList(): MutableList<WatchListEntry> {
-        return watchList.values.sortedWith(MinimalEntryCompByTitleAsc).toMutableList()
+    override fun fetchWatchList(): List<WatchListEntry> {
+        return watchList.values.sortedWith(MinimalEntryCompByTitleAsc).toList()
     }
 
 

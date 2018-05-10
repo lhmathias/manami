@@ -29,7 +29,7 @@ interface Persistence : ApplicationPersistence, InternalPersistence {
      * @param list List of Anime
      * @param file File
      */
-    fun exportListToJsonFile(list: MutableList<Anime>, file: Path)
+    fun exportListToJsonFile(list: List<Anime>, file: Path)
 
     /**
      * Exports all three lists animelist, filterlist and watchlist toa specified json file.

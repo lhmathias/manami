@@ -20,7 +20,7 @@ interface FilterList {
      *
      * @return List of anime which have been filtered.
      */
-    fun fetchFilterList(): MutableList<FilterListEntry>
+    fun fetchFilterList(): List<FilterListEntry>
 
 
     /**

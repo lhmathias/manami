@@ -29,8 +29,8 @@ internal class InMemoryAnimeList : AnimeList {
     }
 
 
-    override fun fetchAnimeList(): MutableList<Anime> {
-        return animeList.values.sortedWith(MinimalEntryCompByTitleAsc).toMutableList()
+    override fun fetchAnimeList(): List<Anime> {
+        return animeList.values.sortedWith(MinimalEntryCompByTitleAsc).toList()
     }
 
 

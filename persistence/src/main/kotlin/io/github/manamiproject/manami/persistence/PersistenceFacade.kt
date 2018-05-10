@@ -56,7 +56,7 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterListEntry> {
+    override fun fetchFilterList(): List<FilterListEntry> {
         return strategy.fetchFilterList()
     }
 
@@ -95,7 +95,7 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun fetchAnimeList(): MutableList<Anime> {
+    override fun fetchAnimeList(): List<Anime> {
         return strategy.fetchAnimeList()
     }
 
@@ -133,7 +133,7 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun fetchWatchList(): MutableList<WatchListEntry> {
+    override fun fetchWatchList(): List<WatchListEntry> {
         return strategy.fetchWatchList()
     }
 
@@ -165,33 +165,20 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun addAnimeList(list: MutableList<Anime>) {
-        val validAnimeList: MutableList<Anime> = mutableListOf()
-
-        list.filter { it.isValid() }.toCollection(validAnimeList)
-
-        strategy.addAnimeList(validAnimeList)
+    override fun addAnimeList(list: List<Anime>) {
+        strategy.addAnimeList(list.filter { it.isValid() }.toList())
         EventBus.publish(AnimeListChangedEvent)
     }
 
 
-    override fun addFilterList(list: MutableList<FilterListEntry>) {
-        val validEntryList: MutableList<FilterListEntry> = mutableListOf()
-
-        list.filter { it.isValid() }.toCollection(validEntryList)
-
-        strategy.addFilterList(validEntryList)
+    override fun addFilterList(list: List<FilterListEntry>) {
+        strategy.addFilterList(list.filter { it.isValid() }.toList())
         EventBus.publish(FilterListChangedEvent)
     }
 
 
-    override fun addWatchList(list: MutableList<WatchListEntry>) {
-        val validEntryList: MutableList<WatchListEntry> = mutableListOf()
-
-        list.filter { it.isValid() }.toCollection(validEntryList)
-
-
-        strategy.addWatchList(validEntryList)
+    override fun addWatchList(list: List<WatchListEntry>) {
+        strategy.addWatchList(list.filter { it.isValid() }.toList())
         EventBus.publish(WatchListChangedEvent)
     }
 
@@ -230,7 +217,7 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun exportListToJsonFile(list: MutableList<Anime>, file: Path) {
+    override fun exportListToJsonFile(list: List<Anime>, file: Path) {
         jsonExporter.exportList(list, file)
     }
 

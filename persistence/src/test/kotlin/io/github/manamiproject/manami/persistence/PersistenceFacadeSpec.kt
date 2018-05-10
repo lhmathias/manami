@@ -1213,7 +1213,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a list of valid FilterListEntries and an empty filterlist") {
-        val list: MutableList<FilterListEntry> = mutableListOf(
+        val list: List<FilterListEntry> = listOf(
                 FilterListEntry(
                         "Death Note",
                         InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
@@ -1245,7 +1245,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a list of one valid and two invalid FilterListEntries and an empty filterlist") {
-        val list: MutableList<FilterListEntry> = mutableListOf(
+        val list: List<FilterListEntry> = listOf(
                 FilterListEntry(
                         "",
                         InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
@@ -1277,7 +1277,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a list of valid WatchListEntries and an empty watchlist") {
-        val list: MutableList<WatchListEntry> = mutableListOf(
+        val list: List<WatchListEntry> = listOf(
                 WatchListEntry(
                         "Death Note",
                         InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
@@ -1309,7 +1309,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a list of one valid and two invalid WatchListEntries and an empty Watchlist") {
-        val list: MutableList<WatchListEntry> = mutableListOf(
+        val list: List<WatchListEntry> = listOf(
                 WatchListEntry(
                         "",
                         InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
@@ -1341,7 +1341,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a list of valid anime and an empty list") {
-        val list: MutableList<Anime> = mutableListOf(
+        val list: List<Anime> = listOf(
                 Anime(
                         "Death Note",
                         InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
@@ -1373,7 +1373,7 @@ class PersistenceFacadeSpec : Spek({
 
 
     given("a list of one valid and two invalid anime and an empty animelist") {
-        val list: MutableList<Anime> = mutableListOf(
+        val list: List<Anime> = listOf(
                 Anime(
                         "",
                         InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")

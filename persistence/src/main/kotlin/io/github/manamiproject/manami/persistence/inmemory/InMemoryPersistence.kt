@@ -20,7 +20,7 @@ internal class InMemoryPersistence(
     }
 
 
-    override fun fetchFilterList(): MutableList<FilterListEntry> {
+    override fun fetchFilterList(): List<FilterListEntry> {
         return filterListHandler.fetchFilterList()
     }
 
@@ -40,7 +40,7 @@ internal class InMemoryPersistence(
     }
 
 
-    override fun fetchAnimeList(): MutableList<Anime> {
+    override fun fetchAnimeList(): List<Anime> {
         return animeListHandler.fetchAnimeList()
     }
 
@@ -60,7 +60,7 @@ internal class InMemoryPersistence(
     }
 
 
-    override fun fetchWatchList(): MutableList<WatchListEntry> {
+    override fun fetchWatchList(): List<WatchListEntry> {
         return watchListHandler.fetchWatchList()
     }
 
@@ -82,17 +82,17 @@ internal class InMemoryPersistence(
     }
 
 
-    override fun addAnimeList(list: MutableList<Anime>) {
+    override fun addAnimeList(list: List<Anime>) {
         list.forEach { anime -> animeListHandler.addAnime(anime) }
     }
 
 
-    override fun addFilterList(list: MutableList<FilterListEntry>) {
+    override fun addFilterList(list: List<FilterListEntry>) {
         list.forEach { anime -> filterListHandler.filterAnime(anime) }
     }
 
 
-    override fun addWatchList(list: MutableList<WatchListEntry>) {
+    override fun addWatchList(list: List<WatchListEntry>) {
         list.forEach { anime -> watchListHandler.watchAnime(anime) }
     }
 

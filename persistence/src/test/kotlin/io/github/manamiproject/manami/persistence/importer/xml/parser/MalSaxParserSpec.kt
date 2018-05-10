@@ -40,7 +40,7 @@ class MalSaxParserSpec : Spek({
             importer.importFile(file)
             
             it("must contain the same entries in the animelist as in the file") {
-                val fetchAnimeList: MutableList<Anime> = persistenceFacade.fetchAnimeList()
+                val fetchAnimeList: List<Anime> = persistenceFacade.fetchAnimeList()
                 assertThat(fetchAnimeList).isNotNull()
                 assertThat(fetchAnimeList).isNotEmpty()
                 assertThat(fetchAnimeList).hasSize(2)
@@ -63,7 +63,7 @@ class MalSaxParserSpec : Spek({
             }
             
             it("must contain the same entries in the filterlist as in the file") {
-                val fetchFilterList: MutableList<FilterListEntry> = persistenceFacade.fetchFilterList()
+                val fetchFilterList: List<FilterListEntry> = persistenceFacade.fetchFilterList()
                 assertThat(fetchFilterList).isNotNull()
                 assertThat(fetchFilterList).isNotEmpty()
                 assertThat(fetchFilterList).hasSize(2)
@@ -82,7 +82,7 @@ class MalSaxParserSpec : Spek({
             }
             
             it("must contain the same entries in the watchlist as in the file") {
-                val fetchWatchList: MutableList<WatchListEntry> = persistenceFacade.fetchWatchList()
+                val fetchWatchList: List<WatchListEntry> = persistenceFacade.fetchWatchList()
                 assertThat(fetchWatchList).isNotNull()
                 assertThat(fetchWatchList).isNotEmpty()
                 assertThat(fetchWatchList).hasSize(2)

@@ -32,7 +32,7 @@ class RecommendationList : Collection<Recommendation> {
 
 
     override fun iterator(): Iterator<Recommendation> {
-        return recommendations.values.toMutableList().iterator()
+        return recommendations.values.toList().iterator()
     }
 
 

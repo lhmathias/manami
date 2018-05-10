@@ -128,7 +128,7 @@ class RecommendationListSpec : Spek({
 
         on("checking if the list contains the recommendations (different instance) using containsAll") {
             val result = recommendationList.containsAll(
-                    mutableListOf(
+                    listOf(
                             Recommendation(
                                     InfoLink(infoLinkUrl),
                                     initialValue
@@ -143,7 +143,7 @@ class RecommendationListSpec : Spek({
 
         on("checking if the list containsAll of recommendations which reside in the list and some which don't") {
             val result = recommendationList.containsAll(
-                    mutableListOf(
+                    listOf(
                             Recommendation(
                                     InfoLink(infoLinkUrl),
                                     initialValue

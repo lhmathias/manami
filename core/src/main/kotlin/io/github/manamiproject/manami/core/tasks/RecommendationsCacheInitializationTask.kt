@@ -20,7 +20,7 @@ internal class RecommendationsCacheInitializationTask(
     private val cache: Cache = CacheFacade
 
     override fun execute() {
-        val animeList: MutableList<Anime> = persistence.fetchAnimeList()
+        val animeList: List<Anime> = persistence.fetchAnimeList()
 
         if(!animeList.isEmpty()) {
             randomizeOrder(animeList)
@@ -28,7 +28,7 @@ internal class RecommendationsCacheInitializationTask(
         }
     }
 
-    private fun initializeRecommendations(animeList: MutableList<out MinimalEntry>) {
+    private fun initializeRecommendations(animeList: List<out MinimalEntry>) {
         animeList.forEach{ cache.fetchRecommendations(it.infoLink) }
     }
 }

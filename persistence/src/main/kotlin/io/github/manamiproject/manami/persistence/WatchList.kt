@@ -6,7 +6,7 @@ import io.github.manamiproject.manami.entities.WatchListEntry
 
 interface WatchList {
 
-    fun fetchWatchList(): MutableList<WatchListEntry>
+    fun fetchWatchList(): List<WatchListEntry>
 
     fun watchListEntryExists(infoLink: InfoLink): Boolean
 

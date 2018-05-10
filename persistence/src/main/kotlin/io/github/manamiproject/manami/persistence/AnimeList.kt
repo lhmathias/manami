@@ -18,7 +18,7 @@ interface AnimeList {
     /**
      * @return A {@link List} of {@link Anime}s which have been watched.
      */
-    fun fetchAnimeList(): MutableList<Anime>
+    fun fetchAnimeList(): List<Anime>
 
 
     /**

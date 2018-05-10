@@ -11,9 +11,9 @@ interface InternalPersistence : ApplicationPersistence {
      */
     fun clearAll()
 
-    fun addAnimeList(list: MutableList<Anime>)
+    fun addAnimeList(list: List<Anime>)
 
-    fun addFilterList(list: MutableList<FilterListEntry>)
+    fun addFilterList(list: List<FilterListEntry>)
 
-    fun addWatchList(list: MutableList<WatchListEntry>)
+    fun addWatchList(list: List<WatchListEntry>)
 }
