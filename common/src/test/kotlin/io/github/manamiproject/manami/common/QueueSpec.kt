@@ -45,7 +45,7 @@ object QueueSpec : Spek({
         }
 
         on("enqueue") {
-            val result = queue.enqueue("value")
+            queue.enqueue("value")
 
             it("must increase size") {
                 assertThat(queue.size()).isOne()

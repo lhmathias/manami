@@ -18,15 +18,14 @@ object ManamiImplSpec : Spek({
 
     val persistence: Persistence = mock(Persistence::class.java)
     val cmdService: CommandService = mock(CommandService::class.java)
-    val config: Config = mock(Config::class.java)
     val taskConductor: TaskConductor = mock(TaskConductor::class.java)
     val manami = Manami
 
     given("a manami instance") {
 
         beforeEachTest {
+            Config.file = Paths.get("./myList.xml")
             reset(cmdService)
-            reset(config)
             reset(taskConductor)
         }
 
