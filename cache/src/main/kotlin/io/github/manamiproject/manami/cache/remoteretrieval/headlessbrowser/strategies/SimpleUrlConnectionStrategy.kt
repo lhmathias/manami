@@ -15,13 +15,13 @@ internal class SimpleUrlConnectionStrategy : HeadlessBrowser {
             return ""
         }
 
-        val header: MutableMap<String, String> = createHeader(infoLink)
+        val header: Map<String, String> = createHeader(infoLink)
         
         return get(infoLink.toString(), header).text
     }
 
     
-    private fun createHeader(infoLink: InfoLink): MutableMap<String, String> {
+    private fun createHeader(infoLink: InfoLink): Map<String, String> {
         val host = infoLink.url?.host ?: ""
 
         val languages: List<String> = listOf(
