@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.core.config
 
-import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.common.*
 import org.apache.commons.io.IOUtils
 import org.slf4j.Logger
 import java.nio.charset.Charset
@@ -44,13 +44,13 @@ internal class ConfigFileWatchdog(path: Path) {
 
         log.info("Checking folder [{}]", folderName)
 
-        if (!Files.exists(dir)) {
+        if (dir.notExists()) {
             log.info("Folder [{}] does not exist, creating it.", folderName)
-            Files.createDirectory(dir)
+            dir.createDirectory()
             log.info("Folder [{}] created under [{}]", folderName, dir.toAbsolutePath())
         }
 
-        if (Files.exists(dir) && !Files.isDirectory(dir)) {
+        if (dir.exists() && dir.isNotDirectory()) {
             throw IllegalStateException("Config folder does not exist, but a file with the same name.")
         }
     }
@@ -66,7 +66,7 @@ internal class ConfigFileWatchdog(path: Path) {
         val transformationFile: Path = themePath.resolve(Paths.get("animelist_transform.xsl"))
         createFileIfNotExist(transformationFile)
 
-        val transformationFileAsLines: MutableList<String> = Files.readAllLines(transformationFile)
+        val transformationFileAsLines: MutableList<String> = transformationFile.readAllLines().toMutableList()
         val absoluteStylesheetPath: String = themePath.resolve(Paths.get("style.css")).toAbsolutePath().toUri().toURL().toString()
 
         for (index in 0 until transformationFileAsLines.size) {
@@ -86,7 +86,7 @@ internal class ConfigFileWatchdog(path: Path) {
 
         transformationFileAsLines[0] = firstLine
 
-        Files.write(transformationFile, transformationFileAsLines, StandardCharsets.UTF_8)
+        transformationFile.write(transformationFileAsLines)
     }
 
 
@@ -100,14 +100,14 @@ internal class ConfigFileWatchdog(path: Path) {
 
         log.info("Checking file [{}]", fileName)
 
-        if (!Files.exists(file)) {
+        if (file.notExists()) {
             log.info("File [{}] does not exist, creating it.", fileName)
-            Files.createFile(file)
+            file.createFile()
 
             val resourceFilename: String = String.format("releasebuild_%s", file.fileName)
             val resourceFileAsString: String = IOUtils.toString(ClassLoader.getSystemResourceAsStream(resourceFilename), Charset.forName("UTF-8"))
             val fileAsLines: List<String> = resourceFileAsString.split("\\r?\\n").toList()
-            Files.write(file, fileAsLines, StandardCharsets.UTF_8)
+            file.write(fileAsLines)
 
             log.info("File [{}] created under [{}]", fileName, file.toAbsolutePath())
         }

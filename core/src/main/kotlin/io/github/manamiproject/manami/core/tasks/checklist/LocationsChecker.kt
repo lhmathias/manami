@@ -1,7 +1,6 @@
 package io.github.manamiproject.manami.core.tasks.checklist
 
-import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.common.*
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.events.checklist.*
 import io.github.manamiproject.manami.entities.Anime
@@ -10,7 +9,6 @@ import io.github.manamiproject.manami.persistence.utility.PathResolver.buildRela
 import org.slf4j.Logger
 import java.nio.file.DirectoryStream
 import java.nio.file.Files
-import java.nio.file.Files.isRegularFile
 import java.nio.file.Files.newDirectoryStream
 import java.nio.file.Path
 import java.nio.file.Paths
@@ -71,7 +69,7 @@ internal class LocationsChecker(
     private fun doesNumberOfFilesDifferNumberOfEpisodes(it: DirectoryStream<Path>, anime: Anime) {
         var fileCounter = 0
 
-        it.filter { isRegularFile(it) }.forEach {
+        it.filter { it.isRegularFile() }.forEach {
             fileCounter = fileCounter.inc()
         }
 
@@ -85,7 +83,7 @@ internal class LocationsChecker(
 
     private fun canLocationBeConvertedToRelativePath(anime: Anime) {
         val dir: Path = Paths.get(anime.location)
-        if (Files.exists(dir) && Files.isDirectory(dir)) {
+        if (dir.exists() && dir.isDirectory()) {
             val relativizedLocation = buildRelativizedPath(anime.location, Config.file.parent)
             EventBus.publish(RelativizeLocationChecklistEvent(anime, relativizedLocation))
         }

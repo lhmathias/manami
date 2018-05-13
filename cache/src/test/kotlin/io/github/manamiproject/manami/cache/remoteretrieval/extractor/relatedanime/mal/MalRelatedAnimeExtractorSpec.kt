@@ -1,6 +1,7 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.mal
 
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.mal.MalRecommendationsExtractorSpec
+import io.github.manamiproject.manami.common.readAllLines
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import org.assertj.core.api.Assertions.assertThat
@@ -9,9 +10,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import java.lang.StringBuilder
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
-import java.nio.file.Path
 import java.nio.file.Paths
 
 object MalRelatedAnimeExtractorSpec : Spek({
@@ -20,8 +18,8 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html with related anime") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_related_anime.html").toURI())
-        Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_related_anime.html").toURI())
+        .readAllLines().map(html::append)
 
         on("extracting related anime") {
             val relatedAnime: MutableSet<InfoLink> = malRelatedAnimeExtractor.extractRelatedAnime(html.toString())
@@ -47,8 +45,8 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html without any relations") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_relations.html").toURI())
-        Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_relations.html").toURI())
+        .readAllLines().map(html::append)
 
         on("extracting related anime") {
             val relatedAnime: MutableSet<InfoLink> = malRelatedAnimeExtractor.extractRelatedAnime(html.toString())
@@ -62,8 +60,8 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html without any related anime, but one adaption entry") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_related_anime_but_one_adaption.html").toURI())
-        Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_related_anime_but_one_adaption.html").toURI())
+        .readAllLines().map(html::append)
 
         on("extracting related anime") {
             val relatedAnime: MutableSet<InfoLink> = malRelatedAnimeExtractor.extractRelatedAnime(html.toString())

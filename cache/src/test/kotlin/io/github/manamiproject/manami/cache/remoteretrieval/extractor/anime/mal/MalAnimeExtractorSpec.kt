@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal
 
+import io.github.manamiproject.manami.common.readAllLines
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -22,8 +23,8 @@ object MalAnimeExtractorSpec : Spek({
 
     given("raw html from mal") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_anime_data.html").toURI())
-        Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
+        Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_anime_data.html").toURI())
+        .readAllLines().map(html::append)
 
         on("extracting information") {
             val extractedAnime: Anime? = malAnimeExtractor.extractAnime(html.toString())

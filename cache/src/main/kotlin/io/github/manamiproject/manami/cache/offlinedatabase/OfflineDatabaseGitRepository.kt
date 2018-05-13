@@ -3,8 +3,7 @@ package io.github.manamiproject.manami.cache.offlinedatabase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.github.manamiproject.manami.cache.populator.CacheEntrySource
-import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.common.*
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -31,7 +30,7 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
     }.create()
 
     init {
-        if (Files.exists(repo)) {
+        if (repo.exists()) {
             updateRepo()
         } else {
             cloneRepo()
@@ -64,7 +63,7 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
         log.info("Initially cloning the offline database repository.")
 
         try {
-            Files.createDirectories(repo)
+            repo.createDirectories()
             Git.cloneRepository()
                     .setURI("https://github.com/manami-project/anime-offline-database.git")
                     .setDirectory(repo.toFile())
@@ -77,7 +76,7 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
     }
 
     private fun readDatabaseFile() {
-        if (Files.exists(databaseFile) && Files.isRegularFile(databaseFile)) {
+        if (databaseFile.exists() && databaseFile.isRegularFile()) {
             log.debug("Reading database file")
             val content = String(Files.readAllBytes(databaseFile))
             val animeMetaData: AnimeMetaData? = gson.fromJson(content, AnimeMetaData::class.java)
@@ -112,7 +111,7 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
     }
 
     private fun readDeadEntriesFile() {
-        if (Files.exists(deadEntriesFile) && Files.isRegularFile(deadEntriesFile)) {
+        if (deadEntriesFile.exists() && deadEntriesFile.isRegularFile()) {
             log.debug("reading not-found file")
             val content = String(Files.readAllBytes(deadEntriesFile))
             val deadEntries: DeadEntries? = gson.fromJson(content, DeadEntries::class.java)

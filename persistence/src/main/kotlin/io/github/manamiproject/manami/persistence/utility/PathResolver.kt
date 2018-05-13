@@ -1,5 +1,7 @@
 package io.github.manamiproject.manami.persistence.utility
 
+import io.github.manamiproject.manami.common.isNotDirectory
+import io.github.manamiproject.manami.common.notExists
 import java.lang.IllegalArgumentException
 import java.nio.file.Files
 import java.nio.file.Path
@@ -13,10 +15,10 @@ object PathResolver {
     fun buildPath(path: String, currentWorkingDir: Path): Path? {
         var dir: Path = Paths.get(path)
 
-        if (!Files.exists(dir) || !Files.isDirectory(dir)) { // absolute
+        if (dir.notExists() || dir.isNotDirectory()) { // absolute
             dir = createRelativePath(dir, currentWorkingDir)
 
-            if (!Files.exists(dir) || !Files.isDirectory(dir)) { // relative
+            if (dir.notExists() || dir.isNotDirectory()) { // relative
                 return null
             }
         }

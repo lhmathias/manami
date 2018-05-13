@@ -1,6 +1,10 @@
 package io.github.manamiproject.manami.cache.offlinedatabase
 
 import io.github.manamiproject.manami.cache.CacheFacade
+import io.github.manamiproject.manami.common.createDirectory
+import io.github.manamiproject.manami.common.exists
+import io.github.manamiproject.manami.common.isDirectory
+import io.github.manamiproject.manami.common.walk
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -28,12 +32,14 @@ class OfflineDatabaseIntegrationTest : Spek({
 
     given("a valid, but outdated clone of the offline database") {
         val resourceDatabaseFolder: Path = Paths.get(OfflineDatabaseIntegrationTest::class.java.classLoader.getResource(DATABASE_RESOURCE_FOLDER).toURI())
-        Files.createDirectory(Paths.get(DATABASE_TEST_DESTINATION_FOLDER))
-        Files.walk(resourceDatabaseFolder, FileVisitOption.FOLLOW_LINKS).forEach {
-            if(it!=resourceDatabaseFolder) {
+
+        Paths.get(DATABASE_TEST_DESTINATION_FOLDER).createDirectory()
+
+        resourceDatabaseFolder.walk(FileVisitOption.FOLLOW_LINKS).forEach {
+            if (it != resourceDatabaseFolder) {
                 Files.copy(it, Paths.get(DATABASE_TEST_DESTINATION_FOLDER).resolve(it.fileName), StandardCopyOption.REPLACE_EXISTING)
             }
-            if(Files.isDirectory(it)) {
+            if (it.isDirectory()) {
                 println("there it is ${it.fileName}")
             }
         }
@@ -198,8 +204,8 @@ class OfflineDatabaseIntegrationTest : Spek({
         fun removeOfflineDatabase() {
             val databaseFolder: Path = Paths.get("database")
 
-            if(Files.exists(databaseFolder)) {
-                Files.walk(databaseFolder)
+            if(databaseFolder.exists()) {
+                databaseFolder.walk()
                         .sorted(Comparator.reverseOrder())
                         .forEach(Files::delete)
             }

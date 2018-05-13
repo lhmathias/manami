@@ -1,5 +1,8 @@
 package io.github.manamiproject.manami.persistence.exporter.xml
 
+import io.github.manamiproject.manami.common.exists
+import io.github.manamiproject.manami.common.readAllLines
+import io.github.manamiproject.manami.common.walk
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.exporter.json.JsonExporterSpec
@@ -42,8 +45,8 @@ class XmlExporterSpec : Spek({
         }
 
         afterEachTest {
-            if(Files.exists(tempFolder)) {
-                Files.walk(tempFolder)
+            if(tempFolder.exists()) {
+                tempFolder.walk()
                         .sorted(Comparator.reverseOrder())
                         .forEach(Files::delete)
             }
@@ -93,12 +96,13 @@ class XmlExporterSpec : Spek({
             
             it("must contain the same list within the file as in the persistence facade") {
                 val exportedFileBuilder = StringBuilder()
-                Files.readAllLines(file, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
+                file.readAllLines().map(exportedFileBuilder::append)
                 val actual: String = normalizeXml(exportedFileBuilder.toString())
 
-                val resource: Path =  Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
                 val expectedFileBuilder = StringBuilder()
-                Files.readAllLines(resource, StandardCharsets.UTF_8).map(expectedFileBuilder::append)
+                Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
+                .readAllLines().map(expectedFileBuilder::append)
+
                 val expected: String = normalizeXml(expectedFileBuilder.toString())
 
                 assertThat(expected).isEqualTo(actual)
@@ -116,12 +120,13 @@ class XmlExporterSpec : Spek({
 
             it("must contain the same list within the file as in the persistence facade") {
                 val exportedFileBuilder = StringBuilder()
-                Files.readAllLines(outputFile, StandardCharsets.UTF_8).map(exportedFileBuilder::append)
+                outputFile.readAllLines().map(exportedFileBuilder::append)
                 val actual: String = normalizeXml(exportedFileBuilder.toString())
 
-                val resource: Path =  Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
                 val expectedFileBuilder = StringBuilder()
-                Files.readAllLines(resource, StandardCharsets.UTF_8).map(expectedFileBuilder::append)
+                Paths.get(JsonExporterSpec::class.java.classLoader.getResource(TEST_ANIME_LIST_FILE).toURI())
+                .readAllLines().map(expectedFileBuilder::append)
+
                 val expected: String = normalizeXml(expectedFileBuilder.toString())
 
                 assertThat(expected).isEqualTo(actual)

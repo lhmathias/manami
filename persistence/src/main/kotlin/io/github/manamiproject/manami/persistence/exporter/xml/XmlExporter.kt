@@ -1,5 +1,7 @@
 package io.github.manamiproject.manami.persistence.exporter.xml
 
+import io.github.manamiproject.manami.common.createFile
+import io.github.manamiproject.manami.common.notExists
 import io.github.manamiproject.manami.persistence.utility.ToolVersion
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
@@ -41,8 +43,8 @@ internal class XmlExporter(private val persistence: InternalPersistence) : Expor
 
         builder = factory.newDocumentBuilder()
 
-        if (Files.notExists(file)) {
-            Files.createFile(file)
+        if (file.notExists()) {
+            file.createFile()
         }
 
         doc = builder.newDocument()

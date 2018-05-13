@@ -2,9 +2,7 @@ package io.github.manamiproject.manami.core.tasks
 
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
-import io.github.manamiproject.manami.core.ListRandomizer.randomizeOrder
-import io.github.manamiproject.manami.entities.Anime
-import io.github.manamiproject.manami.entities.MinimalEntry
+import io.github.manamiproject.manami.common.randomizeOrder
 import io.github.manamiproject.manami.persistence.Persistence
 
 
@@ -20,15 +18,8 @@ internal class RecommendationsCacheInitializationTask(
     private val cache: Cache = CacheFacade
 
     override fun execute() {
-        val animeList: List<Anime> = persistence.fetchAnimeList()
-
-        if(!animeList.isEmpty()) {
-            randomizeOrder(animeList)
-            initializeRecommendations(animeList)
-        }
-    }
-
-    private fun initializeRecommendations(animeList: List<MinimalEntry>) {
-        animeList.forEach{ cache.fetchRecommendations(it.infoLink) }
+        persistence.fetchAnimeList()
+            .randomizeOrder()
+            .forEach{ cache.fetchRecommendations(it.infoLink) }
     }
 }

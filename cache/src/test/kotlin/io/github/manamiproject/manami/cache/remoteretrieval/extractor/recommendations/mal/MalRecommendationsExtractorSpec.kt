@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.mal
 
+import io.github.manamiproject.manami.common.readAllLines
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
 import io.github.manamiproject.manami.entities.RecommendationList
@@ -19,8 +20,8 @@ object MalRecommendationsExtractorSpec : Spek({
 
     given("raw html with recommendations") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_recommendations.html").toURI())
-        Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_recommendations.html").toURI())
+        .readAllLines().map(html::append)
 
         on("extracting recommendations") {
             val recommendationList: RecommendationList = malRecommendationsExtractor.extractRecommendations(html.toString())
@@ -78,8 +79,8 @@ object MalRecommendationsExtractorSpec : Spek({
 
     given("raw html of an entry without recommendations") {
         val html = StringBuilder()
-        val htmlFile: Path = Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_recommendations.html").toURI())
-        Files.readAllLines(htmlFile, StandardCharsets.UTF_8).map(html::append)
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_recommendations.html").toURI())
+        .readAllLines().map(html::append)
 
         on("extracting recommendations") {
             val recommendationList: RecommendationList = malRecommendationsExtractor.extractRecommendations(html.toString())

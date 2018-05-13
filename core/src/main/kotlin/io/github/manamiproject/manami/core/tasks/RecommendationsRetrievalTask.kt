@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.core.tasks
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.core.ListRandomizer.randomizeOrder
+import io.github.manamiproject.manami.common.randomizeOrder
 import io.github.manamiproject.manami.core.events.RecommendationListEvent
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -33,7 +33,7 @@ internal class RecommendationsRetrievalTask(
     private val recommendations: MutableMap<InfoLink, Int> = mutableMapOf()
 
     override fun execute() {
-        randomizeOrder(animeList)
+        animeList.randomizeOrder()
                 .filter { it.isValid() }
                 .map { it.infoLink }
                 .map(cache::fetchRecommendations)
