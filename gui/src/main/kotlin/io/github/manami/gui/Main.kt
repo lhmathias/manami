@@ -1,4 +1,4 @@
-package io.github.manami
+package io.github.manami.gui
 
 import io.github.manami.gui.events.ApplicationContextStartedEvent
 import io.github.manamiproject.manami.common.EventBus

@@ -23,7 +23,7 @@ import static io.github.manami.gui.utility.DialogLibrary.showUnsavedChangesDialo
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-import io.github.manami.Main;
+import io.github.manami.gui.Main;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manamiproject.manami.core.commands.CmdChangeEpisodes;
 import io.github.manamiproject.manami.core.commands.CmdChangeInfoLink;

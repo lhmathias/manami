@@ -3,7 +3,7 @@ package io.github.manami.gui.controller;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import io.github.manami.Main;
+import io.github.manami.gui.Main;
 import io.github.manami.cache.CacheI;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manami.core.tasks.ServiceRepository;

@@ -3,7 +3,7 @@ package io.github.manami.gui.controller;
 import static io.github.manamiproject.manami.core.config.Config.NOTIFICATION_DURATION;
 import static io.github.manami.gui.components.Icons.createIconCancel;
 
-import io.github.manami.Main;
+import io.github.manami.gui.Main;
 import io.github.manami.cache.CacheI;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manami.core.tasks.RelatedAnimeFinderTask;

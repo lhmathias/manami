@@ -6,7 +6,7 @@ import static io.github.manami.gui.components.Icons.createIconCancel;
 import static io.github.manami.gui.utility.DialogLibrary.JSON_FILTER;
 import static io.github.manami.gui.utility.DialogLibrary.showExportDialog;
 
-import io.github.manami.Main;
+import io.github.manami.gui.Main;
 import io.github.manami.cache.CacheI;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manamiproject.manami.core.commands.CmdAddFilterEntry;

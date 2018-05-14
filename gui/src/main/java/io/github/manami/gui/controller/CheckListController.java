@@ -7,7 +7,7 @@ import static io.github.manami.gui.components.Icons.createIconRemove;
 import static io.github.manami.gui.utility.DialogLibrary.showExceptionDialog;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import io.github.manami.Main;
+import io.github.manami.gui.Main;
 import io.github.manami.cache.CacheI;
 import io.github.manamiproject.manami.core.Manami;
 import io.github.manamiproject.manami.core.commands.CommandService;

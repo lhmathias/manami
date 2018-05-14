@@ -5,7 +5,7 @@ import static com.google.common.collect.Queues.newConcurrentLinkedQueue;
 import static io.github.manami.gui.components.Icons.createIconDelete;
 import static org.apache.commons.lang3.StringUtils.EMPTY;
 
-import io.github.manami.Main;
+import io.github.manami.gui.Main;
 import io.github.manami.cache.CacheI;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.ExtractorList;
 import io.github.manami.cache.strategies.headlessbrowser.extractor.anime.AnimeEntryExtractor;
