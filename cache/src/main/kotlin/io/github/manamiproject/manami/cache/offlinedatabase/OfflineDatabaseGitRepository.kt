@@ -78,7 +78,7 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
     private fun readDatabaseFile() {
         if (databaseFile.exists() && databaseFile.isRegularFile()) {
             log.debug("Reading database file")
-            val content = String(Files.readAllBytes(databaseFile))
+            val content = String(databaseFile.readAllBytes())
             val animeMetaData: AnimeMetaData? = gson.fromJson(content, AnimeMetaData::class.java)
 
             animeMetaData?.data?.forEach { entry ->
@@ -113,7 +113,7 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
     private fun readDeadEntriesFile() {
         if (deadEntriesFile.exists() && deadEntriesFile.isRegularFile()) {
             log.debug("reading not-found file")
-            val content = String(Files.readAllBytes(deadEntriesFile))
+            val content = String(deadEntriesFile.readAllBytes())
             val deadEntries: DeadEntries? = gson.fromJson(content, DeadEntries::class.java)
 
             deadEntries?.mal?.forEach { id ->

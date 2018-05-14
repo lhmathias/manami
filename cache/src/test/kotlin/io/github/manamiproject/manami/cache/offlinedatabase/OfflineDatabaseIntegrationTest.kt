@@ -1,10 +1,7 @@
 package io.github.manamiproject.manami.cache.offlinedatabase
 
 import io.github.manamiproject.manami.cache.CacheFacade
-import io.github.manamiproject.manami.common.createDirectory
-import io.github.manamiproject.manami.common.exists
-import io.github.manamiproject.manami.common.isDirectory
-import io.github.manamiproject.manami.common.walk
+import io.github.manamiproject.manami.common.*
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -37,7 +34,7 @@ class OfflineDatabaseIntegrationTest : Spek({
 
         resourceDatabaseFolder.walk(FileVisitOption.FOLLOW_LINKS).forEach {
             if (it != resourceDatabaseFolder) {
-                Files.copy(it, Paths.get(DATABASE_TEST_DESTINATION_FOLDER).resolve(it.fileName), StandardCopyOption.REPLACE_EXISTING)
+                it.copy(Paths.get(DATABASE_TEST_DESTINATION_FOLDER).resolve(it.fileName), StandardCopyOption.REPLACE_EXISTING)
             }
             if (it.isDirectory()) {
                 println("there it is ${it.fileName}")
@@ -47,14 +44,14 @@ class OfflineDatabaseIntegrationTest : Spek({
         on("initializing the cache") {
             val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
             val crcSum1 = CRC32().apply {
-                update(Files.readAllBytes(Paths.get("database/anime-offline-database.json")))
+                update(Paths.get("database/anime-offline-database.json").readAllBytes())
             }
             println("Here is the first: ${Integer.toHexString(crcSum1.value.toInt())}")
             val cacheResult = CacheFacade.fetchAnime(infoLink)
             
             it("must have updated the offline database file") {
                 val crcSum: Long = CRC32().apply {
-                    update(Files.readAllBytes(Paths.get("database/anime-offline-database.json")))  
+                    update(Paths.get("database/anime-offline-database.json").readAllBytes())
                 }.value
                 
                 assertThat(crcSum).isNotEqualTo(crcSum1)
@@ -207,7 +204,7 @@ class OfflineDatabaseIntegrationTest : Spek({
             if(databaseFolder.exists()) {
                 databaseFolder.walk()
                         .sorted(Comparator.reverseOrder())
-                        .forEach(Files::delete)
+                        .forEach(Path::deleteIfExists)
             }
         }
     }

@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.persistence.exporter.json
 
+import io.github.manamiproject.manami.common.deleteIfExists
 import io.github.manamiproject.manami.common.exists
 import io.github.manamiproject.manami.common.readAllLines
 import io.github.manamiproject.manami.common.walk
@@ -50,7 +51,7 @@ class JsonExporterSpec : Spek({
         if(tempFolder.exists()) {
             tempFolder.walk()
                     .sorted(Comparator.reverseOrder())
-                    .forEach(Files::delete)
+                    .forEach(Path::deleteIfExists)
         }
     }
 

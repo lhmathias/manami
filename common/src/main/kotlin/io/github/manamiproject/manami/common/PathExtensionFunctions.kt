@@ -49,3 +49,23 @@ fun Path.write(lines: List<String>, charset: Charset = StandardCharsets.UTF_8, v
 fun Path.walk(vararg options: FileVisitOption): Stream<Path> {
     return Files.walk(this, *options)
 }
+
+fun Path.deleteIfExists() {
+    Files.deleteIfExists(this)
+}
+
+fun Path.readAllBytes(): ByteArray {
+    return Files.readAllBytes(this)
+}
+
+fun Path.list(): Stream<Path> {
+    return Files.list(this)
+}
+
+fun Path.copy(target: Path, vararg option: CopyOption): Path {
+    return Files.copy(this, target, *option)
+}
+
+fun Path.newDirectoryStream(): DirectoryStream<Path> {
+    return Files.newDirectoryStream(this)
+}

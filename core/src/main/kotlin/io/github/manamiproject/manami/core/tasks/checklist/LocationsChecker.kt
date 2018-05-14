@@ -8,8 +8,6 @@ import io.github.manamiproject.manami.persistence.utility.PathResolver.buildPath
 import io.github.manamiproject.manami.persistence.utility.PathResolver.buildRelativizedPath
 import org.slf4j.Logger
 import java.nio.file.DirectoryStream
-import java.nio.file.Files
-import java.nio.file.Files.newDirectoryStream
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -36,7 +34,7 @@ internal class LocationsChecker(
         }
 
         doesLocationExist(anime)?.let {
-            newDirectoryStream(it).use {
+            it.newDirectoryStream().use {
                 doesNumberOfFilesDifferNumberOfEpisodes(it, anime)
             }
 
