@@ -1,0 +1,181 @@
+package io.github.manamiproject.manami.gui.controller;
+
+import static com.google.common.collect.Lists.newArrayList;
+
+//public class TagListController extends AbstractAnimeListController implements Observer {
+//
+//  public static final String TAG_LIST_TITLE = "Tags";
+//
+//  /**
+//   * Instance of the application.
+//   */
+//  private final Manami app = Main.CONTEXT.getBean(Manami.class);
+//
+//  /**
+//   * Instance of the cacheI.
+//   */
+//  private final CacheI cacheI = Main.CONTEXT.getBean(CacheI.class);
+//
+//  /**
+//   * Instance of the service repository.
+//   */
+//  private final ServiceRepository serviceRepo = Main.CONTEXT.getBean(ServiceRepository.class);
+//
+//  /**
+//   * {@link TextField} for adding a new entry.
+//   */
+//  @FXML
+//  private TextField txtUrl;
+//
+//  /**
+//   * {@link GridPane} which shows the results.
+//   */
+//  @FXML
+//  private GridPane gridPane;
+//
+//  /**
+//   * Moving circle indicating a process.
+//   */
+//  @FXML
+//  private ProgressIndicator progressIndicator;
+//
+//  /**
+//   * Showing the amount of services running in the background.
+//   */
+//  @FXML
+//  private Label lblProgressMsg;
+//
+//  @FXML
+//  private Button btnCancel;
+//
+//  private Tab tab;
+//
+//  private TagRetrievalTask service;
+//
+//  private final List<Anime> originalOrder = newArrayList();
+//
+//
+//  @Override
+//  protected GridPane getGridPane() {
+//    return gridPane;
+//  }
+//
+//
+//  @FXML
+//  public void addEntry() {
+//    final String urlString = txtUrl.getText().trim();
+//
+//    if (!isValid(urlString)) {
+//      return;
+//    }
+//
+//    clear();
+//    service = new TagRetrievalTask(cacheI, app, urlString, this);
+//    serviceRepo.startService(service);
+//    txtUrl.setText(EMPTY);
+//    Platform.runLater(() -> {
+//      progressIndicator.setVisible(true);
+//      lblProgressMsg.setVisible(true);
+//      btnCancel.setVisible(true);
+//      getGridPane().getChildren().clear();
+//    });
+//  }
+//
+//
+//  private boolean isValid(final String urlString) {
+//    if (urlString.startsWith("https://myanimelist.net/anime/genre")) {
+//      return true;
+//    }
+//
+//    if (urlString.startsWith("https://myanimelist.net/anime/producer")) {
+//      return true;
+//    }
+//
+//    if (urlString.startsWith("https://myanimelist.net/anime/season")) {
+//      return true;
+//    }
+//
+//    return false;
+//  }
+//
+//  public void clear() {
+//    cancel();
+//
+//    Platform.runLater(() -> {
+//      getGridPane().getChildren().clear();
+//    });
+//
+//    clearComponentList();
+//    showEntries();
+//  }
+//
+//
+//  public void setTab(final Tab tab) {
+//    this.tab = tab;
+//  }
+//
+//
+//  @Override
+//  protected List<AnimeGuiComponentsListEntry> sortComponentEntries() {
+//    final List<AnimeGuiComponentsListEntry> correctedOrder = newArrayList();
+//    originalOrder.forEach(entry -> correctedOrder.add(getComponentList().get(entry.getInfoLink())));
+//    return correctedOrder;
+//  }
+//
+//
+//  @Override
+//  protected void updateChildren() {
+//    Platform.runLater(() -> tab.setText(String.format("%s (%s)", TAG_LIST_TITLE, getComponentList().size())));
+//  }
+//
+//
+//  @Override
+//  protected List<? extends MinimalEntry> getEntryList() {
+//    // not needed for this controller
+//    return null;
+//  }
+//
+//
+//  @Override
+//  boolean isInList(final InfoLink infoLink) {
+//    // not needed for this controller
+//    return false;
+//  }
+//
+//
+//  @Override
+//  public void update(final Observable observable, final Object object) {
+//    if (observable == null || object == null) {
+//      return;
+//    }
+//
+//    if (observable instanceof TagRetrievalTask && object instanceof Anime) {
+//      final Anime anime = (Anime) object;
+//      originalOrder.add(anime);
+//      addEntryToGui(anime); // create GUI components
+//      showEntries();
+//    }
+//
+//    if (observable instanceof TagRetrievalTask && object instanceof Boolean) {
+//      Platform.runLater(() -> {
+//        progressIndicator.setVisible(false);
+//        lblProgressMsg.setVisible(false);
+//        btnCancel.setVisible(false);
+//      });
+//    }
+//  }
+//
+//
+//  public void cancel() {
+//    if (service != null) {
+//      service.deleteObserver(this);
+//      service.reset();
+//    }
+//
+//    Platform.runLater(() -> {
+//      progressIndicator.setVisible(false);
+//      lblProgressMsg.setVisible(false);
+//      btnCancel.setVisible(false);
+//    });
+//  }
+//}
