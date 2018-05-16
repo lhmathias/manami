@@ -8,7 +8,6 @@ import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.MinimalEntry
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
-import org.apache.commons.lang3.StringUtils.containsIgnoreCase
 import org.apache.commons.text.similarity.LevenshteinDistance
 
 
@@ -34,7 +33,7 @@ internal class SearchTask(
   private fun checkEntry(entry: MinimalEntry) {
     val isTitleNearlyEqual = LevenshteinDistance(MAX_LEVENSHTEIN_DISTANCE + 1)
             .apply(entry.title.toLowerCase(), searchString.toLowerCase()) <= MAX_LEVENSHTEIN_DISTANCE
-    val isInTitle = containsIgnoreCase(entry.title, searchString)
+    val isInTitle = entry.title.contains(searchString, ignoreCase = true)
     val isInfoLinkEqual = searchString.equals(entry.infoLink.toString(), ignoreCase = true)
 
     if (isTitleNearlyEqual || isInTitle || isInfoLinkEqual) {
