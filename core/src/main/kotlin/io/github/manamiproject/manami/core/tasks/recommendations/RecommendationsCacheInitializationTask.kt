@@ -1,8 +1,9 @@
-package io.github.manamiproject.manami.core.tasks
+package io.github.manamiproject.manami.core.tasks.recommendations
 
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.randomizeOrder
+import io.github.manamiproject.manami.core.tasks.AbstractTask
 import io.github.manamiproject.manami.persistence.Persistence
 
 

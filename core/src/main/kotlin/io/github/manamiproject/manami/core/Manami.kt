@@ -5,6 +5,9 @@ import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
 import io.github.manamiproject.manami.core.config.ConfigFileWatchdog
 import io.github.manamiproject.manami.core.tasks.*
+import io.github.manamiproject.manami.core.tasks.recommendations.RecommendationsCacheInitializationTask
+import io.github.manamiproject.manami.core.tasks.search.SearchTask
+import io.github.manamiproject.manami.core.tasks.thumbnails.ThumbnailBackloadTask
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.ApplicationPersistence
 import io.github.manamiproject.manami.persistence.PersistenceFacade

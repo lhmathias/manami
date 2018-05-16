@@ -1,9 +1,11 @@
-package io.github.manamiproject.manami.core.tasks
+package io.github.manamiproject.manami.core.tasks.relatedanime
 
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.core.events.ProgressState
+import io.github.manamiproject.manami.core.events.relatedanime.RelatedAnimeIdentifiedEvent
+import io.github.manamiproject.manami.core.tasks.AbstractTask
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.persistence.Persistence
 import org.slf4j.Logger
@@ -15,7 +17,7 @@ import org.slf4j.Logger
 internal class FindDirectlyRelatedAnimeTask(
         private val cache: Cache,
         private val persistence: Persistence,
-        private val list: List<InfoLink>
+        private val list: Set<InfoLink>
 ) : AbstractTask() {
 
     private val log: Logger by LoggerDelegate()
@@ -24,7 +26,12 @@ internal class FindDirectlyRelatedAnimeTask(
         var counter = 0
 
         val relatedAnimeResult: Set<InfoLink> =  list.map {
-            EventBus.publish(ProgressState(++counter, list.size))
+            EventBus.publish(
+                ProgressState(
+                    ++counter,
+                    list.size
+                )
+            )
             cache.fetchRelatedAnime(it)
         }
         .flatten()
@@ -34,6 +41,6 @@ internal class FindDirectlyRelatedAnimeTask(
         .filter { !persistence.filterListEntryExists(it) }
         .toHashSet()
 
-        //TODO: fire event with result
+        EventBus.publish(RelatedAnimeIdentifiedEvent(relatedAnimeResult))
     }
 }

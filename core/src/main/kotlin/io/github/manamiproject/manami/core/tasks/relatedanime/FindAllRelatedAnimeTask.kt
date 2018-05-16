@@ -1,10 +1,11 @@
-package io.github.manamiproject.manami.core.tasks
+package io.github.manamiproject.manami.core.tasks.relatedanime
 
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.common.Queue
 import io.github.manamiproject.manami.core.events.ProgressState
+import io.github.manamiproject.manami.core.tasks.AbstractTask
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.persistence.Persistence
 import org.slf4j.Logger
