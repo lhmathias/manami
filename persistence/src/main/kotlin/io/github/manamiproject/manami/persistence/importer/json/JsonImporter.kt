@@ -1,18 +1,13 @@
 package io.github.manamiproject.manami.persistence.importer.json
 
 import io.github.manamiproject.manami.common.LoggerDelegate
-import io.github.manamiproject.manami.entities.AnimeType
-import io.github.manamiproject.manami.entities.Anime
-import io.github.manamiproject.manami.entities.FilterListEntry
-import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.WatchListEntry
+import io.github.manamiproject.manami.common.bufferedReader
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.InternalPersistence
 import io.github.manamiproject.manami.persistence.importer.Importer
 import org.json.JSONArray
 import org.json.JSONTokener
 import org.slf4j.Logger
-import java.io.BufferedReader
-import java.io.FileReader
 import java.lang.StringBuilder
 import java.net.URL
 import java.nio.file.Path
@@ -32,10 +27,9 @@ internal class JsonImporter(private val persistence: InternalPersistence) : Impo
 
 
     override fun importFile(file: Path) {
-        val fileReader = FileReader(file.toFile())
         val strBuilder = StringBuilder()
 
-        BufferedReader(fileReader).use {
+        file.bufferedReader().use {
             it.lines().forEach { line -> strBuilder.append(line).append('\n') }
         }
 

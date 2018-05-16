@@ -1,7 +1,9 @@
 package io.github.manamiproject.manami.common
 
+import java.io.BufferedReader
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
+import java.nio.charset.StandardCharsets.*
 import java.nio.file.*
 import java.nio.file.attribute.FileAttribute
 import java.util.stream.Stream
@@ -26,7 +28,7 @@ fun Path.isRegularFile(vararg linkOption: LinkOption): Boolean {
     return Files.isRegularFile(this, *linkOption)
 }
 
-fun Path.readAllLines(charset: Charset = StandardCharsets.UTF_8): List<String> {
+fun Path.readAllLines(charset: Charset = UTF_8): List<String> {
     return Files.readAllLines(this, charset)
 }
 
@@ -42,7 +44,7 @@ fun Path.createFile(vararg fileAttribute: FileAttribute<*>) {
     Files.createFile(this, *fileAttribute)
 }
 
-fun Path.write(lines: List<String>, charset: Charset = StandardCharsets.UTF_8, vararg options: OpenOption) {
+fun Path.write(lines: List<String>, charset: Charset = UTF_8, vararg options: OpenOption) {
     Files.write(this, lines, charset, *options)
 }
 
@@ -68,4 +70,8 @@ fun Path.copy(target: Path, vararg option: CopyOption): Path {
 
 fun Path.newDirectoryStream(): DirectoryStream<Path> {
     return Files.newDirectoryStream(this)
+}
+
+fun Path.bufferedReader(charset: Charset = UTF_8): BufferedReader {
+    return this.toFile().bufferedReader(charset)
 }
