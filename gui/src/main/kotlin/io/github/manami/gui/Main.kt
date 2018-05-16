@@ -1,28 +1,15 @@
 package io.github.manami.gui
 
-import io.github.manami.gui.events.ApplicationContextStartedEvent
-import io.github.manamiproject.manami.common.EventBus
-import io.github.manamiproject.manami.core.Manami
+import io.github.manami.gui.views.MainView
 import javafx.application.Application
-import javafx.stage.Stage
+import tornadofx.App
 
 
 /**
  * Entry point of the application.
  */
-class Main : Application() {
+class Main : App(MainView::class)
 
-  /**
-   * @param args Command line arguments.
-   */
-  fun main(args: Array<String>) {
-    Manami.init()
-    launch(*args)
-  }
-
-  override fun start(primaryStage: Stage?) {
-    primaryStage?.let {
-      EventBus.publish(ApplicationContextStartedEvent(primaryStage))
-    }
-  }
+fun main(vararg args: String) {
+  Application.launch(Main::class.java, *args)
 }
