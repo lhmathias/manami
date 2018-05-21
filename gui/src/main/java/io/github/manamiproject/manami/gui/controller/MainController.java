@@ -70,192 +70,10 @@ import static io.github.manamiproject.manami.gui.utility.DialogLibrary.showExpor
 //  private AutoCompletionBinding<String> autoCompletionBinding;
 //
 //  /**
-//   * Table for anime list.
-//   */
-//  @FXML
-//  private TableView<Anime> tvAnimeList;
-//
-//  /**
-//   * Column: row number
-//   */
-//  @FXML
-//  private TableColumn<Anime, Anime> colAnimeListNumber;
-//
-//  /**
-//   * Column: title
-//   */
-//  @FXML
-//  private TableColumn<Anime, String> colAnimeListTitle;
-//
-//  /**
-//   * Column: type
-//   */
-//  @FXML
-//  private TableColumn<Anime, String> colAnimeListType;
-//
-//  /**
-//   * Column: episodes
-//   */
-//  @FXML
-//  private TableColumn<Anime, Integer> colAnimeListEpisodes;
-//
-//  /**
-//   * Column: info link
-//   */
-//  @FXML
-//  private TableColumn<Anime, InfoLink> colAnimeListLink;
-//
-//  /**
-//   * Column: location on hard drive
-//   */
-//  @FXML
-//  private TableColumn<Anime, String> colAnimeListLocation;
-//
-//  /**
-//   * Tab pane holding all tabs.
-//   */
-//  @FXML
-//  private TabPane tabPane;
-//
-//  /**
-//   * Tab for anime list.
-//   */
-//  @FXML
-//  private Tab tabAnimeList;
-//
-//  /**
-//   * Menu item: "New List"
-//   */
-//  @FXML
-//  private MenuItem miNewList;
-//
-//  /**
-//   * Menu item: "New Entry"
-//   */
-//  @FXML
-//  private MenuItem miNewEntry;
-//
-//  /**
-//   * Menu item: "Open"
-//   */
-//  @FXML
-//  private MenuItem miOpen;
-//
-//  /**
-//   * Menu item: "Import"
-//   */
-//  @FXML
-//  private MenuItem miImport;
-//
-//  /**
-//   * Menu item: "Check List"
-//   */
-//  @FXML
-//  private MenuItem miCheckList;
-//
-//  /**
-//   * Menu item: "Save"
-//   */
-//  @FXML
-//  private MenuItem miSave;
-//
-//  /**
-//   * Menu item: "Save as"
-//   */
-//  @FXML
-//  private MenuItem miSaveAs;
-//
-//  /**
-//   * Menu item: "Exit"
-//   */
-//  @FXML
-//  private MenuItem miExit;
-//
-//  /**
-//   * Menu item: "Redo"
-//   */
-//  @FXML
-//  private MenuItem miRedo;
-//
-//  /**
-//   * Menu item: "Undo"
-//   */
-//  @FXML
-//  private MenuItem miUndo;
-//
-//  /**
-//   * Menu item: "Export"
-//   */
-//  @FXML
-//  private MenuItem miExport;
-//
-//  /**
-//   * Menu item: "Delete"
-//   */
-//  @FXML
-//  private MenuItem miDeleteEntry;
-//
-//  /**
-//   * Contextmenu item: "Delete"
-//   */
-//  @FXML
-//  private MenuItem cmiDeleteEntry;
-//
-//  /**
-//   * Menu item: "Related Anime"
-//   */
-//  @FXML
-//  private MenuItem miRelatedAnime;
-//
-//  /**
-//   * Menu item: "Recommendations"
-//   */
-//  @FXML
-//  private MenuItem miRecommendations;
-//
-//  /**
-//   * Menu item: "Filter List"
-//   */
-//  @FXML
-//  private MenuItem miFilterList;
-//
-//  /**
-//   * Menu item: "Watch List"
-//   */
-//  @FXML
-//  private MenuItem miWatchList;
-//
-//  /**
-//   * Menu item: "Tags"
-//   */
-//  @FXML
-//  private MenuItem miTagList;
-//
-//  /**
-//   * Menu item: "About"
-//   */
-//  @FXML
-//  private MenuItem miAbout;
-//
-//  /**
-//   * Textfield for searching an anime.
-//   */
-//  @FXML
-//  private TextField txtSearchString;
-//
-//  /**
-//   * Button which starts the search.
-//   */
-//  @FXML
-//  private Button btnSearch;
-//
-//
-//  /**
 //   * Initializes the table view for the anime list. Including column mapping an so on.
 //   */
 //  public void initialize() {
 //    initFilterTab();
-//    initMenuItemGlyphs();
 //
 //    tabAnimeList.setOnSelectionChanged(event -> {
 //      if (tabAnimeList.isSelected()) {
@@ -264,11 +82,6 @@ import static io.github.manamiproject.manami.gui.utility.DialogLibrary.showExpor
 //      }
 //    });
 //
-//    Platform.setImplicitExit(false);
-//    mainControllerWrapper.getMainStage().setOnCloseRequest(event -> {
-//      event.consume();
-//      exit();
-//    });
 //
 //    // Quicker access the list.
 //    tvAnimeList.getItems().addListener((ListChangeListener<Anime>) event -> {
@@ -353,20 +166,6 @@ import static io.github.manamiproject.manami.gui.utility.DialogLibrary.showExpor
 //  }
 //
 //
-//  private void initMenuItemGlyphs() {
-//    miNewList.setGraphic(createIconFileText());
-//    miNewEntry.setGraphic(createIconFile());
-//    miOpen.setGraphic(createIconFolderOpen());
-//    miSave.setGraphic(createIconSave());
-//    miImport.setGraphic(createIconImport());
-//    miExport.setGraphic(createIconExport());
-//    miExit.setGraphic(createIconExit());
-//    miUndo.setGraphic(createIconUndo());
-//    miRedo.setGraphic(createIconRedo());
-//    miDeleteEntry.setGraphic(createIconDelete());
-//    miAbout.setGraphic(createIconQuestion());
-//    cmiDeleteEntry.setGraphic(createIconDelete());
-//  }
 //
 //
 //  private void search() {
