@@ -19,6 +19,7 @@ import java.nio.file.Paths
 
 private const val FILE_SUFFIX_XML = ".xml"
 private const val FILE_SUFFIX_JSON = ".json"
+private const val CURRENT_DIR = "."
 
 
 /**
@@ -34,13 +35,13 @@ object Manami : ApplicationPersistence {
 
 
     fun init() {
-        ConfigFileWatchdog(Paths.get(".")).validate()
+        ConfigFileWatchdog(Paths.get(CURRENT_DIR)).validate()
     }
 
 
     fun newList() {
         resetCommandHistory()
-        config.file = Paths.get("./")
+        config.file = Paths.get(CURRENT_DIR)
         persistence.clearAll()
     }
 
@@ -55,6 +56,7 @@ object Manami : ApplicationPersistence {
 
 
     fun open(file: Path) {
+        taskConductor.cancelAllTasks()
         persistence.clearAll()
         persistence.open(file)
         config.file = file
@@ -75,6 +77,10 @@ object Manami : ApplicationPersistence {
         }
     }
 
+    fun saveAs(file: Path) {
+        config.file = file
+        save()
+    }
 
     fun save() {
         if (persistence.save(config.file)) {

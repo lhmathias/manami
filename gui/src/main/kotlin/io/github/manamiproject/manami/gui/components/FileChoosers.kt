@@ -5,11 +5,13 @@ import javafx.stage.FileChooser.ExtensionFilter
 import javafx.stage.Stage
 import java.nio.file.Path
 
+private const val FILE_SUFFIX_XML = "*.xml"
+
 object FileChoosers {
 
-    private val XML_FILTER = ExtensionFilter("XML", "*.xml")
+    private val XML_FILTER = ExtensionFilter("XML", FILE_SUFFIX_XML)
     private val JSON_FILTER = ExtensionFilter("JSON", "*.json")
-    private val XML_MAL_FILTER = ExtensionFilter("myanimelist.net", "*.xml")
+    private val XML_MAL_FILTER = ExtensionFilter("myanimelist.net", FILE_SUFFIX_XML)
 
 
     fun showOpenFileDialog(stage: Stage): Path? {

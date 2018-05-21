@@ -20,8 +20,14 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
 import javafx.scene.Parent
 import javafx.scene.control.*
 import tornadofx.View
+import java.nio.file.Path
+import java.nio.file.Paths
+
+private const val FILE_SUFFIX_XML = ".xml"
 
 class MainView : View() {
+
+    private val manami = Manami
 
     override val root: Parent by fxml()
     private val tvAnimeList: TableView<Anime> by fxid()
@@ -78,7 +84,8 @@ class MainView : View() {
     }
 
     fun exit() {
-        Manami.exit()
+        //TODO: Check file is unsaved
+        manami.exit()
     }
 
     fun deleteEntry() {}
@@ -89,17 +96,40 @@ class MainView : View() {
 
     fun open() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
-            Manami.open(it)
+            //TODO: check for open file
+            //TODO: clear everything
+            manami.open(it)
         }
     }
 
-    fun importFile() {}
+    fun importFile() {
+        FileChoosers.showImportFileDialog(primaryStage)?.let {
+            //TODO: check for open file
+            manami.importFile(it)
+        }
+    }
 
-    fun export() {}
+    fun export() {
+        FileChoosers.showExportDialog(primaryStage)?.let {
+            manami.export(it)
+        }
+    }
 
-    fun save() {}
+    fun save() {
+        manami.save()
+    }
 
-    fun saveAs() {}
+    fun saveAs() {
+        FileChoosers.showSaveAsFileDialog(primaryStage)?.let {
+            val file: Path = it
+
+            if(it.endsWith(FILE_SUFFIX_XML) || it.endsWith(FILE_SUFFIX_XML.toUpperCase())) {
+                Paths.get("${it.fileName}${FILE_SUFFIX_XML}")
+            }
+
+            manami.saveAs(file)
+        }
+    }
 
     fun undo() {}
 

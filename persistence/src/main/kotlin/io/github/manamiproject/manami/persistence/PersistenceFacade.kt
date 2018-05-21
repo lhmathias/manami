@@ -9,6 +9,7 @@ import io.github.manamiproject.manami.persistence.exporter.json.JsonExporter
 import io.github.manamiproject.manami.persistence.exporter.xml.XmlExporter
 import io.github.manamiproject.manami.persistence.importer.json.JsonImporter
 import io.github.manamiproject.manami.persistence.importer.xml.XmlImporter
+import io.github.manamiproject.manami.persistence.importer.xml.XmlImporter.XmlStrategy.*
 import io.github.manamiproject.manami.persistence.importer.xml.parser.MalSaxParser
 import io.github.manamiproject.manami.persistence.importer.xml.parser.ManamiSaxParser
 import io.github.manamiproject.manami.persistence.inmemory.InMemoryPersistence
@@ -208,12 +209,12 @@ object PersistenceFacade : Persistence {
 
 
     override fun open(file: Path) {
-        xmlImporter.using(XmlImporter.XmlStrategy.MANAMI).importFile(file)
+        xmlImporter.using(MANAMI).importFile(file)
     }
 
 
     override fun importMalFile(file: Path) {
-        xmlImporter.using(XmlImporter.XmlStrategy.MAL).importFile(file)
+        xmlImporter.using(MAL).importFile(file)
     }
 
 

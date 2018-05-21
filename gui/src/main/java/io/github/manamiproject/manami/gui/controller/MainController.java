@@ -1,7 +1,5 @@
 package io.github.manamiproject.manami.gui.controller;
 
-import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manamiproject.manami.gui.utility.DialogLibrary.showExportDialog;
 
 ///**
 // * Controller for the main stage.
