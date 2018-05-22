@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.entities
 
-import org.apache.commons.validator.routines.UrlValidator
 import java.net.MalformedURLException
 import java.net.URL
 
@@ -17,7 +16,7 @@ data class InfoLink internal constructor (val url: URL?) {
             return false
         }
 
-        return getUrlValidator().isValid(url.toString())
+        return UrlValidator.isValid(url.toString())
     }
 
 
@@ -34,10 +33,6 @@ data class InfoLink internal constructor (val url: URL?) {
 
 
      companion object  {
-        private val VALID_SCHEMES = arrayOf("HTTP", "HTTPS")
-
-        fun getUrlValidator() = UrlValidator(VALID_SCHEMES)
-
         operator fun invoke(url: String): InfoLink {
             return InfoLink(createUrl(url.trim()))
         }

@@ -30,6 +30,7 @@ class MainView : View() {
     private val manami = Manami
 
     override val root: Parent by fxml()
+
     private val tvAnimeList: TableView<Anime> by fxid()
     private val colAnimeListNumber: TableColumn<Anime, Anime> by fxid()
     private val colAnimeListTitle: TableColumn<Anime, String> by fxid()
@@ -90,7 +91,9 @@ class MainView : View() {
 
     fun newList() {}
 
-    fun showNewEntry() {}
+    fun showNewEntry() {
+        find(NewEntryView::class).openModal()
+    }
 
     fun open() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
@@ -122,7 +125,7 @@ class MainView : View() {
             val file: Path = it
 
             if(it.endsWith(FILE_SUFFIX_XML) || it.endsWith(FILE_SUFFIX_XML.toUpperCase())) {
-                Paths.get("${it.fileName}${FILE_SUFFIX_XML}")
+                Paths.get("${it.fileName}$FILE_SUFFIX_XML")
             }
 
             manami.saveAs(file)

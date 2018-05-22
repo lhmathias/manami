@@ -6,93 +6,6 @@ package io.github.manamiproject.manami.gui.controller;
 //public class NewEntryController implements Observer {
 //
 //  /**
-//   * {@link TextField} for the title.
-//   */
-//  @FXML
-//  private TextField txtTitle;
-//
-//  /**
-//   * {@link TextField} for the type.
-//   */
-//  @FXML
-//  private TextField txtType;
-//
-//  /**
-//   * {@link TextField} for the amount of episodes.
-//   */
-//  @FXML
-//  private TextField txtEpisodes;
-//
-//  /**
-//   * {@link TextField} for the info link.
-//   */
-//  @FXML
-//  private TextField txtInfoLink;
-//
-//  /**
-//   * {@link TextField} for the location on the hard drive.
-//   */
-//  @FXML
-//  private TextField txtLocation;
-//
-//  /**
-//   * {@link Button} for changing the type (up).
-//   */
-//  @FXML
-//  private Button btnTypeUp;
-//
-//  /**
-//   * {@link Button} for changing the type (down).
-//   */
-//  @FXML
-//  private Button btnTypeDown;
-//
-//  /**
-//   * {@link Button} for increasing the number of episodes.
-//   */
-//  @FXML
-//  private Button btnEpisodeUp;
-//
-//  /**
-//   * {@link Button} for decreasing the number of episodes.
-//   */
-//  @FXML
-//  private Button btnEpisodeDown;
-//
-//  /**
-//   * {@link Button} for adding the entry.
-//   */
-//  @FXML
-//  private Button btnAdd;
-//
-//  /**
-//   * {@link Button} to close the window.
-//   */
-//  @FXML
-//  private Button btnCancel;
-//
-//  /**
-//   * {@link Button} to browse for a location.
-//   */
-//  @FXML
-//  private Button btnBrowse;
-//
-//  /**
-//   * Command service.
-//   */
-//  private final CommandService cmdService = Main.CONTEXT.getBean(CommandService.class);
-//
-//  /**
-//   * Instance of the service repository.
-//   */
-//  private final ServiceRepository serviceRepo = Main.CONTEXT.getBean(ServiceRepository.class);
-//
-//  /**
-//   * Context configuration.
-//   */
-//  private final Config config = Main.CONTEXT.getBean(Config.class);
-//
-//  /**
 //   * Current index of the spinner's textfield value.
 //   */
 //  private int typeIndex = 0;
@@ -105,19 +18,7 @@ package io.github.manamiproject.manami.gui.controller;
 //   */
 //  public void initialize() {
 //    validationSupport = new ValidationSupport();
-//    validationSupport.registerValidator(txtTitle, Validator.createEmptyValidator("Title is required"));
-//    validationSupport.registerValidator(txtLocation, Validator.createEmptyValidator("Location is required"));
-//    validationSupport.registerValidator(txtInfoLink, (c, value) -> {
-//      final String str = (String) value;
-//      if (isNotEmpty(str)) {
-//        if (!str.startsWith("http://")) {
-//          if (!str.startsWith("https://")) {
-//            return ValidationResult.fromError(txtInfoLink, "Info link must be a valid URL");
-//          }
-//        }
-//      }
-//      return null;
-//    });
+//    validationSupport.;
 //
 //    txtType.setText(AnimeType.TV.getValue());
 //    txtEpisodes.focusedProperty().addListener((currentValue, valueBefore, valueAfter) -> {
