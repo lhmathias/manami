@@ -15,9 +15,24 @@ object Icons {
     private val ICON_COLOR_DIMGRAY: Color = DIMGREY
     private val FONT_AWESOME: GlyphFont = GlyphFontRegistry.font("FontAwesome")
 
+    fun createIconThumbsUp(): Glyph {
+        return FONT_AWESOME.create(FontAwesome.Glyph.THUMBS_UP).color(DEFAULT_ICON_COLOR)
+    }
 
-    fun createIconFileText(): Glyph {
-        return FONT_AWESOME.create(FontAwesome.Glyph.FILE_TEXT_ALT).color(DEFAULT_ICON_COLOR)
+    fun createIconTags(): Glyph {
+        return FONT_AWESOME.create(FontAwesome.Glyph.TAGS).color(DEFAULT_ICON_COLOR)
+    }
+
+    fun createIconBranchFork(): Glyph {
+        return FONT_AWESOME.create(FontAwesome.Glyph.CODE_FORK).color(DEFAULT_ICON_COLOR)
+    }
+
+    fun createIconClipboardCheck(): Glyph {
+        return FONT_AWESOME.create(FontAwesome.Glyph.CLIPBOARD).color(DEFAULT_ICON_COLOR)
+    }
+
+    fun createIconPlus(): Glyph {
+        return FONT_AWESOME.create(FontAwesome.Glyph.PLUS).color(DEFAULT_ICON_COLOR)
     }
 
     fun createIconFile(): Glyph {

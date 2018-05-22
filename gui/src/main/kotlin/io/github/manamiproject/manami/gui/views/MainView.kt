@@ -4,17 +4,21 @@ import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.gui.components.FileChoosers
+import io.github.manamiproject.manami.gui.components.Icons.createIconBranchFork
+import io.github.manamiproject.manami.gui.components.Icons.createIconClipboardCheck
 import io.github.manamiproject.manami.gui.components.Icons.createIconDelete
 import io.github.manamiproject.manami.gui.components.Icons.createIconExit
 import io.github.manamiproject.manami.gui.components.Icons.createIconExport
 import io.github.manamiproject.manami.gui.components.Icons.createIconFile
-import io.github.manamiproject.manami.gui.components.Icons.createIconFileText
 import io.github.manamiproject.manami.gui.components.Icons.createIconFilterList
 import io.github.manamiproject.manami.gui.components.Icons.createIconFolderOpen
 import io.github.manamiproject.manami.gui.components.Icons.createIconImport
+import io.github.manamiproject.manami.gui.components.Icons.createIconPlus
 import io.github.manamiproject.manami.gui.components.Icons.createIconQuestion
 import io.github.manamiproject.manami.gui.components.Icons.createIconRedo
 import io.github.manamiproject.manami.gui.components.Icons.createIconSave
+import io.github.manamiproject.manami.gui.components.Icons.createIconTags
+import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
 import javafx.scene.Parent
@@ -67,8 +71,8 @@ class MainView : View() {
     }
 
     private fun initMenuItemGlyphs() {
-        miNewList.graphic = createIconFileText()
-        miNewEntry.graphic = createIconFile()
+        miNewList.graphic = createIconFile()
+        miNewEntry.graphic = createIconPlus()
         miOpen.graphic = createIconFolderOpen()
         miSave.graphic = createIconSave()
         miImport.graphic = createIconImport()
@@ -76,6 +80,10 @@ class MainView : View() {
         miExit.graphic = createIconExit()
         miUndo.graphic = createIconUndo()
         miRedo.graphic = createIconRedo()
+        miRecommendations.graphic = createIconThumbsUp()
+        miRelatedAnime.graphic = createIconBranchFork()
+        miTagList.graphic = createIconTags()
+        miCheckList.graphic = createIconClipboardCheck()
         miFilterList.graphic = createIconFilterList()
         miWatchList.graphic = createIconWatchList()
         miAbout.graphic = createIconQuestion()

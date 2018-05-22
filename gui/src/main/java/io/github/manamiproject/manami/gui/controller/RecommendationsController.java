@@ -1,7 +1,6 @@
 package io.github.manamiproject.manami.gui.controller;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static io.github.manamiproject.manami.gui.utility.DialogLibrary.showExportDialog;
 
 //public class RecommendationsController extends AbstractAnimeListController implements Observer {
 //
