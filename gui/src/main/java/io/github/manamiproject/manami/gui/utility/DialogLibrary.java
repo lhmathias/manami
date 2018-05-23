@@ -48,45 +48,4 @@ public final class DialogLibrary {
 
     return ret;
   }
-
-
-  public static Path showBrowseForFolderDialog(final Stage stage) {
-    final DirectoryChooser directoryChooser = new DirectoryChooser();
-    directoryChooser.setTitle("Browse for directory...");
-
-    final File ret = directoryChooser.showDialog(stage);
-    return (ret != null) ? ret.toPath() : null;
-  }
-
-
-  public static void showExceptionDialog(final Exception exception) {
-    final Alert alert = new Alert(Alert.AlertType.ERROR);
-    alert.setTitle("Error");
-    alert.setHeaderText("An error occurred:");
-    alert.setContentText(exception.getMessage());
-
-    // Create expandable Exception.
-    final StringWriter sw = new StringWriter();
-    final PrintWriter pw = new PrintWriter(sw);
-    exception.printStackTrace(pw);
-    final String exceptionText = sw.toString();
-
-    final TextArea textArea = new TextArea(exceptionText);
-    textArea.setEditable(false);
-    textArea.setWrapText(true);
-
-    textArea.setMaxWidth(Double.MAX_VALUE);
-    textArea.setMaxHeight(Double.MAX_VALUE);
-    GridPane.setVgrow(textArea, Priority.ALWAYS);
-    GridPane.setHgrow(textArea, Priority.ALWAYS);
-
-    final GridPane expContent = new GridPane();
-    expContent.setMaxWidth(Double.MAX_VALUE);
-    expContent.add(textArea, 0, 0);
-
-    // Set expandable Exception into the dialog pane.
-    alert.getDialogPane().setExpandableContent(expContent);
-
-    alert.showAndWait();
-  }
 }

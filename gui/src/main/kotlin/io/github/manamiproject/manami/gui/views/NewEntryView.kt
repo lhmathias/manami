@@ -5,6 +5,8 @@ import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.UrlValidator
+import io.github.manamiproject.manami.gui.components.FileChoosers
+import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForFolderDialog
 import io.github.manamiproject.manami.gui.extensions.isValid
 import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
@@ -137,5 +139,10 @@ class NewEntryView : Fragment() {
         }
     }
 
-    fun browse() {}
+    fun browse() {
+        showBrowseForFolderDialog(primaryStage)?.let {
+            //TODO: add relative path handling
+            Platform.runLater { txtLocation.text = it.toString() }
+        }
+    }
 }

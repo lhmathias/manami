@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.gui.utility;
 
-import static io.github.manamiproject.manami.gui.utility.DialogLibrary.showExceptionDialog;
 import static java.awt.Desktop.getDesktop;
 
 import java.awt.Desktop;
@@ -25,7 +24,7 @@ public final class HyperlinkBuilder {
           desktop.browse(new URI(url));
         } catch (final Exception e) {
           log.error("An error occurred trying to open the infolink in the default browser: ", e);
-          showExceptionDialog(e);
+          //showExceptionDialog(e);
         }
       }
     });

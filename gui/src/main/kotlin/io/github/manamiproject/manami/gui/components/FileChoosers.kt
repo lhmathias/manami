@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.gui.components
 
+import javafx.stage.DirectoryChooser
 import javafx.stage.FileChooser
 import javafx.stage.FileChooser.ExtensionFilter
 import javafx.stage.Stage
@@ -60,6 +61,18 @@ object FileChoosers {
         }
 
         fileChooser.showSaveDialog(stage)?.let {
+            return it.toPath()
+        }
+
+        return null
+    }
+
+    fun showBrowseForFolderDialog(stage: Stage): Path? {
+        val directoryChooser = DirectoryChooser().apply {
+            title = "Browse for directory..."
+        }
+
+        directoryChooser.showDialog(stage)?.let {
             return it.toPath()
         }
 
