@@ -54,6 +54,7 @@ data class InfoLink internal constructor (val url: URL?) {
         private fun normalizeUrl(url: String): String {
             return when {
                 url.contains(DOMAINS.MAL.value) -> MyAnimeListNormalizer.normalize(url)
+                //TODO: needs normalizer for anidb
                 else -> url
             }
         }

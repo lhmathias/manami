@@ -56,6 +56,16 @@ class NewEntryView : Fragment() {
     }
 
     private fun initInfoLinkControls() {
+        txtInfoLink.focusedProperty().addListener(ChangeListener<Boolean> { observable, valueBefore, valueAfter ->
+            run {
+                val normalizedInfoLink = InfoLink(txtInfoLink.text).url?.toString()
+
+                if(normalizedInfoLink != null && normalizedInfoLink != txtInfoLink.text) {
+                    Platform.runLater { txtInfoLink.text = normalizedInfoLink }
+                }
+            }
+        })
+
         val clipboardString: String = Clipboard.getSystemClipboard().string
 
         if (UrlValidator.isValid(clipboardString)) {

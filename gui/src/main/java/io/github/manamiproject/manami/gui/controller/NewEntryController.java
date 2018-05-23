@@ -54,18 +54,6 @@ package io.github.manamiproject.manami.gui.controller;
 //  }
 //
 //
-//  private void convertUrlIfNecessary() {
-//    final Pattern pattern = Pattern.compile("anime\\.php\\?id=[0-9]*");
-//    final Matcher matcher = pattern.matcher(txtInfoLink.getText());
-//
-//    if (matcher.find()) {
-//      String id = matcher.group();
-//      id = id.replace("anime.php?id=", EMPTY);
-//      txtInfoLink.setText("http://myanimelist.net/anime/".concat(id));
-//    }
-//  }
-//
-//
 //  /**
 //   * Enables or disables all widgets on the scene which are filled by autocomplete.
 //   *
