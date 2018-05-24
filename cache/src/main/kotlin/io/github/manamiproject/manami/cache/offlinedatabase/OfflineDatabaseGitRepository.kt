@@ -7,13 +7,12 @@ import io.github.manamiproject.manami.common.*
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.api.errors.GitAPIException
 import org.slf4j.Logger
 import java.io.IOException
 import java.lang.Exception
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -117,11 +116,11 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
             val deadEntries: DeadEntries? = gson.fromJson(content, DeadEntries::class.java)
 
             deadEntries?.mal?.forEach { id ->
-                animeEntries[InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}$id")] = null
+                animeEntries[InfoLink("${NormalizedAnimeBaseUrls.MAL.value}$id")] = null
             }
 
             deadEntries?.anidb?.forEach { id ->
-                animeEntries[InfoLink("${NORMALIZED_ANIME_DOMAIN.ANIDB.value}$id")] = null
+                animeEntries[InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}$id")] = null
             }
         }
     }

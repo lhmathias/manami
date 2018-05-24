@@ -49,7 +49,7 @@ class ManamiSaxParserSpec : Spek({
                 val bokuDake: Anime = fetchAnimeList[0]
                 assertThat(bokuDake).isNotNull()
                 assertThat(bokuDake.episodes).isEqualTo(12)
-                assertThat(bokuDake.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}31043"))
+                assertThat(bokuDake.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}31043"))
                 assertThat(bokuDake.location).isEqualTo("/anime/series/boku_dake_ga_inai_machi")
                 assertThat(bokuDake.title).isEqualTo("Boku dake ga Inai Machi")
                 assertThat(bokuDake.type).isEqualTo(AnimeType.TV)
@@ -57,7 +57,7 @@ class ManamiSaxParserSpec : Spek({
                 val rurouniKenshin: Anime = fetchAnimeList[1]
                 assertThat(rurouniKenshin).isNotNull()
                 assertThat(rurouniKenshin.episodes).isEqualTo(4)
-                assertThat(rurouniKenshin.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}44"))
+                assertThat(rurouniKenshin.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}44"))
                 assertThat(rurouniKenshin.location).isEqualTo("/anime/series/rurouni_kenshin")
                 assertThat(rurouniKenshin.title).isEqualTo("Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen")
                 assertThat(rurouniKenshin.type).isEqualTo(AnimeType.OVA)
@@ -71,7 +71,7 @@ class ManamiSaxParserSpec : Spek({
 
                 val gintama: FilterListEntry = fetchFilterList[0]
                 assertThat(gintama).isNotNull()
-                assertThat(gintama.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}918"))
+                assertThat(gintama.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}918"))
                 assertThat(gintama.title).isEqualTo("Gintama")
             }
 
@@ -83,7 +83,7 @@ class ManamiSaxParserSpec : Spek({
 
                 val deathNoteRewrite: WatchListEntry = fetchWatchList[0]
                 assertThat(deathNoteRewrite).isNotNull()
-                assertThat(deathNoteRewrite.infoLink).isEqualTo(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"))
+                assertThat(deathNoteRewrite.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2994"))
                 assertThat(deathNoteRewrite.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/13/8518t.jpg"))
                 assertThat(deathNoteRewrite.title).isEqualTo("Death Note Rewrite")
             }

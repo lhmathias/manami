@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.core.commands.CommandService
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.tasks.TaskConductor
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import org.jetbrains.spek.api.Spek
@@ -65,7 +65,7 @@ object ManamiImplSpec : Spek({
         }
 
         on("checking if entry exists in filterlist") {
-            val entry = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+            val entry = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
             manami.filterListEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -82,7 +82,7 @@ object ManamiImplSpec : Spek({
         }
 
         on("checking if entry exists in animelist") {
-            val entry = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+            val entry = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
             manami.animeEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -99,7 +99,7 @@ object ManamiImplSpec : Spek({
         }
 
         on("checking if entry exists in watchlist") {
-            val entry = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+            val entry = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
             manami.animeEntryExists(entry)
 
             it("must simply delegate to the persistence layer") {
@@ -110,7 +110,7 @@ object ManamiImplSpec : Spek({
         on("calling updateOrCreate") {
             val entry = WatchListEntry(
                     "Death Note",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
             )
             manami.updateOrCreate(entry)
 

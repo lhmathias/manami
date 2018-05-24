@@ -40,7 +40,7 @@ class MalAnimeExtractor : AnimeExtractor {
     }
 
 
-    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(NORMALIZED_ANIME_DOMAIN.MAL.value)
+    override fun isResponsible(infoLink: InfoLink) = infoLink.toString().startsWith(NormalizedAnimeBaseUrls.MAL.value)
 
 
     private fun extractTitle(): String {

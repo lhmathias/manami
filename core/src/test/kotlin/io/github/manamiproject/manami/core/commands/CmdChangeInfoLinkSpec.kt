@@ -2,11 +2,8 @@ package io.github.manamiproject.manami.core.commands
 
 import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createAnimeListPersistenceMock
 import io.github.manamiproject.manami.entities.Anime
-import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
-import io.github.manamiproject.manami.persistence.Persistence
-import io.github.manamiproject.manami.persistence.PersistenceFacade
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -17,10 +14,10 @@ import org.jetbrains.spek.api.dsl.on
 object CmdChangeInfoLinkSpec : Spek({
 
     given("a command with a valid anime") {
-        val newValue = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+        val newValue = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}15355555")
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}15355555")
         )
 
         val persistenceMock = createAnimeListPersistenceMock()
@@ -43,10 +40,10 @@ object CmdChangeInfoLinkSpec : Spek({
     }
 
     given("a command with a valid anime which has been executed already") {
-        val newValue = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}15355555")
+        val newValue = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}15355555")
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
         )
 
         val persistenceMock = createAnimeListPersistenceMock()

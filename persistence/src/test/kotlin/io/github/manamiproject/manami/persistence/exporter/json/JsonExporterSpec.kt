@@ -60,7 +60,7 @@ class JsonExporterSpec : Spek({
         context("an animelist, a filterlist and a watchlist") {
             val bokuDake = Anime(
                     "Boku dake ga Inai Machi",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}31043"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}31043"),
                     12,
                     AnimeType.TV,
                     "/anime/series/boku_dake_ga_inai_machi"
@@ -70,7 +70,7 @@ class JsonExporterSpec : Spek({
 
             val rurouniKenshin = Anime(
                     "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}44"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}44"),
                     4,
                     AnimeType.OVA,
                     "/anime/series/rurouni_kenshin"
@@ -80,7 +80,7 @@ class JsonExporterSpec : Spek({
 
             val deathNoteRewrite = WatchListEntry(
                     "Death Note Rewrite",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2994"),
                     URL("https://cdn.myanimelist.net/images/anime/13/8518t.jpg")
             )
 
@@ -88,7 +88,7 @@ class JsonExporterSpec : Spek({
 
             val gintama = FilterListEntry(
                     "Gintama",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}918"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}918"),
                     URL("https://cdn.myanimelist.net/images/anime/2/10038t.jpg")
             )
 
@@ -119,7 +119,7 @@ class JsonExporterSpec : Spek({
         context("a pre-defined list") {
             val bokuDake = Anime(
                     "Boku dake ga Inai Machi",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}31043"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}31043"),
                     12,
                     AnimeType.TV,
                     "/anime/series/boku_dake_ga_inai_machi"
@@ -129,7 +129,7 @@ class JsonExporterSpec : Spek({
 
             val rurouniKenshin = Anime(
                     "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}44"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}44"),
                     4,
                     AnimeType.OVA,
                     "/anime/series/rurouni_kenshin"

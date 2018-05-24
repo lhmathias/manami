@@ -4,9 +4,7 @@ import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCom
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
-import io.github.manamiproject.manami.persistence.Persistence
-import io.github.manamiproject.manami.persistence.PersistenceFacade
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -20,7 +18,7 @@ object CmdChangeTypeSpec : Spek({
         val newValue = AnimeType.TV
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                 type = AnimeType.OVA
         )
 
@@ -47,7 +45,7 @@ object CmdChangeTypeSpec : Spek({
         val newValue = AnimeType.OVA
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                 type = AnimeType.TV
         )
 

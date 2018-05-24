@@ -1,10 +1,7 @@
 package io.github.manamiproject.manami.gui.views
 
 import io.github.manamiproject.manami.core.Manami
-import io.github.manamiproject.manami.entities.Anime
-import io.github.manamiproject.manami.entities.AnimeType
-import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.UrlValidator
+import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.gui.components.FileChoosers
 import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForFolderDialog
 import io.github.manamiproject.manami.gui.extensions.isValid
@@ -60,13 +57,14 @@ class NewEntryView : Fragment() {
     private fun initInfoLinkControls() {
         txtInfoLink.focusedProperty().addListener(ChangeListener<Boolean> { observable, valueBefore, valueAfter ->
             run {
-                val normalizedInfoLink = InfoLink(txtInfoLink.text).url?.toString()
+                val infoLink = InfoLink(txtInfoLink.text)
+                val host = infoLink.url?.host
 
-                if(normalizedInfoLink != null && normalizedInfoLink != txtInfoLink.text) {
-                    Platform.runLater { txtInfoLink.text = normalizedInfoLink }
+                if(infoLink.toString() != txtInfoLink.text) {
+                    Platform.runLater { txtInfoLink.text = infoLink.toString() }
                 }
 
-                if(valueBefore && !valueAfter) {
+                if(valueBefore && !valueAfter && SupportedInfoLinkDomains.values().map { it.value }.contains(host)) {
                     autoFillForm()
                 }
             }

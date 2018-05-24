@@ -18,8 +18,6 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import java.net.URL
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.util.*
@@ -56,7 +54,7 @@ class XmlExporterSpec : Spek({
         context("an animelist, a filterlist and a watchlist") {
             val bokuDake = Anime(
                     "Boku dake ga Inai Machi",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}31043"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}31043"),
                     12,
                     AnimeType.TV,
                     "/anime/series/boku_dake_ga_inai_machi"
@@ -66,7 +64,7 @@ class XmlExporterSpec : Spek({
 
             val rurouniKenshin = Anime(
                     "Rurouni Kenshin: Meiji Kenkaku Romantan - Tsuiokuhen",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}44"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}44"),
                     4,
                     AnimeType.OVA,
                     "/anime/series/rurouni_kenshin"
@@ -76,7 +74,7 @@ class XmlExporterSpec : Spek({
 
             val deathNoteRewrite = WatchListEntry(
                     "Death Note Rewrite",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}2994"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2994"),
                     URL("https://myanimelist.cdn-dena.com/images/anime/13/8518t.jpg")
             )
 
@@ -84,7 +82,7 @@ class XmlExporterSpec : Spek({
 
             val gintama = FilterListEntry(
                     "Gintama",
-                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}918"),
+                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}918"),
                     URL("https://myanimelist.cdn-dena.com/images/anime/2/10038t.jpg")
             )
 

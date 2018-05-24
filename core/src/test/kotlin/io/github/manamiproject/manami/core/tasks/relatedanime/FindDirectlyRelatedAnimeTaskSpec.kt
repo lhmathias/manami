@@ -9,7 +9,7 @@ import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.core.events.ProgressState
 import io.github.manamiproject.manami.core.events.relatedanime.RelatedAnimeIdentifiedEvent
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import io.github.manamiproject.manami.persistence.Persistence
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
@@ -38,7 +38,7 @@ object FindDirectlyRelatedAnimeTaskSpec : Spek({
 
     given("anime without any relations") {
         val eventBusListener = EventBusListener()
-        val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL}7")
+        val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL}7")
         val cacheMock: Cache = mock {
             on {
                 fetchRelatedAnime(eq(infoLink))

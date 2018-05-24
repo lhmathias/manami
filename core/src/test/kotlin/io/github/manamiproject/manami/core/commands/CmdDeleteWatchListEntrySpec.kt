@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.core.commands
 import com.nhaarman.mockito_kotlin.mock
 import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createWatchListPersistenceMock
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 import org.assertj.core.api.Assertions.assertThat
@@ -19,7 +19,7 @@ object CmdDeleteWatchListEntrySpec : Spek({
     given("a command with a valid watch list entry") {
         val entry = WatchListEntry(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
@@ -44,7 +44,7 @@ object CmdDeleteWatchListEntrySpec : Spek({
     given("a command which has been executed already") {
         val entry = WatchListEntry(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 

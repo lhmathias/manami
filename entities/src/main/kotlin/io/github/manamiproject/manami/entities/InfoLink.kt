@@ -53,7 +53,7 @@ data class InfoLink internal constructor (val url: URL?) {
 
         private fun normalizeUrl(url: String): String {
             return when {
-                url.contains(DOMAINS.MAL.value) -> MyAnimeListNormalizer.normalize(url)
+                url.contains(SupportedInfoLinkDomains.MAL.value) -> MyAnimeListNormalizer.normalize(url)
                 //TODO: needs normalizer for anidb
                 else -> url
             }
@@ -62,14 +62,14 @@ data class InfoLink internal constructor (val url: URL?) {
 }
 
 
-private enum class DOMAINS(val value: String) {
+enum class SupportedInfoLinkDomains(val value: String) {
     MAL("myanimelist.net"),
     ANIDB("anidb.net");
 }
 
-enum class NORMALIZED_ANIME_DOMAIN(val value: String) {
-    MAL("https://${DOMAINS.MAL.value}/anime/"),
-    ANIDB("http://anidb.net/a");
+enum class NormalizedAnimeBaseUrls(val value: String) {
+    MAL("https://${SupportedInfoLinkDomains.MAL.value}/anime/"),
+    ANIDB("https://${SupportedInfoLinkDomains.ANIDB.value}/a");
 }
 
 
@@ -82,9 +82,9 @@ private object MyAnimeListNormalizer {
         Regex(".*?/[0-9]+").find(normalizedUrl)?.let { matchResult ->
             normalizedUrl = matchResult.value
 
-            if(!normalizedUrl.startsWith(NORMALIZED_ANIME_DOMAIN.MAL.value)) {
+            if(!normalizedUrl.startsWith(NormalizedAnimeBaseUrls.MAL.value)) {
                 Regex("[0-9]+").find(normalizedUrl)?.let { idMatcherResult ->
-                    normalizedUrl = "${NORMALIZED_ANIME_DOMAIN.MAL.value}${idMatcherResult.value.replace("/", "")}"
+                    normalizedUrl = "${NormalizedAnimeBaseUrls.MAL.value}${idMatcherResult.value.replace("/", "")}"
                 }
             }
         }

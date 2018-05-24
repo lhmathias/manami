@@ -3,7 +3,7 @@ package io.github.manamiproject.manami.cache.caches
 import com.nhaarman.mockito_kotlin.*
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.entities.InfoLink
-import io.github.manamiproject.manami.entities.NORMALIZED_ANIME_DOMAIN
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import io.github.manamiproject.manami.entities.Recommendation
 import io.github.manamiproject.manami.entities.RecommendationList
 import org.assertj.core.api.Assertions.assertThat
@@ -20,16 +20,16 @@ object RecommendationsCacheSpec : Spek({
             on {
                 fetchRecommendations(isA())
             } doReturn RecommendationList().apply {
-                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1575"), 435))
-                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}19"), 63))
-                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}10620"), 58))
+                addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1575"), 435))
+                addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}19"), 63))
+                addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}10620"), 58))
             }
         }
 
         val cache = RecommendationsCache(remoteRetrievalMock)
 
         on("fetching an anime from this infolink") {
-            val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+            val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
             cache.get(infoLink)
 
             it("must call the remote retrieval strategy to fetch the entry, because it does not exist in the cache") {
@@ -42,18 +42,18 @@ object RecommendationsCacheSpec : Spek({
         val remoteRetrievalMock = mock(RemoteRetrieval::class.java)
         val cache = RecommendationsCache(remoteRetrievalMock)
 
-        val deathNoteInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+        val deathNoteInfoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
         val deathNoteRecommendations = RecommendationList().apply {
-            addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1575"), 435))
-            addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}19"), 63))
-            addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}10620"), 58))
+            addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1575"), 435))
+            addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}19"), 63))
+            addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}10620"), 58))
         }
         cache.populate(deathNoteInfoLink, deathNoteRecommendations)
 
-        val madeInAbyssInfoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}34599")
+        val madeInAbyssInfoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}34599")
         cache.populate(madeInAbyssInfoLink, RecommendationList().apply {
-                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}11061"), 20))
-                addRecommendation(Recommendation(InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}13125"), 14))
+                addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}11061"), 20))
+                addRecommendation(Recommendation(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}13125"), 14))
             }
         )
 
