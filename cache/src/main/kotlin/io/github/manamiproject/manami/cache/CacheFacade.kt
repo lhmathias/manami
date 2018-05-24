@@ -46,7 +46,11 @@ object CacheFacade : Cache {
             return mutableSetOf()
         }
 
-        return relatedAnimeCache.get(infoLink)
+        relatedAnimeCache.get(infoLink)?.let {
+            return it
+        }
+
+        return hashSetOf()
     }
 
     override fun fetchRecommendations(infoLink: InfoLink): RecommendationList {
@@ -54,7 +58,11 @@ object CacheFacade : Cache {
             return RecommendationList()
         }
 
-        return recommendationsCache.get(infoLink)
+        recommendationsCache.get(infoLink)?.let {
+            return it
+        }
+
+        return RecommendationList()
     }
 
     override fun invalidate() {

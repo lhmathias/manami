@@ -22,8 +22,14 @@ internal abstract class AbstractAnimeDataCache<KEY, VALUE> (
             }
     )
 
-    override fun get(key: KEY): VALUE {
-        return cache.get(key).get()
+    override fun get(key: KEY): VALUE? {
+        val cacheOptional = cache.get(key)
+
+        if(cacheOptional.isPresent) {
+            return cacheOptional.get()
+        }
+
+        return null
     }
 
     override fun populate(key: KEY, value: VALUE) {
