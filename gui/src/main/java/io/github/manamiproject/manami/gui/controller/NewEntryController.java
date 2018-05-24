@@ -1,22 +1,5 @@
 package io.github.manamiproject.manami.gui.controller;
 
-///**
-// * Shows the window in which a new entry can be created.
-// */
-//public class NewEntryController implements Observer {
-//
-//  /**
-//   * Called on Construction
-//   */
-//  public void initialize() {
-//    txtInfoLink.focusedProperty().addListener((currentValue, valueBefore, valueAfter) -> {
-//      if (valueBefore && !valueAfter) {
-//        autoFillForm();
-//      }
-//    });
-//  }
-//
-//
 //  /**
 //   * Adds a new entry to the list.
 //   */
@@ -30,53 +13,6 @@ package io.github.manamiproject.manami.gui.controller;
 //      cmdService.executeCommand(new CmdAddAnime(new Anime(title, infoLink).type(AnimeType.findByName(type)).episodes(episodes).location(location),
 //          Main.CONTEXT.getBean(Manami.class)));
 //      close();
-//    }
-//  }
-//
-//  /**
-//   * Checks the currently given value of the textfield and tries to automatically fill out the form.
-//   */
-//  private void autoFillForm() {
-//    AnimeRetrievalTask retrievalService;
-//
-//    convertUrlIfNecessary();
-//
-//    final InfoLink infoLink = new InfoLink(txtInfoLink.getText().trim());
-//
-//    if (infoLink.isValid()) {
-//      setDisableAutoCompleteWidgets(true);
-//
-//      retrievalService = new AnimeRetrievalTask(Main.CONTEXT.getBean(CacheI.class), infoLink);
-//      retrievalService.addObserver(this);
-//      serviceRepo.startService(retrievalService);
-//
-//    }
-//  }
-//
-//
-//  /**
-//   * Enables or disables all widgets on the scene which are filled by autocomplete.
-//   *
-//   * @param value Disables the component if the value is true and enables them if the value is false.
-//   */
-//  private void setDisableAutoCompleteWidgets(final boolean value) {
-//    Platform.runLater(() -> {
-//      txtTitle.setDisable(value);
-//      txtEpisodes.setDisable(value);
-//      txtInfoLink.setDisable(value);
-//      btnAdd.setDisable(value);
-//    });
-//
-//    if (value) {
-//      Platform.runLater(() -> {
-//        btnTypeUp.setDisable(true);
-//        btnTypeDown.setDisable(true);
-//        btnEpisodeUp.setDisable(true);
-//        btnEpisodeDown.setDisable(true);
-//      });
-//    } else {
-//      checkTypeArrowButtons();
-//      checkEpisodeArrowButtons();
 //    }
 //  }
 //
@@ -98,28 +34,4 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //      txtLocation.setText(location);
 //    }
-//  }
 //
-//
-//  @Override
-//  public void update(final Observable observable, final Object object) {
-//    if (observable == null || object == null) {
-//      return;
-//    }
-//
-//    if (observable instanceof AnimeRetrievalTask && object instanceof Anime) {
-//      final Anime anime = (Anime) object;
-//
-//      if (anime != null) {
-//        Platform.runLater(() -> {
-//          txtTitle.setText(anime.getTitle());
-//          txtEpisodes.setText(String.valueOf(anime.getEpisodes()));
-//          txtInfoLink.setText(anime.getInfoLink().getUrl());
-//          setTextfieldType(anime.getTypeAsString());
-//          checkEpisodeArrowButtons();
-//        });
-//      }
-//      setDisableAutoCompleteWidgets(false);
-//    }
-//  }
-//}

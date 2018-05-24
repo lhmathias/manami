@@ -65,6 +65,10 @@ class NewEntryView : Fragment() {
                 if(normalizedInfoLink != null && normalizedInfoLink != txtInfoLink.text) {
                     Platform.runLater { txtInfoLink.text = normalizedInfoLink }
                 }
+
+                if(valueBefore && !valueAfter) {
+                    autoFillForm()
+                }
             }
         })
 
@@ -75,6 +79,33 @@ class NewEntryView : Fragment() {
                 txtInfoLink.text = clipboardString
                 txtInfoLink.requestFocus()
             }
+        }
+    }
+
+    private fun autoFillForm() {
+        disableControls(true)
+        runAsync {
+            Manami.fetchAnime(InfoLink(txtInfoLink.text))?.let {
+                Platform.runLater {
+                    txtTitle.text = it.title
+                    txtType.text
+                    txtEpisodes.text = it.episodes.toString()
+                    disableControls(false)
+                }
+            }
+        }
+    }
+
+    private fun disableControls(value: Boolean) {
+        Platform.runLater {
+            txtTitle.isDisable = value
+            txtType.isDisable = value
+            btnTypeUp.isDisable = value
+            btnTypeDown.isDisable = value
+            txtEpisodes.isDisable = value
+            btnEpisodeUp.isDisable = value
+            btnEpisodeDown.isDisable = value
+            txtInfoLink.isDisable = value
         }
     }
 
@@ -116,6 +147,8 @@ class NewEntryView : Fragment() {
                 episodes = txtEpisodes.text.trim().toInt()
                 location = txtLocation.text.trim()
             })
+
+            this.close()
         }
     }
 

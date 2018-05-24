@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.gui.controller;
 
-import static com.google.common.collect.Lists.newArrayList;
 
 //public class TagListController extends AbstractAnimeListController implements Observer {
 //

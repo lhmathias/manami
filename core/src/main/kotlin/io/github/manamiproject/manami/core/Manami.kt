@@ -1,5 +1,7 @@
 package io.github.manamiproject.manami.core
 
+import io.github.manamiproject.manami.cache.Cache
+import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.LoggerDelegate
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
@@ -25,13 +27,14 @@ private const val CURRENT_DIR = "."
 /**
  * Main access to the features of the application. This class has got delegation as well as operational functionality.
  */
-object Manami : ApplicationPersistence {
+object Manami : Application, AnimeAccess, ApplicationPersistence {
 
     private val log: Logger by LoggerDelegate()
     private val cmdService: CommandService = CommandServiceImpl
     private val config = Config
     private val persistence: Persistence = PersistenceFacade
     private val taskConductor: TaskConductor = TaskConductorImpl
+    private val cache: Cache = CacheFacade
 
 
     fun init() {
@@ -39,7 +42,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    fun newList() {
+    override fun newList() {
         resetCommandHistory()
         config.file = Paths.get(CURRENT_DIR)
         persistence.clearAll()
@@ -55,7 +58,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    fun open(file: Path) {
+    override fun open(file: Path) {
         taskConductor.cancelAllTasks()
         persistence.clearAll()
         persistence.open(file)
@@ -65,24 +68,24 @@ object Manami : ApplicationPersistence {
     }
 
 
-    fun export(file: Path) {
+    override fun export(file: Path) {
         persistence.exportToJsonFile(file)
     }
 
 
-    fun importFile(file: Path) {
+    override fun importFile(file: Path) {
         when {
             file.toString().endsWith(FILE_SUFFIX_XML) -> persistence.importMalFile(file)
             file.toString().endsWith(FILE_SUFFIX_JSON) -> persistence.importJsonFile(file)
         }
     }
 
-    fun saveAs(file: Path) {
+    override fun saveAs(file: Path) {
         config.file = file
         save()
     }
 
-    fun save() {
+    override fun save() {
         if (persistence.save(config.file)) {
             cmdService.setUnsaved(false)
             cmdService.resetDirtyFlag()
@@ -115,10 +118,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    /**
-     * Does everything needed before exiting.
-     */
-    fun exit() {
+    override fun exit() {
         System.exit(0)
     }
 
@@ -163,7 +163,7 @@ object Manami : ApplicationPersistence {
     }
 
 
-    fun search(searchString: String) {
+    override fun search(searchString: String) {
         if (searchString.isNotBlank()) {
             log.info("Initiated search for [{}]", searchString)
             taskConductor.safelyStart(SearchTask(searchString, persistence))
@@ -171,9 +171,25 @@ object Manami : ApplicationPersistence {
     }
 
 
-    fun exportList(list: List<Anime>, file: Path) {
+    override fun exportList(list: List<Anime>, file: Path) {
         if (file.toString().endsWith(FILE_SUFFIX_JSON)) {
             persistence.exportListToJsonFile(list, file)
         }
     }
+
+
+    override fun undo() {
+        cmdService.undo()
+    }
+
+
+    override fun redo() {
+        cmdService.redo()
+    }
+
+
+    override fun isFileSaved() = !cmdService.isUnsaved()
+
+
+    override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)
 }
