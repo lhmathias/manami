@@ -58,7 +58,7 @@ object RecommendationsCacheSpec : Spek({
         )
 
         on("fetching an anime from this infolink") {
-            val result: RecommendationList = cache.get(deathNoteInfoLink)
+            val result: RecommendationList? = cache.get(deathNoteInfoLink)
 
             it("must not call the remote retrieval strategy, because it the entry already resides in the cache") {
                 verify(remoteRetrievalMock, never()).fetchRecommendations(deathNoteInfoLink)

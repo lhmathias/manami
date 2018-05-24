@@ -18,9 +18,9 @@ object MalAnimeExtractorSpec : Spek({
 
     val malAnimeExtractor = MalAnimeExtractor()
 
-    given("raw html from mal") {
+    given("raw html from mal for series death note") {
         val html = StringBuilder()
-        Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_anime_data.html").toURI())
+        Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("extractor/mal/anime_data_death_note.html").toURI())
         .readAllLines().map(html::append)
 
         on("extracting information") {
@@ -52,6 +52,44 @@ object MalAnimeExtractorSpec : Spek({
 
             it("must extract the correct thumbnail") {
                 assertThat(extractedAnime?.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg"))
+            }
+        }
+    }
+
+    given("raw html from mal for music shelter") {
+        val html = StringBuilder()
+        Paths.get(MalAnimeExtractorSpec::class.java.classLoader.getResource("extractor/mal/anime_data_shelter.html").toURI())
+                .readAllLines().map(html::append)
+
+        on("extracting information") {
+            val extractedAnime: Anime? = malAnimeExtractor.extractAnime(html.toString())
+
+            it("must not be null") {
+                assertThat(extractedAnime).isNotNull()
+            }
+
+            it("must extract the correct title") {
+                assertThat(extractedAnime?.title).isEqualTo("Shelter")
+            }
+
+            it("must contain the correct infolink") {
+                assertThat(extractedAnime?.infoLink).isEqualTo(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}34240"))
+            }
+
+            it("must extract the correct type") {
+                assertThat(extractedAnime?.type).isEqualTo(AnimeType.MUSIC)
+            }
+
+            it("must extract the correct number of episodes") {
+                assertThat(extractedAnime?.episodes).isEqualTo(1)
+            }
+
+            it("must extract the correct picture") {
+                assertThat(extractedAnime?.picture).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/5/82388.jpg"))
+            }
+
+            it("must extract the correct thumbnail") {
+                assertThat(extractedAnime?.thumbnail).isEqualTo(URL("https://myanimelist.cdn-dena.com/images/anime/5/82388t.jpg"))
             }
         }
     }

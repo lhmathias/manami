@@ -17,7 +17,7 @@ object MalRecommendationsExtractorSpec : Spek({
 
     given("raw html with recommendations") {
         val html = StringBuilder()
-        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_recommendations.html").toURI())
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/recommendations.html").toURI())
         .readAllLines().map(html::append)
 
         on("extracting recommendations") {
@@ -76,7 +76,7 @@ object MalRecommendationsExtractorSpec : Spek({
 
     given("raw html of an entry without recommendations") {
         val html = StringBuilder()
-        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_recommendations.html").toURI())
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/no_recommendations.html").toURI())
         .readAllLines().map(html::append)
 
         on("extracting recommendations") {

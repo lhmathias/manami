@@ -67,7 +67,7 @@ class MalAnimeExtractor : AnimeExtractor {
         val doc = parser.document
         val nodes: NodeList = xPath.evaluate("//SPAN[@class='dark_text' and text()='Episodes:']", doc.documentElement, XPathConstants.NODESET) as NodeList
 
-        nodes.item(0)?.parentNode?.textContent?.let {
+        nodes.item(0)?.parentNode?.textContent?.let {//FIXME: do this with xpath?
             val splitParts = it.split(":")
 
             if(splitParts.size == 2) {
@@ -81,10 +81,16 @@ class MalAnimeExtractor : AnimeExtractor {
 
     private fun extractType(): AnimeType {
         val doc = parser.document
-        val nodes: NodeList = xPath.evaluate("//A[contains(@href, '?type=') and not(contains(@href, 'airing'))]", doc.documentElement, XPathConstants.NODESET) as NodeList
+        val nodes: NodeList = xPath.evaluate("//SPAN[@class='dark_text' and text()='Type:']", doc.documentElement, XPathConstants.NODESET) as NodeList
 
-        if(nodes.length == 1) {
-            return AnimeType.valueOf(nodes.item(0).textContent)
+        nodes.item(0)?.parentNode?.textContent?.let {//FIXME: do this with xpath?
+            val splitParts = it.split(":")
+
+            if(splitParts.size == 2) {
+                AnimeType.findByName(splitParts[1].trim())?.let {
+                    return it
+                }
+            }
         }
 
         return AnimeType.TV

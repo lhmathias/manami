@@ -44,7 +44,7 @@ object RelatedAnimeCacheSpec : Spek({
         cache.populate(madeInAbyssInfoLink, mutableSetOf(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}36862")))
 
         on("fetching related anime for this infolink") {
-            val result: Set<InfoLink> = cache.get(deathNoteInfoLink)
+            val result: Set<InfoLink>? = cache.get(deathNoteInfoLink)
 
             it("must not call the remote retrieval strategy, because it the entry already resides in the cache") {
                 verify(remoteRetrievalMock, never()).fetchAnime(deathNoteInfoLink)

@@ -18,7 +18,7 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html with related anime") {
         val html = StringBuilder()
-        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_related_anime.html").toURI())
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/related_anime.html").toURI())
         .readAllLines().map(html::append)
 
         on("extracting related anime") {
@@ -45,7 +45,7 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html without any relations") {
         val html = StringBuilder()
-        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_relations.html").toURI())
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/no_relations.html").toURI())
         .readAllLines().map(html::append)
 
         on("extracting related anime") {
@@ -60,7 +60,7 @@ object MalRelatedAnimeExtractorSpec : Spek({
 
     given("raw html without any related anime, but one adaption entry") {
         val html = StringBuilder()
-        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/mal_no_related_anime_but_one_adaption.html").toURI())
+        Paths.get(MalRecommendationsExtractorSpec::class.java.classLoader.getResource("extractor/mal/no_related_anime_but_one_adaption.html").toURI())
         .readAllLines().map(html::append)
 
         on("extracting related anime") {
