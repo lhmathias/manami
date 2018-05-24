@@ -2,7 +2,6 @@ package io.github.manamiproject.manami.gui.views
 
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
-import io.github.manamiproject.manami.gui.components.FileChoosers
 import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForFolderDialog
 import io.github.manamiproject.manami.gui.extensions.isValid
 import javafx.application.Platform
@@ -35,7 +34,7 @@ class NewEntryView : Fragment() {
     private val btnEpisodeUp: Button by fxid()
     private val btnEpisodeDown: Button by fxid()
     private val btnAdd: Button by fxid()
-    private val btnBrowse: Button by fxid()
+
 
     private val validationSupport: ValidationSupport = ValidationSupport().apply {
         registerValidator(txtTitle, Validator.createEmptyValidator<TextField>("Title is required"))
@@ -55,7 +54,7 @@ class NewEntryView : Fragment() {
     }
 
     private fun initInfoLinkControls() {
-        txtInfoLink.focusedProperty().addListener(ChangeListener<Boolean> { observable, valueBefore, valueAfter ->
+        txtInfoLink.focusedProperty().addListener(ChangeListener<Boolean> { _, valueBefore, valueAfter ->
             run {
                 val infoLink = InfoLink(txtInfoLink.text)
                 val host = infoLink.url?.host
@@ -86,8 +85,8 @@ class NewEntryView : Fragment() {
             Manami.fetchAnime(InfoLink(txtInfoLink.text))?.let {
                 Platform.runLater {
                     txtTitle.text = it.title
-                    txtType.text
                     txtEpisodes.text = it.episodes.toString()
+                    animeTypeIndex.value = it.type.ordinal
                     disableControls(false)
                 }
             }
@@ -98,19 +97,32 @@ class NewEntryView : Fragment() {
         Platform.runLater {
             txtTitle.isDisable = value
             txtType.isDisable = value
-            btnTypeUp.isDisable = value
-            btnTypeDown.isDisable = value
             txtEpisodes.isDisable = value
             btnEpisodeUp.isDisable = value
             btnEpisodeDown.isDisable = value
             txtInfoLink.isDisable = value
+            btnAdd.isDisable = value
+
+            if(!value) {
+                if(animeTypeIndex.value == 0) {
+                    btnTypeUp.isDisable = value
+                }
+
+                if(animeTypeIndex.value == AnimeType.values().size - 1) {
+                    btnTypeDown.isDisable = value
+                }
+            } else {
+                btnTypeUp.isDisable = value
+                btnTypeDown.isDisable = value
+            }
+
         }
     }
 
     private fun initAnimeTypeControls() {
         Platform.runLater { txtType.text = AnimeType.values()[animeTypeIndex.value].toString() }
 
-        animeTypeIndex.addListener(ChangeListener<Number> { observable, valueBefore, valueAfter ->
+        animeTypeIndex.addListener(ChangeListener<Number> { _, _, valueAfter ->
             run {
                 Platform.runLater { txtType.text = AnimeType.values()[valueAfter.toInt()].value }
 
@@ -127,7 +139,7 @@ class NewEntryView : Fragment() {
     }
 
     private fun initEpisodesControls() {
-        txtEpisodes.textProperty().addListener(ChangeListener<String> { observable, valueBefore, valueAfter ->
+        txtEpisodes.textProperty().addListener(ChangeListener<String> { _, _, valueAfter ->
             run {
                 if (!valueAfter.isInt() || valueAfter.startsWith("-") || "0" == valueAfter) {
                     Platform.runLater { txtEpisodes.text = DEFAULT_EPISODES }
