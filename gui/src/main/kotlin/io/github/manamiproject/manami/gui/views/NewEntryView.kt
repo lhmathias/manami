@@ -8,6 +8,8 @@ import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForF
 import io.github.manamiproject.manami.gui.extensions.isValid
 import javafx.application.Platform
 import javafx.beans.property.SimpleIntegerProperty
+import javafx.concurrent.WorkerStateEvent
+import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
@@ -18,6 +20,7 @@ import org.controlsfx.validation.Validator
 import tornadofx.ChangeListener
 import tornadofx.Fragment
 import tornadofx.isInt
+import java.net.UnknownHostException
 
 private const val DEFAULT_EPISODES = "1"
 
@@ -92,6 +95,9 @@ class NewEntryView : Fragment() {
                     disableControls(false)
                 }
             }
+        }.onFailed = EventHandler<WorkerStateEvent> {
+            disableControls(false)
+            throw UnknownHostException(txtInfoLink.text)
         }
     }
 

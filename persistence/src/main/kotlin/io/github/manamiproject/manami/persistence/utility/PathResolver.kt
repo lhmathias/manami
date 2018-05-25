@@ -8,6 +8,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 /**
+ * TODO: Check this object
  * Class to create, check and resolve an absolute path to a relative path if necessary.
  */
 object PathResolver {
@@ -26,7 +27,7 @@ object PathResolver {
         return dir
     }
 
-    private fun buildRelativizedPath(path: String, currentWorkingDir: Path): String {
+    fun buildRelativizedPath(path: String, currentWorkingDir: Path): String {
         val optDir: Path? = buildPath(path, currentWorkingDir)
 
         if (optDir != null) {
