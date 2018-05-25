@@ -192,4 +192,6 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence {
 
 
     override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)
+
+    override fun getConfigFile() = Config.file
 }

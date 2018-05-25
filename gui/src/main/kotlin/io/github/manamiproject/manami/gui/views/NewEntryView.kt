@@ -1,5 +1,7 @@
 package io.github.manamiproject.manami.gui.views
 
+import io.github.manamiproject.manami.common.exists
+import io.github.manamiproject.manami.common.isRegularFile
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.gui.components.FileChoosers.showBrowseForFolderDialog
@@ -184,8 +186,14 @@ class NewEntryView : Fragment() {
 
     fun browse() {
         showBrowseForFolderDialog(primaryStage)?.let {
-            //TODO: add relative path handling
-            Platform.runLater { txtLocation.text = it.toString() }
+            val configFile = Manami.getConfigFile()
+            var folder = it.toAbsolutePath().toString()
+
+            if(configFile.exists() && configFile.isRegularFile()) {
+               folder = configFile.parent.relativize(it).toString().replace("\\", "/")
+            }
+
+            Platform.runLater { txtLocation.text = folder }
         }
     }
 }

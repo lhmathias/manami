@@ -26,7 +26,7 @@ object PathResolver {
         return dir
     }
 
-    fun buildRelativizedPath(path: String, currentWorkingDir: Path): String {
+    private fun buildRelativizedPath(path: String, currentWorkingDir: Path): String {
         val optDir: Path? = buildPath(path, currentWorkingDir)
 
         if (optDir != null) {

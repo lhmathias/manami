@@ -23,4 +23,6 @@ interface Application {
     fun redo()
 
     fun isFileSaved(): Boolean
+
+    fun getConfigFile(): Path
 }
