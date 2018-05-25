@@ -4,7 +4,7 @@ package io.github.manamiproject.manami.persistence
 import io.github.manamiproject.manami.entities.Anime
 import java.nio.file.Path
 
-interface Persistence : ApplicationPersistence, InternalPersistence {
+interface Persistence : ExternalPersistence, InternalPersistence {
 
     /**
      * Opens a manami file containing all three lists animelist, filterlist and watchlist which has been saved using {@see Persistence#save}

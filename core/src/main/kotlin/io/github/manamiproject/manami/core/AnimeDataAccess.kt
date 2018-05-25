@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import java.nio.file.Path
 
-interface AnimeAccess {
+interface AnimeDataAccess {
 
     fun search(searchString: String)
 

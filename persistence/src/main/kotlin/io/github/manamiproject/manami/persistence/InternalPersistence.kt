@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.WatchListEntry
 
-interface InternalPersistence : ApplicationPersistence {
+interface InternalPersistence : ExternalPersistence {
 
     /**
      * Clears all the lists: animelist, filterlist, watchlist.

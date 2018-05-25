@@ -4,7 +4,7 @@ import io.github.manamiproject.manami.entities.*
 import io.github.manamiproject.manami.persistence.inmemory.animelist.InMemoryAnimeList
 import io.github.manamiproject.manami.persistence.inmemory.filterlist.InMemoryFilterList
 import io.github.manamiproject.manami.persistence.inmemory.watchlist.InMemoryWatchList
-import io.github.manamiproject.manami.persistence.ApplicationPersistence
+import io.github.manamiproject.manami.persistence.ExternalPersistence
 import io.github.manamiproject.manami.persistence.InternalPersistence
 
 
@@ -12,7 +12,7 @@ internal class InMemoryPersistence(
         private val animeListHandler: InMemoryAnimeList,
         private val filterListHandler: InMemoryFilterList,
         private val watchListHandler: InMemoryWatchList
-) : ApplicationPersistence, InternalPersistence {
+) : ExternalPersistence, InternalPersistence {
 
 
     override fun filterAnime(anime: MinimalEntry): Boolean {

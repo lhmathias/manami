@@ -11,7 +11,7 @@ import io.github.manamiproject.manami.core.tasks.recommendations.Recommendations
 import io.github.manamiproject.manami.core.tasks.search.SearchTask
 import io.github.manamiproject.manami.core.tasks.thumbnails.ThumbnailBackloadTask
 import io.github.manamiproject.manami.entities.*
-import io.github.manamiproject.manami.persistence.ApplicationPersistence
+import io.github.manamiproject.manami.persistence.ExternalPersistence
 import io.github.manamiproject.manami.persistence.PersistenceFacade
 import io.github.manamiproject.manami.persistence.Persistence
 import org.slf4j.Logger
@@ -27,7 +27,7 @@ private const val CURRENT_DIR = "."
 /**
  * Main access to the features of the application. This class has got delegation as well as operational functionality.
  */
-object Manami : Application, AnimeAccess, ApplicationPersistence {
+object Manami : Application, AnimeDataAccess, ExternalPersistence {
 
     private val log: Logger by LoggerDelegate()
     private val cmdService: CommandService = CommandServiceImpl
