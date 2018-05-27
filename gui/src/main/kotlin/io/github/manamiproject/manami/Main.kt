@@ -1,4 +1,4 @@
-package io.github.manamiproject.manami.gui
+package io.github.manamiproject.manami
 
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.gui.views.MainView

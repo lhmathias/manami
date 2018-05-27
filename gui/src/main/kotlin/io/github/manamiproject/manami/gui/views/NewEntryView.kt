@@ -195,7 +195,7 @@ class NewEntryView : Fragment() {
             val configFile = Manami.getConfigFile()
             var folder = it.toAbsolutePath().toString()
 
-            if(configFile.exists() && configFile.isRegularFile()) {
+            if(configFile.exists() && configFile.isRegularFile()) { //TODO: test this
                folder = configFile.parent.relativize(it).toString().replace("\\", "/")
             }
 
