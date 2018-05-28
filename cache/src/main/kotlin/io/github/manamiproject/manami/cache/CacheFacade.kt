@@ -7,12 +7,14 @@ import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseGitRe
 import io.github.manamiproject.manami.cache.caches.RecommendationsCache
 import io.github.manamiproject.manami.cache.caches.RelatedAnimeCache
 import io.github.manamiproject.manami.cache.caches.AnimeCache
+import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdatedSuccessfullyEvent
 import io.github.manamiproject.manami.cache.populator.CachePopulator
 import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractors
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal.MalAnimeExtractor
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.mal.MalRecommendationsExtractor
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.relatedanime.mal.MalRelatedAnimeExtractor
+import io.github.manamiproject.manami.common.EventBus
 
 
 object CacheFacade : Cache {
@@ -31,6 +33,7 @@ object CacheFacade : Cache {
 
     init {
         cachePopulator.populate()
+        EventBus.publish(OfflineDatabaseUpdatedSuccessfullyEvent)
     }
 
     override fun fetchAnime(infoLink: InfoLink): Anime? {

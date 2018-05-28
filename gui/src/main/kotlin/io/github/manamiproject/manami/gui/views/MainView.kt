@@ -21,9 +21,13 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
+import javafx.application.Platform
+import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.*
+import javafx.stage.Stage
 import tornadofx.View
+import tornadofx.runLater
 import java.nio.file.Path
 import java.nio.file.Paths
 
@@ -66,8 +70,24 @@ class MainView : View() {
     private val btnSearch: Button by fxid()
 
     init {
-        this.primaryStage.isMaximized = true
         initMenuItemGlyphs()
+    }
+
+    override fun onDock() {
+        this.currentStage?.let {
+            it.isMaximized = true
+
+            runLater {
+                initNativeCloseButton(it)
+            }
+        }
+    }
+
+    private fun initNativeCloseButton(stage: Stage) {
+        Platform.setImplicitExit(false)
+        stage.onCloseRequest = EventHandler {
+            Manami.exit()
+        }
     }
 
     private fun initMenuItemGlyphs() {

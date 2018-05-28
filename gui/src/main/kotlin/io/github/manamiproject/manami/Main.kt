@@ -1,32 +1,49 @@
 package io.github.manamiproject.manami
 
+import com.google.common.eventbus.Subscribe
+import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdatedSuccessfullyEvent
+import io.github.manamiproject.manami.common.EventBus
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.gui.views.MainView
 import javafx.application.Application
-import javafx.application.Platform
-import javafx.event.EventHandler
 import javafx.stage.Stage
-import tornadofx.App
+import tornadofx.*
 
 
-/**
- * Entry point of the application.
- */
-class Main : App(MainView::class) {
+fun main(vararg args: String) {
+    Application.launch(Main::class.java, *args)
+}
+
+
+class Main : App(SplashScreen::class) {
 
     override fun start(stage: Stage) {
         super.start(stage)
-        initNativeCloseButton(stage)
-    }
 
-    private fun initNativeCloseButton(stage: Stage) {
-        Platform.setImplicitExit(false)
-        stage.onCloseRequest = EventHandler {
-            Manami.exit()
+        find<SplashScreen>().openModal()
+
+        runAsync {
+            Manami
         }
     }
 }
 
-fun main(vararg args: String) {
-    Application.launch(Main::class.java, *args)
+
+class SplashScreen : View("Please wait") {
+
+    init {
+        EventBus.register(this)
+    }
+
+    override val root = stackpane {
+        setPrefSize(300.0, 100.0)
+        label("Loading...")
+    }
+
+    @Subscribe
+    fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) {
+        runLater {
+            replaceWith<MainView>()
+        }
+    }
 }
