@@ -1,7 +1,5 @@
 package io.github.manamiproject.manami.gui.views
 
-import com.google.common.eventbus.Subscribe
-import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdatedSuccessfullyEvent
 import io.github.manamiproject.manami.common.EventBus
 import tornadofx.View
 import tornadofx.label
@@ -19,8 +17,7 @@ class SplashScreenView : View("Please wait") {
         label("Loading...")
     }
 
-    @Subscribe
-    fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) {
+    fun replaceWithMainView() {
         runLater {
             replaceWith<MainView>()
         }

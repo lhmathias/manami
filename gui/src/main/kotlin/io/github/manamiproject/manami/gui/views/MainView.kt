@@ -127,7 +127,9 @@ class MainView : View() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
             //TODO: check for open file
             //TODO: clear everything
-            manami.open(it)
+            runAsync {
+                manami.open(it)
+            }
         }
     }
 
@@ -178,5 +180,11 @@ class MainView : View() {
     
     fun showAbout() {
         AboutView.showAbout()
+    }
+
+    fun fileChanged(filename: String) {
+        runLater {
+            title = "Manami - $filename"
+        }
     }
 }
