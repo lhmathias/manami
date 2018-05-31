@@ -97,7 +97,6 @@ class NewEntryView : Fragment() {
             }
         }.onFailed = EventHandler<WorkerStateEvent> {
             disableControls(false)
-            throw UnknownHostException(txtInfoLink.text)
         }
     }
 
