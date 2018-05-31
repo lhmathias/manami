@@ -56,7 +56,7 @@
       </AnchorPane>
    </center>
    <top>
-       <MenuBar BorderPane.alignment="CENTER">
+       <MenuBar BorderPane.alignment="CENTER" useSystemMenuBar="true">
           <menus>
               <Menu mnemonicParsing="false" text="File">
                  <items>
