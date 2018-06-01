@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.entities.entities
 
-import io.github.manamiproject.manami.entities.AnimeType
+import io.github.manamiproject.manami.entities.*
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -13,7 +13,7 @@ class FilterListEntrySpec : Spek({
     given("a valid anime") {
         val anime = Anime(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                 37,
                 AnimeType.TV,
                 "/anime/series/death_note",
@@ -37,7 +37,7 @@ class FilterListEntrySpec : Spek({
     given("a valid watch list entry") {
         val watchListEntry = WatchListEntry(
                 "Death Note",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/9/9453t.jpg")
         )
 

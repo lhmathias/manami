@@ -1,5 +1,8 @@
 package io.github.manamiproject.manami.entities.entities
 
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -9,10 +12,10 @@ import org.jetbrains.spek.api.dsl.on
 class AnimeSpec : Spek({
 
     given("a valid anime created with mandatory parameters only") {
-        var anime = Anime("Death Note", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
+        var anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
 
         beforeEachTest {
-            anime = Anime("Death Note", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
+            anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
         }
 
         on("setting the amount of episodes to an invalid value") {
@@ -34,7 +37,7 @@ class AnimeSpec : Spek({
 
 
     given("an anime with an empty title") {
-        val anime = Anime("", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
+        val anime = Anime("", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
 
         on("checking if the anime is valid") {
             val result = anime.isValid()
@@ -47,7 +50,7 @@ class AnimeSpec : Spek({
 
 
     given("an anime with a blank title") {
-        val anime = Anime("     ", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
+        val anime = Anime("     ", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
 
         on("checking if the anime is valid") {
             val result = anime.isValid()
@@ -60,7 +63,7 @@ class AnimeSpec : Spek({
 
 
     given("an anime with an empty location") {
-        val anime = Anime("Death Note", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
+        val anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
         anime.location = ""
 
         on("checking if the anime is valid") {
@@ -74,7 +77,7 @@ class AnimeSpec : Spek({
 
 
     given("an anime with a blank location") {
-        val anime = Anime("Death Note", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"))
+        val anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))
         anime.location = "   "
 
         on("checking if the anime is valid") {
@@ -88,7 +91,7 @@ class AnimeSpec : Spek({
 
 
     given("an valid anime with an amount of episodes > 0") {
-        val anime = Anime("Death Note", InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"), 4)
+        val anime = Anime("Death Note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"), 4)
 
         on("setting the amount of episodes to an invalid value") {
             anime.episodes = -1

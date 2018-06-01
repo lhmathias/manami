@@ -1,8 +1,8 @@
 package io.github.manamiproject.manami.entities.comparator
 
-import io.github.manamiproject.manami.entities.entities.InfoLink
-import io.github.manamiproject.manami.entities.entities.NORMALIZED_ANIME_DOMAIN
-import io.github.manamiproject.manami.entities.entities.WatchListEntry
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.WatchListEntry
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -16,13 +16,13 @@ class MinimalEntryCompByTitleAscSpec : Spek({
 
     given("two different and valid watch list entries") {
         val gintama = WatchListEntry("Gintama",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}28977"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}28977"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/3/72078t.jpg")
         )
 
         val steinsGate = WatchListEntry(
                 "Steins;Gate",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}9253"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
         )
 
@@ -58,12 +58,12 @@ class MinimalEntryCompByTitleAscSpec : Spek({
     given("a valid watch list entry and a watch list entry with blank title") {
         val steinsGate = WatchListEntry(
                 "Steins;Gate",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}9253"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}9253"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/5/73199t.jpg")
         )
 
         val emptyTitle = WatchListEntry("",
-                InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}33352"),
+                InfoLink("${NormalizedAnimeBaseUrls.MAL.value}33352"),
                 URL("https://myanimelist.cdn-dena.com/images/anime/11/89398t.jpg")
         )
 

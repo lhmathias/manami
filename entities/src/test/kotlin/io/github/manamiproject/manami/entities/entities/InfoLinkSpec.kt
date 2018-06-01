@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.entities.entities
 
+import io.github.manamiproject.manami.entities.InfoLink
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -12,15 +13,6 @@ class InfoLinkSpec : Spek({
     given("a valid InfoLink") {
         val url = "https://myanimelist.net/anime/1535"
         val infoLink = InfoLink(url)
-
-        on("checking if it is present") {
-            val result = infoLink.isPresent()
-
-            it("must return true") {
-                assertThat(result).isTrue()
-            }
-        }
-
 
         on("checking if it is valid") {
             val result = infoLink.isValid()
@@ -70,15 +62,6 @@ class InfoLinkSpec : Spek({
 
     given("a blank InfoLink") {
         val infoLink = InfoLink("   ")
-
-        on("checking if it is present") {
-            val result = infoLink.isPresent()
-
-            it("must return false") {
-                assertThat(result).isFalse()
-            }
-        }
-
 
         on("checking if it is valid") {
             val result = infoLink.isValid()

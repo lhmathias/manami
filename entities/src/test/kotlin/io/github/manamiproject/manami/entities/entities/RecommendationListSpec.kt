@@ -1,5 +1,9 @@
 package io.github.manamiproject.manami.entities.entities
 
+import io.github.manamiproject.manami.entities.InfoLink
+import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
+import io.github.manamiproject.manami.entities.Recommendation
+import io.github.manamiproject.manami.entities.RecommendationList
 import org.assertj.core.api.Assertions.assertThat
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.given
@@ -33,7 +37,7 @@ class RecommendationListSpec : Spek({
         }
 
         on("adding a new recommendation") {
-            val infoLink = InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535")
+            val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
             val recommendation = Recommendation(infoLink, 103)
 
             recommendationList.addRecommendation(recommendation)
@@ -58,7 +62,7 @@ class RecommendationListSpec : Spek({
         on("checking if the list contains a Recommendation") {
             val result = recommendationList.contains(
                     Recommendation(
-                            InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"),
+                            InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
                             231
                     )
             )
@@ -78,7 +82,7 @@ class RecommendationListSpec : Spek({
     }
 
     given("a recommendation list containing one recommendation") {
-        val infoLinkUrl = "${NORMALIZED_ANIME_DOMAIN.MAL.value}1535"
+        val infoLinkUrl = "${NormalizedAnimeBaseUrls.MAL.value}1535"
         val initialValue = 5
         var recommendationList = RecommendationList()
 
@@ -149,7 +153,7 @@ class RecommendationListSpec : Spek({
                                     initialValue
                             ),
                             Recommendation(
-                                    InfoLink("${NORMALIZED_ANIME_DOMAIN.MAL.value}35180"),
+                                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}35180"),
                                     5
                             )
                     )
