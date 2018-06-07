@@ -7,7 +7,6 @@ import io.github.manamiproject.manami.gui.views.SplashScreenView
 import javafx.application.Application
 import javafx.stage.Stage
 import tornadofx.App
-import tornadofx.find
 import tornadofx.runAsync
 
 
@@ -21,8 +20,6 @@ class Main : App(SplashScreenView::class) {
 
     override fun start(stage: Stage) {
         super.start(stage)
-
-        find<SplashScreenView>().openModal()
 
         runAsync {
             Manami
