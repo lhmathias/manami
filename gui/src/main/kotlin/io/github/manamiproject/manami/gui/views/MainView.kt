@@ -39,15 +39,7 @@ class MainView : View() {
 
     override val root: Parent by fxml()
 
-    private val tvAnimeList: TableView<Anime> by fxid()
-    private val colAnimeListNumber: TableColumn<Anime, Anime> by fxid()
-    private val colAnimeListTitle: TableColumn<Anime, String> by fxid()
-    private val colAnimeListType: TableColumn<Anime, String> by fxid()
-    private val colAnimeListEpisodes: TableColumn<Anime, Int> by fxid()
-    private val colAnimeListLink: TableColumn<Anime, InfoLink> by fxid()
-    private val colAnimeListLocation: TableColumn<Anime, String> by fxid()
     private val tabPane: TabPane by fxid()
-    private val tabAnimeList: Tab by fxid()
     private val miNewList: MenuItem by fxid()
     private val miNewEntry: MenuItem by fxid()
     private val miOpen: MenuItem by fxid()
