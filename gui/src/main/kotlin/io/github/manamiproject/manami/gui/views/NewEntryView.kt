@@ -20,7 +20,6 @@ import org.controlsfx.validation.Validator
 import tornadofx.ChangeListener
 import tornadofx.Fragment
 import tornadofx.isInt
-import java.net.UnknownHostException
 
 private const val DEFAULT_EPISODES = "1"
 

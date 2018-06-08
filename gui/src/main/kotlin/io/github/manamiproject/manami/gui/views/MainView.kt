@@ -1,12 +1,9 @@
 package io.github.manamiproject.manami.gui.views
 
 import io.github.manamiproject.manami.core.Manami
-import io.github.manamiproject.manami.entities.Anime
-import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.gui.components.FileChoosers
 import io.github.manamiproject.manami.gui.components.Icons.createIconBranchFork
 import io.github.manamiproject.manami.gui.components.Icons.createIconClipboardCheck
-import io.github.manamiproject.manami.gui.components.Icons.createIconDelete
 import io.github.manamiproject.manami.gui.components.Icons.createIconExit
 import io.github.manamiproject.manami.gui.components.Icons.createIconExport
 import io.github.manamiproject.manami.gui.components.Icons.createIconFile
@@ -21,10 +18,14 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
+import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.scene.Parent
-import javafx.scene.control.*
+import javafx.scene.control.Button
+import javafx.scene.control.MenuItem
+import javafx.scene.control.TabPane
+import javafx.scene.control.TextField
 import javafx.stage.Stage
 import tornadofx.View
 import tornadofx.runLater
@@ -35,9 +36,12 @@ private const val FILE_SUFFIX_XML = ".xml"
 
 class MainView : View() {
 
+    override val root: Parent by fxml()
+
+    private val animeListTabView: AnimeListTabView by inject()
+
     private val manami = Manami
 
-    override val root: Parent by fxml()
 
     private val tabPane: TabPane by fxid()
     private val miNewList: MenuItem by fxid()
@@ -51,11 +55,11 @@ class MainView : View() {
     private val miRedo: MenuItem by fxid()
     private val miUndo: MenuItem by fxid()
     private val miExport: MenuItem by fxid()
-    private val cmiDeleteEntry: MenuItem by fxid()
     private val miRelatedAnime: MenuItem by fxid()
     private val miRecommendations: MenuItem by fxid()
-    private val miFilterList: MenuItem by fxid()
+    private val miAnimeList: MenuItem by fxid()
     private val miWatchList: MenuItem by fxid()
+    private val miFilterList: MenuItem by fxid()
     private val miTagList: MenuItem by fxid()
     private val miAbout: MenuItem by fxid()
     private val txtSearchString: TextField by fxid()
@@ -99,7 +103,6 @@ class MainView : View() {
         miFilterList.graphic = createIconFilterList()
         miWatchList.graphic = createIconWatchList()
         miAbout.graphic = createIconQuestion()
-        cmiDeleteEntry.graphic = createIconDelete()
     }
 
     fun exit() {
@@ -146,7 +149,7 @@ class MainView : View() {
         FileChoosers.showSaveAsFileDialog(primaryStage)?.let {
             val file: Path = it
 
-            if(it.endsWith(FILE_SUFFIX_XML) || it.endsWith(FILE_SUFFIX_XML.toUpperCase())) {
+            if (it.endsWith(FILE_SUFFIX_XML) || it.endsWith(FILE_SUFFIX_XML.toUpperCase())) {
                 Paths.get("${it.fileName}$FILE_SUFFIX_XML")
             }
 
@@ -166,10 +169,14 @@ class MainView : View() {
 
     fun showCheckListTab() {}
 
-    fun showFilterTab() {}
+    fun showAnimeListTab() {
+        tabPane.tabs.addAll(animeListTabView.tab)
+    }
 
     fun showWatchListTab() {}
-    
+
+    fun showFilterTab() {}
+
     fun showAbout() {
         AboutView.showAbout()
     }

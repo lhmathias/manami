@@ -6,64 +6,6 @@ package io.github.manamiproject.manami.gui.controller;
 // */
 //public class MainController implements Observer {
 //
-//  private static final Logger log = LoggerFactory.getLogger(MainController.class);
-//
-//  /**
-//   * Instance of the main application.
-//   */
-//  final private Manami app = Main.CONTEXT.getBean(Manami.class);
-//
-//  /**
-//   * Instance of the main application.
-//   */
-//  final private CommandService cmdService = Main.CONTEXT.getBean(CommandService.class);
-//
-//  /**
-//   * Instance of the gui configuration.
-//   */
-//  final private MainControllerWrapper mainControllerWrapper = Main.CONTEXT.getBean(MainControllerWrapper.class);
-//
-//  /**
-//   * Instance of the application configuration.
-//   */
-//  final private Config config = Main.CONTEXT.getBean(Config.class);
-//
-//  /**
-//   * Tab for the filter list.
-//   */
-//  private Tab filterTab;
-//
-//  /**
-//   * Tab for the related anime.
-//   */
-//  private Tab relatedAnimeTab;
-//
-//  /**
-//   * Tab for the recommendations.
-//   */
-//  private Tab recommendationsTab;
-//
-//  /**
-//   * Tab for the check list.
-//   */
-//  private Tab checkListTab;
-//
-//  /**
-//   * Tab for search results.
-//   */
-//  private Tab searchResultTab;
-//
-//  /**
-//   * Tab for tag list.
-//   */
-//  private Tab tagListTab;
-//
-//  private FilterListControllerWrapper controllerWrapper;
-//
-//  /**
-//   * Tab for the watch list.
-//   */
-//  private Tab watchListTab;
 //
 //  private AutoCompletionBinding<String> autoCompletionBinding;
 //
@@ -94,9 +36,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    // Only show button for deletion if the animelist is focused
 //    tabAnimeList.setOnSelectionChanged(event -> miDeleteEntry.setDisable(!tabAnimeList.isSelected()));
 //
-//    // Callbacks
-//    final Callback<TableColumn<Anime, String>, TableCell<Anime, String>> defaultCallback = new DefaultCallback();
-//
 //    // COLUMN: Number
 //    colAnimeListNumber.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
 //    colAnimeListNumber.setCellFactory(new RowCountCallback());
@@ -104,7 +43,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    // COLUMN: Title
 //    colAnimeListTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
 //    colAnimeListTitle.setComparator(String::compareToIgnoreCase);
-//    colAnimeListTitle.setCellFactory(defaultCallback);
 //    colAnimeListTitle.setOnEditCommit(event -> {
 //      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
 //      final Anime oldValue = copyAnime(selectedAnime);
@@ -115,7 +53,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //    // COLUMN: Type
 //    colAnimeListType.setCellValueFactory(new PropertyValueFactory<>("typeAsString"));
-//    colAnimeListType.setCellFactory(new AnimeTypeCallback());
 //    colAnimeListType.setOnEditCommit(event -> {
 //      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
 //      final Anime oldValue = copyAnime(selectedAnime);
@@ -125,7 +62,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //    // COLUMN: Episodes
 //    colAnimeListEpisodes.setCellValueFactory(new PropertyValueFactory<>("episodes"));
-//    colAnimeListEpisodes.setCellFactory(new AnimeEpisodesCallback());
 //    colAnimeListEpisodes.setOnEditCommit(event -> {
 //      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
 //      final Anime oldValue = copyAnime(selectedAnime);
@@ -135,7 +71,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //    // COLUMN: InfoLink
 //    colAnimeListLink.setCellValueFactory(new PropertyValueFactory<>("infoLink"));
-//    colAnimeListLink.setCellFactory(new AnimeInfoLinkCallback());
 //    colAnimeListLink.setOnEditCommit(event -> {
 //      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
 //      final Anime oldValue = copyAnime(selectedAnime);
@@ -146,7 +81,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //    // COLUMN: Location
 //    colAnimeListLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
-//    colAnimeListLocation.setCellFactory(defaultCallback);
 //    colAnimeListLocation.setOnEditStart(event -> {
 //      final Path folder = showBrowseForFolderDialog(mainControllerWrapper.getMainStage());
 //      final String newLocation = PathResolver.buildRelativizedPath(folder.toString(), config.getFile().getParent());
