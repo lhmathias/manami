@@ -83,7 +83,7 @@
          <MenuItem fx:id="miCheckList" disable="true" mnemonicParsing="false"
            onAction="#showCheckListTab" text="Check">
            <accelerator>
-             <KeyCodeCombination alt="UP" code="DIGIT3" control="DOWN" meta="UP" shift="UP"
+             <KeyCodeCombination alt="UP" code="DIGIT4" control="DOWN" meta="UP" shift="UP"
                shortcut="UP"/>
            </accelerator>
          </MenuItem>
@@ -109,18 +109,22 @@
        <Menu mnemonicParsing="false" text="List">
          <MenuItem fx:id="miAnimeList" mnemonicParsing="false" onAction="#showAnimeListTab"
            text="Anime List">
+           <accelerator>
+             <KeyCodeCombination alt="UP" code="DIGIT1" control="DOWN" meta="UP" shift="UP"
+               shortcut="UP"/>
+           </accelerator>
          </MenuItem>
          <MenuItem fx:id="miWatchList" mnemonicParsing="false" onAction="#showWatchListTab"
            text="Watch List">
            <accelerator>
-             <KeyCodeCombination alt="UP" code="DIGIT5" control="DOWN" meta="UP" shift="UP"
+             <KeyCodeCombination alt="UP" code="DIGIT2" control="DOWN" meta="UP" shift="UP"
                shortcut="UP"/>
            </accelerator>
          </MenuItem>
          <MenuItem fx:id="miFilterList" mnemonicParsing="false" onAction="#showFilterTab"
            text="Filter List">
            <accelerator>
-             <KeyCodeCombination alt="UP" code="DIGIT4" control="DOWN" meta="UP" shift="UP"
+             <KeyCodeCombination alt="UP" code="DIGIT3" control="DOWN" meta="UP" shift="UP"
                shortcut="UP"/>
            </accelerator>
          </MenuItem>
@@ -129,19 +133,24 @@
          <MenuItem fx:id="miRecommendations" disable="true" mnemonicParsing="false"
            onAction="#showRecommendationsTab" text="Recommendations">
            <accelerator>
-             <KeyCodeCombination alt="UP" code="DIGIT1" control="DOWN" meta="UP" shift="UP"
+             <KeyCodeCombination alt="UP" code="DIGIT5" control="DOWN" meta="UP" shift="UP"
                shortcut="UP"/>
            </accelerator>
          </MenuItem>
          <MenuItem fx:id="miRelatedAnime" disable="true" mnemonicParsing="false"
            onAction="#showRelatedAnimeTab" text="Related Anime">
            <accelerator>
-             <KeyCodeCombination alt="UP" code="DIGIT2" control="DOWN" meta="UP" shift="UP"
+             <KeyCodeCombination alt="UP" code="DIGIT6" control="DOWN" meta="UP" shift="UP"
                shortcut="UP"/>
            </accelerator>
          </MenuItem>
          <MenuItem fx:id="miTagList" mnemonicParsing="false" onAction="#showTagListTab"
-           text="by MAL Tags"/>
+           text="by MAL Tags">
+           <accelerator>
+             <KeyCodeCombination alt="UP" code="DIGIT7" control="DOWN" meta="UP" shift="UP"
+               shortcut="UP"/>
+           </accelerator>
+         </MenuItem>
        </Menu>
        <Menu mnemonicParsing="false" text="Help">
          <MenuItem fx:id="miAbout" mnemonicParsing="false" onAction="#showAbout" text="About">
