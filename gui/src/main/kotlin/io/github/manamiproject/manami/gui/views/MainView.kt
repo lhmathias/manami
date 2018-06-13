@@ -66,6 +66,7 @@ class MainView : View() {
     private val btnSearch: Button by fxid()
 
     init {
+        title = "Manami"
         initMenuItemGlyphs()
     }
 
