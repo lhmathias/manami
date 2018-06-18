@@ -24,9 +24,6 @@ private const val FILE_SUFFIX_JSON = ".json"
 private const val CURRENT_DIR = "."
 
 
-/**
- * Main access to the features of the application. This class has got delegation as well as operational functionality.
- */
 object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier {
 
     private val log: Logger by LoggerDelegate()
@@ -61,6 +58,7 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
     override fun open(file: Path) {
         taskConductor.cancelAllTasks()
         persistence.clearAll()
+        resetCommandHistory()
         persistence.open(file)
         config.file = file
         taskConductor.safelyStart(ThumbnailBackloadTask(persistence))
@@ -178,14 +176,10 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
     }
 
 
-    override fun undo() {
-        cmdService.undo()
-    }
+    override fun undo() = cmdService.undo()
 
 
-    override fun redo() {
-        cmdService.redo()
-    }
+    override fun redo() = cmdService.redo()
 
 
     override fun isFileSaved() = !cmdService.isUnsaved()

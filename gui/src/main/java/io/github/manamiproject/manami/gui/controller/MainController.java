@@ -141,25 +141,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    }
 //  }
 //
-//
-//  /**
-//   * Undoes the last command.
-//   */
-//  public void undo() {
-//    cmdService.undo();
-//    refreshEntriesInGui();
-//  }
-//
-//
-//  /**
-//   * Redoes the last undone command.
-//   */
-//  public void redo() {
-//    cmdService.redo();
-//    refreshEntriesInGui();
-//  }
-//
-//
 //  /**
 //   * Exports the current list.
 //   */
@@ -168,36 +149,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //    if (file != null) {
 //      app.export(file);
-//    }
-//  }
-//
-//  /**
-//   * Interface for operations that need a secure execution context.
-//   */
-//  private interface ExecutionContext {
-//
-//    void execute(Path file);
-//  }
-//
-//
-//  /**
-//   * Checks whether the current state is dirty and only executes the given Method if it's not.
-//   *
-//   * @param execCtx Lambda function trigger
-//   * @param file File.
-//   */
-//  private void safelyExecuteMethod(final ExecutionContext execCtx, final Path file) {
-//    final int userSelection = (cmdService.isUnsaved()) ? showUnsavedChangesDialog() : 0;
-//
-//    switch (userSelection) {
-//      case 1:
-//        save();
-//      case 0:
-//        tabPane.getSelectionModel().select(tabAnimeList);
-//        execCtx.execute(file);
-//        break;
-//      default:
-//        break;
 //    }
 //  }
 //
@@ -466,12 +417,6 @@ package io.github.manamiproject.manami.gui.controller;
 //  }
 //
 //
-//  private void executeCommand(final ReversibleCommand command) {
-//    cmdService.executeCommand(command);
-//    checkGui();
-//  }
-//
-//
 //  @Override
 //  public void update(final Observable o, final Object object) {
 //    if (object == null) {
@@ -493,12 +438,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    });
 //    checkGui();
 //  }
-//
-//
-//  public void showAbout() {
-//    Main.CONTEXT.getBean(AboutController.class).showAbout();
-//  }
-//
 //
 //  public void showWatchListTab() {
 //    if (watchListTab == null) {

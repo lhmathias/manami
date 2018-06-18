@@ -18,6 +18,7 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
+import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.YES
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
 import javafx.event.EventHandler
@@ -38,10 +39,9 @@ class MainView : View() {
 
     override val root: Parent by fxml()
 
-    private val animeListTabView: AnimeListTabView by inject()
-
     private val manami = Manami
 
+    private val animeListTabView: AnimeListTabView by inject()
 
     private val tabPane: TabPane by fxid()
     private val miNewList: MenuItem by fxid()
@@ -66,7 +66,7 @@ class MainView : View() {
     private val btnSearch: Button by fxid()
 
     init {
-        title = "Manami"
+        title = "manami"
         initMenuItemGlyphs()
     }
 
@@ -83,7 +83,7 @@ class MainView : View() {
     private fun initNativeCloseButton(stage: Stage) {
         Platform.setImplicitExit(false)
         stage.onCloseRequest = EventHandler {
-            Manami.exit()
+            manami.exit()
         }
     }
 
@@ -107,23 +107,25 @@ class MainView : View() {
     }
 
     fun exit() {
-        //TODO: Check file is unsaved
-        manami.exit()
+        safelyExecute {
+            manami.exit()
+        }
     }
 
     fun deleteEntry() {}
 
-    fun newList() {}
-
-    fun showNewEntry() {
-        find(NewEntryView::class).openModal()
+    fun newList() {
+        safelyExecute {
+            manami.newList()
+        }
     }
+
+    fun showNewEntry() = find(NewEntryView::class).openModal()
 
     fun open() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
-            //TODO: check for open file
             //TODO: clear everything
-            runAsync {
+            safelyExecute {
                 manami.open(it)
             }
         }
@@ -131,8 +133,9 @@ class MainView : View() {
 
     fun importFile() {
         FileChoosers.showImportFileDialog(primaryStage)?.let {
-            //TODO: check for open file
-            manami.importFile(it)
+            safelyExecute {
+                manami.importFile(it)
+            }
         }
     }
 
@@ -143,6 +146,7 @@ class MainView : View() {
     }
 
     fun save() {
+        //TODO: check for saveAs
         manami.save()
     }
 
@@ -158,9 +162,9 @@ class MainView : View() {
         }
     }
 
-    fun undo() {}
+    fun undo() = manami.undo()
 
-    fun redo() {}
+    fun redo() = manami.redo()
 
     fun showRecommendationsTab() {}
 
@@ -178,13 +182,23 @@ class MainView : View() {
 
     fun showFilterTab() {}
 
-    fun showAbout() {
-        AboutView.showAbout()
-    }
+    fun showAbout() = AboutView.showAbout()
 
     fun fileChanged(filename: String) {
         runLater {
-            title = "Manami - $filename"
+            title = "manami - $filename"
+        }
+    }
+
+    private fun safelyExecute(command: () -> Unit) {
+        if(!manami.isFileSaved()) {
+            if(UnsavedChangesDialogView.showUnsavedChangesDialog() == YES) {
+                manami.save()
+            }
+        }
+
+        runAsync {
+            command()
         }
     }
 }
