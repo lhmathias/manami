@@ -27,7 +27,7 @@ private const val CURRENT_DIR = "."
 /**
  * Main access to the features of the application. This class has got delegation as well as operational functionality.
  */
-object Manami : Application, AnimeDataAccess, ExternalPersistence {
+object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier {
 
     private val log: Logger by LoggerDelegate()
     private val cmdService: CommandService = CommandServiceImpl
@@ -193,5 +193,31 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence {
 
     override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)
 
+
     override fun getConfigFile() = Config.file
+
+
+    override fun changeTitle(anime: Anime, newTitle: Title) {
+        cmdService.executeCommand(CmdChangeTitle(anime, newTitle, persistence))
+    }
+
+
+    override fun changeType(anime: Anime, newType: AnimeType) {
+        cmdService.executeCommand(CmdChangeType(anime, newType, persistence))
+    }
+
+
+    override fun changeEpisodes(anime: Anime, newNumberOfEpisodes: Episodes) {
+        cmdService.executeCommand(CmdChangeEpisodes(anime, newNumberOfEpisodes, persistence))
+    }
+
+
+    override fun changeInfoLink(anime: Anime, newInfoLink: InfoLink) {
+        cmdService.executeCommand(CmdChangeInfoLink(anime, newInfoLink, persistence))
+    }
+
+
+    override fun changeLocation(anime: Anime, newLocation: Location) {
+        cmdService.executeCommand(CmdChangeLocation(anime, newLocation, persistence))
+    }
 }

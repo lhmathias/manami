@@ -2,6 +2,7 @@ package io.github.manamiproject.manami.gui.views.animelist
 
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.*
+import javafx.event.EventHandler
 import javafx.scene.control.*
 import tornadofx.*
 
@@ -14,28 +15,43 @@ class AnimeListTabView : View() {
             isEditable = true
 
             column("Title", Anime::title).apply {
-                cellFactory = TitleTableCellCallback()
                 isEditable = true
+                cellFactory = TitleTableCellCallback()
+                onEditCommit = EventHandler {
+                    Manami.changeTitle(it.rowValue, it.newValue as Title)
+                }
             }
 
             column("Type", Anime::type).apply {
-                cellFactory = AnimeTypeTableCellCallback()
                 isEditable = true
+                cellFactory = AnimeTypeTableCellCallback()
+                onEditCommit = EventHandler {
+                    Manami.changeType(it.rowValue, it.newValue as AnimeType)
+                }
             }
 
             column("Episodes", Anime::episodes).apply {
-                cellFactory = EpisodesTableCellCallback()
                 isEditable = true
+                cellFactory = EpisodesTableCellCallback()
+                onEditCommit = EventHandler {
+                    Manami.changeEpisodes(it.rowValue, it.newValue)
+                }
             }
 
             column("InfoLink", Anime::infoLink).apply {
-                cellFactory = InfoLinkTableCellCallback()
                 isEditable = true
+                cellFactory = InfoLinkTableCellCallback()
+                onEditCommit = EventHandler {
+                    Manami.changeInfoLink(it.rowValue, it.newValue)
+                }
             }
 
             column("Location", Anime::location).apply {
-                cellFactory = LocationTableCellCallback()
                 isEditable = true
+                cellFactory = LocationTableCellCallback()
+                onEditCommit = EventHandler {
+                    Manami.changeLocation(it.rowValue, it.newValue)
+                }
             }
 
             //TODO: contextmenu entry for deleting an entry

@@ -1,5 +1,8 @@
 package io.github.manamiproject.manami.entities
 
+import io.github.manamiproject.manami.entities.AnimeType.TV
+import io.github.manamiproject.manami.entities.MinimalEntry.Companion.NO_IMG
+import io.github.manamiproject.manami.entities.MinimalEntry.Companion.NO_IMG_THUMB
 import java.net.URL
 import java.util.*
 import java.util.UUID.randomUUID
@@ -19,13 +22,13 @@ data class Anime(
         /** Amount of episodes. 1 for Movies. */
         private var numberOfEpisodes: Episodes = 0,
         /** Type of the Anime (e.g.: TV, Special, OVA, ONA, etc.). */
-        var type: AnimeType = AnimeType.TV,
+        var type: AnimeType = TV,
         /** Location on the HDD. */
-        var location: Location = ".", //FIXME: should this be a Path object?
+        var location: Location = ".", //TODO: should this be a Path object?
         /** Url for a thumbnail. */
-        override var thumbnail: URL = MinimalEntry.NO_IMG_THUMB,
+        override var thumbnail: URL = NO_IMG_THUMB,
         /** Url for a picture. */
-        var picture: URL = MinimalEntry.NO_IMG,
+        var picture: URL = NO_IMG,
         /** Identifier within the current anime list. */
         var id: UUID = randomUUID()
 ) : MinimalEntry {
