@@ -1,9 +1,6 @@
 package io.github.manamiproject.manami.gui.controller;
 
 
-///**
-// * Controller for the main stage.
-// */
 //public class MainController implements Observer {
 //
 //
@@ -36,41 +33,8 @@ package io.github.manamiproject.manami.gui.controller;
 //    // Only show button for deletion if the animelist is focused
 //    tabAnimeList.setOnSelectionChanged(event -> miDeleteEntry.setDisable(!tabAnimeList.isSelected()));
 //
-//    // COLUMN: Number
-//    colAnimeListNumber.setCellValueFactory(value -> new ReadOnlyObjectWrapper<>(value.getValue()));
-//    colAnimeListNumber.setCellFactory(new RowCountCallback());
-//
-//    // COLUMN: Title
-//    colAnimeListTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
-//    colAnimeListTitle.setComparator(String::compareToIgnoreCase);
-//    colAnimeListTitle.setOnEditCommit(event -> {
-//      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
-//      final Anime oldValue = copyAnime(selectedAnime);
-//      final String newTitle = event.getNewValue().trim();
-//      executeCommand(new CmdChangeTitle(oldValue, newTitle, app));
-//      selectedAnime.setTitle(newTitle);
-//    });
-//
-//    // COLUMN: Type
-//    colAnimeListType.setCellValueFactory(new PropertyValueFactory<>("typeAsString"));
-//    colAnimeListType.setOnEditCommit(event -> {
-//      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
-//      final Anime oldValue = copyAnime(selectedAnime);
-//      executeCommand(new CmdChangeType(oldValue, AnimeType.findByName(event.getNewValue()), app));
-//      selectedAnime.setType(AnimeType.findByName(event.getNewValue()));
-//    });
-//
-//    // COLUMN: Episodes
-//    colAnimeListEpisodes.setCellValueFactory(new PropertyValueFactory<>("episodes"));
-//    colAnimeListEpisodes.setOnEditCommit(event -> {
-//      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
-//      final Anime oldValue = copyAnime(selectedAnime);
-//      executeCommand(new CmdChangeEpisodes(oldValue, event.getNewValue(), app));
-//      selectedAnime.setEpisodes(event.getNewValue());
-//    });
 //
 //    // COLUMN: InfoLink
-//    colAnimeListLink.setCellValueFactory(new PropertyValueFactory<>("infoLink"));
 //    colAnimeListLink.setOnEditCommit(event -> {
 //      final Anime selectedAnime = tvAnimeList.getItems().get(event.getTablePosition().getRow());
 //      final Anime oldValue = copyAnime(selectedAnime);
@@ -80,7 +44,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    });
 //
 //    // COLUMN: Location
-//    colAnimeListLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
 //    colAnimeListLocation.setOnEditStart(event -> {
 //      final Path folder = showBrowseForFolderDialog(mainControllerWrapper.getMainStage());
 //      final String newLocation = PathResolver.buildRelativizedPath(folder.toString(), config.getFile().getParent());
