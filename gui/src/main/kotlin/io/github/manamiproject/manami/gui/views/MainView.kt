@@ -1,5 +1,6 @@
 package io.github.manamiproject.manami.gui.views
 
+import io.github.manamiproject.manami.common.isValidFile
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.gui.components.FileChoosers
 import io.github.manamiproject.manami.gui.components.Icons.createIconBranchFork
@@ -125,16 +126,20 @@ class MainView : View() {
     fun open() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
             //TODO: clear everything
-            checkFileSavedContext {
-                manami.open(it)
+            if(it.isValidFile()) {
+                checkFileSavedContext {
+                    manami.open(it)
+                }
             }
         }
     }
 
     fun importFile() {
         FileChoosers.showImportFileDialog(primaryStage)?.let {
-            checkFileSavedContext {
-                manami.importFile(it)
+            if(it.isValidFile()) {
+                checkFileSavedContext {
+                    manami.importFile(it)
+                }
             }
         }
     }
@@ -146,8 +151,11 @@ class MainView : View() {
     }
 
     fun save() {
-        //TODO: check for saveAs
-        manami.save()
+        if(manami.getConfigFile().isValidFile()) {
+            manami.save()
+        } else {
+            saveAs()
+        }
     }
 
     fun saveAs() {
@@ -174,9 +182,7 @@ class MainView : View() {
 
     fun showCheckListTab() {}
 
-    fun showAnimeListTab() {
-        tabPane.tabs.addAll(animeListTabView.tab)
-    }
+    fun showAnimeListTab() = tabPane.tabs.addAll(animeListTabView.tab)
 
     fun showWatchListTab() {}
 

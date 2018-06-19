@@ -2,12 +2,12 @@ package io.github.manamiproject.manami.common
 
 import java.io.BufferedReader
 import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
 import java.nio.charset.StandardCharsets.*
 import java.nio.file.*
 import java.nio.file.attribute.FileAttribute
 import java.util.stream.Stream
 
+// mapped functions
 fun Path.isDirectory(): Boolean {
     return Files.isDirectory(this)
 }
@@ -74,4 +74,9 @@ fun Path.newDirectoryStream(): DirectoryStream<Path> {
 
 fun Path.bufferedReader(charset: Charset = UTF_8): BufferedReader {
     return this.toFile().bufferedReader(charset)
+}
+
+// new convenience functions from here on
+fun Path.isValidFile(vararg linkOption: LinkOption): Boolean {
+    return exists() && isRegularFile(*linkOption)
 }

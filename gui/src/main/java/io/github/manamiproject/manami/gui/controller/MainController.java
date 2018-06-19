@@ -223,22 +223,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //
 //  /**
-//   * Saves an already opened file or shows the save as dialog if the file does not exist yet.
-//   */
-//  public void save() {
-//    final Path file = config.getFile();
-//
-//    if (file != null) {
-//      app.save();
-//    } else {
-//      saveAs();
-//    }
-//
-//    checkGui();
-//  }
-//
-//
-//  /**
 //   * Show a save as dialog and then saves the data to the file.
 //   */
 //  public void saveAs() {
