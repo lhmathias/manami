@@ -107,7 +107,7 @@ class MainView : View() {
     }
 
     fun exit() {
-        safelyExecute {
+        checkFileSavedContext {
             manami.exit()
         }
     }
@@ -115,7 +115,7 @@ class MainView : View() {
     fun deleteEntry() {}
 
     fun newList() {
-        safelyExecute {
+        checkFileSavedContext {
             manami.newList()
         }
     }
@@ -125,7 +125,7 @@ class MainView : View() {
     fun open() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
             //TODO: clear everything
-            safelyExecute {
+            checkFileSavedContext {
                 manami.open(it)
             }
         }
@@ -133,7 +133,7 @@ class MainView : View() {
 
     fun importFile() {
         FileChoosers.showImportFileDialog(primaryStage)?.let {
-            safelyExecute {
+            checkFileSavedContext {
                 manami.importFile(it)
             }
         }
@@ -190,7 +190,7 @@ class MainView : View() {
         }
     }
 
-    private fun safelyExecute(command: () -> Unit) {
+    private fun checkFileSavedContext(command: () -> Unit) {
         if(!manami.isFileSaved()) {
             if(UnsavedChangesDialogView.showUnsavedChangesDialog() == YES) {
                 manami.save()
