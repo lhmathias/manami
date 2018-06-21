@@ -5,20 +5,23 @@ import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdat
 import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
 import io.github.manamiproject.manami.gui.views.MainView
 import io.github.manamiproject.manami.gui.views.SplashScreenView
+import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
+import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
 import tornadofx.Controller
 
 object EventDispatcher: Controller() {
 
     private val splashScreenView: SplashScreenView by inject()
     private val mainView: MainView by inject()
+    private val animeList: AnimeListTabView by inject()
 
     @Subscribe
-    fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) {
-        splashScreenView.replaceWithMainView()
-    }
+    fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) = splashScreenView.replaceWithMainView()
 
     @Subscribe
-    fun openFileChanged(obj: OpenedFileChangedEvent) {
-        mainView.fileChanged(obj.fileName)
-    }
+    fun openFileChanged(obj: OpenedFileChangedEvent) = mainView.fileChanged(obj.fileName)
+
+    @Subscribe
+    fun animeListChanged(obj: AnimeListChangedEvent) = animeList.updateAnimeEntries()
+
 }

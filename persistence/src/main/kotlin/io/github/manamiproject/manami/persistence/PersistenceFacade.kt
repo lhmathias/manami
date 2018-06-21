@@ -20,7 +20,8 @@ import java.nio.file.Path
 
 
 /**
- * This is a facade which is used by the application to hide which strategy is actually used.
+ * Single point of contact for everything related to the persistence.
+ * This is a facade which is used by the application to hide the actual persistence strategy.
  */
 object PersistenceFacade : Persistence {
 
@@ -160,27 +161,40 @@ object PersistenceFacade : Persistence {
 
     override fun clearAll() {
         strategy.clearAll()
-        EventBus.publish(AnimeListChangedEvent)
-        EventBus.publish(FilterListChangedEvent)
-        EventBus.publish(WatchListChangedEvent)
+        notifyAllListsChanged()
     }
 
 
     override fun addAnimeList(list: List<Anime>) {
+        val numberOfEntriesBefore = strategy.fetchAnimeList().size
         strategy.addAnimeList(list.filter { it.isValid() }.toList())
-        EventBus.publish(AnimeListChangedEvent)
+        val numberOfEntriesAfter = strategy.fetchAnimeList().size
+
+        if(numberOfEntriesBefore < numberOfEntriesAfter) {
+            EventBus.publish(AnimeListChangedEvent)
+        }
     }
 
 
     override fun addFilterList(list: List<FilterListEntry>) {
+        val numberOfEntriesBefore = strategy.fetchFilterList().size
         strategy.addFilterList(list.filter { it.isValid() }.toList())
-        EventBus.publish(FilterListChangedEvent)
+        val numberOfEntriesAfter = strategy.fetchFilterList().size
+
+        if(numberOfEntriesBefore < numberOfEntriesAfter) {
+            EventBus.publish(FilterListChangedEvent)
+        }
     }
 
 
     override fun addWatchList(list: List<WatchListEntry>) {
+        val numberOfEntriesBefore = strategy.fetchWatchList().size
         strategy.addWatchList(list.filter { it.isValid() }.toList())
-        EventBus.publish(WatchListChangedEvent)
+        val numberOfEntriesAfter = strategy.fetchWatchList().size
+
+        if(numberOfEntriesBefore < numberOfEntriesAfter) {
+            EventBus.publish(WatchListChangedEvent)
+        }
     }
 
 
@@ -188,19 +202,19 @@ object PersistenceFacade : Persistence {
         when (entry) {
             is Anime -> {
                 if(entry.isValid()) {
-                    strategy.updateOrCreate(entry)
+                    strategy.updateOrCreate(entry) //TODO: make this conditional?
                     EventBus.publish(AnimeListChangedEvent)
                 }
             }
             is FilterListEntry -> {
                 if(entry.isValid()) {
-                    strategy.updateOrCreate(entry)
+                    strategy.updateOrCreate(entry) //TODO: make this conditional?
                     EventBus.publish(FilterListChangedEvent)
                 }
             }
             is WatchListEntry -> {
                 if(entry.isValid()) {
-                    strategy.updateOrCreate(entry)
+                    strategy.updateOrCreate(entry) //TODO: make this conditional?
                     EventBus.publish(WatchListChangedEvent)
                 }
             }
@@ -210,21 +224,24 @@ object PersistenceFacade : Persistence {
 
     override fun open(file: Path) {
         xmlImporter.using(MANAMI).importFile(file)
+        notifyAllListsChanged()
     }
 
 
     override fun importMalFile(file: Path) {
         xmlImporter.using(MAL).importFile(file)
-    }
-
-
-    override fun exportListToJsonFile(list: List<Anime>, file: Path) {
-        jsonExporter.exportList(list, file)
+        notifyAllListsChanged()
     }
 
 
     override fun importJsonFile(file: Path) {
         jsonImporter.importFile(file)
+        notifyAllListsChanged()
+    }
+
+
+    override fun exportListToJsonFile(list: List<Anime>, file: Path) {
+        jsonExporter.exportList(list, file)
     }
 
 
@@ -234,4 +251,11 @@ object PersistenceFacade : Persistence {
 
 
     override fun save(file: Path) = xmlExporter.save(file)
+
+
+    private fun notifyAllListsChanged() {
+        EventBus.publish(AnimeListChangedEvent)
+        EventBus.publish(FilterListChangedEvent)
+        EventBus.publish(WatchListChangedEvent)
+    }
 }
