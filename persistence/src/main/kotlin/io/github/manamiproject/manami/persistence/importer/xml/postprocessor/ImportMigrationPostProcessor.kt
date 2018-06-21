@@ -16,7 +16,7 @@ internal object ImportMigrationPostProcessor {
     private var filterListEntries: MutableList<FilterListEntry> = mutableListOf()
     private var watchListEntries: MutableList<WatchListEntry> = mutableListOf()
 
-    fun process(importDocument: ImportDocument) {
+    fun migrate(importDocument: ImportDocument) {
         if (!Version.isValid(importDocument.documentVersion)) {
             log.warn("Document version is not valid.")
             EventBus.publish(FileImportExceptionEvent("Document version is not valid. Unable to import file."))

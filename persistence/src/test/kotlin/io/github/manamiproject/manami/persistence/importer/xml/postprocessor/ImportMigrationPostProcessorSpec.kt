@@ -39,7 +39,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         val processor = ImportMigrationPostProcessor
 
         on("start processing") {
-            processor.process(
+            processor.migrate(
                     ImportDocument(
                             "2.?.2",
                             mutableListOf(),
@@ -67,7 +67,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         val processor = ImportMigrationPostProcessor
 
         on("processing the document") {
-            processor.process(
+            processor.migrate(
                     ImportDocument(
                             "2.10.4",
                             mutableListOf(),
@@ -76,7 +76,7 @@ class ImportMigrationPostProcessorSpec : Spek({
                     )
             )
 
-            it("must not change the value of the thumbnail. The document version is newer so the process will be skipped.") {
+            it("must not change the value of the thumbnail. The document version is newer so the migration will be skipped.") {
                 assertThat(filterList[0].thumbnail).isEqualTo(thumbnail)
             }
         }
@@ -157,7 +157,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         }
 
         on("processing the document") {
-            processor.process(
+            processor.migrate(
                     ImportDocument(
                             "2.10.2",
                             mutableListOf(),
@@ -220,7 +220,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         }
 
         on("processing the document") {
-            processor.process(
+            processor.migrate(
                     ImportDocument(
                             "2.14.3",
                             animeList,
@@ -372,7 +372,7 @@ class ImportMigrationPostProcessorSpec : Spek({
         }
 
         on("processing the document") {
-            processor.process(
+            processor.migrate(
                     ImportDocument(
                             "2.14.1",
                             animeList,

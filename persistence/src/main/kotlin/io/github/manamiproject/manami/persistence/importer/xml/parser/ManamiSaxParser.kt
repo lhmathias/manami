@@ -45,7 +45,7 @@ internal class ManamiSaxParser(
         persistence.addAnimeList(importDocument.animeListEntries)
         persistence.addFilterList(importDocument.filterListEntries)
         persistence.addWatchList(importDocument.watchListEntries)
-        ImportMigrationPostProcessor.process(importDocument)
+        ImportMigrationPostProcessor.migrate(importDocument)
     }
 
 
