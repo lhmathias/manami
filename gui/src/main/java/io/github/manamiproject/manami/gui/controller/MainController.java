@@ -141,17 +141,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    }
 //  }
 //
-//  /**
-//   * Exports the current list.
-//   */
-//  public void export() {
-//    final Path file = showExportDialog(mainControllerWrapper.getMainStage());
-//
-//    if (file != null) {
-//      app.export(file);
-//    }
-//  }
-//
 //
 //  /**
 //   * Creates a new, empty list.
@@ -207,20 +196,6 @@ package io.github.manamiproject.manami.gui.controller;
 //  }
 //
 //
-//  /**
-//   * Imports a file.
-//   */
-//  public void importFile() {
-//    final Path selectedFile = showImportFileDialog(mainControllerWrapper.getMainStage());
-//
-//    if (selectedFile != null && Files.exists(selectedFile)) {
-//      safelyExecuteMethod(file -> {
-//        app.importFile(file);
-//        refreshEntriesInGui();
-//      }, selectedFile);
-//    }
-//  }
-//
 //
 //  /**
 //   * Show a save as dialog and then saves the data to the file.
@@ -243,30 +218,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //
 //  /**
-//   * Workaround to refresh the table view. This especially comes in handy whenever you update an existing item.
-//   */
-//  private void refreshTableView() {
-//    Platform.runLater(() -> {
-//      for (int i = 0; i < tvAnimeList.getColumns().size(); i++) {
-//        tvAnimeList.getColumns().get(i).setVisible(false);
-//        tvAnimeList.getColumns().get(i).setVisible(true);
-//      }
-//    });
-//  }
-//
-//
-//  /**
-//   * Terminates the application.
-//   */
-//  public void exit() {
-//    safelyExecuteMethod(file -> {
-//      app.exit();
-//      Platform.exit();
-//    }, null);
-//  }
-//
-//
-//  /**
 //   * Sets the focus of the {@link TabPane} to the given {@link Tab}.
 //   *
 //   * @param activeTab {@link Tab} which will gain focus.
@@ -280,70 +231,6 @@ package io.github.manamiproject.manami.gui.controller;
 //      tabPane.getSelectionModel().select(activeTab);
 //    });
 //  }
-//
-//
-//  /**
-//   * Initializes the filter tab, as well as starts the filter list recommendation search.
-//   */
-//  private void initFilterTab() {
-//    controllerWrapper = Main.CONTEXT.getBean(FilterListControllerWrapper.class);
-//
-//    if (filterTab == null) {
-//      filterTab = controllerWrapper.getFilterTab();
-//    }
-//  }
-//
-//
-//  /**
-//   * Opens the filter list tab.
-//   */
-//  public void showFilterTab() {
-//    focusActiveTab(filterTab);
-//  }
-//
-//
-//  /**
-//   * Cancels and resets the related anime finder.
-//   */
-//  private void cancelAndResetBackgroundServices() {
-//    Main.CONTEXT.getBean(ServiceRepository.class).cancelAllServices();
-//  }
-//
-//
-//  /**
-//   * Opens the related anime tab.
-//   */
-//  public void showRelatedAnimeTab() {
-//    if (relatedAnimeTab == null) {
-//      relatedAnimeTab = Main.CONTEXT.getBean(RelatedAnimeControllerWrapper.class).getRelatedAnimeTab();
-//    }
-//
-//    focusActiveTab(relatedAnimeTab);
-//  }
-//
-//
-//  public void showRecommendationsTab() {
-//    if (recommendationsTab == null) {
-//      recommendationsTab = Main.CONTEXT.getBean(RecommendationsControllerWrapper.class).getRecommendationsTab();
-//    }
-//
-//    focusActiveTab(recommendationsTab);
-//  }
-//
-//
-//  public void showCheckListTab() {
-//    if (checkListTab == null) {
-//      checkListTab = Main.CONTEXT.getBean(CheckListControllerWrapper.class).getCheckListTab();
-//    }
-//
-//    focusActiveTab(checkListTab);
-//  }
-//
-//
-//  public void showNewEntry() {
-//    Main.CONTEXT.getBean(NewEntryControllerWrapper.class).showNewEntryStage();
-//  }
-//
 //
 //  /**
 //   * Whenever a user clicks on a notification.
@@ -442,14 +329,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //
 //  /**
-//   * @return the tabAnimeList
-//   */
-//  public Tab getTabAnimeList() {
-//    return tabAnimeList;
-//  }
-//
-//
-//  /**
 //   * Resizes a {@link TableView} so that the column size automatically fits it's content.
 //   */
 //  private void autoSizeTableViewColumns() {
@@ -489,17 +368,5 @@ package io.github.manamiproject.manami.gui.controller;
 //    }
 //
 //    return ret;
-//  }
-//
-//
-//  /**
-//   * Opens the related anime tab.
-//   */
-//  public void showSearchResultTab() {
-//    if (searchResultTab == null) {
-//      searchResultTab = Main.CONTEXT.getBean(SearchResultsControllerWrapper.class).getSearchResultsTab();
-//    }
-//
-//    focusActiveTab(searchResultTab);
 //  }
 //}

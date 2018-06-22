@@ -19,7 +19,7 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
-import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.YES
+import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
 import javafx.event.EventHandler
@@ -125,10 +125,10 @@ class MainView : View() {
 
     fun open() {
         FileChoosers.showOpenFileDialog(primaryStage)?.let {
-            //TODO: clear everything
             if(it.isValidFile()) {
                 checkFileSavedContext {
                     manami.open(it)
+                    //TODO: clear everything
                 }
             }
         }
@@ -136,10 +136,9 @@ class MainView : View() {
 
     fun importFile() {
         FileChoosers.showImportFileDialog(primaryStage)?.let {
-            if(it.isValidFile()) {
-                checkFileSavedContext {
-                    manami.importFile(it)
-                }
+            //TODO: check if is able to perform import
+            checkFileSavedContext {
+                manami.importFile(it)
             }
         }
     }
@@ -197,14 +196,20 @@ class MainView : View() {
     }
 
     private fun checkFileSavedContext(command: () -> Unit) {
+        var dialogDecision = NO
+
         if(!manami.isFileSaved()) {
-            if(UnsavedChangesDialogView.showUnsavedChangesDialog() == YES) {
-                manami.save()
-            }
+            dialogDecision = UnsavedChangesDialogView.showUnsavedChangesDialog()
         }
 
-        runAsync {
-            command()
+        if(dialogDecision == YES) {
+            save()
+        }
+
+        if(dialogDecision != CANCEL) {
+            runAsync {
+                command()
+            }
         }
     }
 }
