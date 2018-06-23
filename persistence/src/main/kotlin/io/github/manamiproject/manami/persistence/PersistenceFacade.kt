@@ -90,6 +90,7 @@ object PersistenceFacade : Persistence {
             }
 
             EventBus.publish(AnimeListChangedEvent)
+
             return true
         }
 

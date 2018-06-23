@@ -1,5 +1,7 @@
 package io.github.manamiproject.manami.core.commands
 
+import io.github.manamiproject.manami.common.EventBus
+import io.github.manamiproject.manami.core.events.FileSavedStatusChangedEvent
 import java.util.*
 
 
@@ -26,7 +28,7 @@ internal object CommandServiceImpl : CommandService {
 
         if (executionResult) {
             done.add(command)
-            isUnsaved = true
+            setUnsaved(true)
         }
 
         return executionResult
@@ -59,18 +61,18 @@ internal object CommandServiceImpl : CommandService {
      * Check if the last executed command was the last one before saving.
      */
     private fun checkDirtyFlag() {
-        isUnsaved = !(done.empty() || (!done.empty() && done.peek().isLastSaved()))
+        setUnsaved(!(done.empty() || (!done.empty() && done.peek().isLastSaved())))
     }
 
 
     override fun clearAll() {
         done.clear()
         undone.clear()
-        isUnsaved = false
+        setUnsaved(false)
     }
 
 
-    override fun resetDirtyFlag() {
+    private fun resetLastSavepoint() {
         done.forEach { it.setLastSaved(false) }
         undone.forEach { it.setLastSaved(false) }
 
@@ -88,5 +90,11 @@ internal object CommandServiceImpl : CommandService {
 
     override fun setUnsaved(value: Boolean) {
         isUnsaved = value
+
+        if(!value) {
+            resetLastSavepoint()
+        }
+
+        EventBus.publish(FileSavedStatusChangedEvent)
     }
 }

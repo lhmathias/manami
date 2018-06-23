@@ -35,6 +35,7 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 private const val FILE_SUFFIX_XML = ".xml"
+private const val DIRTY_FLAG = "*"
 
 class MainView : View() {
 
@@ -67,7 +68,7 @@ class MainView : View() {
     private val btnSearch: Button by fxid()
 
     init {
-        title = "manami"
+        title = "Manami"
         initMenuItemGlyphs()
     }
 
@@ -105,6 +106,7 @@ class MainView : View() {
         miFilterList.graphic = createIconFilterList()
         miWatchList.graphic = createIconWatchList()
         miAbout.graphic = createIconQuestion()
+        miSave.isDisable = false
     }
 
     fun exit() {
@@ -189,16 +191,30 @@ class MainView : View() {
 
     fun showAbout() = AboutView.showAbout()
 
-    fun fileChanged(filename: String) {
-        runLater {
-            title = "manami - $filename"
+    fun updateFileNameInStageTitle() {
+        if(manami.getConfigFile().isValidFile()) {
+            runLater {
+                title = "manami - ${manami.getConfigFile().fileName}"
+            }
+        }
+    }
+
+    fun updateDirtyFlagInStageTitle() {
+        if(!manami.isFileUnsaved() && title.endsWith(DIRTY_FLAG)) {
+            runLater {
+                title = title.substring(0, title.length-1)
+            }
+        } else if(manami.isFileUnsaved() && !title.endsWith(DIRTY_FLAG)) {
+            runLater {
+                title = "$title*"
+            }
         }
     }
 
     private fun checkFileSavedContext(command: () -> Unit) {
         var dialogDecision = NO
 
-        if(!manami.isFileSaved()) {
+        if(manami.isFileUnsaved()) {
             dialogDecision = UnsavedChangesDialogView.showUnsavedChangesDialog()
         }
 

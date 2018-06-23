@@ -34,11 +34,6 @@ internal interface CommandService {
     fun clearAll()
 
     /**
-     * Sets the last executed command anew.
-     */
-    fun resetDirtyFlag() //FIXME: This should be internal part of setUnsaved()
-
-    /**
      * Checks whether the stack for executed commands is empty or not.
      *
      * @return True if no {@link Command} has been executed.

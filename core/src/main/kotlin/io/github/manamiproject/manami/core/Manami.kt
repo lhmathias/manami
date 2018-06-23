@@ -3,6 +3,7 @@ package io.github.manamiproject.manami.core
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.common.isValidFile
 import io.github.manamiproject.manami.core.config.Config
 import io.github.manamiproject.manami.core.commands.*
 import io.github.manamiproject.manami.core.config.ConfigFileWatchdog
@@ -46,9 +47,6 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
     }
 
 
-    /**
-     * Clears the command stacks, the anime list and unsets the file.
-     */
     private fun resetCommandHistory() {
         cmdService.clearAll()
         cmdService.setUnsaved(false)
@@ -56,18 +54,22 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
 
 
     override fun open(file: Path) {
-        taskConductor.cancelAllTasks()
-        persistence.clearAll()
-        resetCommandHistory()
-        persistence.open(file)
-        config.file = file
-        taskConductor.safelyStart(ThumbnailBackloadTask(persistence))
-        taskConductor.safelyStart(RecommendationsCacheInitializationTask(persistence))
+        if(file.isValidFile()) {
+            taskConductor.cancelAllTasks()
+            persistence.clearAll()
+            resetCommandHistory()
+            persistence.open(file)
+            config.file = file
+            taskConductor.safelyStart(ThumbnailBackloadTask(persistence))
+            taskConductor.safelyStart(RecommendationsCacheInitializationTask(persistence))
+        }
     }
 
 
     override fun export(file: Path) {
-        persistence.exportToJsonFile(file)
+        if(file.isValidFile()) {
+            persistence.exportToJsonFile(file)
+        }
     }
 
 
@@ -86,7 +88,6 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
     override fun save() {
         if (persistence.save(config.file)) {
             cmdService.setUnsaved(false)
-            cmdService.resetDirtyFlag()
         }
     }
 
@@ -182,7 +183,7 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
     override fun redo() = cmdService.redo()
 
 
-    override fun isFileSaved() = !cmdService.isUnsaved()
+    override fun isFileUnsaved() = cmdService.isUnsaved()
 
 
     override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)

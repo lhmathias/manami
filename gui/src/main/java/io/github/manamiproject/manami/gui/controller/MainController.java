@@ -93,15 +93,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    });
 //  }
 //
-//
-//  /**
-//   * Checks whether to set the dirty flag or not.
-//   */
-//  private void checkDirtyFlagAnimeListTab() {
-//    Platform.runLater(() -> mainControllerWrapper.setDirty(cmdService.isUnsaved()));
-//  }
-//
-//
 //  /**
 //   * Consists of different aspects to check. It's possible that the GUI needs to react to changing circumstances. This method sums up all the checks.
 //   */

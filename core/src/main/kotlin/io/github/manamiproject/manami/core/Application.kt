@@ -22,7 +22,7 @@ interface Application {
 
     fun redo()
 
-    fun isFileSaved(): Boolean
+    fun isFileUnsaved(): Boolean
 
     fun getConfigFile(): Path
 }
