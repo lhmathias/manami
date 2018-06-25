@@ -29,10 +29,9 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
     }.create()
 
     init {
-        if (repo.exists()) {
-            updateRepo()
-        } else {
-            cloneRepo()
+        when(repo.exists()) {
+            true -> updateRepo()
+            false -> cloneRepo()
         }
 
         try {

@@ -106,7 +106,6 @@ class MainView : View() {
         miFilterList.graphic = createIconFilterList()
         miWatchList.graphic = createIconWatchList()
         miAbout.graphic = createIconQuestion()
-        miSave.isDisable = false
     }
 
     fun exit() {
@@ -226,6 +225,13 @@ class MainView : View() {
             runAsync {
                 command()
             }
+        }
+    }
+
+    fun disableSaveButton(value: Boolean) {
+        runLater {
+            miSave.isDisable = value
+            miSaveAs.isDisable = value
         }
     }
 }
