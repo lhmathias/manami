@@ -10,26 +10,6 @@ package io.github.manamiproject.manami.gui.controller;
 //   * Initializes the table view for the anime list. Including column mapping an so on.
 //   */
 //  public void initialize() {
-//    initFilterTab();
-//
-//    tabAnimeList.setOnSelectionChanged(event -> {
-//      if (tabAnimeList.isSelected()) {
-//        refreshEntriesInGui();
-//        checkGui();
-//      }
-//    });
-//
-//
-//    // Quicker access the list.
-//    tvAnimeList.getItems().addListener((ListChangeListener<Anime>) event -> {
-//
-//      while (event.next()) {
-//        if (!event.wasPermutated()) {
-//          checkGui();
-//        }
-//      }
-//    });
-//
 //    // Only show button for deletion if the animelist is focused
 //    tabAnimeList.setOnSelectionChanged(event -> miDeleteEntry.setDisable(!tabAnimeList.isSelected()));
 //
@@ -69,40 +49,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    });
 //    app.search(txtSearchString.getText());
 //    showSearchResultTab();
-//  }
-//
-//
-//  /**
-//   * Enables or disables those menu items which depend on the existence of entries.
-//   */
-//  private void checkEntryRelevantMenuItems() {
-//    final boolean isAnimeListEmpty = app.fetchAnimeList().size() == 0;
-//    Platform.runLater(() -> {
-//      miCheckList.setDisable(isAnimeListEmpty);
-//      miRelatedAnime.setDisable(isAnimeListEmpty);
-//      miRecommendations.setDisable(isAnimeListEmpty);
-//      miDeleteEntry.setDisable(isAnimeListEmpty);
-//      cmiDeleteEntry.setDisable(isAnimeListEmpty);
-//    });
-//
-//    final boolean allListsEmpty = app.fetchAnimeList().size() == 0 && app.fetchWatchList().size() == 0 && app.fetchFilterList().size() == 0;
-//    Platform.runLater(() -> {
-//      miSave.setDisable(allListsEmpty);
-//      miSaveAs.setDisable(allListsEmpty);
-//      miExport.setDisable(allListsEmpty);
-//    });
-//  }
-//
-//  /**
-//   * Consists of different aspects to check. It's possible that the GUI needs to react to changing circumstances. This method sums up all the checks.
-//   */
-//  public void checkGui() {
-//    checkEntryRelevantMenuItems();
-//    checkCommandMenuItems();
-//    checkDirtyFlagAnimeListTab();
-//    FXCollections.sort(tvAnimeList.getItems(), new MinimalEntryCompByTitleAsc());
-//    refreshTableView();
-//    updateAutoCompletion();
 //  }
 //
 //

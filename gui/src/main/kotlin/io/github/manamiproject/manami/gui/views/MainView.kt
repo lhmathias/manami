@@ -119,6 +119,7 @@ class MainView : View() {
     fun newList() {
         checkFileSavedContext {
             manami.newList()
+            //TODO: clear everything
         }
     }
 
@@ -137,7 +138,6 @@ class MainView : View() {
 
     fun importFile() {
         FileChoosers.showImportFileDialog(primaryStage)?.let {
-            //TODO: check if is able to perform import
             checkFileSavedContext {
                 manami.importFile(it)
             }
