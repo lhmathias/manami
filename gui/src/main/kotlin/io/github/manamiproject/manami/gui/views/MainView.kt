@@ -19,6 +19,7 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
+import io.github.manamiproject.manami.gui.events.EventDispatcher
 import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
@@ -228,16 +229,46 @@ class MainView : View() {
         }
     }
 
-    fun disableSaveButton(value: Boolean) {
+    private fun disableSaveButton(value: Boolean) {
         runLater {
             miSave.isDisable = value
             miSaveAs.isDisable = value
         }
     }
 
-    fun disableImportButton(value: Boolean) {
+    private fun disableImportButton(value: Boolean) {
         runLater {
             miImport.isDisable = value
+        }
+    }
+
+    private fun disableExportButton(value: Boolean) {
+        runLater {
+            miExport.isDisable = value
+        }
+    }
+
+    fun updateMenuItemsForSaving() {
+        when(manami.isFileUnsaved()) {
+            true -> disableSaveButton(false)
+            false -> disableSaveButton(true)
+        }
+    }
+
+    fun updateMenuItemsForImportAndExport() {
+        val animeListIsNotEmpty = manami.fetchAnimeList().isNotEmpty()
+        val watchListIsNotEmpty = manami.fetchWatchList().isNotEmpty()
+        val filterListIsNotEmpty = manami.fetchFilterList().isNotEmpty()
+
+        when(animeListIsNotEmpty || watchListIsNotEmpty || filterListIsNotEmpty) {
+            true -> {
+                disableImportButton(true)
+                disableExportButton(false)
+            }
+            false -> {
+                disableImportButton(false)
+                disableExportButton(true)
+            }
         }
     }
 }
