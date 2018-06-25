@@ -50,10 +50,10 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
             Git.open(repo.toFile())
                     .pull()
                     .call()
-
-            EventBus.publish(OfflineDatabaseUpdatedSuccessfullyEvent)
         } catch (e: Exception) {
             log.error("Error updating offline database: ", e)
+        } finally {
+            EventBus.publish(OfflineDatabaseUpdatedSuccessfullyEvent)
         }
     }
 
@@ -70,6 +70,8 @@ internal class OfflineDatabaseGitRepository : CacheEntrySource {
             log.error("Error cloning the repository of the offline database: ", e)
         } catch (e: IOException) {
             log.error("Error creating folder for the offline database: ", e)
+        } finally {
+            EventBus.publish(OfflineDatabaseUpdatedSuccessfullyEvent)
         }
     }
 
