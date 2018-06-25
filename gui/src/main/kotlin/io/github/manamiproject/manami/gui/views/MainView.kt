@@ -265,6 +265,18 @@ class MainView : View() {
         }
     }
 
+    private fun disableUndoMenuItem(value: Boolean) {
+        runLater {
+            miUndo.isDisable = value
+        }
+    }
+
+    private fun disableRedoMenuItem(value: Boolean) {
+        runLater {
+            miRedo.isDisable = value
+        }
+    }
+
     fun updateMenuItemsForSaving() {
         when(manami.isFileUnsaved()) {
             true -> disableSaveMenuItem(false)
@@ -301,6 +313,18 @@ class MainView : View() {
                 disableRelatedAnimeMenuItem(true)
                 disableRecommendationsMenuItem(true)
             }
+        }
+    }
+
+    fun updateMenuItemsForUndoAndRedo() {
+        when(manami.doneCommandsExist()) {
+            true -> disableUndoMenuItem(false)
+            false -> disableUndoMenuItem(true)
+        }
+
+        when(manami.undoneCommandsExist()) {
+            true -> disableRedoMenuItem(false)
+            false -> disableRedoMenuItem(true)
         }
     }
 }

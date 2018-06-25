@@ -25,4 +25,8 @@ interface Application {
     fun isFileUnsaved(): Boolean
 
     fun getConfigFile(): Path
+
+    fun doneCommandsExist(): Boolean
+
+    fun undoneCommandsExist(): Boolean
 }

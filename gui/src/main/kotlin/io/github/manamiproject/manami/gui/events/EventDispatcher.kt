@@ -7,6 +7,7 @@ import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
 import io.github.manamiproject.manami.gui.views.MainView
 import io.github.manamiproject.manami.gui.views.SplashScreenView
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
+import io.github.manamiproject.manami.main
 import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
 import io.github.manamiproject.manami.persistence.events.FilterListChangedEvent
 import io.github.manamiproject.manami.persistence.events.WatchListChangedEvent
@@ -45,5 +46,6 @@ object EventDispatcher: Controller() {
     fun fileChanged(obj: FileSavedStatusChangedEvent) {
         mainView.updateDirtyFlagInStageTitle()
         mainView.updateMenuItemsForSaving()
+        mainView.updateMenuItemsForUndoAndRedo()
     }
 }

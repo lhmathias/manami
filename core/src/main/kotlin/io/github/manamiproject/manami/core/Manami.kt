@@ -215,4 +215,8 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
     override fun changeLocation(anime: Anime, newLocation: Location) {
         cmdService.executeCommand(CmdChangeLocation(anime, newLocation, persistence))
     }
+
+    override fun doneCommandsExist() = !cmdService.isEmptyDoneCommands()
+
+    override fun undoneCommandsExist() = !cmdService.isEmptyUndoneCommands()
 }
