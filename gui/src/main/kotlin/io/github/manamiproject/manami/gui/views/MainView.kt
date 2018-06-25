@@ -253,6 +253,18 @@ class MainView : View() {
         }
     }
 
+    private fun disableRelatedAnimeMenuItem(value: Boolean) {
+        runLater {
+            miRelatedAnime.isDisable = value
+        }
+    }
+
+    private fun disableRecommendationsMenuItem(value: Boolean) {
+        runLater {
+            miRecommendations.isDisable = value
+        }
+    }
+
     fun updateMenuItemsForSaving() {
         when(manami.isFileUnsaved()) {
             true -> disableSaveMenuItem(false)
@@ -277,10 +289,18 @@ class MainView : View() {
         }
     }
 
-    fun updateMenuItemForCheckList() {
+    fun updateMenuItemsForAdditionalLists() {
         when(manami.fetchAnimeList().isNotEmpty()) {
-            true -> disableCheckListMenuItem(false)
-            false -> disableCheckListMenuItem(true)
+            true -> {
+                disableCheckListMenuItem(false)
+                disableRelatedAnimeMenuItem(false)
+                disableRecommendationsMenuItem(false)
+            }
+            false -> {
+                disableCheckListMenuItem(true)
+                disableRelatedAnimeMenuItem(true)
+                disableRecommendationsMenuItem(true)
+            }
         }
     }
 }
