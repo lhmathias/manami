@@ -2,6 +2,7 @@ package io.github.manamiproject.manami.gui.events
 
 import com.google.common.eventbus.Subscribe
 import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdatedSuccessfullyEvent
+import io.github.manamiproject.manami.common.isValidFile
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.core.events.FileSavedStatusChangedEvent
 import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
@@ -22,7 +23,14 @@ object EventDispatcher: Controller() {
     fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) = splashScreenView.replaceWithMainView()
 
     @Subscribe
-    fun openFileChanged(obj: OpenedFileChangedEvent) = mainView.updateFileNameInStageTitle()
+    fun openFileChanged(obj: OpenedFileChangedEvent) {
+        mainView.updateFileNameInStageTitle()
+
+        when(manami.getConfigFile().isValidFile()) {
+            true -> mainView.disableImportButton(true)
+            false -> mainView.disableImportButton(false)
+        }
+    }
 
     @Subscribe
     fun animeListChanged(obj: AnimeListChangedEvent) = animeList.updateAnimeEntries()

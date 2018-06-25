@@ -234,4 +234,10 @@ class MainView : View() {
             miSaveAs.isDisable = value
         }
     }
+
+    fun disableImportButton(value: Boolean) {
+        runLater {
+            miImport.isDisable = value
+        }
+    }
 }
