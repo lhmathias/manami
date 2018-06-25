@@ -28,6 +28,7 @@ object EventDispatcher: Controller() {
     fun animeListChanged(obj: AnimeListChangedEvent) {
         animeList.updateAnimeEntries()
         mainView.updateMenuItemsForImportAndExport()
+        mainView.updateMenuItemForCheckList()
     }
 
     @Subscribe

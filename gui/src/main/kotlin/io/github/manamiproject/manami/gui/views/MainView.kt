@@ -19,7 +19,6 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconTags
 import io.github.manamiproject.manami.gui.components.Icons.createIconThumbsUp
 import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
-import io.github.manamiproject.manami.gui.events.EventDispatcher
 import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
@@ -229,29 +228,35 @@ class MainView : View() {
         }
     }
 
-    private fun disableSaveButton(value: Boolean) {
+    private fun disableSaveMenuItem(value: Boolean) {
         runLater {
             miSave.isDisable = value
             miSaveAs.isDisable = value
         }
     }
 
-    private fun disableImportButton(value: Boolean) {
+    private fun disableImportMenuItem(value: Boolean) {
         runLater {
             miImport.isDisable = value
         }
     }
 
-    private fun disableExportButton(value: Boolean) {
+    private fun disableExportMenuItem(value: Boolean) {
         runLater {
             miExport.isDisable = value
         }
     }
 
+    private fun disableCheckListMenuItem(value: Boolean) {
+        runLater {
+            miCheckList.isDisable = value
+        }
+    }
+
     fun updateMenuItemsForSaving() {
         when(manami.isFileUnsaved()) {
-            true -> disableSaveButton(false)
-            false -> disableSaveButton(true)
+            true -> disableSaveMenuItem(false)
+            false -> disableSaveMenuItem(true)
         }
     }
 
@@ -262,13 +267,20 @@ class MainView : View() {
 
         when(animeListIsNotEmpty || watchListIsNotEmpty || filterListIsNotEmpty) {
             true -> {
-                disableImportButton(true)
-                disableExportButton(false)
+                disableImportMenuItem(true)
+                disableExportMenuItem(false)
             }
             false -> {
-                disableImportButton(false)
-                disableExportButton(true)
+                disableImportMenuItem(false)
+                disableExportMenuItem(true)
             }
+        }
+    }
+
+    fun updateMenuItemForCheckList() {
+        when(manami.fetchAnimeList().isNotEmpty()) {
+            true -> disableCheckListMenuItem(false)
+            false -> disableCheckListMenuItem(true)
         }
     }
 }
