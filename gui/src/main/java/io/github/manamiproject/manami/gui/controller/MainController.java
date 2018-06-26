@@ -37,9 +37,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    txtSearchString.setOnAction(event -> search());
 //  }
 //
-//
-//
-//
 //  private void search() {
 //    Platform.runLater(() -> {
 //      txtSearchString.setText(EMPTY);

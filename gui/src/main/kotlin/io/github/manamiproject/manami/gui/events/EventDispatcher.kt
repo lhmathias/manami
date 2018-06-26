@@ -28,27 +28,15 @@ object EventDispatcher: Controller() {
     @Subscribe
     fun animeListChanged(obj: AnimeListChangedEvent) {
         animeList.updateAnimeEntries()
-        mainView.updateMenuItemsForImportAndExport()
-        mainView.updateMenuItemsForAdditionalLists()
-        mainView.updateAutocompletionEntries()
+        mainView.animeListChanged()
     }
 
     @Subscribe
-    fun watchListChanged(obj: WatchListChangedEvent) {
-        mainView.updateMenuItemsForImportAndExport()
-        mainView.updateAutocompletionEntries()
-    }
+    fun watchListChanged(obj: WatchListChangedEvent) = mainView.watchListChanged()
 
     @Subscribe
-    fun filterListChanged(obj: FilterListChangedEvent) {
-        mainView.updateMenuItemsForImportAndExport()
-        mainView.updateAutocompletionEntries()
-    }
+    fun filterListChanged(obj: FilterListChangedEvent) = mainView.filterListChanged()
 
     @Subscribe
-    fun fileChanged(obj: FileSavedStatusChangedEvent) {
-        mainView.updateDirtyFlagInStageTitle()
-        mainView.updateMenuItemsForSaving()
-        mainView.updateMenuItemsForUndoAndRedo()
-    }
+    fun fileChanged(obj: FileSavedStatusChangedEvent) = mainView.fileSavedStatusChanged()
 }

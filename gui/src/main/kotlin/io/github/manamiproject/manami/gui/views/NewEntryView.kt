@@ -193,8 +193,9 @@ class NewEntryView : Fragment() {
             val configFile = Manami.getConfigFile()
             var folder = it.toAbsolutePath().toString()
 
-            if(configFile.exists() && configFile.isRegularFile()) { //TODO: test this
-               folder = configFile.parent.relativize(it).toString().replace("\\", "/")
+            if(configFile.exists() && configFile.isRegularFile()) {
+                //TODO: not working this way use PathBuilder instead
+                folder = configFile.parent.relativize(it).toString().replace("\\", "/")
             }
 
             Platform.runLater { txtLocation.text = folder }

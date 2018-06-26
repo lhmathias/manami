@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.gui.views
 
-import com.sun.javafx.collections.ObservableSetWrapper
 import io.github.manamiproject.manami.common.isValidFile
 import io.github.manamiproject.manami.core.Manami
 import io.github.manamiproject.manami.entities.Anime
@@ -26,7 +25,6 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
 import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
-import javafx.collections.ObservableSet
 import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.Button
@@ -206,7 +204,29 @@ class MainView : View() {
         }
     }
 
-    fun updateDirtyFlagInStageTitle() {
+    fun animeListChanged() {
+        updateMenuItemsForImportAndExport()
+        updateMenuItemsForAdditionalLists()
+        updateAutocompletionEntries()
+    }
+
+    fun watchListChanged() {
+        updateMenuItemsForImportAndExport()
+        updateAutocompletionEntries()
+    }
+
+    fun filterListChanged() {
+        updateMenuItemsForImportAndExport()
+        updateAutocompletionEntries()
+    }
+
+    fun fileSavedStatusChanged() {
+        updateDirtyFlagInStageTitle()
+        updateMenuItemsForSaving()
+        updateMenuItemsForUndoAndRedo()
+    }
+
+    private fun updateDirtyFlagInStageTitle() {
         if(!manami.isFileUnsaved() && title.endsWith(DIRTY_FLAG)) {
             runLater {
                 title = title.substring(0, title.length-1)
@@ -285,14 +305,14 @@ class MainView : View() {
         }
     }
 
-    fun updateMenuItemsForSaving() {
+    private fun updateMenuItemsForSaving() {
         when(manami.isFileUnsaved()) {
             true -> disableSaveMenuItem(false)
             false -> disableSaveMenuItem(true)
         }
     }
 
-    fun updateMenuItemsForImportAndExport() {
+    private fun updateMenuItemsForImportAndExport() {
         val animeListIsNotEmpty = manami.fetchAnimeList().isNotEmpty()
         val watchListIsNotEmpty = manami.fetchWatchList().isNotEmpty()
         val filterListIsNotEmpty = manami.fetchFilterList().isNotEmpty()
@@ -309,7 +329,7 @@ class MainView : View() {
         }
     }
 
-    fun updateMenuItemsForAdditionalLists() {
+    private fun updateMenuItemsForAdditionalLists() {
         when(manami.fetchAnimeList().isNotEmpty()) {
             true -> {
                 disableCheckListMenuItem(false)
@@ -324,7 +344,7 @@ class MainView : View() {
         }
     }
 
-    fun updateMenuItemsForUndoAndRedo() {
+    private fun updateMenuItemsForUndoAndRedo() {
         when(manami.doneCommandsExist()) {
             true -> disableUndoMenuItem(false)
             false -> disableUndoMenuItem(true)
@@ -336,7 +356,7 @@ class MainView : View() {
         }
     }
 
-    fun updateAutocompletionEntries() {
+    private fun updateAutocompletionEntries() {
         val animeListTitles = manami.fetchAnimeList().map(Anime::title).toSet()
         val watchListTitles = manami.fetchWatchList().map(WatchListEntry::title).toSet()
         val filterListTitles = manami.fetchFilterList().map(FilterListEntry::title).toSet()
