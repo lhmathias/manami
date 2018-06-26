@@ -1,7 +1,11 @@
 package io.github.manamiproject.manami.gui.views
 
+import com.sun.javafx.collections.ObservableSetWrapper
 import io.github.manamiproject.manami.common.isValidFile
 import io.github.manamiproject.manami.core.Manami
+import io.github.manamiproject.manami.entities.Anime
+import io.github.manamiproject.manami.entities.FilterListEntry
+import io.github.manamiproject.manami.entities.WatchListEntry
 import io.github.manamiproject.manami.gui.components.FileChoosers
 import io.github.manamiproject.manami.gui.components.Icons.createIconBranchFork
 import io.github.manamiproject.manami.gui.components.Icons.createIconClipboardCheck
@@ -22,6 +26,7 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
 import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
 import javafx.application.Platform
+import javafx.collections.ObservableSet
 import javafx.event.EventHandler
 import javafx.scene.Parent
 import javafx.scene.control.Button
@@ -29,6 +34,8 @@ import javafx.scene.control.MenuItem
 import javafx.scene.control.TabPane
 import javafx.scene.control.TextField
 import javafx.stage.Stage
+import org.controlsfx.control.textfield.AutoCompletionBinding
+import org.controlsfx.control.textfield.TextFields
 import tornadofx.View
 import tornadofx.runLater
 import java.nio.file.Path
@@ -40,8 +47,6 @@ private const val DIRTY_FLAG = "*"
 class MainView : View() {
 
     override val root: Parent by fxml()
-
-    private val manami = Manami
 
     private val animeListTabView: AnimeListTabView by inject()
 
@@ -66,6 +71,9 @@ class MainView : View() {
     private val miAbout: MenuItem by fxid()
     private val txtSearchString: TextField by fxid()
     private val btnSearch: Button by fxid()
+
+    private val manami = Manami
+    private var autocompletionBinding: AutoCompletionBinding<String> = TextFields.bindAutoCompletion(txtSearchString, setOf())
 
     init {
         title = "Manami"
@@ -326,5 +334,16 @@ class MainView : View() {
             true -> disableRedoMenuItem(false)
             false -> disableRedoMenuItem(true)
         }
+    }
+
+    fun updateAutocompletionEntries() {
+        val animeListTitles = manami.fetchAnimeList().map(Anime::title).toSet()
+        val watchListTitles = manami.fetchWatchList().map(WatchListEntry::title).toSet()
+        val filterListTitles = manami.fetchFilterList().map(FilterListEntry::title).toSet()
+
+        val allTitles = animeListTitles.union(watchListTitles).union(filterListTitles)
+
+        autocompletionBinding.dispose()
+        autocompletionBinding = TextFields.bindAutoCompletion(txtSearchString, allTitles)
     }
 }

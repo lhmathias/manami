@@ -30,16 +30,19 @@ object EventDispatcher: Controller() {
         animeList.updateAnimeEntries()
         mainView.updateMenuItemsForImportAndExport()
         mainView.updateMenuItemsForAdditionalLists()
+        mainView.updateAutocompletionEntries()
     }
 
     @Subscribe
     fun watchListChanged(obj: WatchListChangedEvent) {
         mainView.updateMenuItemsForImportAndExport()
+        mainView.updateAutocompletionEntries()
     }
 
     @Subscribe
     fun filterListChanged(obj: FilterListChangedEvent) {
         mainView.updateMenuItemsForImportAndExport()
+        mainView.updateAutocompletionEntries()
     }
 
     @Subscribe

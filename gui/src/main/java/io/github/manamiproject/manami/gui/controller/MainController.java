@@ -3,9 +3,6 @@ package io.github.manamiproject.manami.gui.controller;
 
 //public class MainController implements Observer {
 //
-//
-//  private AutoCompletionBinding<String> autoCompletionBinding;
-//
 //  /**
 //   * Initializes the table view for the anime list. Including column mapping an so on.
 //   */
@@ -49,17 +46,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    });
 //    app.search(txtSearchString.getText());
 //    showSearchResultTab();
-//  }
-//
-//
-//  /**
-//   * This method check if the command stacks are empty and either dis- or enables the corresponding menu items.
-//   */
-//  private void checkCommandMenuItems() {
-//    Platform.runLater(() -> {
-//      miUndo.setDisable(cmdService.isEmptyDoneCommands());
-//      miRedo.setDisable(cmdService.isEmptyUndoneCommands());
-//    });
 //  }
 //
 //
@@ -119,20 +105,6 @@ package io.github.manamiproject.manami.gui.controller;
 //      }, selectedFile);
 //    }
 //  }
-//
-//
-//  private void updateAutoCompletion() {
-//    if (autoCompletionBinding != null) {
-//      autoCompletionBinding.dispose();
-//    }
-//    final List<String> suggestions = newArrayList();
-//    app.fetchAnimeList().forEach(e -> suggestions.add(e.getTitle()));
-//    app.fetchFilterList().forEach(e -> suggestions.add(e.getTitle()));
-//    app.fetchWatchList().forEach(e -> suggestions.add(e.getTitle()));
-//    autoCompletionBinding = TextFields.bindAutoCompletion(txtSearchString, suggestions);
-//  }
-//
-//
 //
 //  /**
 //   * Show a save as dialog and then saves the data to the file.
@@ -224,28 +196,6 @@ package io.github.manamiproject.manami.gui.controller;
 //    }
 //  }
 //
-//
-//  @Override
-//  public void update(final Observable o, final Object object) {
-//    if (object == null) {
-//      checkGui();
-//      return;
-//    }
-//
-//    if (object instanceof ReversibleCommand) {
-//      executeCommand((ReversibleCommand) object);
-//    }
-//  }
-//
-//
-//  public void refreshEntriesInGui() {
-//    Platform.runLater(() -> {
-//      tvAnimeList.getItems().clear();
-//      tvAnimeList.setItems(FXCollections.observableArrayList(app.fetchAnimeList()));
-//      autoSizeTableViewColumns();
-//    });
-//    checkGui();
-//  }
 //
 //  public void showWatchListTab() {
 //    if (watchListTab == null) {
