@@ -39,6 +39,7 @@ import tornadofx.runLater
 import java.nio.file.Path
 import java.nio.file.Paths
 
+private const val APPLICATION_NAME = "Manami"
 private const val FILE_SUFFIX_XML = ".xml"
 private const val DIRTY_FLAG = "*"
 
@@ -74,7 +75,7 @@ class MainView : View() {
     private var autocompletionBinding: AutoCompletionBinding<String> = TextFields.bindAutoCompletion(txtSearchString, setOf())
 
     init {
-        title = "Manami"
+        title = APPLICATION_NAME
         initMenuItemGlyphs()
     }
 
@@ -197,10 +198,9 @@ class MainView : View() {
     fun showAbout() = AboutView.showAbout()
 
     fun updateFileNameInStageTitle() {
-        if(manami.getConfigFile().isValidFile()) {
-            runLater {
-                title = "manami - ${manami.getConfigFile().fileName}"
-            }
+        when(manami.getConfigFile().isValidFile()) {
+            true -> runLater { title = "$APPLICATION_NAME - ${manami.getConfigFile().fileName}" }
+            false -> runLater { title = APPLICATION_NAME }
         }
     }
 

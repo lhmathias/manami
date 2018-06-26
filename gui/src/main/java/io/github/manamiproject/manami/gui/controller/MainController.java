@@ -81,49 +81,6 @@ package io.github.manamiproject.manami.gui.controller;
 //
 //
 //  /**
-//   * Opens a new file.
-//   */
-//  public void open() {
-//    final Path selectedFile = showOpenFileDialog(mainControllerWrapper.getMainStage());
-//
-//    if (selectedFile != null && Files.exists(selectedFile)) {
-//      safelyExecuteMethod(file -> {
-//        cancelAndResetBackgroundServices();
-//        try {
-//          app.newList();
-//          app.open(file);
-//          controllerWrapper.startRecommendedFilterEntrySearch();
-//          updateAutoCompletion();
-//          refreshEntriesInGui();
-//        } catch (final Exception e) {
-//          log.error("An error occurred while trying to open {}: ", file, e);
-//          showExceptionDialog(e);
-//        }
-//      }, selectedFile);
-//    }
-//  }
-//
-//  /**
-//   * Show a save as dialog and then saves the data to the file.
-//   */
-//  public void saveAs() {
-//    Path file = showSaveAsFileDialog(mainControllerWrapper.getMainStage());
-//    final String extension = ".xml";
-//
-//    if (file != null) {
-//      final String filename = file.toString();
-//
-//      if (!filename.endsWith(extension)) {
-//        file = Paths.get(filename + extension);
-//      }
-//
-//      config.setFile(file);
-//      save();
-//    }
-//  }
-//
-//
-//  /**
 //   * Sets the focus of the {@link TabPane} to the given {@link Tab}.
 //   *
 //   * @param activeTab {@link Tab} which will gain focus.
