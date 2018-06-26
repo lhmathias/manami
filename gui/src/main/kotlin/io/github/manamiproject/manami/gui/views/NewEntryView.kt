@@ -45,7 +45,7 @@ class NewEntryView : Fragment() {
         registerValidator(txtLocation, Validator.createEmptyValidator<TextField>("Location is required"))
         registerValidator(txtInfoLink, Validator<String> { _, value ->
             return@Validator when {
-                value.isNullOrEmpty() || UrlValidator.isNotValid(value) -> ValidationResult.fromError(txtInfoLink, "Info link must be a valid URL")
+                value.isNotEmpty() && UrlValidator.isNotValid(value) -> ValidationResult.fromError(txtInfoLink, "Info link must be a valid URL")
                 else -> ValidationResult()
             }
         })
