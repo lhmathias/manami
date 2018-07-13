@@ -1,8 +1,7 @@
-package io.github.manamiproject.manami.cache
+package io.github.manamiproject.manami.cache.offlinedatabase
 
-import io.github.manamiproject.manami.common.deleteIfExists
-import io.github.manamiproject.manami.common.exists
-import io.github.manamiproject.manami.common.walk
+import io.github.manamiproject.manami.cache.CacheFacade
+import io.github.manamiproject.manami.common.*
 import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
@@ -13,54 +12,83 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Tag
-import java.nio.file.Path
-import java.nio.file.Paths
+import java.nio.file.*
 import java.util.*
+import java.util.zip.CRC32
+
+
+private const val DATABASE_RESOURCE_FOLDER = "offlineDatabaseForUpdate"
+private const val DATABASE_TEST_DESTINATION_FOLDER = "./database"
 
 @Tag("integrationTest")
-class CacheFacadeIntegrationTest : Spek({
-
-    beforeEachTest {
-        removeOfflineDatabase()
-    }
-
+class OfflineDatabaseIntegrationSpec : Spek({
 
     afterEachTest {
         removeOfflineDatabase()
     }
 
+    given("a valid, but outdated clone of the offline database") {
+        val resourceDatabaseFolder: Path = Paths.get(OfflineDatabaseIntegrationSpec::class.java.classLoader.getResource(DATABASE_RESOURCE_FOLDER).toURI())
 
-    given("an invalid infolink") {
-        val infoLink = InfoLink("abcdefgh")
+        Paths.get(DATABASE_TEST_DESTINATION_FOLDER).createDirectory()
 
-        on("fetching an anime from cache using this infolink") {
-            val result = CacheFacade.fetchAnime(infoLink)
-
-            it("must be null") {
-                assertThat(result).isNull()
+        resourceDatabaseFolder.walk(FileVisitOption.FOLLOW_LINKS).forEach {
+            if (it != resourceDatabaseFolder) {
+                it.copy(Paths.get(DATABASE_TEST_DESTINATION_FOLDER).resolve(it.fileName), StandardCopyOption.REPLACE_EXISTING)
+            }
+            if (it.isDirectory()) {
+                println("there it is ${it.fileName}")
             }
         }
 
-        on("fetching related anime from cache using this infolink") {
-            val result = CacheFacade.fetchRelatedAnime(infoLink)
-
-            it("must be null") {
-                assertThat(result).isEmpty()
+        on("initializing the cache") {
+            val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
+            val crcSum1 = CRC32().apply {
+                update(Paths.get("database/anime-offline-database.json").readAllBytes())
             }
-        }
+            println("Here is the first: ${Integer.toHexString(crcSum1.value.toInt())}")
+            val cacheResult = CacheFacade.fetchAnime(infoLink)
+            
+            it("must have updated the offline database file") {
+                val crcSum: Long = CRC32().apply {
+                    update(Paths.get("database/anime-offline-database.json").readAllBytes())
+                }.value
+                
+                assertThat(crcSum).isNotEqualTo(crcSum1)
+            }
 
-        on("fetching recommendations from cache using this infolink") {
-            val result = CacheFacade.fetchRecommendations(infoLink)
+            it("must not return null") {
+                assertThat(cacheResult).isNotNull()
+            }
 
-            it("must be empty") {
-                assertThat(result).isEmpty()
+            it("must return the correct title") {
+                assertThat(cacheResult?.title).isEqualTo("Death Note")
+            }
+
+            it("must return the correct infolink") {
+                assertThat(cacheResult?.infoLink).isEqualTo(infoLink)
+            }
+
+            it("must return the correct number of episodes") {
+                assertThat(cacheResult?.episodes).isEqualTo(37)
+            }
+
+            it("must return the correct type") {
+                assertThat(cacheResult?.type).isEqualTo(AnimeType.TV)
+            }
+
+            it("must return the default value for a location") {
+                assertThat(cacheResult?.location).isEqualTo("/")
+            }
+
+            it("must return a newly generated id") {
+                assertThat(cacheResult?.id).isEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
             }
         }
     }
 
 
-    given("an invalidated cache and a valid MAL infolink") {
-        CacheFacade.invalidate()
+    given("no offline database to enforce cloning of the git repo and a valid MAL infolink") {
         val infoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
 
         on("fetching the anime via cache") {
@@ -90,8 +118,8 @@ class CacheFacadeIntegrationTest : Spek({
                 assertThat(result?.location).isEqualTo("/")
             }
 
-            it("must return a newly generated id") {
-                assertThat(result?.id).isNotEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
+            it("must return the correct id") {
+                assertThat(result?.id).isEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
             }
         }
 
@@ -113,7 +141,7 @@ class CacheFacadeIntegrationTest : Spek({
     }
 
 
-    given("an invalidated cache and a valid ANIDB infolink") {
+    given("no offline database to enforce cloning of the git repo and a valid ANIDB infolink") {
         val infoLink = InfoLink("${NormalizedAnimeBaseUrls.ANIDB.value}4563")
 
         on("fetching the anime via cache") {
@@ -143,8 +171,8 @@ class CacheFacadeIntegrationTest : Spek({
                 assertThat(result?.location).isEqualTo("/")
             }
 
-            it("must return a newly generated id") {
-                assertThat(result?.id).isNotEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
+            it("must return the correct id") {
+                assertThat(result?.id).isEqualTo(UUID.fromString("2d88de4c-9dbd-4837-b3ab-66c597c379ce"))
             }
         }
 
@@ -176,7 +204,7 @@ class CacheFacadeIntegrationTest : Spek({
             if(databaseFolder.exists()) {
                 databaseFolder.walk()
                         .sorted(Comparator.reverseOrder())
-                        .forEach(Path::deleteIfExists)
+                        .forEach { it.deleteIfExists() }
             }
         }
     }

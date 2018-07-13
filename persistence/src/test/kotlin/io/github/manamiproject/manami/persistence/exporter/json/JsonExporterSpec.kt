@@ -49,7 +49,7 @@ class JsonExporterSpec : Spek({
         if(tempFolder.exists()) {
             tempFolder.walk()
                     .sorted(Comparator.reverseOrder())
-                    .forEach(Path::deleteIfExists)
+                    .forEach { it.deleteIfExists() }
         }
     }
 

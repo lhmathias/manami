@@ -14,7 +14,7 @@ import org.jetbrains.spek.api.dsl.on
 import org.mockito.Mockito.*
 import java.nio.file.Paths
 
-object ManamiImplSpec : Spek({
+object ManamiSpec : Spek({
 
     val persistence: Persistence = mock(Persistence::class.java)
     val cmdService: CommandService = mock(CommandService::class.java)

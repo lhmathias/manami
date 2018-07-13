@@ -6,7 +6,7 @@ import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
-object UrlValidatorTest : Spek({
+object UrlValidatorSpec : Spek({
 
     given("a valid url with http scheme") {
         val url = "http://github.com"

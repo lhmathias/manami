@@ -35,9 +35,7 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
     private val cache: Cache = CacheFacade
 
 
-    fun init() {
-        ConfigFileWatchdog(Paths.get(CURRENT_DIR)).validate()
-    }
+    fun init() = ConfigFileWatchdog(Paths.get(CURRENT_DIR)).validate()
 
 
     override fun newList() {
@@ -117,24 +115,18 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
     }
 
 
-    override fun exit() {
-        System.exit(0)
-    }
+    override fun exit() = System.exit(0)
 
 
-    override fun fetchAnimeList(): List<Anime> {
-        return persistence.fetchAnimeList()
-    }
+    override fun fetchAnimeList(): List<Anime> = persistence.fetchAnimeList()
 
 
     override fun animeEntryExists(infoLink: InfoLink): Boolean {
         return persistence.animeEntryExists(infoLink)
     }
 
-
-    override fun fetchWatchList(): List<WatchListEntry> {
-        return persistence.fetchWatchList()
-    }
+    
+    override fun fetchWatchList(): List<WatchListEntry> = persistence.fetchWatchList()
 
 
     override fun watchListEntryExists(infoLink: InfoLink): Boolean {
@@ -189,7 +181,7 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
     override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)
 
 
-    override fun getConfigFile() = Config.file
+    override fun getConfigFile(): Path = Config.file
 
 
     override fun changeTitle(anime: Anime, newTitle: Title) {
@@ -217,10 +209,10 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
     }
 
 
-    override fun doneCommandsExist() = !cmdService.isEmptyDoneCommands()
+    override fun doneCommandsExist(): Boolean = !cmdService.isEmptyDoneCommands()
 
 
-    override fun undoneCommandsExist() = !cmdService.isEmptyUndoneCommands()
+    override fun undoneCommandsExist(): Boolean = !cmdService.isEmptyUndoneCommands()
 
 
     fun invalidateCache() = cache.invalidate()

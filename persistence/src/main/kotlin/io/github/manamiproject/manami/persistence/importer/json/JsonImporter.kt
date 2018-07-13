@@ -15,9 +15,7 @@ import java.nio.file.Path
 
 private const val UNKNOWN_TYPE_MESSAGE = "Could not import '{}', because the type is unknown."
 
-/**
- * Imports a list from a valid JSON file.
- */
+
 internal class JsonImporter(private val persistence: InternalPersistence) : Importer {
 
     private val log: Logger by LoggerDelegate()
