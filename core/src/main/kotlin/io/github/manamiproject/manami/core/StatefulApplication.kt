@@ -2,7 +2,7 @@ package io.github.manamiproject.manami.core
 
 import java.nio.file.Path
 
-interface Application {
+interface StatefulApplication {
 
     fun newList()
 

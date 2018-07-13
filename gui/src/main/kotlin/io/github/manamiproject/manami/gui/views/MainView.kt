@@ -67,6 +67,7 @@ class MainView : View() {
     private val miWatchList: MenuItem by fxid()
     private val miFilterList: MenuItem by fxid()
     private val miTagList: MenuItem by fxid()
+    private val miInvalidateCache: MenuItem by fxid()
     private val miAbout: MenuItem by fxid()
     private val txtSearchString: TextField by fxid()
     private val btnSearch: Button by fxid()
@@ -194,6 +195,10 @@ class MainView : View() {
     fun showWatchListTab() {}
 
     fun showFilterTab() {}
+
+    fun invalidateCache() {
+        manami.invalidateCache()
+    }
 
     fun showAbout() = AboutView.showAbout()
 

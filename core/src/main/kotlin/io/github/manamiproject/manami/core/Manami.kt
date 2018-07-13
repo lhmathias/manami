@@ -25,7 +25,7 @@ private const val FILE_SUFFIX_JSON = ".json"
 private const val CURRENT_DIR = "."
 
 
-object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier {
+object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, AnimeModifier {
 
     private val log: Logger by LoggerDelegate()
     private val cmdService: CommandService = CommandServiceImpl
@@ -216,7 +216,12 @@ object Manami : Application, AnimeDataAccess, ExternalPersistence, AnimeModifier
         cmdService.executeCommand(CmdChangeLocation(anime, newLocation, persistence))
     }
 
+
     override fun doneCommandsExist() = !cmdService.isEmptyDoneCommands()
 
+
     override fun undoneCommandsExist() = !cmdService.isEmptyUndoneCommands()
+
+
+    fun invalidateCache() = cache.invalidate()
 }

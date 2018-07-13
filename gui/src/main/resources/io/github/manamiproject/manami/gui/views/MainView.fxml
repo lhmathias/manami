@@ -152,6 +152,10 @@
            </accelerator>
          </MenuItem>
        </Menu>
+       <Menu mnemonicParsing="false" text="Cache">
+         <MenuItem fx:id="miInvalidateCache" disable="true" mnemonicParsing="false" onAction="#invalidateCache"
+           text="Clear" />
+       </Menu>
        <Menu mnemonicParsing="false" text="Help">
          <MenuItem fx:id="miAbout" mnemonicParsing="false" onAction="#showAbout" text="About">
            <accelerator>
