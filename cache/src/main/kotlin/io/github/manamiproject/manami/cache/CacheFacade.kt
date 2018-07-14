@@ -9,7 +9,7 @@ import io.github.manamiproject.manami.cache.caches.RelatedAnimeCache
 import io.github.manamiproject.manami.cache.caches.AnimeCache
 import io.github.manamiproject.manami.cache.offlinedatabase.OfflineDatabaseUpdatedSuccessfullyEvent
 import io.github.manamiproject.manami.cache.populator.CachePopulator
-import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
+import io.github.manamiproject.manami.cache.remoteretrieval.RemoteFetcher
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractors
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.anime.mal.MalAnimeExtractor
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.recommendations.mal.MalRecommendationsExtractor
@@ -19,7 +19,7 @@ import io.github.manamiproject.manami.common.EventBus
 
 object CacheFacade : Cache {
 
-    private val remoteRetrieval = RemoteRetrieval(
+    private val remoteRetrieval = RemoteFetcher(
         Extractors(
             MalAnimeExtractor(),
             MalRelatedAnimeExtractor(),

@@ -2,9 +2,9 @@ package io.github.manamiproject.manami.cache
 
 
 /**
- * The cache is supposed to save raw html files from which the information can be extracted at any time.
+ * The cache holds various anime data.
  */
-interface Cache : AnimeRetrieval {
+interface Cache : AnimeFetcher {
 
   /**
    * Invalidates all caches.

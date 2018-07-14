@@ -4,10 +4,13 @@ import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.RecommendationList
 
-interface AnimeRetrieval {
+/**
+ * Fetches anime data from a source.
+ */
+interface AnimeFetcher {
 
     /**
-     * Retrieves an anime.
+     * Fetches an anime.
      *
      * @param infoLink URL of the info link site.
      * @return Optional of an instance of an {@link Anime} corresponding to the link.
@@ -19,8 +22,7 @@ interface AnimeRetrieval {
      * Fetches all related anime for this specific anime (not recursively).
      *
      * @param infoLink
-     * @return A {@link Set} of all related anime or an empty {@link Set}, but
-     *         never null.
+     * @return A set of infoLinks all related anime or an empty set, but never null.
      */
     fun fetchRelatedAnime(infoLink: InfoLink): Set<InfoLink>
 

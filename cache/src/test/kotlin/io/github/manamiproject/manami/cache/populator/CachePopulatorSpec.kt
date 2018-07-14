@@ -2,7 +2,7 @@ package io.github.manamiproject.manami.cache.populator
 
 import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
-import io.github.manamiproject.manami.cache.AnimeRetrieval
+import io.github.manamiproject.manami.cache.AnimeFetcher
 import io.github.manamiproject.manami.cache.caches.AnimeCache
 import io.github.manamiproject.manami.cache.caches.RelatedAnimeCache
 import io.github.manamiproject.manami.entities.Anime
@@ -16,7 +16,7 @@ import org.jetbrains.spek.api.dsl.on
 
 object CachePopulatorSpec : Spek({
 
-    val remoteRetrievalMock = mock<AnimeRetrieval> { }
+    val remoteRetrievalMock = mock<AnimeFetcher> { }
     val offlineDatabaseMock = mock<CacheEntrySource> {
         on { getAnimeCacheEntries() } doReturn mapOf(
                 Pair(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"), Anime("Death note", InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"))),

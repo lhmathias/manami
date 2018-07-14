@@ -1,10 +1,10 @@
 package io.github.manamiproject.manami.cache.caches
 
-import io.github.manamiproject.manami.cache.AnimeRetrieval
+import io.github.manamiproject.manami.cache.AnimeFetcher
 import io.github.manamiproject.manami.entities.InfoLink
 
 internal class RelatedAnimeCache(
-        private val remoteRetrieval: AnimeRetrieval
+        private val remoteFetcher: AnimeFetcher
 ) : AbstractAnimeDataCache<InfoLink, Set<InfoLink>>({ key ->
-    remoteRetrieval.fetchRelatedAnime(key)
+    remoteFetcher.fetchRelatedAnime(key)
 })

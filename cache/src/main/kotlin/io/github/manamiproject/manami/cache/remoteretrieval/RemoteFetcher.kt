@@ -1,6 +1,6 @@
 package io.github.manamiproject.manami.cache.remoteretrieval
 
-import io.github.manamiproject.manami.cache.AnimeRetrieval
+import io.github.manamiproject.manami.cache.AnimeFetcher
 import io.github.manamiproject.manami.cache.remoteretrieval.extractor.Extractors
 import io.github.manamiproject.manami.cache.remoteretrieval.headlessbrowser.HeadlessBrowserStrategies
 import io.github.manamiproject.manami.common.LoggerDelegate
@@ -9,9 +9,9 @@ import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.RecommendationList
 import org.slf4j.Logger
 
-internal class RemoteRetrieval(
+internal class RemoteFetcher(
         private val extractors: Extractors
-) : AnimeRetrieval {
+) : AnimeFetcher {
 
     private val log: Logger by LoggerDelegate()
 

@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.cache.caches
 
 import com.nhaarman.mockito_kotlin.*
-import io.github.manamiproject.manami.cache.remoteretrieval.RemoteRetrieval
+import io.github.manamiproject.manami.cache.remoteretrieval.RemoteFetcher
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import org.assertj.core.api.Assertions.assertThat
@@ -14,7 +14,7 @@ import org.mockito.Mockito.mock
 object RelatedAnimeCacheSpec : Spek({
 
     given("an empty cache") {
-        val remoteRetrievalMock = mock<RemoteRetrieval> {
+        val remoteRetrievalMock = mock<RemoteFetcher> {
             on {
                 fetchRelatedAnime(isA())
             } doReturn setOf(InfoLink("${NormalizedAnimeBaseUrls.MAL.value}2994"))
@@ -33,7 +33,7 @@ object RelatedAnimeCacheSpec : Spek({
     }
 
     given("a cache populated with two entries") {
-        val remoteRetrievalMock = mock(RemoteRetrieval::class.java)
+        val remoteRetrievalMock = mock(RemoteFetcher::class.java)
         val cache = RelatedAnimeCache(remoteRetrievalMock)
 
         val deathNoteInfoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
