@@ -3,13 +3,12 @@ package io.github.manamiproject.manami.persistence.importer
 import java.nio.file.Path
 
 /**
- * Interface for an importer.
+ * Imports data from a file.
  */
 internal interface Importer {
 
     /**
-     * Imports a list from a file and enriches the given list.
-     *
+     * Imports data from a file.
      * @param file File
      */
     fun importFile(file: Path)

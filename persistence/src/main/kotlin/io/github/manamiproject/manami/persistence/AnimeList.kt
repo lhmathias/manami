@@ -4,33 +4,36 @@ import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.InfoLink
 
 
+/**
+ * List of anime which the user already watched.
+ */
 interface AnimeList {
 
     /**
-     * Adds an {@link Anime} if it is not already in the list.
-     *
+     * Adds an Anime if it is not already in the list.
      * @param anime Anime to add to the list of watched anime.
-     * @return true if the anime was added.
+     * @return True if the anime has been added successfully.
      */
     fun addAnime(anime: Anime): Boolean
 
 
     /**
-     * @return A {@link List} of {@link Anime}s which have been watched.
+     * @return A List of Anime which the user already watched.
      */
     fun fetchAnimeList(): List<Anime>
 
 
     /**
-     * @param infoLink URL of the anime's infolink.
-     * @return true if an entry with this URL as infolink already exists.
+     * Checks whether an anime is already in the user's anime list.
+     * @param infoLink Identifier for an anime.
+     * @return True if an entry with this InfoLink already exists in anime list.
      */
     fun animeEntryExists(infoLink: InfoLink): Boolean
 
 
     /**
-     * @param anime
-     * @return true if an entry was removed.
+     * @param anime Anime to be removed from anime list.
+     * @return True if the entry has been removed successfully from anime list.
      */
     fun removeAnime(anime: Anime): Boolean
 }

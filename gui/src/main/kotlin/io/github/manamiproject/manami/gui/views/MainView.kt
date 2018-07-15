@@ -159,7 +159,7 @@ class MainView : View() {
     }
 
     fun save() {
-        if(manami.getConfigFile().isValidFile()) {
+        if(manami.getCurrentlyOpenedFile().isValidFile()) {
             manami.save()
         } else {
             saveAs()
@@ -203,8 +203,8 @@ class MainView : View() {
     fun showAbout() = AboutView.showAbout()
 
     fun updateFileNameInStageTitle() {
-        when(manami.getConfigFile().isValidFile()) {
-            true -> runLater { title = "$APPLICATION_NAME - ${manami.getConfigFile().fileName}" }
+        when(manami.getCurrentlyOpenedFile().isValidFile()) {
+            true -> runLater { title = "$APPLICATION_NAME - ${manami.getCurrentlyOpenedFile().fileName}" }
             false -> runLater { title = APPLICATION_NAME }
         }
     }

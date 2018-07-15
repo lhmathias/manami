@@ -4,6 +4,10 @@ import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.WatchListEntry
 
+/**
+ *
+ */
+//TODO: this should be internal
 interface InternalPersistence : ExternalPersistence {
 
     /**

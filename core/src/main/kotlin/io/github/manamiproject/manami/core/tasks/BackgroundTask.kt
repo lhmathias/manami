@@ -8,7 +8,7 @@ internal interface BackgroundTask {
 
     /**
      * Start the task execution.
-     * BackgroundTasks should always be started using {@see TaskConductorImpl}
+     * BackgroundTasks should always be started using TaskConductorImpl
      */
     fun start()
 

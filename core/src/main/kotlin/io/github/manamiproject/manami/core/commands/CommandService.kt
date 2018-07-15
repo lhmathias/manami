@@ -6,15 +6,21 @@ package io.github.manamiproject.manami.core.commands
  */
 internal interface CommandService {
 
+    /**
+     * @return True if the file has unsaved changes.
+     */
     fun isUnsaved(): Boolean
 
+    /**
+     * Changes status of the opened file.
+     * @param value True if the file has unsaved changes.
+     */
     fun setUnsaved(value: Boolean)
 
     /**
      * Executes a specific command.
-     *
-     * @param command {@link Command} to migrate.
-     * @return true if the command was executed successful
+     * @param command Command to execute.
+     * @return True if the command has been executed successfully.
      */
     fun executeCommand(command: ReversibleCommand): Boolean
 
@@ -35,15 +41,13 @@ internal interface CommandService {
 
     /**
      * Checks whether the stack for executed commands is empty or not.
-     *
-     * @return True if no {@link Command} has been executed.
+     * @return True if no Command has been executed.
      */
     fun isEmptyDoneCommands(): Boolean
 
     /**
      * Checks whether the stack for undone commands is empty or not.
-     *
-     * @return True if no {@link Command} has been made undone.
+     * @return True if no Command has been made undone.
      */
     fun isEmptyUndoneCommands(): Boolean
 }

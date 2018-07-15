@@ -1,6 +1,5 @@
 package io.github.manamiproject.manami.gui.views
 
-import com.sun.tools.javac.jvm.ByteCodes.ret
 import javafx.scene.control.Alert
 import javafx.scene.control.Alert.AlertType.CONFIRMATION
 import javafx.scene.control.ButtonBar.ButtonData.*

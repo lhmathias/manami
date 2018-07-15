@@ -18,16 +18,12 @@ interface ReversibleCommand : Command {
 
 
     /**
-     * True if this command is the last which was executed before saving.
-     *
      * @return True if this command is the last which was executed before saving.
      */
     fun isLastSaved(): Boolean
 
 
     /**
-     * Set it to true if this command is the last which was executed before saving.
-     *
      * @param value True if this command is the last which was executed before saving.
      */
     fun setLastSaved(value: Boolean)

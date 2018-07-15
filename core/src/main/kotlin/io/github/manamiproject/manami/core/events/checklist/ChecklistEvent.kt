@@ -4,6 +4,9 @@ import io.github.manamiproject.manami.core.events.checklist.AbstractChecklistEve
 import io.github.manamiproject.manami.entities.MinimalEntry
 
 
+/**
+ * An event fired by check list service.
+ */
 interface ChecklistEvent {
 
     var type: ChecklistEventType

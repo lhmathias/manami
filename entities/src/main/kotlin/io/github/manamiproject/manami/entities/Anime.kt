@@ -7,7 +7,7 @@ import java.net.URL
 import java.util.*
 import java.util.UUID.randomUUID
 
-
+/** Represents the location of an anime on a hard drive. */
 typealias Location = String
 typealias Episodes = Int
 

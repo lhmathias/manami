@@ -181,7 +181,7 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
     override fun fetchAnime(infoLink: InfoLink) = cache.fetchAnime(infoLink)
 
 
-    override fun getConfigFile(): Path = Config.file
+    override fun getCurrentlyOpenedFile(): Path = Config.file
 
 
     override fun changeTitle(anime: Anime, newTitle: Title) {

@@ -7,6 +7,7 @@ interface Command {
 
     /**
      * Executes a command.
+     * @return True if the command has been executed successfully.
      */
     fun execute(): Boolean
 }

@@ -13,7 +13,7 @@ interface AnimeFetcher {
      * Fetches an anime.
      *
      * @param infoLink URL of the info link site.
-     * @return Optional of an instance of an {@link Anime} corresponding to the link.
+     * @return Optional of an instance of an Anime corresponding to the link.
      */
     fun fetchAnime(infoLink: InfoLink): Anime?
 

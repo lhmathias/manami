@@ -190,7 +190,7 @@ class NewEntryView : Fragment() {
 
     fun browse() {
         showBrowseForFolderDialog(currentStage!!)?.let {
-            val configFile = Manami.getConfigFile()
+            val configFile = Manami.getCurrentlyOpenedFile()
             var folder = it.toAbsolutePath().toString()
 
             if(configFile.exists() && configFile.isRegularFile()) {
