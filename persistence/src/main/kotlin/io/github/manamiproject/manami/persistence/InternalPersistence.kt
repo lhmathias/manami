@@ -8,12 +8,7 @@ import io.github.manamiproject.manami.entities.WatchListEntry
  *
  */
 //TODO: this should be internal
-interface InternalPersistence : ExternalPersistence {
-
-    /**
-     * Clears all the lists: animelist, filterlist, watchlist.
-     */
-    fun clearAll()
+internal interface InternalPersistence : ExternalPersistence {
 
     fun addAnimeList(list: List<Anime>)
 

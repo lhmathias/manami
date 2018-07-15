@@ -166,39 +166,6 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun addAnimeList(list: List<Anime>) {
-        val numberOfEntriesBefore = strategy.fetchAnimeList().size
-        strategy.addAnimeList(list.filter { it.isValid() }.toList())
-        val numberOfEntriesAfter = strategy.fetchAnimeList().size
-
-        if(numberOfEntriesBefore < numberOfEntriesAfter) {
-            EventBus.publish(AnimeListChangedEvent)
-        }
-    }
-
-
-    override fun addFilterList(list: List<FilterListEntry>) {
-        val numberOfEntriesBefore = strategy.fetchFilterList().size
-        strategy.addFilterList(list.filter { it.isValid() }.toList())
-        val numberOfEntriesAfter = strategy.fetchFilterList().size
-
-        if(numberOfEntriesBefore < numberOfEntriesAfter) {
-            EventBus.publish(FilterListChangedEvent)
-        }
-    }
-
-
-    override fun addWatchList(list: List<WatchListEntry>) {
-        val numberOfEntriesBefore = strategy.fetchWatchList().size
-        strategy.addWatchList(list.filter { it.isValid() }.toList())
-        val numberOfEntriesAfter = strategy.fetchWatchList().size
-
-        if(numberOfEntriesBefore < numberOfEntriesAfter) {
-            EventBus.publish(WatchListChangedEvent)
-        }
-    }
-
-
     override fun updateOrCreate(entry: MinimalEntry) {
         when (entry) {
             is Anime -> {

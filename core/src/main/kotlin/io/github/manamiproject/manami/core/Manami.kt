@@ -214,6 +214,7 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
 
     override fun undoneCommandsExist(): Boolean = !cmdService.isEmptyUndoneCommands()
 
+    override fun clearAll() = persistence.clearAll()
 
     fun invalidateCache() = cache.invalidate()
 }
