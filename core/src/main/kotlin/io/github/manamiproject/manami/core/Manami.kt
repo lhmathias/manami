@@ -58,8 +58,8 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
             resetCommandHistory()
             persistence.open(file)
             config.file = file
-            taskConductor.safelyStart(ThumbnailBackloadTask(persistence))
-            taskConductor.safelyStart(RecommendationsCacheInitializationTask(persistence))
+            taskConductor.safelyStart(ThumbnailBackloadTask(cmdService, cache, persistence))
+            taskConductor.safelyStart(RecommendationsCacheInitializationTask(cache, persistence))
         }
     }
 
@@ -146,11 +146,6 @@ object Manami : StatefulApplication, AnimeDataAccess, ExternalPersistence, Anime
 
     override fun removeAnime(anime: Anime): Boolean {
         return cmdService.executeCommand(CmdDeleteAnime(anime, persistence))
-    }
-
-
-    override fun updateOrCreate(entry: MinimalEntry) {
-        persistence.updateOrCreate(entry)
     }
 
 

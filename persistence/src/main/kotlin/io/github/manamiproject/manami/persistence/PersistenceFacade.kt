@@ -166,30 +166,6 @@ object PersistenceFacade : Persistence {
     }
 
 
-    override fun updateOrCreate(entry: MinimalEntry) {
-        when (entry) {
-            is Anime -> {
-                if(entry.isValid()) {
-                    strategy.updateOrCreate(entry) //TODO: make this conditional?
-                    EventBus.publish(AnimeListChangedEvent)
-                }
-            }
-            is FilterListEntry -> {
-                if(entry.isValid()) {
-                    strategy.updateOrCreate(entry) //TODO: make this conditional?
-                    EventBus.publish(FilterListChangedEvent)
-                }
-            }
-            is WatchListEntry -> {
-                if(entry.isValid()) {
-                    strategy.updateOrCreate(entry) //TODO: make this conditional?
-                    EventBus.publish(WatchListChangedEvent)
-                }
-            }
-        }
-    }
-
-
     override fun open(file: Path) {
         xmlImporter.using(MANAMI).importFile(file)
         notifyAllListsChanged()

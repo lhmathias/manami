@@ -23,15 +23,15 @@ internal object CommandServiceImpl : CommandService {
     private val undone: Stack<ReversibleCommand> = Stack()
 
 
-    override fun executeCommand(command: ReversibleCommand): Boolean {
-        val executionResult = command.execute()
+    override fun executeCommand(command: Command): Boolean {
+        val isSuccessfulExecuted = command.execute()
 
-        if (executionResult) {
+        if (isSuccessfulExecuted && command is ReversibleCommand) {
             done.add(command)
             setUnsaved(true)
         }
 
-        return executionResult
+        return isSuccessfulExecuted
     }
 
 

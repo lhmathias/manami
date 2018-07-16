@@ -13,10 +13,9 @@ import io.github.manamiproject.manami.persistence.Persistence
  * Always start {@link BackgroundTask}s using the {@link TaskConductor}!
  */
 internal class RecommendationsCacheInitializationTask(
+        private val cache: Cache,
         private val persistence: Persistence
 ) : AbstractTask() {
-
-    private val cache: Cache = CacheFacade
 
     override fun execute() {
         persistence.fetchAnimeList()

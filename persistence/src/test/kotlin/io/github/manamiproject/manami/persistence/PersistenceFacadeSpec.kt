@@ -80,24 +80,6 @@ class PersistenceFacadeSpec : Spek({
             }
         }
 
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must not fire a FilterListChangedEvent or any other list change event.") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must not increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList()).hasSize(0)
-            }
-
-            it("must not exist on the filterList") {
-                assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isFalse()
-            }
-        }
-
         on("removing it from list") {
             val result = persistenceFacade.removeFromFilterList(entry)
 
@@ -120,24 +102,6 @@ class PersistenceFacadeSpec : Spek({
             it("must return false, because the entry has not been added to the filter list") {
                 assertThat(result).isFalse()
             }
-
-            it("must not fire a FilterListChangedEvent or any other list change event") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must not increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList()).hasSize(0)
-            }
-
-            it("must not exist on the filterList") {
-                assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isFalse()
-            }
-        }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
 
             it("must not fire a FilterListChangedEvent or any other list change event") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
@@ -192,24 +156,6 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isTrue()
             }
         }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
-            }
-
-            it("must exist on the filterList") {
-                assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isTrue()
-            }
-        }
     }
 
 
@@ -227,24 +173,6 @@ class PersistenceFacadeSpec : Spek({
             it("must return true, because it has been added to the filter list") {
                 assertThat(result).isTrue()
             }
-
-            it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must increase filter list") {
-                assertThat(persistenceFacade.fetchFilterList()).hasSize(1)
-            }
-
-            it("must exist on the filterList") {
-                assertThat(persistenceFacade.filterListEntryExists(entry.infoLink)).isTrue()
-            }
-        }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
 
             it("must fire a FilterListChangedEvent, but none of the other list change events") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
@@ -295,41 +223,6 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
             }
         }
-
-        on("changing it's title using a new instance") {
-            val newTitle = "My new Title"
-
-            persistenceFacade.updateOrCreate(FilterListEntry(
-                    newTitle,
-                    anime.infoLink
-            ))
-
-            it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchFilterList()[0].title).isEqualTo(newTitle)
-            }
-        }
-
-        on("changing it's thumbnail using the instance from fetching the list") {
-            val newThumbnail = URL("https://myanimelist.cdn-dena.com/images/anime/5/87048t.jpg")
-            val entry = persistenceFacade.fetchFilterList()[0].apply { thumbnail = newThumbnail }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire a FilterListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchFilterList()[0].thumbnail).isEqualTo(newThumbnail)
-            }
-        }
     }
 
 
@@ -345,24 +238,6 @@ class PersistenceFacadeSpec : Spek({
             it("must return false, because the entry has not been added to the watchlist") {
                 assertThat(result).isFalse()
             }
-
-            it("must not fire a WatchListChangedEvent or any other list change event") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must not increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList()).hasSize(0)
-            }
-
-            it("must not exist on the watchlist") {
-                assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isFalse()
-            }
-        }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
 
             it("must not fire a WatchListChangedEvent or any other list change event") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
@@ -417,24 +292,6 @@ class PersistenceFacadeSpec : Spek({
             }
         }
 
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must not fire a WatchListChangedEvent or any other list change event") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must not increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList()).hasSize(0)
-            }
-
-            it("must not exist on the watchlist") {
-                assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isFalse()
-            }
-        }
-
         on("removing it from list") {
             val result = persistenceFacade.removeFromWatchList(entry)
 
@@ -473,24 +330,6 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isTrue()
             }
         }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire a WatchListChangedEvent") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
-            }
-
-            it("must increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
-            }
-
-            it("must exist on the watchlist") {
-                assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isTrue()
-            }
-        }
     }
 
 
@@ -508,24 +347,6 @@ class PersistenceFacadeSpec : Spek({
             it("must return true, because it has been added to the watchlist") {
                 assertThat(result).isTrue()
             }
-
-            it("must fire a WatchListChangedEvent") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
-            }
-
-            it("must increase watchlist") {
-                assertThat(persistenceFacade.fetchWatchList()).hasSize(1)
-            }
-
-            it("must exist on the watchlist") {
-                assertThat(persistenceFacade.watchListEntryExists(entry.infoLink)).isTrue()
-            }
-        }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
 
             it("must fire a WatchListChangedEvent") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
@@ -576,41 +397,6 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
             }
         }
-
-        on("changing it's title using a new object instance") {
-            val newTitle = "My new Title"
-
-            persistenceFacade.updateOrCreate(WatchListEntry(
-                    newTitle,
-                    anime.infoLink
-            ))
-
-            it("must fire a WatchListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchWatchList()[0].title).isEqualTo(newTitle)
-            }
-        }
-
-        on("changing it's thumbnail using the instance from fetching the list") {
-            val newThumbnail = URL("https://myanimelist.cdn-dena.com/images/anime/5/87048t.jpg")
-            val entry = persistenceFacade.fetchWatchList()[0].apply { thumbnail = newThumbnail }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire a WatchListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isOne()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchWatchList()[0].thumbnail).isEqualTo(newThumbnail)
-            }
-        }
     }
 
 
@@ -626,24 +412,6 @@ class PersistenceFacadeSpec : Spek({
             it("must return false, because the entry has not been added to the animelist") {
                 assertThat(result).isFalse()
             }
-
-            it("must not fire an AnimeListChangedEvent or any other list change event.") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must not increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList()).hasSize(0)
-            }
-
-            it("must not exist in the list") {
-                assertThat(persistenceFacade.animeEntryExists(entry.infoLink))
-            }
-        }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
 
             it("must not fire an AnimeListChangedEvent or any other list change event.") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isZero()
@@ -687,22 +455,6 @@ class PersistenceFacadeSpec : Spek({
 
             //TODO: okay so what happens if we check the animeExists function. Especially with multiple entries having no infolink
         }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent or any other list change event") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
-            }
-
-            //TODO: okay so what happens if we check the animeExists function. Especially with multiple entries having no infolink
-        }
     }
 
 
@@ -720,24 +472,6 @@ class PersistenceFacadeSpec : Spek({
             }
 
             it("must fire an animeListChangedEvent, but no other list change event") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
-            }
-
-            it("must exist on the list") {
-                assertThat(persistenceFacade.animeEntryExists(entry.infoLink)).isTrue()
-            }
-        }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but no other list change event") {
                 assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
                 assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
                 assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
@@ -794,24 +528,6 @@ class PersistenceFacadeSpec : Spek({
                 assertThat(persistenceFacade.animeEntryExists(entry.infoLink)).isTrue()
             }
         }
-
-        on("calling updateOrCreate with that entry") {
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but no other list change event") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must increase animelist") {
-                assertThat(persistenceFacade.fetchAnimeList()).hasSize(1)
-            }
-
-            it("must exist on the list") {
-                assertThat(persistenceFacade.animeEntryExists(entry.infoLink)).isTrue()
-            }
-        }
     }
 
 
@@ -849,148 +565,6 @@ class PersistenceFacadeSpec : Spek({
 
             it("must not exist on the list, because it has been removed") {
                 assertThat(persistenceFacade.animeEntryExists(anime.infoLink)).isFalse()
-            }
-        }
-
-        on("changing it's title using a new object instance") {
-            val newTitle = "My new Title"
-
-            persistenceFacade.updateOrCreate(
-                    Anime(
-                            "Death Note",
-                            InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535"),
-                            37,
-                            AnimeType.TV,
-                            "/death_note",
-                            URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg"),
-                            URL("http://cdn.myanimelist.net/images/anime/9/9453.jpg")
-                    )
-            )
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must not change the new value, because unlike Watch- and FilterListEntries Animes own a specific UUID. Their InfoLinks can change.") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].title).isNotEqualTo(newTitle)
-            }
-
-            it("must result in an additional entry") {
-                assertThat(persistenceFacade.fetchAnimeList()).hasSize(2)
-            }
-        }
-
-        on("changing it's title using the instance from fetching the list") {
-            val newTitle = "My new Title"
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { title = newTitle }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].title).isEqualTo(newTitle)
-            }
-        }
-
-        on("changing it's thumbnail using the instance from fetching the list") {
-            val newThumbnail = URL("https://myanimelist.cdn-dena.com/images/anime/5/87048t.jpg")
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { thumbnail = newThumbnail }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].thumbnail).isEqualTo(newThumbnail)
-            }
-        }
-
-        on("changing it's picture using the instance from fetching the list") {
-            val newPicture = URL("https://myanimelist.cdn-dena.com/images/anime/5/87048t.jpg")
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { picture = newPicture }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].picture).isEqualTo(newPicture)
-            }
-        }
-
-        on("changing it's number of episodes using the instance from fetching the list") {
-            val newValueForEpisodes = 178
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { episodes = newValueForEpisodes }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].episodes).isEqualTo(newValueForEpisodes)
-            }
-        }
-
-        on("changing it's infolink using the instance from fetching the list") {
-            val newInfoLink = InfoLink("${NormalizedAnimeBaseUrls.MAL.value}123456789")
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { this.infoLink = newInfoLink }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].infoLink).isEqualTo(newInfoLink)
-            }
-        }
-
-        on("changing it's type using the instance from fetching the list") {
-            val newAnimeType = AnimeType.ONA
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { type = newAnimeType }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].type).isEqualTo(newAnimeType)
-            }
-        }
-
-        on("changing it's type using the instance from fetching the list") {
-            val newLocation = "some/new/path"
-            val entry = persistenceFacade.fetchAnimeList()[0].apply { location = newLocation }
-            persistenceFacade.updateOrCreate(entry)
-
-            it("must fire an AnimeListChangedEvent, but none of the other list change events") {
-                assertThat(eventBusListener.receivedAnimeListChangedEvent).isOne()
-                assertThat(eventBusListener.receivedFilterListChangedEvent).isZero()
-                assertThat(eventBusListener.receivedWatchListChangedEvent).isZero()
-            }
-
-            it("must contain the changed value") {
-                assertThat(persistenceFacade.fetchAnimeList()[0].location).isEqualTo(newLocation)
             }
         }
     }

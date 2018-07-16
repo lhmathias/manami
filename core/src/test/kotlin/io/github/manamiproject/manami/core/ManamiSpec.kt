@@ -107,18 +107,6 @@ object ManamiSpec : Spek({
             }
         }
 
-        on("calling updateOrCreate") {
-            val entry = WatchListEntry(
-                    "Death Note",
-                    InfoLink("${NormalizedAnimeBaseUrls.MAL.value}1535")
-            )
-            manami.updateOrCreate(entry)
-
-            it("must simply delegate to the persistence layer") {
-                verify(persistence, times(1)).updateOrCreate(entry)
-            }
-        }
-
         on("searching empty string") {
             manami.search("")
 

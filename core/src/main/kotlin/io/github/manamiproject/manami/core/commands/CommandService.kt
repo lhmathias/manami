@@ -22,7 +22,7 @@ internal interface CommandService {
      * @param command Command to execute.
      * @return True if the command has been executed successfully.
      */
-    fun executeCommand(command: ReversibleCommand): Boolean
+    fun executeCommand(command: Command): Boolean
 
     /**
      * Undoes the last reversible action.

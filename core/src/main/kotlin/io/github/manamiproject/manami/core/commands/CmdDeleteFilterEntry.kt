@@ -3,12 +3,7 @@ package io.github.manamiproject.manami.core.commands
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.persistence.Persistence
 
-/**
- * Deletes an entry from filterlist.
- *
- * @param anime {@link FilterListEntry} that is supposed to be deleted.
- * @param persistence
- */
+
 internal class CmdDeleteFilterEntry(
         private val anime: FilterListEntry,
         private val persistence: Persistence

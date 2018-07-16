@@ -95,13 +95,4 @@ internal class InMemoryPersistence(
     override fun addWatchList(list: List<WatchListEntry>) {
         list.forEach { anime -> watchListHandler.watchAnime(anime) }
     }
-
-
-    override fun updateOrCreate(entry: MinimalEntry) {
-        when (entry) {
-            is Anime -> animeListHandler.updateOrCreate(entry)
-            is FilterListEntry -> filterListHandler.updateOrCreate(entry)
-            is WatchListEntry -> watchListHandler.updateOrCreate(entry)
-        }
-    }
 }

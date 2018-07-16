@@ -3,6 +3,8 @@ package io.github.manamiproject.manami.core.tasks.thumbnails
 import io.github.manamiproject.manami.cache.Cache
 import io.github.manamiproject.manami.cache.CacheFacade
 import io.github.manamiproject.manami.common.LoggerDelegate
+import io.github.manamiproject.manami.core.commands.CmdChangeThumbnail
+import io.github.manamiproject.manami.core.commands.CommandService
 import io.github.manamiproject.manami.core.tasks.AbstractTask
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.entities.FilterListEntry
@@ -19,12 +21,12 @@ private const val HTTP_STATUS_OK = 200
 
 
 internal class ThumbnailBackloadTask(
+        private val cmdService: CommandService,
+        private val cache: Cache,
         private val persistence: Persistence
 ) : AbstractTask() {
 
   private val log: Logger by LoggerDelegate()
-  private val cache: Cache = CacheFacade
-
 
   override fun execute() {
       persistence.fetchFilterList().parallelStream().forEach(this::loadThumbnailIfNotExists)
@@ -48,10 +50,7 @@ internal class ThumbnailBackloadTask(
 
 
   private fun updateThumbnail(entry: MinimalEntry, cachedAnime: Anime) {
-    when(entry) {
-      is FilterListEntry -> persistence.updateOrCreate(entry.copy(thumbnail = cachedAnime.thumbnail))
-      is WatchListEntry -> persistence.updateOrCreate(entry.copy(thumbnail = cachedAnime.thumbnail))
-    }
+    cmdService.executeCommand(CmdChangeThumbnail(entry, cachedAnime.thumbnail, persistence))
   }
 
 

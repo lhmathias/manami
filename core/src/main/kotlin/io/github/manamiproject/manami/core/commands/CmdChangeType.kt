@@ -4,13 +4,7 @@ import io.github.manamiproject.manami.entities.AnimeType
 import io.github.manamiproject.manami.entities.Anime
 import io.github.manamiproject.manami.persistence.Persistence
 
-/**
- * Command for changing the type.
- *
- * @param anime Anime to change
- * @param newValue The new value.
- * @param persistence
- */
+
 internal class CmdChangeType(
         private val anime: Anime,
         private val newValue: AnimeType,
