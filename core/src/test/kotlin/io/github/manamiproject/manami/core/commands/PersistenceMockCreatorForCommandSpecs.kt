@@ -72,6 +72,126 @@ object PersistenceMockCreatorForCommandSpecs {
     }
 
 
+    fun createFilterListPersistenceMock() : Persistence {
+        return mock {
+            val empty = FilterListEntry("", InfoLink(""))
+            var persistedFilterListEntry = empty
+
+            on {
+                filterAnime(any())
+            } doAnswer {
+                var ret = true
+
+                it.getArgument<FilterListEntry>(0)?.let { filterListEntry ->
+                    if(persistedFilterListEntry == filterListEntry) {
+                        ret = false
+                    } else {
+                        persistedFilterListEntry = filterListEntry
+                    }
+                }
+
+                ret
+            }
+
+            on {
+                removeFromFilterList(any())
+            } doAnswer {
+                var ret = true
+
+                it.getArgument<FilterListEntry>(0)?.let { filterListEntry ->
+                    if(persistedFilterListEntry == filterListEntry) {
+                        persistedFilterListEntry = empty
+                    } else {
+                        ret = false
+                    }
+                }
+
+                ret
+            }
+
+            on {
+                filterListEntryExists(any())
+            } doAnswer {
+                it.getArgument<Anime>(0)?.let { filterListEntry->
+                    persistedFilterListEntry.infoLink == filterListEntry.infoLink
+                }
+            }
+
+            on {
+                fetchFilterList()
+            } doAnswer {
+                val ret = mutableListOf<FilterListEntry>()
+
+                if(persistedFilterListEntry != empty) {
+                    ret.add(persistedFilterListEntry)
+                }
+
+                ret
+            }
+        }
+    }
+
+
+    fun createWatchListPersistenceMock() : Persistence {
+        return mock {
+            val empty = WatchListEntry("", InfoLink(""))
+            var persistedWatchListEntry = empty
+
+            on {
+                watchAnime(any())
+            } doAnswer {
+                var ret = true
+
+                it.getArgument<WatchListEntry>(0)?.let { watchListEntry ->
+                    if(persistedWatchListEntry == watchListEntry) {
+                        ret = false
+                    } else {
+                        persistedWatchListEntry = watchListEntry
+                    }
+                }
+
+                ret
+            }
+
+            on {
+                removeFromWatchList(any())
+            } doAnswer {
+                var ret = true
+
+                it.getArgument<WatchListEntry>(0)?.let { watchListEntry ->
+                    if(persistedWatchListEntry == watchListEntry) {
+                        persistedWatchListEntry = empty
+                    } else {
+                        ret = false
+                    }
+                }
+
+                ret
+            }
+
+            on {
+                watchListEntryExists(any())
+            } doAnswer {
+                it.getArgument<Anime>(0)?.let { watchListEntry->
+                    persistedWatchListEntry.infoLink == watchListEntry.infoLink
+                }
+            }
+
+            on {
+                fetchWatchList()
+            } doAnswer {
+                val ret = mutableListOf<WatchListEntry>()
+
+                if(persistedWatchListEntry != empty) {
+                    ret.add(persistedWatchListEntry)
+                }
+
+                ret
+            }
+        }
+    }
+
+
     fun createSimpleAnimeListPersistenceMock(anime: Anime) : Persistence {
         return mock {
             var animeEntryExists = false
@@ -113,7 +233,7 @@ object PersistenceMockCreatorForCommandSpecs {
     }
 
 
-    fun createFilterListPersistenceMock(entry: FilterListEntry) : Persistence {
+    fun createSimpleFilterListPersistenceMock(entry: FilterListEntry) : Persistence {
         return mock {
             var filterListEntryExists = false
 
@@ -154,7 +274,7 @@ object PersistenceMockCreatorForCommandSpecs {
     }
 
 
-    fun createWatchListPersistenceMock(entry: WatchListEntry) : Persistence {
+    fun createSimpleWatchListPersistenceMock(entry: WatchListEntry) : Persistence {
         return mock {
             var watchListEntryExists = false
 

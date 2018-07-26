@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.core.commands
 
 import com.nhaarman.mockito_kotlin.mock
-import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createFilterListPersistenceMock
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createSimpleFilterListPersistenceMock
 import io.github.manamiproject.manami.entities.FilterListEntry
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
@@ -23,7 +23,7 @@ object CmdAddFilterEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val persistenceMock: Persistence = createFilterListPersistenceMock(entry)
+        val persistenceMock: Persistence = createSimpleFilterListPersistenceMock(entry)
         val cmdAddFilterEntry = CmdAddFilterEntry(entry, persistenceMock)
 
         on("executing command") {
@@ -46,7 +46,7 @@ object CmdAddFilterEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val persistenceMock: Persistence = createFilterListPersistenceMock(entry)
+        val persistenceMock: Persistence = createSimpleFilterListPersistenceMock(entry)
 
         val cmdAddFilterEntry = CmdAddFilterEntry(entry, persistenceMock)
         cmdAddFilterEntry.execute()

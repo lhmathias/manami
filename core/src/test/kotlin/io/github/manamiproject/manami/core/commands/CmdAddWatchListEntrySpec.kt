@@ -1,7 +1,7 @@
 package io.github.manamiproject.manami.core.commands
 
 import com.nhaarman.mockito_kotlin.mock
-import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createWatchListPersistenceMock
+import io.github.manamiproject.manami.core.commands.PersistenceMockCreatorForCommandSpecs.createSimpleWatchListPersistenceMock
 import io.github.manamiproject.manami.entities.InfoLink
 import io.github.manamiproject.manami.entities.NormalizedAnimeBaseUrls
 import io.github.manamiproject.manami.entities.WatchListEntry
@@ -23,7 +23,7 @@ object CmdAddWatchListEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val persistenceMock: Persistence = createWatchListPersistenceMock(entry)
+        val persistenceMock: Persistence = createSimpleWatchListPersistenceMock(entry)
         val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistenceMock)
 
         on("executing command") {
@@ -46,7 +46,7 @@ object CmdAddWatchListEntrySpec : Spek({
                 URL("http://cdn.myanimelist.net/images/anime/9/9453t.jpg")
         )
 
-        val persistenceMock: Persistence = createWatchListPersistenceMock(entry)
+        val persistenceMock: Persistence = createSimpleWatchListPersistenceMock(entry)
 
         val cmdAddWatchListEntry = CmdAddWatchListEntry(entry, persistenceMock)
         cmdAddWatchListEntry.execute()
