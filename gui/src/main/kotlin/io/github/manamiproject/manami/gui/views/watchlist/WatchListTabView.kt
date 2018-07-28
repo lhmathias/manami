@@ -67,12 +67,12 @@ class WatchListTabView : View() {
 
     private fun resizeTitleColumn() {
         watchListEntries
-                .map(WatchListEntry::title)
-                .map { title -> Pair(title, title.length) }
-                .maxBy { titleLengthPair -> titleLengthPair.second }
-                ?.let { titleLengthPair ->
-                    val width = Text(titleLengthPair.first).layoutBounds.width + SPACER
-                    titleColumn?.prefWidth = width
-                }
+            .map(WatchListEntry::title)
+            .map { title -> Pair(title, title.length) }
+            .maxBy { titleLengthPair -> titleLengthPair.second }
+            ?.let { titleLengthPair ->
+                val width = Text(titleLengthPair.first).layoutBounds.width + SPACER
+                titleColumn?.prefWidth = width
+            }
     }
 }

@@ -28,10 +28,7 @@ import io.github.manamiproject.manami.gui.views.watchlist.WatchListTabView
 import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.scene.Parent
-import javafx.scene.control.Button
-import javafx.scene.control.MenuItem
-import javafx.scene.control.TabPane
-import javafx.scene.control.TextField
+import javafx.scene.control.*
 import javafx.stage.Stage
 import org.controlsfx.control.textfield.AutoCompletionBinding
 import org.controlsfx.control.textfield.TextFields
@@ -192,11 +189,25 @@ class MainView : View() {
 
     fun showCheckListTab() {}
 
-    fun showAnimeListTab() = tabPane.tabs.addAll(animeListTabView.tab)
+    fun showAnimeListTab() {
+        showTab(animeListTabView.tab)
+    }
 
-    fun showWatchListTab() = tabPane.tabs.addAll(watchListTabView.tab)
+    fun showWatchListTab() {
+        showTab(watchListTabView.tab)
+    }
 
     fun showFilterTab() {}
+
+    private fun showTab(tab: Tab) {
+        if (!tabPane.tabs.contains(tab)) {
+            tabPane.tabs.addAll(tab)
+        }
+
+        runLater {
+            tabPane.selectionModel.select(tab)
+        }
+    }
 
     fun invalidateCache() {
         manami.invalidateCache()

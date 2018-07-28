@@ -80,20 +80,6 @@ package io.github.manamiproject.manami.gui.controller;
 //  }
 //
 //
-//  /**
-//   * Sets the focus of the {@link TabPane} to the given {@link Tab}.
-//   *
-//   * @param activeTab {@link Tab} which will gain focus.
-//   */
-//  private void focusActiveTab(final Tab activeTab) {
-//    Platform.runLater(() -> {
-//      if (!tabPane.getTabs().contains(activeTab)) {
-//        tabPane.getTabs().add(activeTab);
-//      }
-//
-//      tabPane.getSelectionModel().select(activeTab);
-//    });
-//  }
 //
 //  /**
 //   * Whenever a user clicks on a notification.
@@ -151,63 +137,11 @@ package io.github.manamiproject.manami.gui.controller;
 //  }
 //
 //
-//  public void showWatchListTab() {
-//    if (watchListTab == null) {
-//      watchListTab = Main.CONTEXT.getBean(WatchListControllerWrapper.class).getWatchListTab();
-//    }
-//
-//    focusActiveTab(watchListTab);
-//  }
-//
-//
 //  public void showTagListTab() {
 //    if (tagListTab == null) {
 //      tagListTab = Main.CONTEXT.getBean(TagListControllerWrapper.class).getTagListTab();
 //    }
 //
 //    focusActiveTab(tagListTab);
-//  }
-//
-//
-//  /**
-//   * Resizes a {@link TableView} so that the column size automatically fits it's content.
-//   */
-//  private void autoSizeTableViewColumns() {
-//    final List<TableColumn<Anime, ?>> colList = tvAnimeList.getColumns();
-//
-//    for (final TableColumn<Anime, ?> tableColumn : colList) {
-//      final String longestText = determineLongestText(tableColumn);
-//      final Text text = new Text(longestText);
-//      final double textWidth = text.getLayoutBounds().getWidth();
-//      double newWidth = (textWidth < tableColumn.getMinWidth()) ? tableColumn.getMinWidth() : textWidth;
-//      // add a little spacer otherwise it's too narrow
-//      newWidth += 20.0;
-//      tableColumn.setPrefWidth(newWidth);
-//    }
-//  }
-//
-//
-//  /**
-//   * Determines the longest string within a column and returns it.
-//   *
-//   * @return The longest string by chars of this column.
-//   */
-//  private String determineLongestText(final TableColumn<Anime, ?> tableColumn) {
-//    String ret = tableColumn.getText(); // init with header
-//    final Callback cellFactory = tableColumn.getCellFactory();
-//    final TableCell cell = (TableCell) cellFactory.call(tableColumn);
-//    cell.updateTableView(tableColumn.getTableView());
-//    cell.updateTableColumn(tableColumn);
-//
-//    for (int index = 0; index < tableColumn.getTableView().getItems().size(); index++) {
-//      cell.updateIndex(index);
-//
-//      final String cellContent = cell.getText();
-//      if (cellContent.length() > ret.length()) {
-//        ret = cellContent;
-//      }
-//    }
-//
-//    return ret;
 //  }
 //}
