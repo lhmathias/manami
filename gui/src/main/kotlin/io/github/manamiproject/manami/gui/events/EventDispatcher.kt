@@ -7,6 +7,7 @@ import io.github.manamiproject.manami.core.events.OpenedFileChangedEvent
 import io.github.manamiproject.manami.gui.views.MainView
 import io.github.manamiproject.manami.gui.views.SplashScreenView
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
+import io.github.manamiproject.manami.gui.views.watchlist.WatchListTabView
 import io.github.manamiproject.manami.main
 import io.github.manamiproject.manami.persistence.events.AnimeListChangedEvent
 import io.github.manamiproject.manami.persistence.events.FilterListChangedEvent
@@ -18,6 +19,7 @@ object EventDispatcher: Controller() {
     private val splashScreenView: SplashScreenView by inject()
     private val mainView: MainView by inject()
     private val animeList: AnimeListTabView by inject()
+    private val watchList: WatchListTabView by inject()
 
     @Subscribe
     fun offlineDatabaseSuccessfullyUpdated(obj: OfflineDatabaseUpdatedSuccessfullyEvent) = splashScreenView.replaceWithMainView()
@@ -32,7 +34,10 @@ object EventDispatcher: Controller() {
     }
 
     @Subscribe
-    fun watchListChanged(obj: WatchListChangedEvent) = mainView.watchListChanged()
+    fun watchListChanged(obj: WatchListChangedEvent) {
+        watchList.updateEntries()
+        mainView.watchListChanged()
+    }
 
     @Subscribe
     fun filterListChanged(obj: FilterListChangedEvent) = mainView.filterListChanged()

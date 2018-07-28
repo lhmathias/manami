@@ -24,6 +24,7 @@ import io.github.manamiproject.manami.gui.components.Icons.createIconUndo
 import io.github.manamiproject.manami.gui.components.Icons.createIconWatchList
 import io.github.manamiproject.manami.gui.views.UnsavedChangesDialogView.DialogDecision.*
 import io.github.manamiproject.manami.gui.views.animelist.AnimeListTabView
+import io.github.manamiproject.manami.gui.views.watchlist.WatchListTabView
 import javafx.application.Platform
 import javafx.event.EventHandler
 import javafx.scene.Parent
@@ -48,6 +49,7 @@ class MainView : View() {
     override val root: Parent by fxml()
 
     private val animeListTabView: AnimeListTabView by inject()
+    private val watchListTabView: WatchListTabView by inject()
 
     private val tabPane: TabPane by fxid()
     private val miNewList: MenuItem by fxid()
@@ -192,7 +194,7 @@ class MainView : View() {
 
     fun showAnimeListTab() = tabPane.tabs.addAll(animeListTabView.tab)
 
-    fun showWatchListTab() {}
+    fun showWatchListTab() = tabPane.tabs.addAll(watchListTabView.tab)
 
     fun showFilterTab() {}
 
